@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpProp", "SharpProp\SharpProp.csproj", "{588A4CBF-5A2B-47F1-907E-F775EC9A4458}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpProp.Tests", "SharpProp.Tests\SharpProp.Tests.csproj", "{60EA3A6A-AF3C-4FD0-93E2-14DCDA473989}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{588A4CBF-5A2B-47F1-907E-F775EC9A4458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588A4CBF-5A2B-47F1-907E-F775EC9A4458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588A4CBF-5A2B-47F1-907E-F775EC9A4458}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60EA3A6A-AF3C-4FD0-93E2-14DCDA473989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60EA3A6A-AF3C-4FD0-93E2-14DCDA473989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60EA3A6A-AF3C-4FD0-93E2-14DCDA473989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60EA3A6A-AF3C-4FD0-93E2-14DCDA473989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

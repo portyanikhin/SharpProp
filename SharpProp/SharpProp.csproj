@@ -11,12 +11,19 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <PackageTags>CoolProp fluids mixtures humid air thermophysical properties</PackageTags>
+        <PackageTags>native CoolProp fluids mixtures humid air thermophysical properties</PackageTags>
+        <PackageVersion>1.0.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Update="libCoolProp.dll">
-            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <None Include="libCoolProp.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <PackagePath>build\</PackagePath>
+            <Pack>true</Pack>
+        </None>
+        <None Include="SharpProp.targets">
+            <PackagePath>build\</PackagePath>
+            <Pack>true</Pack>
         </None>
     </ItemGroup>
 

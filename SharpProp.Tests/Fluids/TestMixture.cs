@@ -54,6 +54,8 @@ namespace SharpProp.Tests
         {
             var clonedMixture = _mixture.Factory();
             Assert.AreNotEqual(_mixture.GetHashCode(), clonedMixture.GetHashCode());
+            Assert.AreEqual(_mixture.Fluids, clonedMixture.Fluids);
+            Assert.AreEqual(_mixture.Fractions, clonedMixture.Fractions);
             Assert.That(clonedMixture.Phase is Phases.Unknown);
         }
 

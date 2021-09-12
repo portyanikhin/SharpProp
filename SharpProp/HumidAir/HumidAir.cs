@@ -14,7 +14,7 @@ namespace SharpProp
         /// <param name="secondInput">Second input property</param>
         /// <param name="thirdInput">Third input property</param>
         /// <returns>A new <see cref="HumidAir" /> object with a defined state</returns>
-        public HumidAir WithState(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
+        public static HumidAir WithState(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
         {
             var humidAir = new HumidAir();
@@ -28,6 +28,7 @@ namespace SharpProp
         /// <param name="fistInput">First input property</param>
         /// <param name="secondInput">Second input property</param>
         /// <param name="thirdInput">Third input property</param>
+        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         public void Update(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
         {
@@ -39,7 +40,7 @@ namespace SharpProp
         /// <summary>
         ///     Reset all properties
         /// </summary>
-        protected void Reset()
+        protected virtual void Reset()
         {
             _compressibility = _conductivity = _density = _dewTemperature = _dynamicViscosity = null;
             _enthalpy = _entropy = _humidity = _partialPressure = _pressure = _relativeHumidity = null;
@@ -51,9 +52,11 @@ namespace SharpProp
         /// </summary>
         /// <param name="key">Key of output</param>
         /// <returns>A not nullable keyed output</returns>
+        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         /// <exception cref="ArgumentException">Invalid humid air state!</exception>
         protected double KeyedOutput(string key)
         {
+            CheckInputs();
             var value = CP.HAPropsSI(key, _inputs[0].CoolPropKey, _inputs[0].Value,
                 _inputs[1].CoolPropKey, _inputs[1].Value, _inputs[2].CoolPropKey, _inputs[2].Value);
             if (double.IsPositiveInfinity(value) || double.IsNegativeInfinity(value) || double.IsNaN(value))

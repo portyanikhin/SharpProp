@@ -48,14 +48,16 @@ namespace SharpProp.Tests
             Assert.That(waterWithState.Phase is Phases.Liquid);
         }
 
-        [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
-        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;0,6]. Entered value = -2")]
-        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;0,6]. Entered value = 2")]
+        [TestCase(FluidsList.MPG, null, ExpectedResult = "Need to define fraction!")]
+        [TestCase(FluidsList.MPG, -2,
+            ExpectedResult = "Invalid fraction value! It should be in [0;0,6]. Entered value = -2")]
+        [TestCase(FluidsList.MPG, 2,
+            ExpectedResult = "Invalid fraction value! It should be in [0;0,6]. Entered value = 2")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
-        public static void TestInitThrows(FluidsList name, double? fraction, string exceptionMessage)
+        public static string? TestInitThrows(FluidsList name, double? fraction)
         {
             var exception = Assert.Throws<ArgumentException>(() => new Fluid(name, fraction));
-            Assert.AreEqual(exceptionMessage, exception?.Message);
+            return exception?.Message;
         }
 
         [Test]
@@ -90,12 +92,12 @@ namespace SharpProp.Tests
             }
         }
 
-        [Test]
-        public void TestUpdateThrows()
+        [Test(ExpectedResult = "Invalid input!")]
+        public string? TestUpdateThrows()
         {
             var exception =
                 Assert.Throws<ArgumentException>(() => _water.Update(Input.Pressure(101325), Input.Pressure(101325)));
-            Assert.AreEqual("Invalid input!", exception?.Message);
+            return exception?.Message;
         }
 
         private double? HighLevelInterface(string output)

@@ -7,6 +7,12 @@ A simple, full-featured, lightweight [CoolProp] wrapper for C#
 
 [CoolProp]: http://www.coolprop.org/
 
+## NuGet
+
+The project gets published on [NuGet].
+
+[NuGet]: https://www.nuget.org/packages/SharpProp/
+
 ## Quick start
 
 All calculations of thermophysical properties are performed in _SI units_.
@@ -166,77 +172,7 @@ namespace TestProject
 
 #### Adding other properties or inputs
 
-For example, if you need a molar density as input/output and ozone depletion potential (ODP)
-as output for the `Fluid` and `Mixture` instances:
+See an examples in [SharpProp.Tests/Fluids] and [SharpProp.Tests/HumidAir].
 
-```c#
-using System;
-using CoolProp;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        /// <summary>
-        ///     An example of how to extend <see cref="Input" />
-        /// </summary>
-        private class InputExtended : Input
-        {
-            private InputExtended(parameters coolPropKey, double value) : base(coolPropKey, value)
-            {
-            }
-
-            /// <summary>
-            ///     Molar density
-            /// </summary>
-            /// <param name="value">The value [kg/mol]</param>
-            /// <returns>Molar density for the input [kg/mol]</returns>
-            public static InputExtended MolarDensity(double value) => new(parameters.iDmolar, value);
-        }
-        
-        /// <summary>
-        ///     An example of how to add new properties to a <see cref="Fluid" />
-        /// </summary>
-        private class FluidExtended : Fluid
-        {
-            private double? _molarDensity;
-            private double? _ozoneDepletionPotential;
-
-            public FluidExtended(FluidsList name, double? fraction = null) : base(name, fraction)
-            {
-            }
-
-            /// <summary>
-            ///     Molar density [kg/mol]
-            /// </summary>
-            public double MolarDensity => _molarDensity ??= KeyedOutput(parameters.iDmolar);
-
-            /// <summary>
-            ///     Ozone depletion potential (ODP) [-]
-            /// </summary>
-            public double? OzoneDepletionPotential => _ozoneDepletionPotential ??= NullableKeyedOutput(parameters.iODP);
-
-            protected override void Reset()
-            {
-                base.Reset();
-                _molarDensity = _ozoneDepletionPotential = null;
-            }
-        }
-        
-        private static void Main()
-        {
-            var water = new FluidExtended(FluidsList.Water);
-            water.Update(InputExtended.MolarDensity(99e3), Input.Temperature(293.15));
-            Console.WriteLine(water.Phase); // SupercriticalLiquid
-            Console.WriteLine(water.MolarDensity); // 99000
-            Console.WriteLine(water.OzoneDepletionPotential is null); // true
-        }
-    }
-}
-```
-
-Absolutely the same way for `HumidAir`, but it has no `NullableKeyedOutput` method 
-(see an example in [SharpProp.Tests/HumidAir]).
-
+[SharpProp.Tests/Fluids]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/Fluids
 [SharpProp.Tests/HumidAir]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/HumidAir

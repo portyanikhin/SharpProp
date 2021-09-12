@@ -7,9 +7,9 @@
         <Title>SharpProp</Title>
         <Authors>Vladimir Portyanikhin</Authors>
         <Description>A simple, full-featured, lightweight CoolProp wrapper for C#</Description>
-        <Copyright>Vladimir Portyanikhin</Copyright>
+        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-        <PackageLicenseUrl></PackageLicenseUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <PackageTags>CoolProp fluids mixtures humid air thermophysical properties</PackageTags>
     </PropertyGroup>

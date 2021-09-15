@@ -128,7 +128,7 @@ namespace SharpProp
         /// <summary>
         ///     Mass vapor quality [-]
         /// </summary>
-        public double Quality => _quality ??= KeyedOutput(parameters.iQ);
+        public double? Quality => _quality ??= NullableKeyedOutput(parameters.iQ);
 
         /// <summary>
         ///     Sound speed [m/s]

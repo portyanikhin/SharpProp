@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CoolProp;
+using SharpProp.Validators;
 
 namespace SharpProp
 {
@@ -14,6 +15,7 @@ namespace SharpProp
         /// <param name="secondInput">Second input property</param>
         /// <param name="thirdInput">Third input property</param>
         /// <returns>A new <see cref="HumidAir" /> object with a defined state</returns>
+        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         public static HumidAir WithState(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
         {
@@ -53,14 +55,13 @@ namespace SharpProp
         /// <param name="key">Key of output</param>
         /// <returns>A not nullable keyed output</returns>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-        /// <exception cref="ArgumentException">Invalid humid air state!</exception>
+        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(string key)
         {
             CheckInputs();
             var value = CP.HAPropsSI(key, _inputs[0].CoolPropKey, _inputs[0].Value,
                 _inputs[1].CoolPropKey, _inputs[1].Value, _inputs[2].CoolPropKey, _inputs[2].Value);
-            if (double.IsPositiveInfinity(value) || double.IsNegativeInfinity(value) || double.IsNaN(value))
-                throw new ArgumentException("Invalid humid air state!");
+            OutputsValidator.Validate(value);
             return value;
         }
 

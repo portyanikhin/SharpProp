@@ -25,7 +25,7 @@ namespace SharpProp.Tests
             return exception?.Message;
         }
 
-        [Test(ExpectedResult = "Invalid humid air state!")]
+        [Test(ExpectedResult = "Invalid or not defined state!")]
         public string? TestInvalidState()
         {
             var exception = Assert.Throws<ArgumentException>(() =>

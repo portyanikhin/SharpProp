@@ -1,5 +1,6 @@
 ﻿using System;
 using CoolProp;
+using SharpProp.Validators;
 
 namespace SharpProp
 {
@@ -17,6 +18,7 @@ namespace SharpProp
         /// <param name="firstInput">First input property</param>
         /// <param name="secondInput">Second input property</param>
         /// <returns>A new fluid object with a defined state</returns>
+        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public virtual AbstractFluid WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
         {
             var fluid = Factory();
@@ -29,7 +31,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="firstInput">First input property</param>
         /// <param name="secondInput">Second input property</param>
-        /// <exception cref="ArgumentException">Invalid input!</exception>
+        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public void Update(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
         {
             Reset();
@@ -57,9 +59,12 @@ namespace SharpProp
         {
             try
             {
-                return KeyedOutput(key);
+                var value = KeyedOutput(key);
+                if (key is parameters.iQ && value is < 0 or > 1)
+                    return null;
+                return value;
             }
-            catch (ApplicationException)
+            catch (Exception e) when (e is ApplicationException or ArgumentException)
             {
                 return null;
             }
@@ -70,7 +75,13 @@ namespace SharpProp
         /// </summary>
         /// <param name="key">Key of output</param>
         /// <returns>A not nullable keyed output</returns>
-        protected double KeyedOutput(parameters key) => Backend.keyed_output(key);
+        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
+        protected double KeyedOutput(parameters key)
+        {
+            var value = Backend.keyed_output(key);
+            OutputsValidator.Validate(value);
+            return value;
+        }
 
         private static (input_pairs inputPair, double firstValue, double secondValue) GenerateUpdatePair(
             IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
@@ -79,7 +90,7 @@ namespace SharpProp
             var swap = !inputPair.HasValue;
             if (swap) inputPair = GetInputPair(secondInput, firstInput);
             if (!inputPair.HasValue)
-                throw new ArgumentException("Invalid input!");
+                throw new ArgumentException("Need to define 2 unique inputs!");
 
             return !swap
                 ? ((input_pairs) inputPair, firstValue: firstInput.Value, secondValue: secondInput.Value)

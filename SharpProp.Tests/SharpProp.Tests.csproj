@@ -6,6 +6,20 @@
         <IsPackable>false</IsPackable>
 
         <Nullable>enable</Nullable>
+
+        <PackageVersion>1.0.3</PackageVersion>
+
+        <Title>SharpProp.Tests</Title>
+
+        <Authors>Vladimir Portyanikhin</Authors>
+
+        <Description>Unit tests for SharpProp</Description>
+
+        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
+
+        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
+
+        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

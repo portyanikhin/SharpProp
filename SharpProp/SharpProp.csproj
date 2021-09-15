@@ -12,7 +12,7 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>1.0.2</PackageVersion>
+        <PackageVersion>1.0.3</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -21,14 +21,14 @@
             <Pack>true</Pack>
         </None>
         <None Update="native\libs\libCoolProp.so">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-          <PackagePath>build\</PackagePath>
-          <Pack>true</Pack>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <PackagePath>build\</PackagePath>
+            <Pack>true</Pack>
         </None>
         <None Update="native\libs\libCoolProp.dll">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-          <PackagePath>build\</PackagePath>
-          <Pack>true</Pack>
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <PackagePath>build\</PackagePath>
+            <Pack>true</Pack>
         </None>
     </ItemGroup>
 

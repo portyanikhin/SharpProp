@@ -92,7 +92,7 @@ namespace SharpProp.Tests
             }
         }
 
-        [Test(ExpectedResult = "Invalid input!")]
+        [Test(ExpectedResult = "Need to define 2 unique inputs!")]
         public string? TestUpdateThrows()
         {
             var exception =
@@ -100,16 +100,22 @@ namespace SharpProp.Tests
             return exception?.Message;
         }
 
-        private double? HighLevelInterface(string output)
+        private double? HighLevelInterface(string outputKey)
         {
             try
             {
+                double value;
                 if (_fraction.HasValue)
-                    return CP.PropsSImulti(new StringVector {output}, "P", new DoubleVector {_pressure}, "T",
+                {
+                    value = CP.PropsSImulti(new StringVector {outputKey}, "P", new DoubleVector {_pressure}, "T",
                         new DoubleVector {_temperature}, _fluid.Name.CoolPropBackend(),
                         new StringVector {_fluid.Name.CoolPropName()},
                         new DoubleVector {_fraction.Value})[0][0];
-                return CP.PropsSI(output, "P", _pressure, "T", _temperature, CoolPropHighLevelName(_fluid.Name));
+                    return CheckedValue(value, outputKey);
+                }
+
+                value = CP.PropsSI(outputKey, "P", _pressure, "T", _temperature, CoolPropHighLevelName(_fluid.Name));
+                return CheckedValue(value, outputKey);
             }
             catch (ApplicationException)
             {
@@ -121,5 +127,12 @@ namespace SharpProp.Tests
             name.CoolPropBackend() == "HEOS"
                 ? name.CoolPropName()
                 : $"{name.CoolPropBackend()}::{name.CoolPropName()}";
+
+        private static double? CheckedValue(double value, string outputKey)
+        {
+            if (double.IsInfinity(value) || double.IsNaN(value) || outputKey == "Q" && value is < 0 or > 1)
+                return null;
+            return value;
+        }
     }
 }

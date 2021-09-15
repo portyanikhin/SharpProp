@@ -1,4 +1,4 @@
-# ![Header](SharpProp/pictures/header.svg)
+# ![SharpProp](https://raw.githubusercontent.com/portyanikhin/SharpProp/f7f79cdc0fedbca3e4c816ef2205cfb8300e193f/SharpProp/pictures/header.svg)
 
 [![NuGet](https://img.shields.io/nuget/v/SharpProp)](https://www.nuget.org/packages/SharpProp/)
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)

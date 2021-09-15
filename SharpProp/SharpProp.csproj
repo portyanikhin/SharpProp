@@ -9,17 +9,19 @@
         <Description>A simple, full-featured, lightweight CoolProp wrapper for C#</Description>
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>1.0.3</PackageVersion>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
+        <PackageVersion>1.0.4</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="SharpProp.targets">
-            <PackagePath>build\</PackagePath>
-            <Pack>true</Pack>
-        </None>
+        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="SharpProp.targets" PackagePath="build\" Pack="true"/>
         <None Update="native\libs\libCoolProp.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>

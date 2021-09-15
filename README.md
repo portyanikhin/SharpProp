@@ -1,31 +1,26 @@
-# SharpProp
+# ![Header](SharpProp/pictures/header.svg)
 
-[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
+[![NuGet](https://img.shields.io/nuget/v/SharpProp)](https://www.nuget.org/packages/SharpProp/)
+[![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
 A simple, full-featured, lightweight [CoolProp] wrapper for C#
 
 [CoolProp]: http://www.coolprop.org/
 
-## NuGet
-
-The project gets published on [NuGet].
-
-[NuGet]: https://www.nuget.org/packages/SharpProp/
-
 ## Quick start
 
 All calculations of thermophysical properties are performed in _SI units_.
 
-The `Fluid` class is responsible for pure fluids and binary mixtures,
-the `Mixture` class - for mixtures with pure fluids components,
-the `HumidAir` class - for humid air.
+The `Fluid` class is responsible for pure fluids and binary mixtures, the `Mixture` class - for mixtures with pure
+fluids components, the `HumidAir` class - for humid air.
 
 The `FluidsList` is an enum of all available fluids.
 
 ### List of properties
 
 For the `Fluid` and `Mixture` instances:
+
 * `Compressibility` - compressibility factor (-)
 * `Conductivity` - thermal conductivity (W/m/K)
 * `CriticalPressure` - absolute pressure at the critical point (Pa)
@@ -53,6 +48,7 @@ For the `Fluid` and `Mixture` instances:
 * `TripleTemperature` - absolute temperature at the triple point (K)
 
 For the `HumidAir` instances:
+
 * `Compressibility` - compressibility factor (-)
 * `Conductivity` - thermal conductivity (W/m/K)
 * `Density` - mass density per humid air unit (kg/m3)
@@ -68,8 +64,8 @@ For the `HumidAir` instances:
 * `Temperature` - absolute dry-bulb temperature (K)
 * `WetBulbTemperature` - absolute wet-bulb temperature (K)
 
-**NB.** If the required property is not present in the instance of the fluid,
-then you can add it by extending the `Fluid`, `Mixture` or `HumidAir` classes - _examples below_.
+**NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
+the `Fluid`, `Mixture` or `HumidAir` classes - _examples below_.
 
 ### Examples
 
@@ -97,8 +93,8 @@ namespace TestProject
 
 #### Incompressible binary mixtures
 
-To calculate the dynamic viscosity of propylene glycol aqueous solution
-with _60 %_ mass fraction at _101325 Pa_ and _253.15 K_:
+To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _101325 Pa_ and _
+253.15 K_:
 
 ```c#
 using System;
@@ -175,4 +171,5 @@ namespace TestProject
 See an examples in [SharpProp.Tests/Fluids] and [SharpProp.Tests/HumidAir].
 
 [SharpProp.Tests/Fluids]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/Fluids
+
 [SharpProp.Tests/HumidAir]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/HumidAir

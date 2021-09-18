@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using CoolProp;
-using SharpProp.Validators;
+using SharpProp.Outputs;
 
 namespace SharpProp
 {
-    public partial class HumidAir
+    public partial class HumidAir : Jsonable
     {
         /// <summary>
         ///     Returns a new <see cref="HumidAir" /> object with a defined state

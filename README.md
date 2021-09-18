@@ -65,7 +65,7 @@ For the `HumidAir` instances:
 * `WetBulbTemperature` - absolute wet-bulb temperature (K)
 
 **NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
-the `Fluid`, `Mixture` or `HumidAir` classes - _examples below_.
+the `Fluid`, `Mixture` or `HumidAir` classes.
 
 ### Examples
 
@@ -93,8 +93,8 @@ namespace TestProject
 
 #### Incompressible binary mixtures
 
-To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _101325 Pa_ and _
-253.15 K_:
+To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction 
+at _101325 Pa_ and _253.15 K_:
 
 ```c#
 using System;
@@ -166,10 +166,65 @@ namespace TestProject
 }
 ```
 
+#### Converting to JSON string
+
+For example, converting the `Fluid` instance to _indented_ JSON string:
+
+```c#
+using System;
+using SharpProp;
+
+namespace TestProject
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var refrigerant = new Fluid(FluidsList.R32);
+            refrigerant.Update(Input.Temperature(278.15), Input.Quality(1));
+            Console.WriteLine(refrigerant.AsJson(indented: true));
+        }
+    }
+}
+```
+
+As a result:
+
+```json
+{
+  "Name": "R32",
+  "Fraction": 1.0,
+  "Compressibility": 0.8266625877210833,
+  "Conductivity": 0.013435453854396475,
+  "CriticalPressure": 5782000.0,
+  "CriticalTemperature": 351.255,
+  "Density": 25.89088151061046,
+  "DynamicViscosity": 1.2606543144761657E-05,
+  "Enthalpy": 516105.7800378023,
+  "Entropy": 2136.2654412978777,
+  "FreezingTemperature": null,
+  "InternalEnergy": 479357.39743435377,
+  "MaxPressure": 70000000.0,
+  "MaxTemperature": 435.0,
+  "MinPressure": 47.999893876059375,
+  "MinTemperature": 136.34,
+  "MolarMass": 0.052024,
+  "Phase": "TwoPhase",
+  "Prandtl": 1.2252282243443504,
+  "Pressure": 951448.019691762,
+  "Quality": 1.0,
+  "SoundSpeed": 209.6337575990297,
+  "SpecificHeat": 1305.7899441785378,
+  "SurfaceTension": 0.010110117241546162,
+  "Temperature": 278.15,
+  "TriplePressure": 47.999893876059375,
+  "TripleTemperature": 136.34
+}
+```
+
 #### Adding other properties or inputs
 
 See an examples in [SharpProp.Tests/Fluids] and [SharpProp.Tests/HumidAir].
 
 [SharpProp.Tests/Fluids]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/Fluids
-
 [SharpProp.Tests/HumidAir]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/HumidAir

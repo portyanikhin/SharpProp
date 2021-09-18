@@ -1,10 +1,10 @@
 ﻿using System;
 using CoolProp;
-using SharpProp.Validators;
+using SharpProp.Outputs;
 
 namespace SharpProp
 {
-    public abstract partial class AbstractFluid
+    public abstract partial class AbstractFluid : Jsonable
     {
         /// <summary>
         ///     Returns a new fluid object with no defined state

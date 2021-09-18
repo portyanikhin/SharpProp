@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoolProp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NUnit.Framework;
+using SharpProp.Outputs;
 
 namespace SharpProp.Tests
 {
@@ -66,6 +69,17 @@ namespace SharpProp.Tests
                 expected = keys[i] == "Vha" ? 1 / expected : expected;
                 Assert.AreEqual(expected, actual[i]);
             }
+        }
+
+        [Test]
+        public void TestAsJson()
+        {
+            Jsonable humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
+                InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
+            Assert.AreEqual(
+                JsonConvert.SerializeObject(humidAir,
+                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
+                humidAir.AsJson());
         }
 
         private static double HighLevelInterface(string key, double pressure, double temperature,

@@ -15,13 +15,13 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>1.0.5</PackageVersion>
+        <PackageVersion>1.0.6</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\" />
-        <None Include="..\README.md" Pack="true" PackagePath="\" />
-        <None Include="SharpProp.targets" PackagePath="build\" Pack="true" />
+        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\"/>
+        <None Include="..\README.md" Pack="true" PackagePath="\"/>
+        <None Include="SharpProp.targets" PackagePath="build\" Pack="true"/>
         <None Update="native\libs\libCoolProp.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>
@@ -32,6 +32,10 @@
             <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
     </ItemGroup>
 
 </Project>

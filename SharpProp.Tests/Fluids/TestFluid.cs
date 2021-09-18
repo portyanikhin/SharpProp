@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using CoolProp;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NUnit.Framework;
 using SharpProp.Extensions;
+using SharpProp.Outputs;
 
 namespace SharpProp.Tests
 {
@@ -98,6 +101,16 @@ namespace SharpProp.Tests
             var exception =
                 Assert.Throws<ArgumentException>(() => _water.Update(Input.Pressure(101325), Input.Pressure(101325)));
             return exception?.Message;
+        }
+
+        [Test]
+        public void TestAsJson()
+        {
+            Jsonable water = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            Assert.AreEqual(
+                JsonConvert.SerializeObject(water,
+                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
+                water.AsJson());
         }
 
         private double? HighLevelInterface(string outputKey)

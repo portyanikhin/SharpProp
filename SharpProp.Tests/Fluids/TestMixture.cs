@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NUnit.Framework;
+using SharpProp.Outputs;
 
 namespace SharpProp.Tests
 {
@@ -65,6 +68,16 @@ namespace SharpProp.Tests
             var mixtureWithState = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
             Assert.AreNotEqual(_mixture.GetHashCode(), mixtureWithState.GetHashCode());
             Assert.That(mixtureWithState.Phase is Phases.Liquid);
+        }
+
+        [Test]
+        public void TestAsJson()
+        {
+            Jsonable mixture = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            Assert.AreEqual(
+                JsonConvert.SerializeObject(mixture,
+                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
+                mixture.AsJson());
         }
     }
 }

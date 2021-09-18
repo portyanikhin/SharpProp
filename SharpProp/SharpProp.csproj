@@ -15,7 +15,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>1.0.6</PackageVersion>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

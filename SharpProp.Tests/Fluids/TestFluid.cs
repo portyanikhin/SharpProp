@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using CoolProp;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
@@ -37,30 +38,28 @@ namespace SharpProp.Tests
         public void TestFactory()
         {
             var clonedWater = _water.Factory();
-            Assert.AreNotEqual(_water.GetHashCode(), clonedWater.GetHashCode());
-            Assert.AreEqual(_water.Name, clonedWater.Name);
-            Assert.AreEqual(_water.Fraction, clonedWater.Fraction);
-            Assert.That(clonedWater.Phase is Phases.Unknown);
+            clonedWater.GetHashCode().Should().NotBe(_water.GetHashCode());
+            clonedWater.Name.Should().Be(_water.Name);
+            clonedWater.Fraction.Should().Be(_water.Fraction);
+            clonedWater.Phase.Should().Be(Phases.Unknown);
         }
 
         [Test]
         public void TestWithState()
         {
             var waterWithState = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
-            Assert.AreNotEqual(_water.GetHashCode(), waterWithState.GetHashCode());
-            Assert.That(waterWithState.Phase is Phases.Liquid);
+            waterWithState.GetHashCode().Should().NotBe(_water.GetHashCode());
+            waterWithState.Phase.Should().Be(Phases.Liquid);
         }
 
-        [TestCase(FluidsList.MPG, null, ExpectedResult = "Need to define fraction!")]
-        [TestCase(FluidsList.MPG, -2,
-            ExpectedResult = "Invalid fraction value! It should be in [0;0,6]. Entered value = -2")]
-        [TestCase(FluidsList.MPG, 2,
-            ExpectedResult = "Invalid fraction value! It should be in [0;0,6]. Entered value = 2")]
+        [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
+        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;0,6]. Entered value = -2")]
+        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;0,6]. Entered value = 2")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
-        public static string? TestInitThrows(FluidsList name, double? fraction)
+        public static void TestInitThrows(FluidsList name, double? fraction, string message)
         {
-            var exception = Assert.Throws<ArgumentException>(() => new Fluid(name, fraction));
-            return exception?.Message;
+            Action act = () => new Fluid(name, fraction);
+            act.Should().Throw<ArgumentException>().WithMessage(message);
         }
 
         [Test]
@@ -89,29 +88,23 @@ namespace SharpProp.Tests
                 "p_triple", "T_triple"
             };
             for (var i = 0; i < keys.Count; i++)
-            {
-                var expected = HighLevelInterface(keys[i]);
                 if (keys[i] is not ("P" or "T"))
-                    Assert.AreEqual(expected, actual[i]);
-            }
+                    actual[i].Should().Be(HighLevelInterface(keys[i]));
         }
 
-        [Test(ExpectedResult = "Need to define 2 unique inputs!")]
-        public string? TestUpdateThrows()
+        [Test]
+        public void TestUpdateThrows()
         {
-            var exception =
-                Assert.Throws<ArgumentException>(() => _water.Update(Input.Pressure(101325), Input.Pressure(101325)));
-            return exception?.Message;
+            Action act = () => _water.Update(Input.Pressure(101325), Input.Pressure(101325));
+            act.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
         }
 
         [Test]
         public void TestAsJson()
         {
             Jsonable water = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
-            Assert.AreEqual(
-                JsonConvert.SerializeObject(water,
-                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
-                water.AsJson());
+            water.AsJson().Should().Be(JsonConvert.SerializeObject(water,
+                new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}));
         }
 
         private double? HighLevelInterface(string outputKey)

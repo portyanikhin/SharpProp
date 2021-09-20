@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
@@ -46,38 +47,36 @@ namespace SharpProp.Tests
 
         [TestCaseSource(nameof(_mixtureCases))]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
-        public static void TestInitThrows(List<FluidsList> fluids, List<double> fractions, string exceptionMessage)
+        public static void TestInitThrows(List<FluidsList> fluids, List<double> fractions, string message)
         {
-            var exception = Assert.Throws<ArgumentException>(() => new Mixture(fluids, fractions));
-            Assert.AreEqual(exceptionMessage, exception?.Message);
+            Action act = () => new Mixture(fluids, fractions);
+            act.Should().Throw<ArgumentException>().WithMessage(message);
         }
 
         [Test]
         public void TestFactory()
         {
             var clonedMixture = _mixture.Factory();
-            Assert.AreNotEqual(_mixture.GetHashCode(), clonedMixture.GetHashCode());
-            Assert.AreEqual(_mixture.Fluids, clonedMixture.Fluids);
-            Assert.AreEqual(_mixture.Fractions, clonedMixture.Fractions);
-            Assert.That(clonedMixture.Phase is Phases.Unknown);
+            clonedMixture.GetHashCode().Should().NotBe(_mixture.GetHashCode());
+            clonedMixture.Fluids.Should().BeSameAs(_mixture.Fluids);
+            clonedMixture.Fractions.Should().BeSameAs(_mixture.Fractions);
+            clonedMixture.Phase.Should().Be(Phases.Unknown);
         }
 
         [Test]
         public void TestWithState()
         {
             var mixtureWithState = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
-            Assert.AreNotEqual(_mixture.GetHashCode(), mixtureWithState.GetHashCode());
-            Assert.That(mixtureWithState.Phase is Phases.Liquid);
+            mixtureWithState.GetHashCode().Should().NotBe(_mixture.GetHashCode());
+            mixtureWithState.Phase.Should().Be(Phases.Liquid);
         }
 
         [Test]
         public void TestAsJson()
         {
             Jsonable mixture = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
-            Assert.AreEqual(
-                JsonConvert.SerializeObject(mixture,
-                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
-                mixture.AsJson());
+            mixture.AsJson().Should().Be(JsonConvert.SerializeObject(mixture,
+                new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}));
         }
     }
 }

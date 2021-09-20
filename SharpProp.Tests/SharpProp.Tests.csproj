@@ -2,35 +2,27 @@
 
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
-
         <IsPackable>false</IsPackable>
-
         <Nullable>enable</Nullable>
-
-        <PackageVersion>1.0.3</PackageVersion>
-
         <Title>SharpProp.Tests</Title>
-
         <Authors>Vladimir Portyanikhin</Authors>
-
-        <Description>Unit tests for SharpProp</Description>
-
+        <Description>Unit tests for the SharpProp</Description>
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
-
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4"/>
-        <PackageReference Include="NUnit" Version="3.13.1"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0"/>
-        <PackageReference Include="coverlet.collector" Version="3.0.2"/>
+        <PackageReference Include="FluentAssertions" Version="6.1.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+        <PackageReference Include="NUnit" Version="3.13.1" />
+        <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+        <PackageReference Include="coverlet.collector" Version="3.0.2" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharpProp\SharpProp.csproj"/>
+        <ProjectReference Include="..\SharpProp\SharpProp.csproj" />
     </ItemGroup>
 
 </Project>

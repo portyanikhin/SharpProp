@@ -1,4 +1,5 @@
 ﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using SharpProp.Extensions;
 
@@ -12,17 +13,17 @@ namespace SharpProp.Tests
             if (coolPropFluid.CoolPropName().EndsWith(".mix"))
                 Assert.Pass();
             else
+                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
                 switch (coolPropFluid)
                 {
                     case FluidsList.Butene:
-                        Assert.AreEqual("1-Butene", coolPropFluid.CoolPropName());
+                        coolPropFluid.CoolPropName().Should().Be("1-Butene");
                         break;
                     case FluidsList.WaterIncomp:
-                        Assert.AreEqual("Water", coolPropFluid.CoolPropName());
+                        coolPropFluid.CoolPropName().Should().Be("Water");
                         break;
                     default:
-                        Assert.AreEqual(coolPropFluid.CoolPropName().RemoveChars('-', '(', ')'),
-                            coolPropFluid.ToString());
+                        coolPropFluid.ToString().Should().Be(coolPropFluid.CoolPropName().RemoveChars('-', '(', ')'));
                         break;
                 }
         }

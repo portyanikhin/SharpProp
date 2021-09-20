@@ -1,4 +1,5 @@
 using CoolProp;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace SharpProp.Tests
@@ -18,10 +19,10 @@ namespace SharpProp.Tests
 
         [TestCaseSource(nameof(_inputCases))]
         public static void TestCoolPropKey(Input input, parameters coolPropKey, double value) =>
-            Assert.AreEqual(coolPropKey, input.CoolPropKey);
+            input.CoolPropKey.Should().Be(coolPropKey);
 
         [TestCaseSource(nameof(_inputCases))]
         public static void TestValue(Input input, parameters coolPropKey, double value) =>
-            Assert.AreEqual(value, input.Value);
+            input.Value.Should().Be(value);
     }
 }

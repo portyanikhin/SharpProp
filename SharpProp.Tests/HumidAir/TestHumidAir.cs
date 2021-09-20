@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CoolProp;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
@@ -17,27 +18,27 @@ namespace SharpProp.Tests
         {
             var humidAirWithState = HumidAir.WithState(InputHumidAir.Pressure(101325),
                 InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-            Assert.AreNotEqual(_humidAir.GetHashCode(), humidAirWithState.GetHashCode());
+            humidAirWithState.GetHashCode().Should().NotBe(_humidAir.GetHashCode());
         }
 
-        [Test(ExpectedResult = "Need to define 3 unique inputs!")]
-        public string? TestInvalidInput()
+        [Test]
+        public void TestInvalidInput()
         {
-            var exception = Assert.Throws<ArgumentException>(() => _humidAir.Update(InputHumidAir.Pressure(101325),
-                InputHumidAir.Temperature(293.15), InputHumidAir.Temperature(303.15)));
-            return exception?.Message;
+            Action act = () => _humidAir.Update(InputHumidAir.Pressure(101325),
+                InputHumidAir.Temperature(293.15), InputHumidAir.Temperature(303.15));
+            act.Should().Throw<ArgumentException>().WithMessage("Need to define 3 unique inputs!");
         }
 
-        [Test(ExpectedResult = "Invalid or not defined state!")]
-        public string? TestInvalidState()
+        [Test]
+        public void TestInvalidState()
         {
-            var exception = Assert.Throws<ArgumentException>(() =>
+            Action act = () =>
             {
                 _humidAir.Update(InputHumidAir.Pressure(101325),
                     InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(2));
                 var _ = _humidAir.Density;
-            });
-            return exception?.Message;
+            };
+            act.Should().Throw<ArgumentException>().WithMessage("Invalid or not defined state!");
         }
 
         [Test]
@@ -67,7 +68,7 @@ namespace SharpProp.Tests
             {
                 var expected = HighLevelInterface(keys[i], pressure, temperature, relativeHumidity);
                 expected = keys[i] == "Vha" ? 1 / expected : expected;
-                Assert.AreEqual(expected, actual[i]);
+                actual[i].Should().Be(expected);
             }
         }
 
@@ -76,10 +77,8 @@ namespace SharpProp.Tests
         {
             Jsonable humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
                 InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-            Assert.AreEqual(
-                JsonConvert.SerializeObject(humidAir,
-                    new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}),
-                humidAir.AsJson());
+            humidAir.AsJson().Should().Be(JsonConvert.SerializeObject(humidAir,
+                new JsonSerializerSettings {Converters = new List<JsonConverter> {new StringEnumConverter()}}));
         }
 
         private static double HighLevelInterface(string key, double pressure, double temperature,

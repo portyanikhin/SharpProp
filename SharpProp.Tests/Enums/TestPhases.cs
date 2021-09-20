@@ -1,4 +1,5 @@
 ﻿using CoolProp;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace SharpProp.Tests
@@ -8,6 +9,6 @@ namespace SharpProp.Tests
         [Test]
         [Sequential]
         public static void CompareWithCoolPropPhases([Values] phases coolPropPhase, [Values] Phases sharpPropPhase) =>
-            Assert.AreEqual((int) coolPropPhase, (int) sharpPropPhase);
+            sharpPropPhase.Should().HaveSameValueAs(coolPropPhase);
     }
 }

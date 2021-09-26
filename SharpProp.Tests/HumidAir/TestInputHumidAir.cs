@@ -26,5 +26,8 @@ namespace SharpProp.Tests
         [TestCaseSource(nameof(_inputHumidAirCases))]
         public static void TestValue(InputHumidAir input, string coolPropKey, double value) =>
             input.Value.Should().Be(value);
+
+        [Test]
+        public static void TestEquals() => InputHumidAir.Pressure(101325).Should().Be(InputHumidAir.Pressure(101325));
     }
 }

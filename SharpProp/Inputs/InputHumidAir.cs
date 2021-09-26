@@ -1,6 +1,6 @@
 ﻿namespace SharpProp
 {
-    public class InputHumidAir : IKeyedInput<string>
+    public record InputHumidAir : IKeyedInput<string>
     {
         /// <summary>
         ///     CoolProp keyed input for humid air

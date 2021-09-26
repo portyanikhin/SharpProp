@@ -18,7 +18,7 @@ namespace SharpProp.Tests
         /// <summary>
         ///     An example of how to extend <see cref="InputHumidAir" />
         /// </summary>
-        public class InputHumidAirExtended : InputHumidAir
+        public record InputHumidAirExtended : InputHumidAir
         {
             private InputHumidAirExtended(string coolPropKey, double value) : base(coolPropKey, value)
             {

@@ -19,7 +19,7 @@ namespace SharpProp.Tests
         /// <summary>
         ///     An example of how to extend <see cref="Input" />
         /// </summary>
-        private class InputExtended : Input
+        private record InputExtended : Input
         {
             private InputExtended(parameters coolPropKey, double value) : base(coolPropKey, value)
             {

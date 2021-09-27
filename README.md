@@ -228,3 +228,32 @@ See an examples in [SharpProp.Tests/Fluids] and [SharpProp.Tests/HumidAir].
 
 [SharpProp.Tests/Fluids]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/Fluids
 [SharpProp.Tests/HumidAir]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/HumidAir
+
+#### Equality of instances
+
+Since `v2.0.0`, you can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
+Just use the `Equals` method or the equality operators (`==` or `!=`). 
+Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
+
+For example:
+
+```c#
+using System;
+using SharpProp;
+
+namespace TestProject
+{
+    internal static class Program
+    {
+        private static void Main()
+        {
+            var humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
+                InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
+            var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325),
+                InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
+            Console.WriteLine(humidAir == humidAirWithSameState); // true
+            Console.WriteLine(InputHumidAir.Pressure(101325) == InputHumidAir.Pressure(101.325e3)); // true
+        }
+    }
+}
+```

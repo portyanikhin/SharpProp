@@ -1,13 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CoolProp;
 using SharpProp.Outputs;
 
 namespace SharpProp
 {
-    public partial class HumidAir : Jsonable
+    public partial class HumidAir : Jsonable, IEquatable<HumidAir>
     {
+        public bool Equals(HumidAir? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
+        }
+
         /// <summary>
         ///     Returns a new <see cref="HumidAir" /> object with a defined state
         /// </summary>
@@ -35,7 +42,7 @@ namespace SharpProp
             IKeyedInput<string> thirdInput)
         {
             Reset();
-            _inputs = new List<IKeyedInput<string>> {fistInput, secondInput, thirdInput};
+            Inputs = new List<IKeyedInput<string>> {fistInput, secondInput, thirdInput};
             CheckInputs();
         }
 
@@ -59,17 +66,27 @@ namespace SharpProp
         protected double KeyedOutput(string key)
         {
             CheckInputs();
-            var value = CP.HAPropsSI(key, _inputs[0].CoolPropKey, _inputs[0].Value,
-                _inputs[1].CoolPropKey, _inputs[1].Value, _inputs[2].CoolPropKey, _inputs[2].Value);
+            var value = CP.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
+                Inputs[1].CoolPropKey, Inputs[1].Value, Inputs[2].CoolPropKey, Inputs[2].Value);
             OutputsValidator.Validate(value);
             return value;
         }
 
         private void CheckInputs()
         {
-            var uniqueKeys = _inputs.Select(input => input.CoolPropKey).Distinct().ToList();
-            if (_inputs.Count != 3 || uniqueKeys.Count != 3)
+            var uniqueKeys = Inputs.Select(input => input.CoolPropKey).Distinct().ToList();
+            if (Inputs.Count != 3 || uniqueKeys.Count != 3)
                 throw new ArgumentException("Need to define 3 unique inputs!");
         }
+
+        public override bool Equals(object? obj) => Equals(obj as HumidAir);
+
+        [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+        public override int GetHashCode() => HashCode.Combine(Inputs.Select(input => input.Value).Sum(),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey)));
+
+        public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);
+
+        public static bool operator !=(HumidAir? left, HumidAir? right) => !Equals(left, right);
     }
 }

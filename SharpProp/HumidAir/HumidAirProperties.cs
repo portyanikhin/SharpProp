@@ -12,7 +12,6 @@ namespace SharpProp
         private double? _enthalpy;
         private double? _entropy;
         private double? _humidity;
-        private List<IKeyedInput<string>> _inputs = new(3);
         private double? _partialPressure;
         private double? _pressure;
         private double? _relativeHumidity;
@@ -59,6 +58,8 @@ namespace SharpProp
         ///     Absolute humidity ratio [kg/kg d.a.]
         /// </summary>
         public double Humidity => _humidity ??= KeyedOutput("W");
+
+        private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
 
         /// <summary>
         ///     Partial pressure of water vapor [Pa]

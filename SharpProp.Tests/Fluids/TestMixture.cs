@@ -54,10 +54,27 @@ namespace SharpProp.Tests
         }
 
         [Test]
+        public void TestEquals()
+        {
+            var mixtureWithState = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            var mixtureWithSameState = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            mixtureWithState.Should().Be(mixtureWithState);
+            mixtureWithState.Should().BeSameAs(mixtureWithState);
+            mixtureWithState.Should().NotBeNull();
+            mixtureWithState.Equals(new object()).Should().BeFalse();
+            mixtureWithState.Should().Be(mixtureWithSameState);
+            mixtureWithState.Should().NotBeSameAs(mixtureWithSameState);
+            (mixtureWithState == mixtureWithSameState).Should().Be(mixtureWithState.Equals(mixtureWithSameState));
+            (mixtureWithState != _mixture).Should().Be(!mixtureWithState.Equals(_mixture));
+        }
+
+        [Test]
         public void TestFactory()
         {
             var clonedMixture = _mixture.Factory();
-            clonedMixture.GetHashCode().Should().NotBe(_mixture.GetHashCode());
+            clonedMixture.Should().Be(_mixture);
+            clonedMixture.Should().NotBeSameAs(_mixture);
+            clonedMixture.GetHashCode().Should().Be(_mixture.GetHashCode());
             clonedMixture.Fluids.Should().BeSameAs(_mixture.Fluids);
             clonedMixture.Fractions.Should().BeSameAs(_mixture.Fractions);
             clonedMixture.Phase.Should().Be(Phases.Unknown);
@@ -67,6 +84,7 @@ namespace SharpProp.Tests
         public void TestWithState()
         {
             var mixtureWithState = _mixture.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            mixtureWithState.Should().NotBe(_mixture);
             mixtureWithState.GetHashCode().Should().NotBe(_mixture.GetHashCode());
             mixtureWithState.Phase.Should().Be(Phases.Liquid);
         }

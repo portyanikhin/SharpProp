@@ -6,7 +6,7 @@ using SharpProp.Extensions;
 
 namespace SharpProp
 {
-    public class Mixture : AbstractFluid
+    public class Mixture : AbstractFluid, IEquatable<Mixture>
     {
         /// <summary>
         ///     CoolProp mass-based mixture of pure fluids
@@ -52,9 +52,17 @@ namespace SharpProp
         /// </summary>
         public List<double> Fractions { get; }
 
+        public bool Equals(Mixture? other) =>
+            base.Equals(other) && Fluids.SequenceEqual(other.Fluids) && Fractions.SequenceEqual(other.Fractions);
+
         public override Mixture Factory() => new(Fluids, Fractions);
 
         public override Mixture WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput) =>
             (Mixture) base.WithState(firstInput, secondInput);
+
+        public new bool Equals(object? obj) => Equals(obj as Mixture);
+
+        public override int GetHashCode() =>
+            HashCode.Combine(string.Join("&", Fluids), string.Join("&", Fractions), base.GetHashCode());
     }
 }

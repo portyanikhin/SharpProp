@@ -35,10 +35,27 @@ namespace SharpProp.Tests
             0.1 * fluid.MinTemperature + 0.9 * fluid.MaxTemperature;
 
         [Test]
+        public void TestEquals()
+        {
+            var waterWithState = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            var waterWithSameState = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            waterWithState.Should().Be(waterWithState);
+            waterWithState.Should().BeSameAs(waterWithState);
+            waterWithState.Should().NotBeNull();
+            waterWithState.Equals(new object()).Should().BeFalse();
+            waterWithState.Should().Be(waterWithSameState);
+            waterWithState.Should().NotBeSameAs(waterWithSameState);
+            (waterWithState == waterWithSameState).Should().Be(waterWithState.Equals(waterWithSameState));
+            (waterWithState != _water).Should().Be(!waterWithState.Equals(_water));
+        }
+
+        [Test]
         public void TestFactory()
         {
             var clonedWater = _water.Factory();
-            clonedWater.GetHashCode().Should().NotBe(_water.GetHashCode());
+            clonedWater.Should().Be(_water);
+            clonedWater.Should().NotBeSameAs(_water);
+            clonedWater.GetHashCode().Should().Be(_water.GetHashCode());
             clonedWater.Name.Should().Be(_water.Name);
             clonedWater.Fraction.Should().Be(_water.Fraction);
             clonedWater.Phase.Should().Be(Phases.Unknown);
@@ -48,6 +65,7 @@ namespace SharpProp.Tests
         public void TestWithState()
         {
             var waterWithState = _water.WithState(Input.Pressure(101325), Input.Temperature(293.15));
+            waterWithState.Should().NotBe(_water);
             waterWithState.GetHashCode().Should().NotBe(_water.GetHashCode());
             waterWithState.Phase.Should().Be(Phases.Liquid);
         }

@@ -4,7 +4,7 @@ using SharpProp.Extensions;
 
 namespace SharpProp
 {
-    public class Fluid : AbstractFluid
+    public class Fluid : AbstractFluid, IEquatable<Fluid>
     {
         /// <summary>
         ///     CoolProp pure/pseudo-pure fluid or binary mixture
@@ -37,6 +37,8 @@ namespace SharpProp
         /// </summary>
         public double Fraction { get; }
 
+        public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
+
         public override Fluid Factory() => new(Name, Fraction);
 
         public override Fluid WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput) =>
@@ -50,5 +52,9 @@ namespace SharpProp
             else
                 Backend.set_volu_fractions(fractionsVector);
         }
+
+        public new bool Equals(object? obj) => Equals(obj as Fluid);
+
+        public override int GetHashCode() => HashCode.Combine(Name, Fraction, base.GetHashCode());
     }
 }

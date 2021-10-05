@@ -97,7 +97,8 @@ Console.WriteLine(propyleneGlycol.DynamicViscosity); // 0.13907391053938847
 To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) at _200 kPa_ and _277.15 K_:
 
 ```c#
-var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol}, new List<double> {0.6, 0.4});
+var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol}, 
+    new List<double> {0.6, 0.4});
 mixture.Update(Input.Pressure(200e3), Input.Temperature(277.15));
 Console.WriteLine(mixture.Density); // 883.3922771627759
 ```

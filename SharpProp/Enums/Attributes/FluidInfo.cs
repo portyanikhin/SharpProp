@@ -2,6 +2,9 @@
 
 namespace SharpProp.Attributes
 {
+    /// <summary>
+    ///     Fluid predefined info
+    /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
     public sealed class FluidInfo : Attribute
     {

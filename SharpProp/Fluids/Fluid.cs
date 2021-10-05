@@ -4,6 +4,9 @@ using SharpProp.Extensions;
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     CoolProp pure/pseudo-pure fluid or binary mixture
+    /// </summary>
     public class Fluid : AbstractFluid, IEquatable<Fluid>
     {
         /// <summary>

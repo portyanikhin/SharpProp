@@ -4,6 +4,9 @@ using Newtonsoft.Json.Converters;
 
 namespace SharpProp.Outputs
 {
+    /// <summary>
+    ///     An object that can be converted to a JSON string
+    /// </summary>
     public class Jsonable
     {
         private readonly JsonSerializerSettings _settings = new()

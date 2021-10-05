@@ -7,6 +7,9 @@ using SharpProp.Outputs;
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     Implementation of the humid air
+    /// </summary>
     public partial class HumidAir : Jsonable, IEquatable<HumidAir>
     {
         public bool Equals(HumidAir? other)

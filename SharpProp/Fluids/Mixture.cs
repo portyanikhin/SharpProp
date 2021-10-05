@@ -6,6 +6,9 @@ using SharpProp.Extensions;
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     CoolProp mass-based mixture of pure fluids
+    /// </summary>
     public class Mixture : AbstractFluid, IEquatable<Mixture>
     {
         /// <summary>

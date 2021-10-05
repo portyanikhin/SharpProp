@@ -4,6 +4,9 @@ using SharpProp.Outputs;
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     Fluids base class
+    /// </summary>
     public abstract partial class AbstractFluid : Jsonable, IEquatable<AbstractFluid>
     {
         public bool Equals(AbstractFluid? other)

@@ -1,6 +1,7 @@
 # ![SharpProp](https://raw.githubusercontent.com/portyanikhin/SharpProp/f7f79cdc0fedbca3e4c816ef2205cfb8300e193f/SharpProp/pictures/header.svg)
 
 [![NuGet](https://img.shields.io/nuget/v/SharpProp)](https://www.nuget.org/packages/SharpProp/)
+![Platform](https://img.shields.io/badge/platform-win--64%20%7C%20linux--64-lightgrey)
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
@@ -69,101 +70,50 @@ the `Fluid`, `Mixture` or `HumidAir` classes.
 
 ### Examples
 
+Don't forget to add `using SharpProp;` at the top of the code.
+
 #### Pure fluids
 
 To calculate the specific heat of saturated water vapour at _101325 Pa_:
 
 ```c#
-using System;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var waterVapour = new Fluid(FluidsList.Water);
-            waterVapour.Update(Input.Pressure(101325), Input.Quality(1));
-            Console.WriteLine(waterVapour.SpecificHeat); // 2079.937085633241
-        }
-    }
-}
+var waterVapour = new Fluid(FluidsList.Water);
+waterVapour.Update(Input.Pressure(101325), Input.Quality(1));
+Console.WriteLine(waterVapour.SpecificHeat); // 2079.937085633241
 ```
 
 #### Incompressible binary mixtures
 
-To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction 
-at _101325 Pa_ and _253.15 K_:
+To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _101325 Pa_ and _253.15 K_:
 
 ```c#
-using System;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var propyleneGlycol = new Fluid(FluidsList.MPG, 0.6);
-            propyleneGlycol.Update(Input.Pressure(101325), Input.Temperature(253.15));
-            Console.WriteLine(propyleneGlycol.DynamicViscosity); // 0.13907391053938847
-        }
-    }
-}
+var propyleneGlycol = new Fluid(FluidsList.MPG, 0.6);
+propyleneGlycol.Update(Input.Pressure(101325), Input.Temperature(253.15));
+Console.WriteLine(propyleneGlycol.DynamicViscosity); // 0.13907391053938847
 ```
 
 #### Mixtures
 
-To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction)
-at _200 kPa_ and _277.15 K_:
+To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) at _200 kPa_ and _277.15 K_:
 
 ```c#
-using System;
-using System.Collections.Generic;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-                new List<double> {0.6, 0.4});
-            mixture.Update(Input.Pressure(200e3), Input.Temperature(277.15));
-            Console.WriteLine(mixture.Density); // 883.3922771627759
-        }
-    }
-}
+var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol}, new List<double> {0.6, 0.4});
+mixture.Update(Input.Pressure(200e3), Input.Temperature(277.15));
+Console.WriteLine(mixture.Density); // 883.3922771627759
 ```
 
 #### Humid air
 
-To calculate the wet bulb temperature of humid air at _99 kPa_, _303.15 K_ and _50 %_
-relative humidity:
+To calculate the wet bulb temperature of humid air at _99 kPa_, _303.15 K_ and _50 %_ relative humidity:
 
 ```c#
-using System;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var humidAir = new HumidAir();
-            humidAir.Update(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
-                InputHumidAir.RelativeHumidity(0.5));
-            // or use:
-            // var humidAir = HumidAir.WithState(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
-            //     InputHumidAir.RelativeHumidity(0.5));
-            Console.WriteLine(humidAir.WetBulbTemperature); // 295.0965785590792
-        }
-    }
-}
+var humidAir = new HumidAir();
+humidAir.Update(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
+    InputHumidAir.RelativeHumidity(0.5));
+// or use:
+// var humidAir = HumidAir.WithState(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
+//     InputHumidAir.RelativeHumidity(0.5));
+Console.WriteLine(humidAir.WetBulbTemperature); // 295.0965785590792
 ```
 
 #### Converting to JSON string
@@ -171,21 +121,9 @@ namespace TestProject
 For example, converting the `Fluid` instance to _indented_ JSON string:
 
 ```c#
-using System;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var refrigerant = new Fluid(FluidsList.R32);
-            refrigerant.Update(Input.Temperature(278.15), Input.Quality(1));
-            Console.WriteLine(refrigerant.AsJson(indented: true));
-        }
-    }
-}
+var refrigerant = new Fluid(FluidsList.R32);
+refrigerant.Update(Input.Temperature(278.15), Input.Quality(1));
+Console.WriteLine(refrigerant.AsJson(indented: true));
 ```
 
 As a result:
@@ -238,22 +176,10 @@ Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IK
 For example:
 
 ```c#
-using System;
-using SharpProp;
-
-namespace TestProject
-{
-    internal static class Program
-    {
-        private static void Main()
-        {
-            var humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
-                InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-            var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325),
-                InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-            Console.WriteLine(humidAir == humidAirWithSameState); // true
-            Console.WriteLine(InputHumidAir.Pressure(101325) == InputHumidAir.Pressure(101.325e3)); // true
-        }
-    }
-}
+var humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
+    InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
+var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325),
+    InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
+Console.WriteLine(humidAir == humidAirWithSameState); // true
+Console.WriteLine(InputHumidAir.Pressure(101325) == InputHumidAir.Pressure(101.325e3)); // true
 ```

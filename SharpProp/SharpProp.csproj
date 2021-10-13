@@ -15,7 +15,7 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>2.0.1</PackageVersion>
+        <PackageVersion>2.0.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,7 +27,7 @@
             <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
         </None>
-        <None Update="native\libs\libCoolProp.dll">
+        <None Update="native\libs\CoolProp.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>
             <Pack>true</Pack>

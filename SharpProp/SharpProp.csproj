@@ -22,15 +22,15 @@
         <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\" />
         <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="SharpProp.targets" PackagePath="build\" Pack="true" />
-        <None Update="native\libs\libCoolProp.so">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
-            <Pack>true</Pack>
+        <None Update="CoolProp.dll">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <PackagePath>build\</PackagePath>
+          <Pack>true</Pack>
         </None>
-        <None Update="native\libs\CoolProp.dll">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
-            <Pack>true</Pack>
+        <None Update="libCoolProp.so">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+          <PackagePath>build\</PackagePath>
+          <Pack>true</Pack>
         </None>
     </ItemGroup>
 

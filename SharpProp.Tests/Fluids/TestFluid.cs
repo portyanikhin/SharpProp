@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using CoolProp;
 using FluentAssertions;
 using Newtonsoft.Json;
@@ -71,11 +72,12 @@ namespace SharpProp.Tests
         }
 
         [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
-        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;0,6]. Entered value = -2")]
-        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;0,6]. Entered value = 2")]
+        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;0.6]. Entered value = -2")]
+        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;0.6]. Entered value = 2")]
         [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public static void TestInitThrows(FluidsList name, double? fraction, string message)
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
             Action act = () => new Fluid(name, fraction);
             act.Should().Throw<ArgumentException>().WithMessage(message);
         }

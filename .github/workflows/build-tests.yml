@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build-and-tests:
+  build-tests:
     runs-on: windows-2022
 
     steps:

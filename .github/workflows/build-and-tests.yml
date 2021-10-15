@@ -1,4 +1,4 @@
-﻿name: Build & Tests
+﻿name: Build and Tests
 
 on:
   push:
@@ -8,11 +8,7 @@ on:
 
 jobs:
   build-and-tests:
-    name: build-and-tests-${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ ubuntu-20.04, windows-2022 ]
+    runs-on: windows-2022
 
     steps:
       - uses: actions/checkout@v2

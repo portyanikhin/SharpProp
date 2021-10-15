@@ -16,7 +16,7 @@
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
         <PackageVersion>2.0.2</PackageVersion>
-        <PackageReleaseNotes>Fixed Linux support</PackageReleaseNotes>
+        <PackageReleaseNotes>Linux support fix and documentation update</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

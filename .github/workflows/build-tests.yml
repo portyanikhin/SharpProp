@@ -8,7 +8,11 @@ on:
 
 jobs:
   build-tests:
-    runs-on: windows-2022
+    name: build-tests-${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-2022, ubuntu-20.04 ]
 
     steps:
       - uses: actions/checkout@v2

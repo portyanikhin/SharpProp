@@ -6,9 +6,7 @@
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen)
 
-A simple, full-featured, lightweight [CoolProp] wrapper for C#
-
-[CoolProp]: http://www.coolprop.org/
+A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org/) wrapper for C#
 
 ## Quick start
 
@@ -162,17 +160,10 @@ As a result:
 }
 ```
 
-#### Adding other properties or inputs
-
-See an examples in [SharpProp.Tests/Fluids] and [SharpProp.Tests/HumidAir].
-
-[SharpProp.Tests/Fluids]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/Fluids
-[SharpProp.Tests/HumidAir]: https://github.com/portyanikhin/SharpProp/tree/master/SharpProp.Tests/HumidAir
-
 #### Equality of instances
 
-Since `v2.0.0`, you can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
-Just use the `Equals` method or the equality operators (`==` or `!=`). 
+You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
+Just use the `Equals` method or the equality operators (`==` or `!=`).
 Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
 
 For example:
@@ -185,3 +176,13 @@ var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325),
 Console.WriteLine(humidAir == humidAirWithSameState); // true
 Console.WriteLine(InputHumidAir.Pressure(101325) == InputHumidAir.Pressure(101.325e3)); // true
 ```
+
+#### Adding other properties
+
+* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestFluidExtended.cs)
+* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestHumidAirExtended.cs)
+
+#### Adding other inputs
+
+* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestInputExtended.cs)
+* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestInputHumidAirExtended.cs)

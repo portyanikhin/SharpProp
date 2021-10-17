@@ -15,8 +15,8 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>2.0.2</PackageVersion>
-        <PackageReleaseNotes>Linux support fix and documentation update</PackageReleaseNotes>
+        <PackageVersion>2.0.3</PackageVersion>
+        <PackageReleaseNotes>README.md update</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

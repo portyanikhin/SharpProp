@@ -15,8 +15,8 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>2.0.3</PackageVersion>
-        <PackageReleaseNotes>README.md update</PackageReleaseNotes>
+        <PackageVersion>2.0.4</PackageVersion>
+        <PackageReleaseNotes>Added aliases for the FluidsList</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

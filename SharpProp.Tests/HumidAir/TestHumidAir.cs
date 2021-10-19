@@ -41,21 +41,21 @@ namespace SharpProp.Tests
         [Test]
         public void TestInvalidInput()
         {
-            Action act = () => _humidAir.Update(InputHumidAir.Pressure(101325),
+            Action action = () => _humidAir.Update(InputHumidAir.Pressure(101325),
                 InputHumidAir.Temperature(293.15), InputHumidAir.Temperature(303.15));
-            act.Should().Throw<ArgumentException>().WithMessage("Need to define 3 unique inputs!");
+            action.Should().Throw<ArgumentException>().WithMessage("Need to define 3 unique inputs!");
         }
 
         [Test]
         public void TestInvalidState()
         {
-            Action act = () =>
+            Action action = () =>
             {
                 _humidAir.Update(InputHumidAir.Pressure(101325),
                     InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(2));
                 var _ = _humidAir.Density;
             };
-            act.Should().Throw<ArgumentException>().WithMessage("Invalid or not defined state!");
+            action.Should().Throw<ArgumentException>().WithMessage("Invalid or not defined state!");
         }
 
         [Test]

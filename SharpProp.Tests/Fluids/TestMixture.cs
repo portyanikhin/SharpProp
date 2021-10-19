@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -46,11 +45,10 @@ namespace SharpProp.Tests
         private readonly Mixture _mixture = new(Fluids, Fractions);
 
         [TestCaseSource(nameof(_mixtureCases))]
-        [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public static void TestInitThrows(List<FluidsList> fluids, List<double> fractions, string message)
         {
-            Action act = () => new Mixture(fluids, fractions);
-            act.Should().Throw<ArgumentException>().WithMessage(message);
+            Action action = () => _ = new Mixture(fluids, fractions);
+            action.Should().Throw<ArgumentException>().WithMessage(message);
         }
 
         [Test]

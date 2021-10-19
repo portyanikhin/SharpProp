@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using CoolProp;
 using FluentAssertions;
@@ -74,12 +73,11 @@ namespace SharpProp.Tests
         [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
         [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;0.6]. Entered value = -2")]
         [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;0.6]. Entered value = 2")]
-        [SuppressMessage("ReSharper", "ObjectCreationAsStatement")]
         public static void TestInitThrows(FluidsList name, double? fraction, string message)
         {
             CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
-            Action act = () => new Fluid(name, fraction);
-            act.Should().Throw<ArgumentException>().WithMessage(message);
+            Action action = () => _ = new Fluid(name, fraction);
+            action.Should().Throw<ArgumentException>().WithMessage(message);
         }
 
         [Test]
@@ -115,8 +113,8 @@ namespace SharpProp.Tests
         [Test]
         public void TestUpdateThrows()
         {
-            Action act = () => _water.Update(Input.Pressure(101325), Input.Pressure(101325));
-            act.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
+            Action action = () => _water.Update(Input.Pressure(101325), Input.Pressure(101325));
+            action.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
         }
 
         [Test]

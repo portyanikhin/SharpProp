@@ -3,6 +3,7 @@ using NUnit.Framework;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
 
 namespace SharpProp.Tests
 {
@@ -43,7 +44,8 @@ namespace SharpProp.Tests
             ///     Mass specific constant volume specific heat
             /// </summary>
             public SpecificEntropy ConstantVolumeSpecificHeat => _constantVolumeSpecificHeat ??=
-                SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass));
+                SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
+                    .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
             /// <summary>
             ///     Molar density

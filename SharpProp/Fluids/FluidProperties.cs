@@ -69,8 +69,8 @@ namespace SharpProp
         /// <summary>
         ///     Mass density
         /// </summary>
-        public Density Density => _density ??= Density
-            .FromKilogramsPerCubicMeter(KeyedOutput(Parameters.iDmass));
+        public Density Density => _density ??= 
+            Density.FromKilogramsPerCubicMeter(KeyedOutput(Parameters.iDmass));
 
         /// <summary>
         ///     Dynamic viscosity
@@ -84,16 +84,16 @@ namespace SharpProp
         /// <summary>
         ///     Mass specific enthalpy
         /// </summary>
-        public SpecificEnergy Enthalpy => _enthalpy ??= SpecificEnergy
-            .FromJoulesPerKilogram(KeyedOutput(Parameters.iHmass))
-            .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
+        public SpecificEnergy Enthalpy => _enthalpy ??= 
+            SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iHmass))
+                .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
         ///     Mass specific entropy
         /// </summary>
-        public SpecificEntropy Entropy => _entropy ??= SpecificEntropy
-            .FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iSmass))
-            .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
+        public SpecificEntropy Entropy => _entropy ??= 
+            SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iSmass))
+                .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
         ///     Temperature at freezing point (for incompressible fluids)
@@ -106,9 +106,9 @@ namespace SharpProp
         /// <summary>
         ///     Mass specific internal energy
         /// </summary>
-        public SpecificEnergy InternalEnergy => _internalEnergy ??= SpecificEnergy
-            .FromJoulesPerKilogram(KeyedOutput(Parameters.iUmass))
-            .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
+        public SpecificEnergy InternalEnergy => _internalEnergy ??= 
+            SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iUmass))
+                .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
         ///     Maximum pressure limit
@@ -121,9 +121,9 @@ namespace SharpProp
         /// <summary>
         ///     Maximum temperature limit
         /// </summary>
-        public Temperature MaxTemperature => _maxTemperature ??= Temperature
-            .FromKelvins(KeyedOutput(Parameters.iT_max))
-            .ToUnit(TemperatureUnit.DegreeCelsius);
+        public Temperature MaxTemperature => _maxTemperature ??=
+            Temperature.FromKelvins(KeyedOutput(Parameters.iT_max))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
         ///     Minimum pressure limit
@@ -136,9 +136,9 @@ namespace SharpProp
         /// <summary>
         ///     Minimum temperature limit
         /// </summary>
-        public Temperature MinTemperature => _minTemperature ??= Temperature
-            .FromKelvins(KeyedOutput(Parameters.iT_min))
-            .ToUnit(TemperatureUnit.DegreeCelsius);
+        public Temperature MinTemperature => _minTemperature ??= 
+            Temperature.FromKelvins(KeyedOutput(Parameters.iT_min))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
         ///     Molar mass
@@ -161,9 +161,9 @@ namespace SharpProp
         /// <summary>
         ///     Absolute pressure
         /// </summary>
-        public Pressure Pressure => _pressure ??= Pressure
-            .FromPascals(KeyedOutput(Parameters.iP))
-            .ToUnit(PressureUnit.Kilopascal);
+        public Pressure Pressure => _pressure ??= 
+            Pressure.FromPascals(KeyedOutput(Parameters.iP))
+                .ToUnit(PressureUnit.Kilopascal);
 
         /// <summary>
         ///     Mass vapor quality
@@ -184,9 +184,9 @@ namespace SharpProp
         /// <summary>
         ///     Mass specific constant pressure specific heat
         /// </summary>
-        public SpecificEntropy SpecificHeat => _specificHeat ??= SpecificEntropy
-            .FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCpmass))
-            .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
+        public SpecificEntropy SpecificHeat => _specificHeat ??= 
+            SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCpmass))
+                .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
         ///     Surface tension
@@ -199,9 +199,9 @@ namespace SharpProp
         /// <summary>
         ///     Temperature
         /// </summary>
-        public Temperature Temperature => _temperature ??= Temperature
-            .FromKelvins(KeyedOutput(Parameters.iT))
-            .ToUnit(TemperatureUnit.DegreeCelsius);
+        public Temperature Temperature => _temperature ??= 
+            Temperature.FromKelvins(KeyedOutput(Parameters.iT))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
         ///     Absolute pressure at the triple point

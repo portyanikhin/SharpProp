@@ -19,7 +19,7 @@ namespace SharpProp.Tests
         }
 
         [Test(ExpectedResult = 4156.6814728615545)]
-        public double TestConstantVolumeSpecificHeat() => _fluid.ConstantVolumeSpecificHeat.JoulesPerKilogramKelvin;
+        public double TestSpecificHeatConstVolume() => _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         [Test(ExpectedResult = 55408.953697937126)]
         public double? TestMolarDensity() => _fluid.MolarDensity?.KilogramsPerMole;
@@ -32,7 +32,7 @@ namespace SharpProp.Tests
         /// </summary>
         private class FluidExtended : Fluid
         {
-            private SpecificEntropy? _constantVolumeSpecificHeat;
+            private SpecificEntropy? _specificHeatConstVolume;
             private MolarMass? _molarDensity;
             private double? _ozoneDepletionPotential;
 
@@ -43,7 +43,7 @@ namespace SharpProp.Tests
             /// <summary>
             ///     Mass specific constant volume specific heat
             /// </summary>
-            public SpecificEntropy ConstantVolumeSpecificHeat => _constantVolumeSpecificHeat ??=
+            public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
                 SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
                     .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
@@ -63,7 +63,7 @@ namespace SharpProp.Tests
             protected override void Reset()
             {
                 base.Reset();
-                _constantVolumeSpecificHeat = null;
+                _specificHeatConstVolume = null;
                 _molarDensity = null;
                 _ozoneDepletionPotential = null;
             }

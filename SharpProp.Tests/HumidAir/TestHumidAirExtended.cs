@@ -1,4 +1,9 @@
 ﻿using NUnit.Framework;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
 
 namespace SharpProp.Tests
 {
@@ -10,24 +15,26 @@ namespace SharpProp.Tests
         public void SetUp()
         {
             _humidAir = new HumidAirExtended();
-            _humidAir.Update(InputHumidAir.Pressure(101325), InputHumidAir.Temperature(293.15),
-                InputHumidAir.RelativeHumidity(0.5));
+            _humidAir.Update(InputHumidAir.Pressure(1.Atmospheres()), InputHumidAir.Temperature(20.DegreesCelsius()),
+                InputHumidAir.RelativeHumidity(50.Percent()));
         }
 
         [Test(ExpectedResult = 722.68718970632506)]
-        public double TestSpecificHeatConstVolume() => _humidAir.SpecificHeatConstVolume;
+        public double TestSpecificHeatConstVolume() => _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         /// <summary>
         ///     An example of how to add new properties to a <see cref="HumidAir" />
         /// </summary>
         private class HumidAirExtended : HumidAir
         {
-            private double? _specificHeatConstVolume;
+            private SpecificEntropy? _specificHeatConstVolume;
 
             /// <summary>
-            ///     Mixture specific heat at constant volume per unit humid air [J/kg/K]
+            ///     Mixture specific heat at constant volume per unit humid air
             /// </summary>
-            public double SpecificHeatConstVolume => _specificHeatConstVolume ??= KeyedOutput("CVha");
+            public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??= 
+                SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("CVha"))
+                    .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
             protected override void Reset()
             {

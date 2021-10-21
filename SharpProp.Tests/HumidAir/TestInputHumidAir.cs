@@ -1,5 +1,12 @@
 ﻿using FluentAssertions;
 using NUnit.Framework;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToDensity;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
+using UnitsNet.NumberExtensions.NumberToSpecificEntropy;
+using UnitsNet.NumberExtensions.NumberToTemperature;
 
 namespace SharpProp.Tests
 {
@@ -7,16 +14,16 @@ namespace SharpProp.Tests
     {
         private static object[] _inputHumidAirCases =
         {
-            new object[] {InputHumidAir.Density(1.2), "Vha", 1.2},
-            new object[] {InputHumidAir.DewTemperature(283.15), "D", 283.15},
-            new object[] {InputHumidAir.Enthalpy(2e4), "Hha", 2e4},
-            new object[] {InputHumidAir.Entropy(1e4), "Sha", 1e4},
-            new object[] {InputHumidAir.Humidity(5e-3), "W", 5e-3},
-            new object[] {InputHumidAir.PartialPressure(1e3), "P_w", 1e3},
-            new object[] {InputHumidAir.Pressure(101325), "P", 101325},
-            new object[] {InputHumidAir.RelativeHumidity(0.5), "R", 0.5},
-            new object[] {InputHumidAir.Temperature(293.15), "T", 293.15},
-            new object[] {InputHumidAir.WetBulbTemperature(288.15), "B", 288.15}
+            new object[] {InputHumidAir.Density(1.2.KilogramsPerCubicMeter()), "Vha", 0.8333333333333334},
+            new object[] {InputHumidAir.DewTemperature(10.DegreesCelsius()), "D", 283.15},
+            new object[] {InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), "Hha", 2e4},
+            new object[] {InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()), "Sha", 1e4},
+            new object[] {InputHumidAir.Humidity(5.PartsPerThousand()), "W", 5e-3},
+            new object[] {InputHumidAir.PartialPressure(1.Kilopascals()), "P_w", 1e3},
+            new object[] {InputHumidAir.Pressure(1.Atmospheres()), "P", 101325},
+            new object[] {InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)), "R", 0.5},
+            new object[] {InputHumidAir.Temperature(20.DegreesCelsius()), "T", 293.15},
+            new object[] {InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), "B", 288.15}
         };
 
         [TestCaseSource(nameof(_inputHumidAirCases))]
@@ -28,6 +35,7 @@ namespace SharpProp.Tests
             input.Value.Should().Be(value);
 
         [Test]
-        public static void TestEquals() => InputHumidAir.Pressure(101325).Should().Be(InputHumidAir.Pressure(101325));
+        public static void TestEquals() => 
+            InputHumidAir.Pressure(1.Atmospheres()).Should().Be(InputHumidAir.Pressure(101325.Pascals()));
     }
 }

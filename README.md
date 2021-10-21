@@ -10,85 +10,114 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
 
 ## Quick start
 
-All calculations of thermophysical properties are performed in _SI units_.
+* `Fluid` class - for pure fluids and binary mixtures
+* `Mixture` class - for mixtures with pure fluids components
+* `FluidsList` enum - all available fluids
+* `Input` record - inputs for the `Fluid` and `Mixture` classes
+* `HumidAir` class - for humid air
+* `InputHumidAir` record - inputs for the `HumidAir` class
 
-The `Fluid` class is responsible for pure fluids and binary mixtures, the `Mixture` class - for mixtures with pure
-fluids components, the `HumidAir` class - for humid air.
+### Unit safety
 
-The `FluidsList` is an enum of all available fluids.
+All calculations of thermophysical properties are **_unit safe_** (thanks to [UnitsNet](https://github.com/angularsen/UnitsNet)).
+This allows you to avoid errors associated with incorrect dimensions of quantities,
+and will help you save a lot of time on their search and elimination.
+In addition, you will be able to convert all values to many other dimensions without the slightest difficulty.
 
 ### List of properties
 
 For the `Fluid` and `Mixture` instances:
 
-* `Compressibility` - compressibility factor (-)
-* `Conductivity` - thermal conductivity (W/m/K)
-* `CriticalPressure` - absolute pressure at the critical point (Pa)
-* `CriticalTemperature` - absolute temperature at the critical point (K)
-* `Density` - mass density (kg/m3)
-* `DynamicViscosity` - dynamic viscosity (Pa*s)
-* `Enthalpy` - mass specific enthalpy (J/kg)
-* `Entropy` - mass specific entropy (J/kg/K)
-* `FreezingTemperature` - temperature at freezing point (for incompressible fluids) (K)
-* `InternalEnergy` - mass specific internal energy (J/kg)
-* `MaxPressure` - maximum pressure limit (Pa)
-* `MaxTemperature` - maximum temperature limit (K)
-* `MinPressure` - minimum pressure limit (Pa)
-* `MinTemperature` - minimum temperature limit (K)
-* `MolarMass` - molar mass (kg/mol)
+* `Compressibility` - compressibility factor _(dimensionless)_
+* `Conductivity` - thermal conductivity _(by default, W/m/K)_
+* `CriticalPressure` - absolute pressure at the critical point _(by default, kPa)_
+* `CriticalTemperature` - temperature at the critical point _(by default, °C)_
+* `Density` - mass density _(by default, kg/m3)_
+* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_
+* `Enthalpy` - mass specific enthalpy _(by default, kJ/kg)_
+* `Entropy` - mass specific entropy _(by default, kJ/kg/K)_
+* `FreezingTemperature` - temperature at freezing point (for incompressible fluids) _(by default, °C)_
+* `InternalEnergy` - mass specific internal energy _(by default, kJ/kg)_
+* `MaxPressure` - maximum pressure limit _(by default, kPa)_
+* `MaxTemperature` - maximum temperature limit _(by default, °C)_
+* `MinPressure` - minimum pressure limit _(by default, kPa)_
+* `MinTemperature` - minimum temperature limit _(by default, °C)_
+* `MolarMass` - molar mass _(by default, g/mol)_
 * `Phase` - phase
-* `Prandtl` - Prandtl number (-)
-* `Pressure` - absolute pressure (Pa)
-* `Quality` - mass vapor quality (-)
-* `SoundSpeed` - sound speed (m/s)
-* `SpecificHeat` - mass specific constant pressure specific heat (J/kg/K)
-* `SurfaceTension` - surface tension (N/m)
-* `Temperature` - absolute temperature (K)
-* `TriplePressure` - absolute pressure at the triple point (Pa)
-* `TripleTemperature` - absolute temperature at the triple point (K)
+* `Prandtl` - Prandtl number _(dimensionless)_
+* `Pressure` - absolute pressure _(by default, kPa)_
+* `Quality` - mass vapor quality _(by default, %)_
+* `SoundSpeed` - sound speed _(by default, m/s)_
+* `SpecificHeat` - mass specific constant pressure specific heat _(by default, kJ/kg/K)_
+* `SurfaceTension` - surface tension _(by default, N/m)_
+* `Temperature` - temperature _(by default, °C)_
+* `TriplePressure` - absolute pressure at the triple point _(by default, kPa)_
+* `TripleTemperature` - temperature at the triple point _(by default, °C)_
 
 For the `HumidAir` instances:
 
-* `Compressibility` - compressibility factor (-)
-* `Conductivity` - thermal conductivity (W/m/K)
-* `Density` - mass density per humid air unit (kg/m3)
-* `DewTemperature` - dew-point absolute temperature (K)
-* `DynamicViscosity` - dynamic viscosity (Pa*s)
-* `Enthalpy` - mass specific enthalpy per humid air (J/kg)
-* `Entropy` - mass specific entropy per humid air (J/kg/K)
-* `Humidity` - absolute humidity ratio (kg/kg d.a.)
-* `PartialPressure` - partial pressure of water vapor (Pa)
-* `Pressure` - absolute pressure (Pa)
-* `RelativeHumidity` - relative humidity ratio (from 0 to 1) (-)
-* `SpecificHeat` - mass specific constant pressure specific heat per humid air (J/kg/K)
-* `Temperature` - absolute dry-bulb temperature (K)
-* `WetBulbTemperature` - absolute wet-bulb temperature (K)
+* `Compressibility` - compressibility factor _(dimensionless)_
+* `Conductivity` - thermal conductivity _(by default, W/m/K)_
+* `Density` - mass density per humid air unit _(by default, kg/m3)_
+* `DewTemperature` - dew-point temperature _(by default, °C)_
+* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_
+* `Enthalpy` - mass specific enthalpy per humid air _(by default, kJ/kg)_
+* `Entropy` - mass specific entropy per humid air _(by default, kJ/kg/K)_
+* `Humidity` - absolute humidity ratio _(by default, g/kg d.a.)_
+* `PartialPressure` - partial pressure of water vapor _(by default, kPa)_
+* `Pressure` - absolute pressure _(by default, kPa)_
+* `RelativeHumidity` - relative humidity ratio _(by default, %)_
+* `SpecificHeat` - mass specific constant pressure specific heat per humid air _(by default, kJ/kg/K)_
+* `Temperature` - dry-bulb temperature _(by default, °C)_
+* `WetBulbTemperature` - wet-bulb temperature _(by default, °C)_
 
 **NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
 the `Fluid`, `Mixture` or `HumidAir` classes.
 
 ### Examples
 
-Don't forget to add `using SharpProp;` at the top of the code.
-
 #### Pure fluids
 
-To calculate the specific heat of saturated water vapour at _101325 Pa_:
+To calculate the specific heat of saturated water vapour at _1 atm_:
+
+```c#
+using System;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.Units;
+```
 
 ```c#
 var waterVapour = new Fluid(FluidsList.Water);
-waterVapour.Update(Input.Pressure(101325), Input.Quality(1));
-Console.WriteLine(waterVapour.SpecificHeat); // 2079.937085633241
+waterVapour.Update(Input.Pressure(1.Atmospheres()), Input.Quality(100.Percent()));
+Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin); // 2079.937085633241
+Console.WriteLine(waterVapour.SpecificHeat);                         // 2.08 kJ/kg.K
+Console.WriteLine(waterVapour.SpecificHeat
+    .ToUnit(SpecificEntropyUnit.CaloriePerGramKelvin));              // 0.5 cal/g.K
 ```
 
 #### Incompressible binary mixtures
 
-To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _101325 Pa_ and _253.15 K_:
+To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _100 kPa_ and _-20
+°C_:
 
 ```c#
-var propyleneGlycol = new Fluid(FluidsList.MPG, 0.6);
-propyleneGlycol.Update(Input.Pressure(101325), Input.Temperature(253.15));
-Console.WriteLine(propyleneGlycol.DynamicViscosity); // 0.13907391053938847
+using System;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+```
+
+```c#
+var propyleneGlycol = new Fluid(FluidsList.MPG, 60.Percent());
+propyleneGlycol.Update(Input.Pressure(100.Kilopascals()), Input.Temperature((-20).DegreesCelsius()));
+Console.WriteLine(propyleneGlycol.DynamicViscosity?.PascalSeconds); // 0.13907391053938878
+Console.WriteLine(propyleneGlycol.DynamicViscosity);                // 139.07 mPa·s
+Console.WriteLine(propyleneGlycol.DynamicViscosity?
+    .ToUnit(DynamicViscosityUnit.Poise));                           // 1.39 P
 ```
 
 #### Mixtures
@@ -96,10 +125,23 @@ Console.WriteLine(propyleneGlycol.DynamicViscosity); // 0.13907391053938847
 To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) at _200 kPa_ and _277.15 K_:
 
 ```c#
+using System;
+using System.Collections.Generic;
+using SharpProp;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+```
+
+```c#
 var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol}, 
-    new List<double> {0.6, 0.4});
-mixture.Update(Input.Pressure(200e3), Input.Temperature(277.15));
-Console.WriteLine(mixture.Density); // 883.3922771627759
+    new List<Ratio> {60.Percent(), 40.Percent()});
+mixture.Update(Input.Pressure(200.Kilopascals()), Input.Temperature(277.15.Kelvins()));
+Console.WriteLine(mixture.Density.KilogramsPerCubicMeter);               // 883.3922771627759
+Console.WriteLine(mixture.Density);                                      // 883.39 kg/m3
+Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.34 g/dl
 ```
 
 #### Humid air
@@ -107,13 +149,26 @@ Console.WriteLine(mixture.Density); // 883.3922771627759
 To calculate the wet bulb temperature of humid air at _99 kPa_, _303.15 K_ and _50 %_ relative humidity:
 
 ```c#
+using System;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+```
+
+```c#
 var humidAir = new HumidAir();
-humidAir.Update(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
-    InputHumidAir.RelativeHumidity(0.5));
+humidAir.Update(InputHumidAir.Pressure(99.Kilopascals()), InputHumidAir.Temperature(30.DegreesCelsius()),
+    InputHumidAir.RelativeHumidity(50.Percent()));
 // or use:
-// var humidAir = HumidAir.WithState(InputHumidAir.Pressure(99e3), InputHumidAir.Temperature(303.15),
-//     InputHumidAir.RelativeHumidity(0.5));
-Console.WriteLine(humidAir.WetBulbTemperature); // 295.0965785590792
+// var humidAir1 = 
+//     HumidAir.WithState(InputHumidAir.Pressure(99.Kilopascals()), 
+//         InputHumidAir.Temperature(30.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
+Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.0965785590792
+Console.WriteLine(humidAir.WetBulbTemperature);         // 21.95 °C
+Console.WriteLine(humidAir.WetBulbTemperature
+    .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.5 °F
 ```
 
 #### Converting to JSON string
@@ -121,9 +176,16 @@ Console.WriteLine(humidAir.WetBulbTemperature); // 295.0965785590792
 For example, converting the `Fluid` instance to _indented_ JSON string:
 
 ```c#
+using System;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+```
+
+```c#
 var refrigerant = new Fluid(FluidsList.R32);
-refrigerant.Update(Input.Temperature(278.15), Input.Quality(1));
-Console.WriteLine(refrigerant.AsJson(indented: true));
+refrigerant.Update(Input.Temperature(5.DegreesCelsius()), Input.Quality(100.Percent()));
+Console.WriteLine(refrigerant.AsJson());
 ```
 
 As a result:
@@ -131,50 +193,125 @@ As a result:
 ```json
 {
   "Name": "R32",
-  "Fraction": 1.0,
+  "Fraction": {
+    "Unit": "RatioUnit.Percent",
+    "Value": 100.0
+  },
   "Compressibility": 0.8266625877210833,
-  "Conductivity": 0.013435453854396475,
-  "CriticalPressure": 5782000.0,
-  "CriticalTemperature": 351.255,
-  "Density": 25.89088151061046,
-  "DynamicViscosity": 1.2606543144761657E-05,
-  "Enthalpy": 516105.7800378023,
-  "Entropy": 2136.2654412978777,
+  "Conductivity": {
+    "Unit": "ThermalConductivityUnit.WattPerMeterKelvin",
+    "Value": 0.013435453854396475
+  },
+  "CriticalPressure": {
+    "Unit": "PressureUnit.Kilopascal",
+    "Value": 5782.0
+  },
+  "CriticalTemperature": {
+    "Unit": "TemperatureUnit.DegreeCelsius",
+    "Value": 78.10500000000002
+  },
+  "Density": {
+    "Unit": "DensityUnit.KilogramPerCubicMeter",
+    "Value": 25.89088151061046
+  },
+  "DynamicViscosity": {
+    "Unit": "DynamicViscosityUnit.MillipascalSecond",
+    "Value": 0.012606543144761657
+  },
+  "Enthalpy": {
+    "Unit": "SpecificEnergyUnit.KilojoulePerKilogram",
+    "Value": 516.1057800378023
+  },
+  "Entropy": {
+    "Unit": "SpecificEntropyUnit.KilojoulePerKilogramKelvin",
+    "Value": 2.1362654412978777
+  },
   "FreezingTemperature": null,
-  "InternalEnergy": 479357.39743435377,
-  "MaxPressure": 70000000.0,
-  "MaxTemperature": 435.0,
-  "MinPressure": 47.999893876059375,
-  "MinTemperature": 136.34,
-  "MolarMass": 0.052024,
+  "InternalEnergy": {
+    "Unit": "SpecificEnergyUnit.KilojoulePerKilogram",
+    "Value": 479.35739743435374
+  },
+  "MaxPressure": {
+    "Unit": "PressureUnit.Kilopascal",
+    "Value": 70000.0
+  },
+  "MaxTemperature": {
+    "Unit": "TemperatureUnit.DegreeCelsius",
+    "Value": 161.85000000000002
+  },
+  "MinPressure": {
+    "Unit": "PressureUnit.Kilopascal",
+    "Value": 0.04799989387605937
+  },
+  "MinTemperature": {
+    "Unit": "TemperatureUnit.DegreeCelsius",
+    "Value": -136.80999999999997
+  },
+  "MolarMass": {
+    "Unit": "MolarMassUnit.GramPerMole",
+    "Value": 52.024
+  },
   "Phase": "TwoPhase",
   "Prandtl": 1.2252282243443504,
-  "Pressure": 951448.019691762,
-  "Quality": 1.0,
-  "SoundSpeed": 209.6337575990297,
-  "SpecificHeat": 1305.7899441785378,
-  "SurfaceTension": 0.010110117241546162,
-  "Temperature": 278.15,
-  "TriplePressure": 47.999893876059375,
-  "TripleTemperature": 136.34
+  "Pressure": {
+    "Unit": "PressureUnit.Kilopascal",
+    "Value": 951.448019691762
+  },
+  "Quality": {
+    "Unit": "RatioUnit.Percent",
+    "Value": 100.0
+  },
+  "SoundSpeed": {
+    "Unit": "SpeedUnit.MeterPerSecond",
+    "Value": 209.6337575990297
+  },
+  "SpecificHeat": {
+    "Unit": "SpecificEntropyUnit.KilojoulePerKilogramKelvin",
+    "Value": 1.3057899441785379
+  },
+  "SurfaceTension": {
+    "Unit": "ForcePerLengthUnit.NewtonPerMeter",
+    "Value": 0.010110117241546162
+  },
+  "Temperature": {
+    "Unit": "TemperatureUnit.DegreeCelsius",
+    "Value": 5.0
+  },
+  "TriplePressure": {
+    "Unit": "PressureUnit.Kilopascal",
+    "Value": 0.04799989387605937
+  },
+  "TripleTemperature": {
+    "Unit": "TemperatureUnit.DegreeCelsius",
+    "Value": -136.80999999999997
+  }
 }
 ```
 
 #### Equality of instances
 
-You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
-Just use the `Equals` method or the equality operators (`==` or `!=`).
-Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
+You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state. Just use the `Equals`
+method or the equality operators (`==` or `!=`). Exactly the same way you can compare inputs (`Input`, `InputHumidAir`
+or any `IKeyedInput` record).
 
 For example:
 
 ```c#
-var humidAir = HumidAir.WithState(InputHumidAir.Pressure(101325),
-    InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325),
-    InputHumidAir.Temperature(293.15), InputHumidAir.RelativeHumidity(0.5));
-Console.WriteLine(humidAir == humidAirWithSameState); // true
-Console.WriteLine(InputHumidAir.Pressure(101325) == InputHumidAir.Pressure(101.325e3)); // true
+using System;
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+```
+
+```c#
+var humidAir = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
+    InputHumidAir.Temperature(20.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
+var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325.Pascals()),
+    InputHumidAir.Temperature(293.15.Kelvins()), InputHumidAir.RelativeHumidity(50.Percent()));
+Console.WriteLine(humidAir == humidAirWithSameState);             // true
+Console.WriteLine(InputHumidAir.Pressure(1.Atmospheres()) == 
+                  InputHumidAir.Pressure(101.325.Kilopascals())); // true
 ```
 
 #### Adding other properties

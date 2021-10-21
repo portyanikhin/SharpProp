@@ -38,7 +38,7 @@ namespace SharpProp.Extensions
         ///     Gets access to the minimum possible fraction
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member</param>
-        /// <returns>The minimum possible fraction</returns>
+        /// <returns>The minimum possible fraction (by default, %)</returns>
         public static Ratio FractionMin(this FluidsList member) =>
             Ratio.FromDecimalFractions(member.GetAttribute<FluidInfo>().FractionMin).ToUnit(RatioUnit.Percent);
 
@@ -46,7 +46,7 @@ namespace SharpProp.Extensions
         ///     Gets access to the maximum possible fraction
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member</param>
-        /// <returns>The maximum possible fraction</returns>
+        /// <returns>The maximum possible fraction (by default, %)</returns>
         public static Ratio FractionMax(this FluidsList member) =>
             Ratio.FromDecimalFractions(member.GetAttribute<FluidInfo>().FractionMax).ToUnit(RatioUnit.Percent);
     }

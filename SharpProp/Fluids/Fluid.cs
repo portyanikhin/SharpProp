@@ -17,7 +17,7 @@ namespace SharpProp
         /// <param name="name">Selected fluid</param>
         /// <param name="fraction">Mass-based or volume-based fraction for binary mixtures (optional)</param>
         /// <exception cref="ArgumentException">
-        ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}]. Entered value = {fraction}
+        ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %. Entered value = {fraction} %
         /// </exception>
         /// <exception cref="ArgumentException">Need to define fraction!</exception>
         public Fluid(FluidsList name, Ratio? fraction = null)
@@ -30,7 +30,7 @@ namespace SharpProp
             Name = name;
             Fraction = Name.Pure()
                 ? Ratio.FromPercent(100)
-                : fraction ?? throw new ArgumentException("Need to define fraction!");
+                : fraction?.ToUnit(RatioUnit.Percent) ?? throw new ArgumentException("Need to define fraction!");
             Backend = AbstractState.factory(Name.CoolPropBackend(), Name.CoolPropName());
             if (!Name.Pure()) SetFraction();
         }
@@ -41,7 +41,7 @@ namespace SharpProp
         public FluidsList Name { get; }
 
         /// <summary>
-        ///     Mass-based or volume-based fraction for binary mixtures
+        ///     Mass-based or volume-based fraction for binary mixtures (by default, %)
         /// </summary>
         public Ratio Fraction { get; }
 

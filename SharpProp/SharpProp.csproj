@@ -20,9 +20,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\"/>
-        <None Include="..\README.md" Pack="true" PackagePath="\"/>
-        <None Include="SharpProp.targets" PackagePath="build\" Pack="true"/>
+        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\" />
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+        <None Include="SharpProp.targets" PackagePath="build\" Pack="true" />
         <None Update="libCoolProp.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>
@@ -36,9 +36,9 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
-        <PackageReference Include="UnitsNet" Version="4.102.0"/>
-        <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="4.4.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+        <PackageReference Include="UnitsNet" Version="4.102.0" />
+        <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="4.4.0" />
     </ItemGroup>
 
 </Project>

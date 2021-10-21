@@ -38,12 +38,12 @@ namespace SharpProp
         protected AbstractState Backend { get; init; } = null!;
 
         /// <summary>
-        ///     Compressibility factor
+        ///     Compressibility factor (dimensionless)
         /// </summary>
         public double? Compressibility => _compressibility ??= NullableKeyedOutput(Parameters.iZ);
 
         /// <summary>
-        ///     Thermal conductivity
+        ///     Thermal conductivity (by default, W/m/K)
         /// </summary>
         public ThermalConductivity? Conductivity => _conductivity ??=
             KeyedOutputIsNotNull(Parameters.iconductivity, out var output)
@@ -51,7 +51,7 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Absolute pressure at the critical point
+        ///     Absolute pressure at the critical point (by default, kPa)
         /// </summary>
         public Pressure? CriticalPressure => _criticalPressure ??=
             KeyedOutputIsNotNull(Parameters.iP_critical, out var output)
@@ -59,7 +59,7 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Temperature at the critical point
+        ///     Temperature at the critical point (by default, °C)
         /// </summary>
         public Temperature? CriticalTemperature => _criticalTemperature ??=
             KeyedOutputIsNotNull(Parameters.iT_critical, out var output)
@@ -67,13 +67,13 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Mass density
+        ///     Mass density (by default, kg/m3)
         /// </summary>
         public Density Density => _density ??= 
             Density.FromKilogramsPerCubicMeter(KeyedOutput(Parameters.iDmass));
 
         /// <summary>
-        ///     Dynamic viscosity
+        ///     Dynamic viscosity (by default, mPa*s)
         /// </summary>
         public DynamicViscosity? DynamicViscosity => _dynamicViscosity ??=
             KeyedOutputIsNotNull(Parameters.iviscosity, out var output)
@@ -82,21 +82,21 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Mass specific enthalpy
+        ///     Mass specific enthalpy (by default, kJ/kg)
         /// </summary>
         public SpecificEnergy Enthalpy => _enthalpy ??= 
             SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iHmass))
                 .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
-        ///     Mass specific entropy
+        ///     Mass specific entropy (by default, kJ/kg/K)
         /// </summary>
         public SpecificEntropy Entropy => _entropy ??= 
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iSmass))
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Temperature at freezing point (for incompressible fluids)
+        ///     Temperature at freezing point (for incompressible fluids) (by default, °C)
         /// </summary>
         public Temperature? FreezingTemperature => _freezingTemperature ??=
             KeyedOutputIsNotNull(Parameters.iT_freeze, out var output)
@@ -104,14 +104,14 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Mass specific internal energy
+        ///     Mass specific internal energy (by default, kJ/kg)
         /// </summary>
         public SpecificEnergy InternalEnergy => _internalEnergy ??= 
             SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iUmass))
                 .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
-        ///     Maximum pressure limit
+        ///     Maximum pressure limit (by default, kPa)
         /// </summary>
         public Pressure? MaxPressure => _maxPressure ??=
             KeyedOutputIsNotNull(Parameters.iP_max, out var output)
@@ -119,14 +119,14 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Maximum temperature limit
+        ///     Maximum temperature limit (by default, °C)
         /// </summary>
         public Temperature MaxTemperature => _maxTemperature ??=
             Temperature.FromKelvins(KeyedOutput(Parameters.iT_max))
                 .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
-        ///     Minimum pressure limit
+        ///     Minimum pressure limit (by default, kPa)
         /// </summary>
         public Pressure? MinPressure => _minPressure ??=
             KeyedOutputIsNotNull(Parameters.iP_min, out var output)
@@ -134,14 +134,14 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Minimum temperature limit
+        ///     Minimum temperature limit (by default, °C)
         /// </summary>
         public Temperature MinTemperature => _minTemperature ??= 
             Temperature.FromKelvins(KeyedOutput(Parameters.iT_min))
                 .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
-        ///     Molar mass
+        ///     Molar mass (by default, g/mol)
         /// </summary>
         public MolarMass? MolarMass => _molarMass ??=
             KeyedOutputIsNotNull(Parameters.imolar_mass, out var output)
@@ -154,19 +154,19 @@ namespace SharpProp
         public Phases Phase => _phase ??= (Phases) KeyedOutput(Parameters.iPhase);
 
         /// <summary>
-        ///     Prandtl number
+        ///     Prandtl number (dimensionless)
         /// </summary>
         public double? Prandtl => _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
 
         /// <summary>
-        ///     Absolute pressure
+        ///     Absolute pressure (by default, kPa)
         /// </summary>
         public Pressure Pressure => _pressure ??= 
             Pressure.FromPascals(KeyedOutput(Parameters.iP))
                 .ToUnit(PressureUnit.Kilopascal);
 
         /// <summary>
-        ///     Mass vapor quality
+        ///     Mass vapor quality (by default, %)
         /// </summary>
         public Ratio? Quality => _quality ??=
             KeyedOutputIsNotNull(Parameters.iQ, out var output)
@@ -174,7 +174,7 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Sound speed
+        ///     Sound speed (by default, m/s)
         /// </summary>
         public Speed? SoundSpeed => _soundSpeed ??=
             KeyedOutputIsNotNull(Parameters.ispeed_sound, out var output)
@@ -182,14 +182,14 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Mass specific constant pressure specific heat
+        ///     Mass specific constant pressure specific heat (by default, kJ/kg/K)
         /// </summary>
         public SpecificEntropy SpecificHeat => _specificHeat ??= 
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCpmass))
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Surface tension
+        ///     Surface tension (by default, N/m)
         /// </summary>
         public ForcePerLength? SurfaceTension => _surfaceTension ??=
             KeyedOutputIsNotNull(Parameters.isurface_tension, out var output)
@@ -197,14 +197,14 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Temperature
+        ///     Temperature (by default, °C)
         /// </summary>
         public Temperature Temperature => _temperature ??= 
             Temperature.FromKelvins(KeyedOutput(Parameters.iT))
                 .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
-        ///     Absolute pressure at the triple point
+        ///     Absolute pressure at the triple point (by default, kPa)
         /// </summary>
         public Pressure? TriplePressure => _triplePressure ??=
             KeyedOutputIsNotNull(Parameters.iP_triple, out var output)
@@ -212,7 +212,7 @@ namespace SharpProp
                 : null;
 
         /// <summary>
-        ///     Temperature at the triple point
+        ///     Temperature at the triple point (by default, °C)
         /// </summary>
         public Temperature? TripleTemperature => _tripleTemperature ??=
             KeyedOutputIsNotNull(Parameters.iT_triple, out var output)

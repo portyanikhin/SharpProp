@@ -4,6 +4,7 @@ using System.Linq;
 using CoolProp;
 using SharpProp.Extensions;
 using UnitsNet;
+using UnitsNet.Units;
 
 namespace SharpProp
 {
@@ -41,7 +42,7 @@ namespace SharpProp
             if (Math.Abs(fractions.Sum(frac => frac.Percent) - 100) > 1e-6)
                 throw new ArgumentException("Invalid component mass fractions! Their sum should be equal to 100 %.");
             Fluids = fluids;
-            Fractions = fractions;
+            Fractions = fractions.Select(frac => frac.ToUnit(RatioUnit.Percent)).ToList();
             Backend = AbstractState.factory("HEOS", string.Join("&", Fluids.ToArray()));
             Backend.set_mass_fractions(new DoubleVector(Fractions.Select(frac => frac.DecimalFractions)));
         }
@@ -52,7 +53,7 @@ namespace SharpProp
         public List<FluidsList> Fluids { get; }
 
         /// <summary>
-        ///     List of mass-based fractions
+        ///     List of mass-based fractions (by default, %)
         /// </summary>
         public List<Ratio> Fractions { get; }
 

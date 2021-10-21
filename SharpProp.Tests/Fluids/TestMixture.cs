@@ -81,7 +81,7 @@ namespace SharpProp.Tests
             clonedMixture.Should().NotBeSameAs(_mixture);
             clonedMixture.GetHashCode().Should().Be(_mixture.GetHashCode());
             clonedMixture.Fluids.Should().BeSameAs(_mixture.Fluids);
-            clonedMixture.Fractions.Should().BeSameAs(_mixture.Fractions);
+            clonedMixture.Fractions.Should().BeEquivalentTo(_mixture.Fractions);
             clonedMixture.Phase.Should().Be(Phases.Unknown);
         }
 

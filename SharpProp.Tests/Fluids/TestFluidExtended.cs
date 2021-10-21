@@ -1,5 +1,8 @@
 ﻿using CoolProp;
 using NUnit.Framework;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToTemperature;
 
 namespace SharpProp.Tests
 {
@@ -11,11 +14,14 @@ namespace SharpProp.Tests
         public void SetUp()
         {
             _fluid = new FluidExtended(FluidsList.Water);
-            _fluid.Update(Input.Pressure(101325), Input.Temperature(293.15));
+            _fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
         }
 
+        [Test(ExpectedResult = 4156.6814728615545)]
+        public double TestConstantVolumeSpecificHeat() => _fluid.ConstantVolumeSpecificHeat.JoulesPerKilogramKelvin;
+
         [Test(ExpectedResult = 55408.953697937126)]
-        public double TestMolarDensity() => _fluid.MolarDensity;
+        public double? TestMolarDensity() => _fluid.MolarDensity?.KilogramsPerMole;
 
         [Test(ExpectedResult = null)]
         public double? TestOzoneDepletionPotential() => _fluid.OzoneDepletionPotential;
@@ -25,27 +31,39 @@ namespace SharpProp.Tests
         /// </summary>
         private class FluidExtended : Fluid
         {
-            private double? _molarDensity;
+            private SpecificEntropy? _constantVolumeSpecificHeat;
+            private MolarMass? _molarDensity;
             private double? _ozoneDepletionPotential;
 
-            public FluidExtended(FluidsList name, double? fraction = null) : base(name, fraction)
+            public FluidExtended(FluidsList name, Ratio? fraction = null) : base(name, fraction)
             {
             }
 
             /// <summary>
-            ///     Molar density [kg/mol]
+            ///     Mass specific constant volume specific heat
             /// </summary>
-            public double MolarDensity => _molarDensity ??= KeyedOutput(parameters.iDmolar);
+            public SpecificEntropy ConstantVolumeSpecificHeat => _constantVolumeSpecificHeat ??=
+                SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass));
 
             /// <summary>
-            ///     Ozone depletion potential (ODP) [-]
+            ///     Molar density
             /// </summary>
-            public double? OzoneDepletionPotential => _ozoneDepletionPotential ??= NullableKeyedOutput(parameters.iODP);
+            public MolarMass? MolarDensity => _molarDensity ??=
+                KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
+                    ? UnitsNet.MolarMass.FromKilogramsPerMole(output!.Value)
+                    : null;
+
+            /// <summary>
+            ///     Ozone depletion potential (ODP)
+            /// </summary>
+            public double? OzoneDepletionPotential => _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
 
             protected override void Reset()
             {
                 base.Reset();
-                _molarDensity = _ozoneDepletionPotential = null;
+                _constantVolumeSpecificHeat = null;
+                _molarDensity = null;
+                _ozoneDepletionPotential = null;
             }
         }
     }

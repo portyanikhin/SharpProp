@@ -1,5 +1,7 @@
 ﻿using CoolProp;
 using NUnit.Framework;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToMolarMass;
 
 namespace SharpProp.Tests
 {
@@ -8,10 +10,10 @@ namespace SharpProp.Tests
         private InputExtended _input = null!;
 
         [SetUp]
-        public void SetUp() => _input = InputExtended.MolarDensity(900);
+        public void SetUp() => _input = InputExtended.MolarDensity(900.KilogramsPerMole());
 
-        [Test(ExpectedResult = parameters.iDmolar)]
-        public parameters TestCoolPropKey() => _input.CoolPropKey;
+        [Test(ExpectedResult = Parameters.iDmolar)]
+        public Parameters TestCoolPropKey() => _input.CoolPropKey;
 
         [Test(ExpectedResult = 900)]
         public double TestValue() => _input.Value;
@@ -21,16 +23,17 @@ namespace SharpProp.Tests
         /// </summary>
         private record InputExtended : Input
         {
-            private InputExtended(parameters coolPropKey, double value) : base(coolPropKey, value)
+            private InputExtended(Parameters coolPropKey, double value) : base(coolPropKey, value)
             {
             }
 
             /// <summary>
             ///     Molar density
             /// </summary>
-            /// <param name="value">The value [kg/mol]</param>
-            /// <returns>Molar density for the input [kg/mol]</returns>
-            public static InputExtended MolarDensity(double value) => new(parameters.iDmolar, value);
+            /// <param name="value">The value of the input</param>
+            /// <returns>Molar density for the input</returns>
+            public static InputExtended MolarDensity(MolarMass value) =>
+                new(Parameters.iDmolar, value.KilogramsPerMole);
         }
     }
 }

@@ -1,94 +1,119 @@
 ﻿using System.Collections.Generic;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace SharpProp
 {
     public partial class HumidAir
     {
         private double? _compressibility;
-        private double? _conductivity;
-        private double? _density;
-        private double? _dewTemperature;
-        private double? _dynamicViscosity;
-        private double? _enthalpy;
-        private double? _entropy;
-        private double? _humidity;
-        private double? _partialPressure;
-        private double? _pressure;
-        private double? _relativeHumidity;
-        private double? _specificHeat;
-        private double? _temperature;
-        private double? _wetBulbTemperature;
+        private ThermalConductivity? _conductivity;
+        private Density? _density;
+        private Temperature? _dewTemperature;
+        private DynamicViscosity? _dynamicViscosity;
+        private SpecificEnergy? _enthalpy;
+        private SpecificEntropy? _entropy;
+        private Ratio? _humidity;
+        private Pressure? _partialPressure;
+        private Pressure? _pressure;
+        private RelativeHumidity? _relativeHumidity;
+        private SpecificEntropy? _specificHeat;
+        private Temperature? _temperature;
+        private Temperature? _wetBulbTemperature;
 
         /// <summary>
-        ///     Compressibility factor [-]
+        ///     Compressibility factor
         /// </summary>
         public double Compressibility => _compressibility ??= KeyedOutput("Z");
 
         /// <summary>
-        ///     Thermal conductivity [W/m/K]
+        ///     Thermal conductivity
         /// </summary>
-        public double Conductivity => _conductivity ??= KeyedOutput("K");
+        public ThermalConductivity Conductivity => _conductivity ??=
+            ThermalConductivity.FromWattsPerMeterKelvin(KeyedOutput("K"));
 
         /// <summary>
-        ///     Mass density per humid air unit [kg/m3]
+        ///     Mass density per humid air unit
         /// </summary>
-        public double Density => _density ??= 1.0 / KeyedOutput("Vha");
+        public Density Density => _density ??=
+            Density.FromKilogramsPerCubicMeter(1.0 / KeyedOutput("Vha"));
 
         /// <summary>
-        ///     Dew-point absolute temperature [K]
+        ///     Dew-point temperature
         /// </summary>
-        public double DewTemperature => _dewTemperature ??= KeyedOutput("D");
+        public Temperature DewTemperature => _dewTemperature ??=
+            Temperature.FromKelvins(KeyedOutput("D"))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
-        ///     Dynamic viscosity [Pa*s]
+        ///     Dynamic viscosity
         /// </summary>
-        public double DynamicViscosity => _dynamicViscosity ??= KeyedOutput("M");
+        public DynamicViscosity DynamicViscosity => _dynamicViscosity ??=
+            DynamicViscosity.FromPascalSeconds(KeyedOutput("M"))
+                .ToUnit(DynamicViscosityUnit.MillipascalSecond);
 
         /// <summary>
-        ///     Mass specific enthalpy per humid air [J/kg]
+        ///     Mass specific enthalpy per humid air
         /// </summary>
-        public double Enthalpy => _enthalpy ??= KeyedOutput("Hha");
+        public SpecificEnergy Enthalpy => _enthalpy ??=
+            SpecificEnergy.FromJoulesPerKilogram(KeyedOutput("Hha"))
+                .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
-        ///     Mass specific entropy per humid air [J/kg/K]
+        ///     Mass specific entropy per humid air
         /// </summary>
-        public double Entropy => _entropy ??= KeyedOutput("Sha");
+        public SpecificEntropy Entropy => _entropy ??=
+            SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("Sha"))
+                .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Absolute humidity ratio [kg/kg d.a.]
+        ///     Absolute humidity ratio
         /// </summary>
-        public double Humidity => _humidity ??= KeyedOutput("W");
+        public Ratio Humidity => _humidity ??= 
+            Ratio.FromDecimalFractions(KeyedOutput("W"))
+                .ToUnit(RatioUnit.PartPerThousand);
 
         private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
 
         /// <summary>
-        ///     Partial pressure of water vapor [Pa]
+        ///     Partial pressure of water vapor
         /// </summary>
-        public double PartialPressure => _partialPressure ??= KeyedOutput("P_w");
+        public Pressure PartialPressure => _partialPressure ??=
+            Pressure.FromPascals(KeyedOutput("P_w"))
+                .ToUnit(PressureUnit.Kilopascal);
 
         /// <summary>
-        ///     Absolute pressure [Pa]
+        ///     Absolute pressure
         /// </summary>
-        public double Pressure => _pressure ??= KeyedOutput("P");
+        public Pressure Pressure => _pressure ??=
+            Pressure.FromPascals(KeyedOutput("P"))
+                .ToUnit(PressureUnit.Kilopascal);
 
         /// <summary>
-        ///     Relative humidity ratio (from 0 to 1) [-]
+        ///     Relative humidity ratio
         /// </summary>
-        public double RelativeHumidity => _relativeHumidity ??= KeyedOutput("R");
+        public RelativeHumidity RelativeHumidity => _relativeHumidity ??=
+            RelativeHumidity.FromPercent(Ratio.FromDecimalFractions(KeyedOutput("R")).Percent);
 
         /// <summary>
-        ///     Mass specific constant pressure specific heat per humid air [J/kg/K]
+        ///     Mass specific constant pressure specific heat per humid air
         /// </summary>
-        public double SpecificHeat => _specificHeat ??= KeyedOutput("Cha");
+        public SpecificEntropy SpecificHeat => _specificHeat ??=
+            SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("Cha"))
+                .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Absolute dry-bulb temperature [K]
+        ///     Dry-bulb temperature
         /// </summary>
-        public double Temperature => _temperature ??= KeyedOutput("T");
+        public Temperature Temperature => _temperature ??=
+            Temperature.FromKelvins(KeyedOutput("T"))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
 
         /// <summary>
-        ///     Absolute wet-bulb temperature [K]
+        ///     Wet-bulb temperature
         /// </summary>
-        public double WetBulbTemperature => _wetBulbTemperature ??= KeyedOutput("B");
+        public Temperature WetBulbTemperature => _wetBulbTemperature ??=
+            Temperature.FromKelvins(KeyedOutput("B"))
+                .ToUnit(TemperatureUnit.DegreeCelsius);
     }
 }

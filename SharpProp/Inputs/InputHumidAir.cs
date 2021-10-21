@@ -1,4 +1,6 @@
-﻿namespace SharpProp
+﻿using UnitsNet;
+
+namespace SharpProp
 {
     /// <summary>
     ///     CoolProp keyed input for humid air
@@ -25,71 +27,72 @@
         /// <summary>
         ///     Mass density per humid air unit
         /// </summary>
-        /// <param name="value">The value [kg/m3]</param>
-        /// <returns>Mass density per humid air unit for the input [kg/m3]</returns>
-        public static InputHumidAir Density(double value) => new("Vha", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass density per humid air unit for the input</returns>
+        public static InputHumidAir Density(Density value) => new("Vha", 1.0 / value.KilogramsPerCubicMeter);
 
         /// <summary>
-        ///     Dew-point absolute temperature
+        ///     Dew-point temperature
         /// </summary>
-        /// <param name="value">The value [K]</param>
-        /// <returns>Dew-point absolute temperature for the input [K]</returns>
-        public static InputHumidAir DewTemperature(double value) => new("D", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Dew-point temperature for the input</returns>
+        public static InputHumidAir DewTemperature(Temperature value) => new("D", value.Kelvins);
 
         /// <summary>
         ///     Mass specific enthalpy per humid air
         /// </summary>
-        /// <param name="value">The value [J/kg]</param>
-        /// <returns>Mass specific enthalpy per humid air for the input [J/kg]</returns>
-        public static InputHumidAir Enthalpy(double value) => new("Hha", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass specific enthalpy per humid air for the input</returns>
+        public static InputHumidAir Enthalpy(SpecificEnergy value) => new("Hha", value.JoulesPerKilogram);
 
         /// <summary>
         ///     Mass specific entropy per humid air
         /// </summary>
-        /// <param name="value">The value [J/kg/K]</param>
-        /// <returns>Mass specific entropy per humid air for the input [J/kg/K]</returns>
-        public static InputHumidAir Entropy(double value) => new("Sha", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass specific entropy per humid air for the input</returns>
+        public static InputHumidAir Entropy(SpecificEntropy value) => new("Sha", value.JoulesPerKilogramKelvin);
 
         /// <summary>
         ///     Absolute humidity ratio
         /// </summary>
-        /// <param name="value">The value [kg/kg d.a.]</param>
-        /// <returns>Absolute humidity ratio for the input [kg/kg d.a.]</returns>
-        public static InputHumidAir Humidity(double value) => new("W", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Absolute humidity ratio for the input</returns>
+        public static InputHumidAir Humidity(Ratio value) => new("W", value.DecimalFractions);
 
         /// <summary>
         ///     Partial pressure of water vapor
         /// </summary>
-        /// <param name="value">The value [Pa]</param>
-        /// <returns>Partial pressure of water vapor for the input [Pa]</returns>
-        public static InputHumidAir PartialPressure(double value) => new("P_w", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Partial pressure of water vapor for the input</returns>
+        public static InputHumidAir PartialPressure(Pressure value) => new("P_w", value.Pascals);
 
         /// <summary>
         ///     Absolute pressure
         /// </summary>
-        /// <param name="value">The value [Pa]</param>
-        /// <returns>Absolute pressure for the input [Pa]</returns>
-        public static InputHumidAir Pressure(double value) => new("P", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Absolute pressure for the input</returns>
+        public static InputHumidAir Pressure(Pressure value) => new("P", value.Pascals);
 
         /// <summary>
         ///     Relative humidity ratio
         /// </summary>
-        /// <param name="value">The value (from 0 to 1) [-]</param>
-        /// <returns>Relative humidity ratio (from 0 to 1) for the input [-]</returns>
-        public static InputHumidAir RelativeHumidity(double value) => new("R", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Relative humidity ratio for the input</returns>
+        public static InputHumidAir RelativeHumidity(RelativeHumidity value) => 
+            new("R", Ratio.FromPercent(value.Percent).DecimalFractions);
 
         /// <summary>
-        ///     Absolute dry-bulb temperature
+        ///     Dry-bulb temperature
         /// </summary>
-        /// <param name="value">The value [K]</param>
-        /// <returns>Absolute dry-bulb temperature for the input [K]</returns>
-        public static InputHumidAir Temperature(double value) => new("T", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Dry-bulb temperature for the input</returns>
+        public static InputHumidAir Temperature(Temperature value) => new("T", value.Kelvins);
 
         /// <summary>
-        ///     Absolute wet-bulb temperature
+        ///     Wet-bulb temperature
         /// </summary>
-        /// <param name="value">The value [K]</param>
-        /// <returns>Absolute wet-bulb temperature for the input [K]</returns>
-        public static InputHumidAir WetBulbTemperature(double value) => new("B", value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Wet-bulb temperature for the input</returns>
+        public static InputHumidAir WetBulbTemperature(Temperature value) => new("B", value.Kelvins);
     }
 }

@@ -54,9 +54,20 @@ namespace SharpProp
         /// </summary>
         protected virtual void Reset()
         {
-            _compressibility = _conductivity = _density = _dewTemperature = _dynamicViscosity = null;
-            _enthalpy = _entropy = _humidity = _partialPressure = _pressure = _relativeHumidity = null;
-            _specificHeat = _temperature = _wetBulbTemperature = null;
+            _compressibility = null;
+            _conductivity = null;
+            _density = null;
+            _dewTemperature = null;
+            _dynamicViscosity = null;
+            _enthalpy = null;
+            _entropy = null;
+            _humidity = null;
+            _partialPressure = null;
+            _pressure = null;
+            _relativeHumidity = null;
+            _specificHeat = null;
+            _temperature = null;
+            _wetBulbTemperature = null;
         }
 
         /// <summary>

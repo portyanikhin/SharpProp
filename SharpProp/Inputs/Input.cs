@@ -1,76 +1,78 @@
 ﻿using CoolProp;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace SharpProp
 {
     /// <summary>
     ///     CoolProp keyed input for fluids and mixtures
     /// </summary>
-    public record Input : IKeyedInput<parameters>
+    public record Input : IKeyedInput<Parameters>
     {
         /// <summary>
         ///     CoolProp keyed input for fluids and mixtures
         /// </summary>
         /// <param name="coolPropKey">CoolProp internal key</param>
         /// <param name="value">Input value</param>
-        protected Input(parameters coolPropKey, double value) => (CoolPropKey, Value) = (coolPropKey, value);
+        protected Input(Parameters coolPropKey, double value) => (CoolPropKey, Value) = (coolPropKey, value);
 
         /// <summary>
         ///     CoolProp internal key
         /// </summary>
-        public parameters CoolPropKey { get; }
+        public Parameters CoolPropKey { get; }
 
         /// <summary>
-        ///     Input value
+        ///     Input value in SI units
         /// </summary>
         public double Value { get; }
 
         /// <summary>
         ///     Mass density
         /// </summary>
-        /// <param name="value">The value [kg/m3]</param>
-        /// <returns>Mass density for the input [kg/m3]</returns>
-        public static Input Density(double value) => new(parameters.iDmass, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass density for the input</returns>
+        public static Input Density(Density value) => new(Parameters.iDmass, value.KilogramsPerCubicMeter);
 
         /// <summary>
         ///     Mass specific enthalpy
         /// </summary>
-        /// <param name="value">The value [J/kg]</param>
-        /// <returns>Mass specific enthalpy for the input [J/kg]</returns>
-        public static Input Enthalpy(double value) => new(parameters.iHmass, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass specific enthalpy for the input</returns>
+        public static Input Enthalpy(SpecificEnergy value) => new(Parameters.iHmass, value.JoulesPerKilogram);
 
         /// <summary>
         ///     Mass specific entropy
         /// </summary>
-        /// <param name="value">The value [J/kg/K]</param>
-        /// <returns>Mass specific entropy for the input [J/kg/K]</returns>
-        public static Input Entropy(double value) => new(parameters.iSmass, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass specific entropy for the input</returns>
+        public static Input Entropy(SpecificEntropy value) => new(Parameters.iSmass, value.JoulesPerKilogramKelvin);
 
         /// <summary>
         ///     Mass specific internal energy
         /// </summary>
-        /// <param name="value">The value [J/kg]</param>
-        /// <returns>Mass specific internal energy for the input [J/kg]</returns>
-        public static Input InternalEnergy(double value) => new(parameters.iUmass, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass specific internal energy for the input</returns>
+        public static Input InternalEnergy(SpecificEnergy value) => new(Parameters.iUmass, value.JoulesPerKilogram);
 
         /// <summary>
         ///     Absolute pressure
         /// </summary>
-        /// <param name="value">The value [Pa]</param>
-        /// <returns>Absolute pressure for the input [Pa]</returns>
-        public static Input Pressure(double value) => new(parameters.iP, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Absolute pressure for the input</returns>
+        public static Input Pressure(Pressure value) => new(Parameters.iP, value.Pascals);
 
         /// <summary>
         ///     Mass vapor quality
         /// </summary>
-        /// <param name="value">The value [-]</param>
-        /// <returns>Mass vapor quality for the input [-]</returns>
-        public static Input Quality(double value) => new(parameters.iQ, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Mass vapor quality for the input</returns>
+        public static Input Quality(Ratio value) => new(Parameters.iQ, value.As(RatioUnit.DecimalFraction));
 
         /// <summary>
-        ///     Absolute temperature
+        ///     Temperature
         /// </summary>
-        /// <param name="value">The value [K]</param>
-        /// <returns>Absolute temperature for the input</returns>
-        public static Input Temperature(double value) => new(parameters.iT, value);
+        /// <param name="value">The value of the input</param>
+        /// <returns>Temperature for the input</returns>
+        public static Input Temperature(Temperature value) => new(Parameters.iT, value.Kelvins);
     }
 }

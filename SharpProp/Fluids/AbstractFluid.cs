@@ -41,7 +41,7 @@ namespace SharpProp
         /// <param name="secondInput">Second input property</param>
         /// <returns>A new fluid object with a defined state</returns>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-        public virtual AbstractFluid WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
+        public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
             var fluid = Factory();
             fluid.Update(firstInput, secondInput);
@@ -54,7 +54,7 @@ namespace SharpProp
         /// <param name="firstInput">First input property</param>
         /// <param name="secondInput">Second input property</param>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-        public void Update(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
+        public void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
             Reset();
             var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
@@ -66,10 +66,33 @@ namespace SharpProp
         /// </summary>
         protected virtual void Reset()
         {
-            _compressibility = _conductivity = _density = _dynamicViscosity = _enthalpy = null;
-            _entropy = _internalEnergy = _prandtl = _pressure = _quality = null;
-            _soundSpeed = _specificHeat = _surfaceTension = _temperature = null;
+            _compressibility = null;
+            _conductivity = null;
+            _density = null;
+            _dynamicViscosity = null;
+            _enthalpy = null;
+            _entropy = null;
+            _internalEnergy = null;
+            _prandtl = null;
+            _pressure = null;
+            _quality = null;
+            _soundSpeed = null;
+            _specificHeat = null;
+            _surfaceTension = null;
+            _temperature = null;
             _phase = null;
+        }
+
+        /// <summary>
+        ///     Returns <c>true</c> if output is not <c>null</c>
+        /// </summary>
+        /// <param name="key">Key of output</param>
+        /// <param name="value">Value of output</param>
+        /// <returns><c>true</c> if output is not <c>null</c></returns>
+        protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
+        {
+            value = NullableKeyedOutput(key);
+            return value is not null;
         }
 
         /// <summary>
@@ -77,12 +100,12 @@ namespace SharpProp
         /// </summary>
         /// <param name="key">Key of output</param>
         /// <returns>A nullable keyed output</returns>
-        protected double? NullableKeyedOutput(parameters key)
+        protected double? NullableKeyedOutput(Parameters key)
         {
             try
             {
                 var value = KeyedOutput(key);
-                if (key is parameters.iQ && value is < 0 or > 1)
+                if (key is Parameters.iQ && value is < 0 or > 1)
                     return null;
                 return value;
             }
@@ -98,7 +121,7 @@ namespace SharpProp
         /// <param name="key">Key of output</param>
         /// <returns>A not nullable keyed output</returns>
         /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
-        protected double KeyedOutput(parameters key)
+        protected double KeyedOutput(Parameters key)
         {
             var value = Backend.keyed_output(key);
             OutputsValidator.Validate(value);
@@ -106,7 +129,7 @@ namespace SharpProp
         }
 
         private static (input_pairs inputPair, double firstValue, double secondValue) GenerateUpdatePair(
-            IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
+            IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
             var inputPair = GetInputPair(firstInput, secondInput);
             var swap = !inputPair.HasValue;
@@ -119,8 +142,8 @@ namespace SharpProp
                 : ((input_pairs) inputPair, firstValue: secondInput.Value, secondValue: firstInput.Value);
         }
 
-        private static input_pairs? GetInputPair(IKeyedInput<parameters> firstInput,
-            IKeyedInput<parameters> secondInput)
+        private static input_pairs? GetInputPair(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput)
         {
             try
             {
@@ -133,7 +156,7 @@ namespace SharpProp
         }
 
         private static string
-            GetInputPairName(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput) =>
+            GetInputPairName(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
             $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS";
 
         public override bool Equals(object? obj) => Equals(obj as AbstractFluid);

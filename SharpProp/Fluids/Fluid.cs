@@ -1,6 +1,8 @@
 ﻿using System;
 using CoolProp;
 using SharpProp.Extensions;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace SharpProp
 {
@@ -18,14 +20,17 @@ namespace SharpProp
         ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}]. Entered value = {fraction}
         /// </exception>
         /// <exception cref="ArgumentException">Need to define fraction!</exception>
-        public Fluid(FluidsList name, double? fraction = null)
+        public Fluid(FluidsList name, Ratio? fraction = null)
         {
             if (fraction is not null && (fraction < name.FractionMin() || fraction > name.FractionMax()))
                 throw new ArgumentException(
-                    $"Invalid fraction value! It should be in [{name.FractionMin()};{name.FractionMax()}]. " +
-                    $"Entered value = {fraction}");
+                    "Invalid fraction value! " +
+                    $"It should be in [{name.FractionMin().Percent};{name.FractionMax().Percent}] %. " +
+                    $"Entered value = {fraction.Value.ToUnit(RatioUnit.Percent)}");
             Name = name;
-            Fraction = Name.Pure() ? 1 : fraction ?? throw new ArgumentException("Need to define fraction!");
+            Fraction = Name.Pure()
+                ? Ratio.FromPercent(100)
+                : fraction ?? throw new ArgumentException("Need to define fraction!");
             Backend = AbstractState.factory(Name.CoolPropBackend(), Name.CoolPropName());
             if (!Name.Pure()) SetFraction();
         }
@@ -36,20 +41,20 @@ namespace SharpProp
         public FluidsList Name { get; }
 
         /// <summary>
-        ///     Mass-based or volume-based fraction for binary mixtures (from 0 to 1)
+        ///     Mass-based or volume-based fraction for binary mixtures
         /// </summary>
-        public double Fraction { get; }
+        public Ratio Fraction { get; }
 
         public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
 
         public override Fluid Factory() => new(Name, Fraction);
 
-        public override Fluid WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput) =>
+        public override Fluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
             (Fluid) base.WithState(firstInput, secondInput);
 
         private void SetFraction()
         {
-            var fractionsVector = new DoubleVector(new[] {Fraction});
+            var fractionsVector = new DoubleVector(new[] {Fraction.DecimalFractions});
             if (Name.MixType() is Mix.Mass)
                 Backend.set_mass_fractions(fractionsVector);
             else

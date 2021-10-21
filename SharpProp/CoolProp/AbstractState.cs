@@ -164,7 +164,7 @@ public class AbstractState : global::System.IDisposable {
     return ret;
   }
 
-  public virtual double get_fluid_constant(uint i, parameters param) {
+  public virtual double get_fluid_constant(uint i, Parameters param) {
     double ret = CPInvoke.AbstractState_get_fluid_constant(swigCPtr, i, (int)param);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
@@ -393,25 +393,25 @@ public class AbstractState : global::System.IDisposable {
     return ret;
   }
 
-  public double keyed_output(parameters key) {
+  public double keyed_output(Parameters key) {
     double ret = CPInvoke.AbstractState_keyed_output(swigCPtr, (int)key);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double trivial_keyed_output(parameters key) {
+  public double trivial_keyed_output(Parameters key) {
     double ret = CPInvoke.AbstractState_trivial_keyed_output(swigCPtr, (int)key);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double saturated_liquid_keyed_output(parameters key) {
+  public double saturated_liquid_keyed_output(Parameters key) {
     double ret = CPInvoke.AbstractState_saturated_liquid_keyed_output(swigCPtr, (int)key);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double saturated_vapor_keyed_output(parameters key) {
+  public double saturated_vapor_keyed_output(Parameters key) {
     double ret = CPInvoke.AbstractState_saturated_vapor_keyed_output(swigCPtr, (int)key);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
@@ -763,43 +763,43 @@ public class AbstractState : global::System.IDisposable {
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
   }
 
-  public double first_partial_deriv(parameters Of, parameters Wrt, parameters Constant) {
+  public double first_partial_deriv(Parameters Of, Parameters Wrt, Parameters Constant) {
     double ret = CPInvoke.AbstractState_first_partial_deriv(swigCPtr, (int)Of, (int)Wrt, (int)Constant);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double second_partial_deriv(parameters Of1, parameters Wrt1, parameters Constant1, parameters Wrt2, parameters Constant2) {
+  public double second_partial_deriv(Parameters Of1, Parameters Wrt1, Parameters Constant1, Parameters Wrt2, Parameters Constant2) {
     double ret = CPInvoke.AbstractState_second_partial_deriv(swigCPtr, (int)Of1, (int)Wrt1, (int)Constant1, (int)Wrt2, (int)Constant2);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double first_saturation_deriv(parameters Of1, parameters Wrt1) {
+  public double first_saturation_deriv(Parameters Of1, Parameters Wrt1) {
     double ret = CPInvoke.AbstractState_first_saturation_deriv(swigCPtr, (int)Of1, (int)Wrt1);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double second_saturation_deriv(parameters Of1, parameters Wrt1, parameters Wrt2) {
+  public double second_saturation_deriv(Parameters Of1, Parameters Wrt1, Parameters Wrt2) {
     double ret = CPInvoke.AbstractState_second_saturation_deriv(swigCPtr, (int)Of1, (int)Wrt1, (int)Wrt2);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double first_two_phase_deriv(parameters Of, parameters Wrt, parameters Constant) {
+  public double first_two_phase_deriv(Parameters Of, Parameters Wrt, Parameters Constant) {
     double ret = CPInvoke.AbstractState_first_two_phase_deriv(swigCPtr, (int)Of, (int)Wrt, (int)Constant);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double second_two_phase_deriv(parameters Of, parameters Wrt1, parameters Constant1, parameters Wrt2, parameters Constant2) {
+  public double second_two_phase_deriv(Parameters Of, Parameters Wrt1, Parameters Constant1, Parameters Wrt2, Parameters Constant2) {
     double ret = CPInvoke.AbstractState_second_two_phase_deriv(swigCPtr, (int)Of, (int)Wrt1, (int)Constant1, (int)Wrt2, (int)Constant2);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
   }
 
-  public double first_two_phase_deriv_splined(parameters Of, parameters Wrt, parameters Constant, double x_end) {
+  public double first_two_phase_deriv_splined(Parameters Of, Parameters Wrt, Parameters Constant, double x_end) {
     double ret = CPInvoke.AbstractState_first_two_phase_deriv_splined(swigCPtr, (int)Of, (int)Wrt, (int)Constant, x_end);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;
@@ -833,7 +833,7 @@ public class AbstractState : global::System.IDisposable {
     return ret;
   }
 
-  public double saturation_ancillary(parameters param, int Q, parameters given, double value) {
+  public double saturation_ancillary(Parameters param, int Q, Parameters given, double value) {
     double ret = CPInvoke.AbstractState_saturation_ancillary(swigCPtr, (int)param, Q, (int)given, value);
     if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
     return ret;

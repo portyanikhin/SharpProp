@@ -6,7 +6,7 @@ namespace SharpProp
     ///     CoolProp keyed input interface
     /// </summary>
     /// <typeparam name="T">
-    ///     Type of Coolprop internal keys (<see cref="parameters" /> for fluids and mixtures;
+    ///     Type of Coolprop internal keys (<see cref="Parameters" /> for fluids and mixtures;
     ///     <see cref="string" /> for humid air)
     /// </typeparam>
     public interface IKeyedInput<out T>
@@ -22,7 +22,7 @@ namespace SharpProp
         public string CoolPropHighLevelKey => CoolPropKey!.ToString()!.TrimStart('i');
 
         /// <summary>
-        ///     Input value
+        ///     Input value in SI units
         /// </summary>
         public double Value { get; }
     }

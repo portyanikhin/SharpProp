@@ -19,9 +19,9 @@ namespace CoolProp
       return ret;
     }
 
-    public static parameters get_parameter_index(string param_name)
+    public static Parameters get_parameter_index(string param_name)
     {
-      parameters ret = (parameters) CPInvoke.get_parameter_index(param_name);
+      Parameters ret = (Parameters) CPInvoke.get_parameter_index(param_name);
       if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();
       return ret;
     }
@@ -90,7 +90,7 @@ namespace CoolProp
       return ret;
     }
 
-    public static bool match_pair(parameters key1, parameters key2, parameters x1, parameters x2, SWIGTYPE_p_bool swap)
+    public static bool match_pair(Parameters key1, Parameters key2, Parameters x1, Parameters x2, SWIGTYPE_p_bool swap)
     {
       bool ret = CPInvoke.match_pair((int) key1, (int) key2, (int) x1, (int) x2, SWIGTYPE_p_bool.getCPtr(swap));
       if (CPInvoke.SWIGPendingException.Pending) throw CPInvoke.SWIGPendingException.Retrieve();

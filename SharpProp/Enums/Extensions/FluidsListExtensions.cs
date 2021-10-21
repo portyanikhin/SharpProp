@@ -1,4 +1,6 @@
 ﻿using SharpProp.Attributes;
+using UnitsNet;
+using UnitsNet.Units;
 
 namespace SharpProp.Extensions
 {
@@ -37,13 +39,15 @@ namespace SharpProp.Extensions
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member</param>
         /// <returns>The minimum possible fraction</returns>
-        public static double FractionMin(this FluidsList member) => member.GetAttribute<FluidInfo>().FractionMin;
+        public static Ratio FractionMin(this FluidsList member) =>
+            Ratio.FromDecimalFractions(member.GetAttribute<FluidInfo>().FractionMin).ToUnit(RatioUnit.Percent);
 
         /// <summary>
         ///     Gets access to the maximum possible fraction
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member</param>
         /// <returns>The maximum possible fraction</returns>
-        public static double FractionMax(this FluidsList member) => member.GetAttribute<FluidInfo>().FractionMax;
+        public static Ratio FractionMax(this FluidsList member) =>
+            Ratio.FromDecimalFractions(member.GetAttribute<FluidInfo>().FractionMax).ToUnit(RatioUnit.Percent);
     }
 }

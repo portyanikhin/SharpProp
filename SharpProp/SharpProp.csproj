@@ -15,8 +15,8 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>2.0.4</PackageVersion>
-        <PackageReleaseNotes>Added aliases for the FluidsList</PackageReleaseNotes>
+        <PackageVersion>3.0.0</PackageVersion>
+        <PackageReleaseNotes>Massive changes: all calculations becomes unit safe with UnitsNet. Documentation updated</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

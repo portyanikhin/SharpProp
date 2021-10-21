@@ -10,23 +10,23 @@
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <PackageVersion>2.0.4</PackageVersion>
+        <PackageVersion>3.0.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentAssertions" Version="6.1.0"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0"/>
-        <PackageReference Include="NUnit" Version="3.13.2"/>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0"/>
+        <PackageReference Include="FluentAssertions" Version="6.1.0" />
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+        <PackageReference Include="NUnit" Version="3.13.2" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.0.0" />
         <PackageReference Include="coverlet.collector" Version="3.1.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="UnitsNet.NumberExtensions" Version="4.102.0"/>
+        <PackageReference Include="UnitsNet.NumberExtensions" Version="4.102.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SharpProp\SharpProp.csproj"/>
+        <ProjectReference Include="..\SharpProp\SharpProp.csproj" />
     </ItemGroup>
 
 </Project>

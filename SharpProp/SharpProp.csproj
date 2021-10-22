@@ -15,8 +15,8 @@
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>3.0.0</PackageVersion>
-        <PackageReleaseNotes>Massive changes: all calculations becomes unit safe with UnitsNet. Documentation updated</PackageReleaseNotes>
+        <PackageVersion>3.0.1</PackageVersion>
+        <PackageReleaseNotes>README.md update</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

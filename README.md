@@ -12,7 +12,7 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
 
 * `Fluid` class - for pure fluids and binary mixtures
 * `Mixture` class - for mixtures with pure fluids components
-* `FluidsList` enum - all available fluids
+* `FluidsList` enum - list of all available fluids
 * `Input` record - inputs for the `Fluid` and `Mixture` classes
 * `HumidAir` class - for humid air
 * `InputHumidAir` record - inputs for the `HumidAir` class
@@ -43,7 +43,7 @@ For the `Fluid` and `Mixture` instances:
 * `MinPressure` - minimum pressure limit _(by default, kPa)_
 * `MinTemperature` - minimum temperature limit _(by default, °C)_
 * `MolarMass` - molar mass _(by default, g/mol)_
-* `Phase` - phase
+* `Phase` - phase _(enum)_
 * `Prandtl` - Prandtl number _(dimensionless)_
 * `Pressure` - absolute pressure _(by default, kPa)_
 * `Quality` - mass vapor quality _(by default, %)_
@@ -99,8 +99,8 @@ Console.WriteLine(waterVapour.SpecificHeat
 
 #### Incompressible binary mixtures
 
-To calculate the dynamic viscosity of propylene glycol aqueous solution with _60 %_ mass fraction at _100 kPa_ and _-20
-°C_:
+To calculate the dynamic viscosity of propylene glycol aqueous solution 
+with _60 %_ mass fraction at _100 kPa_ and _-20 °C_:
 
 ```c#
 using System;
@@ -122,7 +122,8 @@ Console.WriteLine(propyleneGlycol.DynamicViscosity?
 
 #### Mixtures
 
-To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) at _200 kPa_ and _277.15 K_:
+To calculate the density of ethanol aqueous solution(with ethanol _40 %_ mass fraction) 
+at _200 kPa_ and _277.15 K_:
 
 ```c#
 using System;
@@ -146,7 +147,8 @@ Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.3
 
 #### Humid air
 
-To calculate the wet bulb temperature of humid air at _99 kPa_, _303.15 K_ and _50 %_ relative humidity:
+To calculate the wet bulb temperature of humid air 
+at _99 kPa_, _30 °C_ and _50 %_ relative humidity:
 
 ```c#
 using System;
@@ -290,9 +292,9 @@ As a result:
 
 #### Equality of instances
 
-You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state. Just use the `Equals`
-method or the equality operators (`==` or `!=`). Exactly the same way you can compare inputs (`Input`, `InputHumidAir`
-or any `IKeyedInput` record).
+You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state. 
+Just use the `Equals`method or the equality operators (`==` or `!=`). 
+Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
 
 For example:
 

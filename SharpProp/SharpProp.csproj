@@ -1,22 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>SharpProp</Title>
         <Authors>Vladimir Portyanikhin</Authors>
-        <Description>A simple, full-featured, lightweight CoolProp wrapper for C#</Description>
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
-        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Description>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Description>
+        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <NoWarn>$(NoWarn);1591</NoWarn>
+        <Nullable>enable</Nullable>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageVersion>3.0.2</PackageVersion>
-        <PackageReleaseNotes>Package references fix</PackageReleaseNotes>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReleaseNotes>XML-documentation fix</PackageReleaseNotes>
+        <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
+        <PackageVersion>3.0.3</PackageVersion>
+        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
+        <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
+        <TargetFramework>net5.0</TargetFramework>
+        <Title>SharpProp</Title>
     </PropertyGroup>
 
     <ItemGroup>

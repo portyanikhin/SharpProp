@@ -1,6 +1,5 @@
 ﻿using CoolProp;
 using UnitsNet;
-using UnitsNet.Units;
 
 namespace SharpProp
 {
@@ -66,7 +65,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input</param>
         /// <returns>Mass vapor quality for the input</returns>
-        public static Input Quality(Ratio value) => new(Parameters.iQ, value.As(RatioUnit.DecimalFraction));
+        public static Input Quality(Ratio value) => new(Parameters.iQ, value.DecimalFractions);
 
         /// <summary>
         ///     Temperature

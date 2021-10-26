@@ -5,7 +5,7 @@
 [![NuGet](https://img.shields.io/nuget/v/SharpProp)](https://www.nuget.org/packages/SharpProp/)
 ![Platform](https://img.shields.io/badge/platform-win--64%20%7C%20linux--64-lightgrey)
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
-[![codecov](https://codecov.io/gh/portyanikhin/SharpProp/branch/master/graph/badge.svg?token=P3JH3D1L0Q)](https://codecov.io/gh/portyanikhin/SharpProp)
+[![Codecov](https://codecov.io/gh/portyanikhin/SharpProp/branch/master/graph/badge.svg?token=P3JH3D1L0Q)](https://codecov.io/gh/portyanikhin/SharpProp)
 
 A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org/) wrapper for C#
 
@@ -91,7 +91,7 @@ using UnitsNet.Units;
 
 ```c#
 var waterVapour = new Fluid(FluidsList.Water);
-waterVapour.Update(Input.Pressure(1.Atmospheres()), Input.Quality(100.Percent()));
+waterVapour.Update(Input.Pressure((1).Atmospheres()), Input.Quality((100).Percent()));
 Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin); // 2079.937085633241
 Console.WriteLine(waterVapour.SpecificHeat);                         // 2.08 kJ/kg.K
 Console.WriteLine(waterVapour.SpecificHeat
@@ -113,8 +113,8 @@ using UnitsNet.Units;
 ```
 
 ```c#
-var propyleneGlycol = new Fluid(FluidsList.MPG, 60.Percent());
-propyleneGlycol.Update(Input.Pressure(100.Kilopascals()), Input.Temperature((-20).DegreesCelsius()));
+var propyleneGlycol = new Fluid(FluidsList.MPG, (60).Percent());
+propyleneGlycol.Update(Input.Pressure((100).Kilopascals()), Input.Temperature((-20).DegreesCelsius()));
 Console.WriteLine(propyleneGlycol.DynamicViscosity?.PascalSeconds); // 0.13907391053938878
 Console.WriteLine(propyleneGlycol.DynamicViscosity);                // 139.07 mPa·s
 Console.WriteLine(propyleneGlycol.DynamicViscosity?
@@ -139,8 +139,8 @@ using UnitsNet.Units;
 
 ```c#
 var mixture = new Mixture(new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol}, 
-    new List<Ratio> {60.Percent(), 40.Percent()});
-mixture.Update(Input.Pressure(200.Kilopascals()), Input.Temperature(277.15.Kelvins()));
+    new List<Ratio> {(60).Percent(), (40).Percent()});
+mixture.Update(Input.Pressure((200).Kilopascals()), Input.Temperature((277.15).Kelvins()));
 Console.WriteLine(mixture.Density.KilogramsPerCubicMeter);               // 883.3922771627759
 Console.WriteLine(mixture.Density);                                      // 883.39 kg/m3
 Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.34 g/dl
@@ -162,12 +162,12 @@ using UnitsNet.Units;
 
 ```c#
 var humidAir = new HumidAir();
-humidAir.Update(InputHumidAir.Pressure(99.Kilopascals()), InputHumidAir.Temperature(30.DegreesCelsius()),
-    InputHumidAir.RelativeHumidity(50.Percent()));
+humidAir.Update(InputHumidAir.Pressure((99).Kilopascals()), 
+    InputHumidAir.Temperature((30).DegreesCelsius()), InputHumidAir.RelativeHumidity((50).Percent()));
 // or use:
 // var humidAir1 = 
-//     HumidAir.WithState(InputHumidAir.Pressure(99.Kilopascals()), 
-//         InputHumidAir.Temperature(30.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
+//     HumidAir.WithState(InputHumidAir.Pressure((99).Kilopascals()), 
+//         InputHumidAir.Temperature((30).DegreesCelsius()), InputHumidAir.RelativeHumidity((50).Percent()));
 Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.0965785590792
 Console.WriteLine(humidAir.WetBulbTemperature);         // 21.95 °C
 Console.WriteLine(humidAir.WetBulbTemperature
@@ -187,13 +187,13 @@ using UnitsNet.NumberExtensions.NumberToTemperature;
 
 ```c#
 var refrigerant = new Fluid(FluidsList.R32);
-refrigerant.Update(Input.Temperature(5.DegreesCelsius()), Input.Quality(100.Percent()));
+refrigerant.Update(Input.Temperature((5).DegreesCelsius()), Input.Quality((100).Percent()));
 Console.WriteLine(refrigerant.AsJson());
 ```
 
 As a result:
 
-```json
+```json5
 {
   "Name": "R32",
   "Fraction": {
@@ -308,13 +308,13 @@ using UnitsNet.NumberExtensions.NumberToTemperature;
 ```
 
 ```c#
-var humidAir = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
-    InputHumidAir.Temperature(20.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
-var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325.Pascals()),
-    InputHumidAir.Temperature(293.15.Kelvins()), InputHumidAir.RelativeHumidity(50.Percent()));
-Console.WriteLine(humidAir == humidAirWithSameState);             // true
-Console.WriteLine(InputHumidAir.Pressure(1.Atmospheres()) == 
-                  InputHumidAir.Pressure(101.325.Kilopascals())); // true
+var humidAir = HumidAir.WithState(InputHumidAir.Pressure((1).Atmospheres()),
+    InputHumidAir.Temperature((20).DegreesCelsius()), InputHumidAir.RelativeHumidity((50).Percent()));
+var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure((101325).Pascals()),
+    InputHumidAir.Temperature((293.15).Kelvins()), InputHumidAir.RelativeHumidity((50).Percent()));
+Console.WriteLine(humidAir == humidAirWithSameState);               // true
+Console.WriteLine(InputHumidAir.Pressure((1).Atmospheres()) == 
+                  InputHumidAir.Pressure((101.325).Kilopascals())); // true
 ```
 
 #### Adding other properties

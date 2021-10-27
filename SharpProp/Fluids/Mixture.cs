@@ -9,15 +9,15 @@ using UnitsNet.Units;
 namespace SharpProp
 {
     /// <summary>
-    ///     CoolProp mass-based mixture of pure fluids
+    ///     CoolProp mass-based mixture of pure fluids.
     /// </summary>
     public class Mixture : AbstractFluid, IEquatable<Mixture>
     {
         /// <summary>
-        ///     CoolProp mass-based mixture of pure fluids
+        ///     CoolProp mass-based mixture of pure fluids.
         /// </summary>
-        /// <param name="fluids">List of selected pure fluids</param>
-        /// <param name="fractions">List of mass-based fractions</param>
+        /// <param name="fluids">List of selected pure fluids.</param>
+        /// <param name="fractions">List of mass-based fractions.</param>
         /// <exception cref="ArgumentException">
         ///     Invalid input! Fluids and Fractions should be of the same length.
         /// </exception>
@@ -30,7 +30,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     Invalid component mass fractions! Their sum should be equal to 100 %.
         /// </exception>
-        public Mixture(List<FluidsList> fluids, List<Ratio> fractions)
+        public Mixture(List<FluidsList> fluids, IReadOnlyCollection<Ratio> fractions)
         {
             if (fluids.Count != fractions.Count)
                 throw new ArgumentException("Invalid input! Fluids and Fractions should be of the same length.");
@@ -48,12 +48,12 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     List of selected pure fluids
+        ///     List of selected pure fluids.
         /// </summary>
         public List<FluidsList> Fluids { get; }
 
         /// <summary>
-        ///     List of mass-based fractions (by default, %)
+        ///     List of mass-based fractions (by default, %).
         /// </summary>
         public List<Ratio> Fractions { get; }
 

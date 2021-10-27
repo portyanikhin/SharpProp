@@ -23,14 +23,14 @@ namespace SharpProp.Tests
         public double TestSpecificHeatConstVolume() => _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         /// <summary>
-        ///     An example of how to add new properties to a <see cref="HumidAir" />
+        ///     An example of how to add new properties to a <see cref="HumidAir" />.
         /// </summary>
         private class HumidAirExtended : HumidAir
         {
             private SpecificEntropy? _specificHeatConstVolume;
 
             /// <summary>
-            ///     Mixture specific heat at constant volume per unit humid air
+            ///     Mixture specific heat at constant volume per unit humid air.
             /// </summary>
             public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??= 
                 SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("CVha"))

@@ -5,22 +5,22 @@ using SharpProp.Outputs;
 namespace SharpProp
 {
     /// <summary>
-    ///     Fluids base class
+    ///     Fluids base class.
     /// </summary>
     public abstract partial class AbstractFluid : Jsonable, IEquatable<AbstractFluid>
     {
         /// <summary>
-        ///     Returns a new fluid object with no defined state
+        ///     Returns a new fluid object with no defined state.
         /// </summary>
-        /// <returns>A new fluid object with no defined state</returns>
+        /// <returns>A new fluid object with no defined state.</returns>
         public abstract AbstractFluid Factory();
 
         /// <summary>
-        ///     Returns a new fluid object with a defined state
+        ///     Returns a new fluid object with a defined state.
         /// </summary>
-        /// <param name="firstInput">First input property</param>
-        /// <param name="secondInput">Second input property</param>
-        /// <returns>A new fluid object with a defined state</returns>
+        /// <param name="firstInput">First input property.</param>
+        /// <param name="secondInput">Second input property.</param>
+        /// <returns>A new fluid object with a defined state.</returns>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
@@ -30,10 +30,10 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update fluid state with two inputs
+        ///     Update fluid state with two inputs.
         /// </summary>
-        /// <param name="firstInput">First input property</param>
-        /// <param name="secondInput">Second input property</param>
+        /// <param name="firstInput">First input property.</param>
+        /// <param name="secondInput">Second input property.</param>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
@@ -43,7 +43,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Reset all non-trivial properties
+        ///     Reset all non-trivial properties.
         /// </summary>
         protected virtual void Reset()
         {
@@ -65,11 +65,11 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns <c>true</c> if output is not <c>null</c>
+        ///     Returns <c>true</c> if output is not <c>null</c>.
         /// </summary>
-        /// <param name="key">Key of output</param>
-        /// <param name="value">Value of output</param>
-        /// <returns><c>true</c> if output is not <c>null</c></returns>
+        /// <param name="key">Key of output.</param>
+        /// <param name="value">Value of output.</param>
+        /// <returns><c>true</c> if output is not <c>null</c>.</returns>
         protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
         {
             value = NullableKeyedOutput(key);
@@ -77,10 +77,10 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns nullable keyed output
+        ///     Returns nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output</param>
-        /// <returns>A nullable keyed output</returns>
+        /// <param name="key">Key of output.</param>
+        /// <returns>A nullable keyed output.</returns>
         protected double? NullableKeyedOutput(Parameters key)
         {
             try
@@ -97,10 +97,10 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns not nullable keyed output
+        ///     Returns not nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output</param>
-        /// <returns>A not nullable keyed output</returns>
+        /// <param name="key">Key of output.</param>
+        /// <returns>A not nullable keyed output.</returns>
         /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(Parameters key)
         {

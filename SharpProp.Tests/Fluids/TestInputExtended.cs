@@ -19,7 +19,7 @@ namespace SharpProp.Tests
         public double TestValue() => _input.Value;
 
         /// <summary>
-        ///     An example of how to extend <see cref="Input" />
+        ///     An example of how to extend <see cref="Input" />.
         /// </summary>
         private record InputExtended : Input
         {
@@ -28,10 +28,10 @@ namespace SharpProp.Tests
             }
 
             /// <summary>
-            ///     Molar density
+            ///     Molar density.
             /// </summary>
-            /// <param name="value">The value of the input</param>
-            /// <returns>Molar density for the input</returns>
+            /// <param name="value">The value of the input.</param>
+            /// <returns>Molar density for the input.</returns>
             public static InputExtended MolarDensity(MolarMass value) =>
                 new(Parameters.iDmolar, value.KilogramsPerMole);
         }

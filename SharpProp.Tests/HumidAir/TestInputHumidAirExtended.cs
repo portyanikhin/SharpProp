@@ -1,4 +1,6 @@
 ﻿using NUnit.Framework;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests
 {
@@ -7,7 +9,7 @@ namespace SharpProp.Tests
         private InputHumidAirExtended _input = null!;
 
         [SetUp]
-        public void SetUp() => _input = InputHumidAirExtended.WaterMoleFraction(5e-3);
+        public void SetUp() => _input = InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
 
         [Test(ExpectedResult = "psi_w")]
         public string TestCoolPropKey() => _input.CoolPropKey;
@@ -16,7 +18,7 @@ namespace SharpProp.Tests
         public double TestValue() => _input.Value;
 
         /// <summary>
-        ///     An example of how to extend <see cref="InputHumidAir" />
+        ///     An example of how to extend <see cref="InputHumidAir" />.
         /// </summary>
         public record InputHumidAirExtended : InputHumidAir
         {
@@ -25,12 +27,12 @@ namespace SharpProp.Tests
             }
 
             /// <summary>
-            ///     Water mole fraction
+            ///     Water mole fraction.
             /// </summary>
-            /// <param name="value">The value [mol/mol h.a.]</param>
-            /// <returns>Molar density for the input [mol/mol h.a.]</returns>
-            public static InputHumidAirExtended WaterMoleFraction(double value) =>
-                new("psi_w", value);
+            /// <param name="value">The value of the input.</param>
+            /// <returns>Molar density for the input.</returns>
+            public static InputHumidAirExtended WaterMoleFraction(Ratio value) =>
+                new("psi_w", value.DecimalFractions);
         }
     }
 }

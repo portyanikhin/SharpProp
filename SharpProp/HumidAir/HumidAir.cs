@@ -8,17 +8,17 @@ using SharpProp.Outputs;
 namespace SharpProp
 {
     /// <summary>
-    ///     Implementation of the humid air
+    ///     Implementation of the humid air.
     /// </summary>
     public partial class HumidAir : Jsonable, IEquatable<HumidAir>
     {
         /// <summary>
-        ///     Returns a new <see cref="HumidAir" /> object with a defined state
+        ///     Returns a new <see cref="HumidAir" /> object with a defined state.
         /// </summary>
-        /// <param name="fistInput">First input property</param>
-        /// <param name="secondInput">Second input property</param>
-        /// <param name="thirdInput">Third input property</param>
-        /// <returns>A new <see cref="HumidAir" /> object with a defined state</returns>
+        /// <param name="fistInput">First input property.</param>
+        /// <param name="secondInput">Second input property.</param>
+        /// <param name="thirdInput">Third input property.</param>
+        /// <returns>A new <see cref="HumidAir" /> object with a defined state.</returns>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         public static HumidAir WithState(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
@@ -29,11 +29,11 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update humid air state with three inputs
+        ///     Update humid air state with three inputs.
         /// </summary>
-        /// <param name="fistInput">First input property</param>
-        /// <param name="secondInput">Second input property</param>
-        /// <param name="thirdInput">Third input property</param>
+        /// <param name="fistInput">First input property.</param>
+        /// <param name="secondInput">Second input property.</param>
+        /// <param name="thirdInput">Third input property.</param>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         public void Update(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
@@ -44,7 +44,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Reset all properties
+        ///     Reset all properties.
         /// </summary>
         protected virtual void Reset()
         {
@@ -65,10 +65,10 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns not nullable keyed output
+        ///     Returns not nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output</param>
-        /// <returns>A not nullable keyed output</returns>
+        /// <param name="key">Key of output.</param>
+        /// <returns>A not nullable keyed output.</returns>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(string key)

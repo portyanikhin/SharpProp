@@ -77,8 +77,8 @@ namespace SharpProp.Tests
         }
 
         [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
-        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %")]
-        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %")]
+        [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %.")]
+        [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %.")]
         public static void TestInitThrows(FluidsList name, double? fraction, string message)
         {
             Action action = () =>

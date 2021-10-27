@@ -7,16 +7,16 @@
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
 [![Codecov](https://codecov.io/gh/portyanikhin/SharpProp/branch/master/graph/badge.svg?token=P3JH3D1L0Q)](https://codecov.io/gh/portyanikhin/SharpProp)
 
-A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org/) wrapper for C#
+A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org/) wrapper for C#.
 
 ## Quick start
 
-* `Fluid` class - for pure fluids and binary mixtures
-* `Mixture` class - for mixtures with pure fluids components
-* `FluidsList` enum - list of all available fluids
-* `Input` record - inputs for the `Fluid` and `Mixture` classes
-* `HumidAir` class - for humid air
-* `InputHumidAir` record - inputs for the `HumidAir` class
+* `Fluid` class - for pure fluids and binary mixtures.
+* `Mixture` class - for mixtures with pure fluids components.
+* `FluidsList` enum - list of all available fluids.
+* `Input` record - inputs for the `Fluid` and `Mixture` classes.
+* `HumidAir` class - for humid air.
+* `InputHumidAir` record - inputs for the `HumidAir` class.
 
 ### Unit safety
 
@@ -29,48 +29,48 @@ In addition, you will be able to convert all values to many other dimensions wit
 
 For the `Fluid` and `Mixture` instances:
 
-* `Compressibility` - compressibility factor _(dimensionless)_
-* `Conductivity` - thermal conductivity _(by default, W/m/K)_
-* `CriticalPressure` - absolute pressure at the critical point _(by default, kPa)_
-* `CriticalTemperature` - temperature at the critical point _(by default, °C)_
-* `Density` - mass density _(by default, kg/m3)_
-* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_
-* `Enthalpy` - mass specific enthalpy _(by default, kJ/kg)_
-* `Entropy` - mass specific entropy _(by default, kJ/kg/K)_
-* `FreezingTemperature` - temperature at freezing point (for incompressible fluids) _(by default, °C)_
-* `InternalEnergy` - mass specific internal energy _(by default, kJ/kg)_
-* `MaxPressure` - maximum pressure limit _(by default, kPa)_
-* `MaxTemperature` - maximum temperature limit _(by default, °C)_
-* `MinPressure` - minimum pressure limit _(by default, kPa)_
-* `MinTemperature` - minimum temperature limit _(by default, °C)_
-* `MolarMass` - molar mass _(by default, g/mol)_
-* `Phase` - phase _(enum)_
-* `Prandtl` - Prandtl number _(dimensionless)_
-* `Pressure` - absolute pressure _(by default, kPa)_
-* `Quality` - mass vapor quality _(by default, %)_
-* `SoundSpeed` - sound speed _(by default, m/s)_
-* `SpecificHeat` - mass specific constant pressure specific heat _(by default, kJ/kg/K)_
-* `SurfaceTension` - surface tension _(by default, N/m)_
-* `Temperature` - temperature _(by default, °C)_
-* `TriplePressure` - absolute pressure at the triple point _(by default, kPa)_
-* `TripleTemperature` - temperature at the triple point _(by default, °C)_
+* `Compressibility` - compressibility factor _(dimensionless)_.
+* `Conductivity` - thermal conductivity _(by default, W/m/K)_.
+* `CriticalPressure` - absolute pressure at the critical point _(by default, kPa)_.
+* `CriticalTemperature` - temperature at the critical point _(by default, °C)_.
+* `Density` - mass density _(by default, kg/m3)_.
+* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_.
+* `Enthalpy` - mass specific enthalpy _(by default, kJ/kg)_.
+* `Entropy` - mass specific entropy _(by default, kJ/kg/K)_.
+* `FreezingTemperature` - temperature at freezing point (for incompressible fluids) _(by default, °C)_.
+* `InternalEnergy` - mass specific internal energy _(by default, kJ/kg)_.
+* `MaxPressure` - maximum pressure limit _(by default, kPa)_.
+* `MaxTemperature` - maximum temperature limit _(by default, °C)_.
+* `MinPressure` - minimum pressure limit _(by default, kPa)_.
+* `MinTemperature` - minimum temperature limit _(by default, °C)_.
+* `MolarMass` - molar mass _(by default, g/mol)_.
+* `Phase` - phase state _(enum)_.
+* `Prandtl` - Prandtl number _(dimensionless)_.
+* `Pressure` - absolute pressure _(by default, kPa)_.
+* `Quality` - mass vapor quality _(by default, %)_.
+* `SoundSpeed` - sound speed _(by default, m/s)_.
+* `SpecificHeat` - mass specific constant pressure specific heat _(by default, kJ/kg/K)_.
+* `SurfaceTension` - surface tension _(by default, N/m)_.
+* `Temperature` - temperature _(by default, °C)_.
+* `TriplePressure` - absolute pressure at the triple point _(by default, kPa)_.
+* `TripleTemperature` - temperature at the triple point _(by default, °C)_.
 
 For the `HumidAir` instances:
 
-* `Compressibility` - compressibility factor _(dimensionless)_
-* `Conductivity` - thermal conductivity _(by default, W/m/K)_
-* `Density` - mass density per humid air unit _(by default, kg/m3)_
-* `DewTemperature` - dew-point temperature _(by default, °C)_
-* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_
-* `Enthalpy` - mass specific enthalpy per humid air _(by default, kJ/kg)_
-* `Entropy` - mass specific entropy per humid air _(by default, kJ/kg/K)_
-* `Humidity` - absolute humidity ratio _(by default, g/kg d.a.)_
-* `PartialPressure` - partial pressure of water vapor _(by default, kPa)_
-* `Pressure` - absolute pressure _(by default, kPa)_
-* `RelativeHumidity` - relative humidity ratio _(by default, %)_
-* `SpecificHeat` - mass specific constant pressure specific heat per humid air _(by default, kJ/kg/K)_
-* `Temperature` - dry-bulb temperature _(by default, °C)_
-* `WetBulbTemperature` - wet-bulb temperature _(by default, °C)_
+* `Compressibility` - compressibility factor _(dimensionless)_.
+* `Conductivity` - thermal conductivity _(by default, W/m/K)_.
+* `Density` - mass density per humid air unit _(by default, kg/m3)_.
+* `DewTemperature` - dew-point temperature _(by default, °C)_.
+* `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_.
+* `Enthalpy` - mass specific enthalpy per humid air _(by default, kJ/kg)_.
+* `Entropy` - mass specific entropy per humid air _(by default, kJ/kg/K)_.
+* `Humidity` - absolute humidity ratio _(by default, g/kg d.a.)_.
+* `PartialPressure` - partial pressure of water vapor _(by default, kPa)_.
+* `Pressure` - absolute pressure _(by default, kPa)_.
+* `RelativeHumidity` - relative humidity ratio _(by default, %)_.
+* `SpecificHeat` - mass specific constant pressure specific heat per humid air _(by default, kJ/kg/K)_.
+* `Temperature` - dry-bulb temperature _(by default, °C)_.
+* `WetBulbTemperature` - wet-bulb temperature _(by default, °C)_.
 
 **NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
 the `Fluid`, `Mixture` or `HumidAir` classes.
@@ -319,10 +319,10 @@ Console.WriteLine(InputHumidAir.Pressure((1).Atmospheres()) ==
 
 #### Adding other properties
 
-* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestFluidExtended.cs)
-* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestHumidAirExtended.cs)
+* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestFluidExtended.cs).
+* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestHumidAirExtended.cs).
 
 #### Adding other inputs
 
-* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestInputExtended.cs)
-* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestInputHumidAirExtended.cs)
+* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestInputExtended.cs).
+* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestInputHumidAirExtended.cs).

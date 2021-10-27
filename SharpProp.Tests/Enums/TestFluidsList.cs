@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NUnit.Framework;
 using SharpProp.Extensions;
@@ -8,12 +9,12 @@ namespace SharpProp.Tests
     public static class TestFluidsList
     {
         [Test]
+        [SuppressMessage("ReSharper", "SwitchStatementHandlesSomeKnownEnumValuesWithDefault")]
         public static void TestCoolPropName([Values] FluidsList coolPropFluid)
         {
             if (coolPropFluid.CoolPropName().EndsWith(".mix"))
                 Assert.Pass();
             else
-                // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
                 switch (coolPropFluid)
                 {
                     case FluidsList.R50:

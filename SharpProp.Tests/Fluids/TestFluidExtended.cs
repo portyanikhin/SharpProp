@@ -28,7 +28,7 @@ namespace SharpProp.Tests
         public double? TestOzoneDepletionPotential() => _fluid.OzoneDepletionPotential;
 
         /// <summary>
-        ///     An example of how to add new properties to a <see cref="Fluid" />
+        ///     An example of how to add new properties to a <see cref="Fluid" />.
         /// </summary>
         private class FluidExtended : Fluid
         {
@@ -41,14 +41,14 @@ namespace SharpProp.Tests
             }
 
             /// <summary>
-            ///     Mass specific constant volume specific heat
+            ///     Mass specific constant volume specific heat.
             /// </summary>
             public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
                 SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
                     .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
             /// <summary>
-            ///     Molar density
+            ///     Molar density.
             /// </summary>
             public MolarMass? MolarDensity => _molarDensity ??=
                 KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
@@ -56,7 +56,7 @@ namespace SharpProp.Tests
                     : null;
 
             /// <summary>
-            ///     Ozone depletion potential (ODP)
+            ///     Ozone depletion potential (ODP).
             /// </summary>
             public double? OzoneDepletionPotential => _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
 

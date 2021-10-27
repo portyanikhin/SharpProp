@@ -7,17 +7,17 @@ using UnitsNet.Units;
 namespace SharpProp
 {
     /// <summary>
-    ///     CoolProp pure/pseudo-pure fluid or binary mixture
+    ///     CoolProp pure/pseudo-pure fluid or binary mixture.
     /// </summary>
     public class Fluid : AbstractFluid, IEquatable<Fluid>
     {
         /// <summary>
-        ///     CoolProp pure/pseudo-pure fluid or binary mixture
+        ///     CoolProp pure/pseudo-pure fluid or binary mixture.
         /// </summary>
-        /// <param name="name">Selected fluid</param>
-        /// <param name="fraction">Mass-based or volume-based fraction for binary mixtures (optional)</param>
+        /// <param name="name">Selected fluid.</param>
+        /// <param name="fraction">Mass-based or volume-based fraction for binary mixtures (optional).</param>
         /// <exception cref="ArgumentException">
-        ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %. Entered value = {fraction} %
+        ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
         /// </exception>
         /// <exception cref="ArgumentException">Need to define fraction!</exception>
         public Fluid(FluidsList name, Ratio? fraction = null)
@@ -26,7 +26,7 @@ namespace SharpProp
                 throw new ArgumentException(
                     "Invalid fraction value! " +
                     $"It should be in [{name.FractionMin().Percent};{name.FractionMax().Percent}] %. " +
-                    $"Entered value = {fraction.Value.ToUnit(RatioUnit.Percent)}");
+                    $"Entered value = {fraction.Value.Percent} %.");
             Name = name;
             Fraction = Name.Pure()
                 ? Ratio.FromPercent(100)
@@ -36,12 +36,12 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Selected fluid
+        ///     Selected fluid.
         /// </summary>
         public FluidsList Name { get; }
 
         /// <summary>
-        ///     Mass-based or volume-based fraction for binary mixtures (by default, %)
+        ///     Mass-based or volume-based fraction for binary mixtures (by default, %).
         /// </summary>
         public Ratio Fraction { get; }
 

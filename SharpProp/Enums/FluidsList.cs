@@ -4,10 +4,12 @@ using SharpProp.Attributes;
 namespace SharpProp
 {
     /// <summary>
-    ///     List of CoolProp fluids
+    ///     List of CoolProp fluids.
+    ///     See more info about CoolProp
+    ///     <a href="http://www.coolprop.org/fluid_properties/PurePseudoPure.html"> pure and pseudo-pure fluids</a>,
+    ///     <a href="http://www.coolprop.org/fluid_properties/Incompressibles.html">incompressible fluids</a> and
+    ///     <a href="http://www.coolprop.org/coolprop/HighLevelAPI.html#predefined-mixtures">predefined mixtures</a>.
     /// </summary>
-    /// <seealso href="http://www.coolprop.org/fluid_properties/PurePseudoPure.html">coolprop.org</seealso>
-    /// <seealso href="http://www.coolprop.org/fluid_properties/Incompressibles.html">coolprop.org</seealso>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum FluidsList
     {

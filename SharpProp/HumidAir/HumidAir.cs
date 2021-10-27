@@ -12,12 +12,6 @@ namespace SharpProp
     /// </summary>
     public partial class HumidAir : Jsonable, IEquatable<HumidAir>
     {
-        public bool Equals(HumidAir? other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
-        }
-
         /// <summary>
         ///     Returns a new <see cref="HumidAir" /> object with a defined state
         /// </summary>
@@ -91,6 +85,12 @@ namespace SharpProp
             var uniqueKeys = Inputs.Select(input => input.CoolPropKey).Distinct().ToList();
             if (Inputs.Count != 3 || uniqueKeys.Count != 3)
                 throw new ArgumentException("Need to define 3 unique inputs!");
+        }
+        
+        public bool Equals(HumidAir? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
         }
 
         public override bool Equals(object? obj) => Equals(obj as HumidAir);

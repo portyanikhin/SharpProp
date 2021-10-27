@@ -45,8 +45,6 @@ namespace SharpProp
         /// </summary>
         public Ratio Fraction { get; }
 
-        public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
-
         public override Fluid Factory() => new(Name, Fraction);
 
         public override Fluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
@@ -61,7 +59,9 @@ namespace SharpProp
                 Backend.set_volu_fractions(fractionsVector);
         }
 
-        public new bool Equals(object? obj) => Equals(obj as Fluid);
+        public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
+        
+        public override bool Equals(object? obj) => Equals(obj as Fluid);
 
         public override int GetHashCode() => HashCode.Combine(Name, Fraction, base.GetHashCode());
     }

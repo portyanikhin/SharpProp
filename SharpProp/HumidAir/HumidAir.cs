@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using CoolProp;
-using SharpProp.Outputs;
 
 namespace SharpProp
 {
     /// <summary>
     ///     Implementation of the humid air.
     /// </summary>
-    public partial class HumidAir : Jsonable, IEquatable<HumidAir>
+    public partial class HumidAir : IEquatable<HumidAir>
     {
         /// <summary>
         ///     Returns a new <see cref="HumidAir" /> object with a defined state.

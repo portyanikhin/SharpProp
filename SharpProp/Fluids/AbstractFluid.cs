@@ -1,13 +1,12 @@
 ﻿using System;
 using CoolProp;
-using SharpProp.Outputs;
 
 namespace SharpProp
 {
     /// <summary>
     ///     Fluids base class.
     /// </summary>
-    public abstract partial class AbstractFluid : Jsonable, IEquatable<AbstractFluid>
+    public abstract partial class AbstractFluid : IEquatable<AbstractFluid>
     {
         /// <summary>
         ///     Returns a new fluid object with no defined state.

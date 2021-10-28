@@ -4,7 +4,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
-using SharpProp.Outputs;
+using SharpProp.Extensions;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToRatio;
@@ -98,8 +98,7 @@ namespace SharpProp.Tests
         [Test]
         public void TestAsJson()
         {
-            Jsonable mixture =
-                _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
             mixture.AsJson().Should().Be(
                 JsonConvert.SerializeObject(mixture, new JsonSerializerSettings
                 {

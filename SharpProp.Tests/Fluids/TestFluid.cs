@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NUnit.Framework;
 using SharpProp.Extensions;
-using SharpProp.Outputs;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToTemperature;
@@ -140,8 +139,7 @@ namespace SharpProp.Tests
         [Test]
         public void TestAsJson()
         {
-            Jsonable water =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(293.15.DegreesCelsius()));
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
             water.AsJson().Should().Be(
                 JsonConvert.SerializeObject(water, new JsonSerializerSettings
                 {

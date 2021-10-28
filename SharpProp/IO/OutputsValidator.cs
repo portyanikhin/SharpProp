@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpProp.Outputs
+namespace SharpProp
 {
     internal static class OutputsValidator
     {

@@ -149,6 +149,14 @@ namespace SharpProp.Tests
                 }));
         }
 
+        [Test]
+        public void TestClone()
+        {
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var clone = water.Clone();
+            clone.Should().Be(water);
+        }
+
         private double? HighLevelInterface(string outputKey)
         {
             try

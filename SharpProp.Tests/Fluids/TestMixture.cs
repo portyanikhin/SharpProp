@@ -107,5 +107,13 @@ namespace SharpProp.Tests
                     Formatting = Formatting.Indented
                 }));
         }
+        
+        [Test]
+        public void TestClone()
+        {
+            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var clone = mixture.Clone();
+            clone.Should().Be(mixture);
+        }
     }
 }

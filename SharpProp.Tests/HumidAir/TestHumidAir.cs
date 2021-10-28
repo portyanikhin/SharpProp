@@ -115,6 +115,15 @@ namespace SharpProp.Tests
                     Formatting = Formatting.Indented
                 }));
         }
+        
+        [Test]
+        public void TestClone()
+        {
+            var humidAir = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
+                InputHumidAir.Temperature(20.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
+            var clone = humidAir.Clone();
+            clone.Should().Be(humidAir);
+        }
 
         private static double HighLevelInterface(string key, double pressure, double temperature,
             double relativeHumidity) => CP.HAPropsSI(key, "P", pressure, "T", temperature, "R", relativeHumidity);

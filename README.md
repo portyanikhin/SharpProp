@@ -27,7 +27,7 @@ In addition, you will be able to convert all values to many other dimensions wit
 
 ### List of properties
 
-For the `Fluid` and `Mixture` instances:
+For instances of `Fluid` and `Mixture`:
 
 * `Compressibility` - compressibility factor _(dimensionless)_.
 * `Conductivity` - thermal conductivity _(by default, W/m/K)_.
@@ -55,7 +55,7 @@ For the `Fluid` and `Mixture` instances:
 * `TriplePressure` - absolute pressure at the triple point _(by default, kPa)_.
 * `TripleTemperature` - temperature at the triple point _(by default, °C)_.
 
-For the `HumidAir` instances:
+For instances of `HumidAir`:
 
 * `Compressibility` - compressibility factor _(dimensionless)_.
 * `Conductivity` - thermal conductivity _(by default, W/m/K)_.
@@ -79,7 +79,7 @@ the `Fluid`, `Mixture` or `HumidAir` classes.
 
 #### Pure fluids
 
-To calculate the specific heat of saturated water vapour at _1 atm_:
+To calculate the specific heat of saturated water vapor at _1 atm_:
 
 ```c#
 using System;
@@ -123,7 +123,7 @@ Console.WriteLine(propyleneGlycol.DynamicViscosity?
 
 #### Mixtures
 
-To calculate the density of ethanol aqueous solution(with ethanol _40 %_ mass fraction) 
+To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) 
 at _200 kPa_ and _277.15 K_:
 
 ```c#
@@ -174,13 +174,42 @@ Console.WriteLine(humidAir.WetBulbTemperature
     .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.5 °F
 ```
 
-#### Converting to JSON string
+#### Equality of instances
 
-For example, converting the `Fluid` instance to _indented_ JSON string:
+You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
+Just use the `Equals` method or the equality operators (`==` or `!=`).
+Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
+
+For example:
 
 ```c#
 using System;
 using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+```
+
+```c#
+var humidAir = HumidAir.WithState(InputHumidAir.Pressure((1).Atmospheres()),
+    InputHumidAir.Temperature((20).DegreesCelsius()), InputHumidAir.RelativeHumidity((50).Percent()));
+var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure((101325).Pascals()),
+    InputHumidAir.Temperature((293.15).Kelvins()), InputHumidAir.RelativeHumidity((50).Percent()));
+Console.WriteLine(humidAir == humidAirWithSameState);               // true
+Console.WriteLine(InputHumidAir.Pressure((1).Atmospheres()) == 
+                  InputHumidAir.Pressure((101.325).Kilopascals())); // true
+```
+
+#### Converting to a JSON string
+
+The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `AsJson`,
+which performs converting of instance to a JSON string.
+For example, converting a `Fluid` instance to an _indented_ JSON string:
+
+```c#
+using System;
+using SharpProp;
+using SharpProp.Extensions;
 using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 ```
@@ -291,30 +320,24 @@ As a result:
 }
 ```
 
-#### Equality of instances
+#### Deep cloning
 
-You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state. 
-Just use the `Equals`method or the equality operators (`==` or `!=`). 
-Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
-
-For example:
+The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `Clone`, 
+which performs deep (full) copy of instance:
 
 ```c#
 using System;
 using SharpProp;
+using SharpProp.Extensions;
 using UnitsNet.NumberExtensions.NumberToPressure;
-using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 ```
 
 ```c#
-var humidAir = HumidAir.WithState(InputHumidAir.Pressure((1).Atmospheres()),
-    InputHumidAir.Temperature((20).DegreesCelsius()), InputHumidAir.RelativeHumidity((50).Percent()));
-var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure((101325).Pascals()),
-    InputHumidAir.Temperature((293.15).Kelvins()), InputHumidAir.RelativeHumidity((50).Percent()));
-Console.WriteLine(humidAir == humidAirWithSameState);               // true
-Console.WriteLine(InputHumidAir.Pressure((1).Atmospheres()) == 
-                  InputHumidAir.Pressure((101.325).Kilopascals())); // true
+var water = new Fluid(FluidsList.Water);
+water.Update(Input.Pressure((1).Atmospheres()), Input.Temperature((20).DegreesCelsius()));
+var clone = water.Clone();
+Console.WriteLine(water == clone); // true
 ```
 
 #### Adding other properties

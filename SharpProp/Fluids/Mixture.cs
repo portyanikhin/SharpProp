@@ -11,7 +11,9 @@ namespace SharpProp
     /// <summary>
     ///     CoolProp mass-based mixture of pure fluids.
     /// </summary>
+#pragma warning disable CA1067
     public class Mixture : AbstractFluid, IEquatable<Mixture>
+#pragma warning restore CA1067
     {
         /// <summary>
         ///     CoolProp mass-based mixture of pure fluids.
@@ -65,7 +67,7 @@ namespace SharpProp
         public bool Equals(Mixture? other) =>
             base.Equals(other) && Fluids.SequenceEqual(other.Fluids) && Fractions.SequenceEqual(other.Fractions);
         
-        public override bool Equals(object? obj) => Equals(obj as Mixture);
+        public new bool Equals(object? obj) => Equals(obj as Mixture);
 
         public override int GetHashCode() =>
             HashCode.Combine(string.Join("&", Fluids), string.Join("&", Fractions), base.GetHashCode());

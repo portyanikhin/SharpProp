@@ -9,7 +9,9 @@ namespace SharpProp
     /// <summary>
     ///     CoolProp pure/pseudo-pure fluid or binary mixture.
     /// </summary>
+#pragma warning disable CA1067
     public class Fluid : AbstractFluid, IEquatable<Fluid>
+#pragma warning restore CA1067
     {
         /// <summary>
         ///     CoolProp pure/pseudo-pure fluid or binary mixture.
@@ -61,7 +63,7 @@ namespace SharpProp
 
         public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
         
-        public override bool Equals(object? obj) => Equals(obj as Fluid);
+        public new bool Equals(object? obj) => Equals(obj as Fluid);
 
         public override int GetHashCode() => HashCode.Combine(Name, Fraction, base.GetHashCode());
     }

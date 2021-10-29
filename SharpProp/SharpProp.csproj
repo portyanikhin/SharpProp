@@ -14,9 +14,9 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Documentation update</PackageReleaseNotes>
+        <PackageReleaseNotes>The AsJson method of the Fluid, Mixture and HumidAir classes becomes an extension. Added the Clone extension method for the Fluid, Mixture and HumidAir classes. Updated documentation.</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>3.0.4</PackageVersion>
+        <PackageVersion>3.1.0</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

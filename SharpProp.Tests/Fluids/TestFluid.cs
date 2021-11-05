@@ -43,23 +43,23 @@ namespace SharpProp.Tests
                 _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
             var waterWithSameState =
                 _water.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
+            var waterWithOtherState =
+                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(30.DegreesCelsius()));
             waterWithState.Should().Be(waterWithState);
             waterWithState.Should().BeSameAs(waterWithState);
+            waterWithState.Should().NotBe(waterWithOtherState);
             waterWithState.Should().NotBeNull();
             waterWithState.Equals(new object()).Should().BeFalse();
             waterWithState.Should().Be(waterWithSameState);
             waterWithState.Should().NotBeSameAs(waterWithSameState);
             (waterWithState == waterWithSameState).Should().Be(waterWithState.Equals(waterWithSameState));
-            (waterWithState != _water).Should().Be(!waterWithState.Equals(_water));
+            (waterWithState != waterWithOtherState).Should().Be(!waterWithState.Equals(waterWithOtherState));
         }
 
         [Test]
         public void TestFactory()
         {
             var clonedWater = _water.Factory();
-            clonedWater.Should().Be(_water);
-            clonedWater.Should().NotBeSameAs(_water);
-            clonedWater.GetHashCode().Should().Be(_water.GetHashCode());
             clonedWater.Name.Should().Be(_water.Name);
             clonedWater.Fraction.Should().Be(_water.Fraction);
             clonedWater.Phase.Should().Be(Phases.Unknown);
@@ -70,8 +70,6 @@ namespace SharpProp.Tests
         {
             var waterWithState =
                 _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
-            waterWithState.Should().NotBe(_water);
-            waterWithState.GetHashCode().Should().NotBe(_water.GetHashCode());
             waterWithState.Phase.Should().Be(Phases.Liquid);
         }
 

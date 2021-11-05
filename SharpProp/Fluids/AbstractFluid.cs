@@ -143,19 +143,7 @@ namespace SharpProp
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return _phase == other._phase &&
-                   (_compressibility, _conductivity, _criticalPressure, _criticalTemperature,
-                       _density, _dynamicViscosity, _enthalpy, _entropy,
-                       _freezingTemperature, _internalEnergy, _maxPressure, _maxTemperature,
-                       _minPressure, _minTemperature, _molarMass, _prandtl, _pressure,
-                       _quality, _soundSpeed, _specificHeat, _surfaceTension,
-                       _temperature, _triplePressure, _tripleTemperature) ==
-                   (other._compressibility, other._conductivity, other._criticalPressure, other._criticalTemperature,
-                       other._density, other._dynamicViscosity, other._enthalpy, other._entropy,
-                       other._freezingTemperature, other._internalEnergy, other._maxPressure, other._maxTemperature,
-                       other._minPressure, other._minTemperature, other._molarMass, other._prandtl, other._pressure,
-                       other._quality, other._soundSpeed, other._specificHeat, other._surfaceTension,
-                       other._temperature, other._triplePressure, other._tripleTemperature);
+            return GetHashCode() == other.GetHashCode();
         }
         
         public override bool Equals(object? obj) => Equals(obj as AbstractFluid);
@@ -163,20 +151,29 @@ namespace SharpProp
         public override int GetHashCode()
         {
             var hashCode = new HashCode();
-            hashCode.Add(Phase);
             hashCode.Add(Compressibility);
             hashCode.Add(Conductivity);
             hashCode.Add(CriticalPressure);
             hashCode.Add(CriticalTemperature);
+            hashCode.Add(Density);
             hashCode.Add(DynamicViscosity);
+            hashCode.Add(Enthalpy);
+            hashCode.Add(Entropy);
             hashCode.Add(FreezingTemperature);
+            hashCode.Add(InternalEnergy);
             hashCode.Add(MaxPressure);
+            hashCode.Add(MaxTemperature);
             hashCode.Add(MinPressure);
+            hashCode.Add(MinTemperature);
             hashCode.Add(MolarMass);
+            hashCode.Add(Phase);
             hashCode.Add(Prandtl);
+            hashCode.Add(Pressure);
             hashCode.Add(Quality);
             hashCode.Add(SoundSpeed);
+            hashCode.Add(SpecificHeat);
             hashCode.Add(SurfaceTension);
+            hashCode.Add(Temperature);
             hashCode.Add(TriplePressure);
             hashCode.Add(TripleTemperature);
             return hashCode.ToHashCode();

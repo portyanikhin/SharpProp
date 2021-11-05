@@ -10,7 +10,7 @@
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <PackageVersion>3.0.4</PackageVersion>
+        <PackageVersion>3.1.1</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>

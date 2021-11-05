@@ -63,23 +63,23 @@ namespace SharpProp.Tests
                 _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
             var mixtureWithSameState =
                 _mixture.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
+            var mixtureWithOtherState =
+                _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(30.DegreesCelsius()));
             mixtureWithState.Should().Be(mixtureWithState);
             mixtureWithState.Should().BeSameAs(mixtureWithState);
+            mixtureWithState.Should().NotBe(mixtureWithOtherState);
             mixtureWithState.Should().NotBeNull();
             mixtureWithState.Equals(new object()).Should().BeFalse();
             mixtureWithState.Should().Be(mixtureWithSameState);
             mixtureWithState.Should().NotBeSameAs(mixtureWithSameState);
             (mixtureWithState == mixtureWithSameState).Should().Be(mixtureWithState.Equals(mixtureWithSameState));
-            (mixtureWithState != _mixture).Should().Be(!mixtureWithState.Equals(_mixture));
+            (mixtureWithState != mixtureWithOtherState).Should().Be(!mixtureWithState.Equals(mixtureWithOtherState));
         }
 
         [Test]
         public void TestFactory()
         {
             var clonedMixture = _mixture.Factory();
-            clonedMixture.Should().Be(_mixture);
-            clonedMixture.Should().NotBeSameAs(_mixture);
-            clonedMixture.GetHashCode().Should().Be(_mixture.GetHashCode());
             clonedMixture.Fluids.Should().BeSameAs(_mixture.Fluids);
             clonedMixture.Fractions.Should().BeEquivalentTo(_mixture.Fractions);
             clonedMixture.Phase.Should().Be(Phases.Unknown);
@@ -90,8 +90,6 @@ namespace SharpProp.Tests
         {
             var mixtureWithState =
                 _mixture.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
-            mixtureWithState.Should().NotBe(_mixture);
-            mixtureWithState.GetHashCode().Should().NotBe(_mixture.GetHashCode());
             mixtureWithState.Phase.Should().Be(Phases.Liquid);
         }
 

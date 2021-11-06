@@ -30,15 +30,15 @@ namespace SharpProp
         /// <summary>
         ///     Update humid air state with three inputs.
         /// </summary>
-        /// <param name="fistInput">First input property.</param>
+        /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-        public void Update(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
+        public void Update(IKeyedInput<string> firstInput, IKeyedInput<string> secondInput,
             IKeyedInput<string> thirdInput)
         {
             Reset();
-            Inputs = new List<IKeyedInput<string>> {fistInput, secondInput, thirdInput};
+            Inputs = new List<IKeyedInput<string>> {firstInput, secondInput, thirdInput};
             CheckInputs();
         }
 

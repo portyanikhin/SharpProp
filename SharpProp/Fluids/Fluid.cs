@@ -61,7 +61,7 @@ namespace SharpProp
                 Backend.set_volu_fractions(fractionsVector);
         }
 
-        public bool Equals(Fluid? other) => base.Equals(other) && (Name, Fraction) == (other.Name, other.Fraction);
+        public bool Equals(Fluid? other) => base.Equals(other);
         
         public new bool Equals(object? obj) => Equals(obj as Fluid);
 

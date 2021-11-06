@@ -64,8 +64,7 @@ namespace SharpProp
         public override Mixture WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
             (Mixture) base.WithState(firstInput, secondInput);
 
-        public bool Equals(Mixture? other) =>
-            base.Equals(other) && Fluids.SequenceEqual(other.Fluids) && Fractions.SequenceEqual(other.Fractions);
+        public bool Equals(Mixture? other) => base.Equals(other);
         
         public new bool Equals(object? obj) => Equals(obj as Mixture);
 

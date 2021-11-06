@@ -1,4 +1,5 @@
-﻿using CoolProp;
+﻿using System.Collections.Generic;
+using CoolProp;
 using UnitsNet;
 using UnitsNet.Units;
 
@@ -103,6 +104,8 @@ namespace SharpProp
                 ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
                 : null;
 
+        private List<IKeyedInput<Parameters>> Inputs { get; set; } = new(2);
+        
         /// <summary>
         ///     Mass specific internal energy (by default, kJ/kg).
         /// </summary>

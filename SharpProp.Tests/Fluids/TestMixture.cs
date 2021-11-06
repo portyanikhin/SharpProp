@@ -74,6 +74,15 @@ namespace SharpProp.Tests
         }
 
         [Test]
+        public void TestCachedInputs()
+        {
+            var mixtureWithState =
+                _mixture.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
+            mixtureWithState.Pressure.Pascals.Should().Be(101325);
+            mixtureWithState.Temperature.Kelvins.Should().Be(293.15);
+        }
+        
+        [Test]
         public void TestEquals()
         {
             var mixtureWithState =

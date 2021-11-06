@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using CoolProp;
 
 namespace SharpProp
@@ -39,6 +40,7 @@ namespace SharpProp
             Reset();
             var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
             Backend.update(inputPair, firstValue, secondValue);
+            Inputs = new List<IKeyedInput<Parameters>> {firstInput, secondInput};
         }
 
         /// <summary>
@@ -103,7 +105,8 @@ namespace SharpProp
         /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(Parameters key)
         {
-            var value = Backend.keyed_output(key);
+            var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
+            var value = input ?? Backend.keyed_output(key);
             OutputsValidator.Validate(value);
             return value;
         }

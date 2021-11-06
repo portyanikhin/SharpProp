@@ -113,7 +113,16 @@ namespace SharpProp.Tests
             Action action = () => _water.Update(Input.Pressure(1.Atmospheres()), Input.Pressure(101325.Pascals()));
             action.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
         }
-        
+
+        [Test]
+        public void TestCachedInputs()
+        {
+            var waterWithState =
+                _water.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
+            waterWithState.Pressure.Pascals.Should().Be(101325);
+            waterWithState.Temperature.Kelvins.Should().Be(293.15);
+        }
+
         [Test]
         public void TestEquals()
         {

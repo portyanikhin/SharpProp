@@ -19,23 +19,6 @@ namespace SharpProp.Tests
         private readonly HumidAir _humidAir = new();
 
         [Test]
-        public void TestEquals()
-        {
-            var humidAirWithState = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
-                InputHumidAir.Temperature(20.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
-            var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325.Pascals()),
-                InputHumidAir.Temperature(293.15.Kelvins()), InputHumidAir.RelativeHumidity(50.Percent()));
-            humidAirWithState.Should().Be(humidAirWithState);
-            humidAirWithState.Should().BeSameAs(humidAirWithState);
-            humidAirWithState.Should().NotBeNull();
-            humidAirWithState.Equals(new object()).Should().BeFalse();
-            humidAirWithState.Should().Be(humidAirWithSameState);
-            humidAirWithState.Should().NotBeSameAs(humidAirWithSameState);
-            (humidAirWithState == humidAirWithSameState).Should().Be(humidAirWithState.Equals(humidAirWithSameState));
-            (humidAirWithState != _humidAir).Should().Be(!humidAirWithState.Equals(_humidAir));
-        }
-
-        [Test]
         public void TestWithState()
         {
             var humidAirWithState = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
@@ -102,6 +85,33 @@ namespace SharpProp.Tests
             }
         }
 
+        [Test]
+        public void TestCachedInputs()
+        {
+            var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325.Pascals()),
+                InputHumidAir.Temperature(293.15.Kelvins()), InputHumidAir.RelativeHumidity(50.Percent()));
+            humidAirWithSameState.Pressure.Pascals.Should().Be(101325);
+            humidAirWithSameState.Temperature.Kelvins.Should().Be(293.15);
+            humidAirWithSameState.RelativeHumidity.Percent.Should().Be(50);
+        }
+        
+        [Test]
+        public void TestEquals()
+        {
+            var humidAirWithState = HumidAir.WithState(InputHumidAir.Pressure(1.Atmospheres()),
+                InputHumidAir.Temperature(20.DegreesCelsius()), InputHumidAir.RelativeHumidity(50.Percent()));
+            var humidAirWithSameState = HumidAir.WithState(InputHumidAir.Pressure(101325.Pascals()),
+                InputHumidAir.Temperature(293.15.Kelvins()), InputHumidAir.RelativeHumidity(50.Percent()));
+            humidAirWithState.Should().Be(humidAirWithState);
+            humidAirWithState.Should().BeSameAs(humidAirWithState);
+            humidAirWithState.Should().NotBeNull();
+            humidAirWithState.Equals(new object()).Should().BeFalse();
+            humidAirWithState.Should().Be(humidAirWithSameState);
+            humidAirWithState.Should().NotBeSameAs(humidAirWithSameState);
+            (humidAirWithState == humidAirWithSameState).Should().Be(humidAirWithState.Equals(humidAirWithSameState));
+            (humidAirWithState != _humidAir).Should().Be(!humidAirWithState.Equals(_humidAir));
+        }
+        
         [Test]
         public void TestAsJson()
         {

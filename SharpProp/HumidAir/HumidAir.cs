@@ -73,7 +73,8 @@ namespace SharpProp
         protected double KeyedOutput(string key)
         {
             CheckInputs();
-            var value = CP.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
+            var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
+            var value = input ?? CP.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
                 Inputs[1].CoolPropKey, Inputs[1].Value, Inputs[2].CoolPropKey, Inputs[2].Value);
             OutputsValidator.Validate(value);
             return value;

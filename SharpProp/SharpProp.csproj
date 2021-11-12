@@ -42,7 +42,7 @@
     <ItemGroup>
         <PackageReference Include="DeepCloner" Version="0.10.3" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-        <PackageReference Include="UnitsNet" Version="4.102.0" />
+        <PackageReference Include="UnitsNet" Version="4.103.0" />
         <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="4.4.0" />
         <PackageReference Include="UnitsNet.NumberExtensions" Version="4.102.0" />
     </ItemGroup>

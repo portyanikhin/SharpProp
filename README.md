@@ -338,6 +338,8 @@ var water = new Fluid(FluidsList.Water);
 water.Update(Input.Pressure((1).Atmospheres()), Input.Temperature((20).DegreesCelsius()));
 var clone = water.Clone();
 Console.WriteLine(water == clone); // true
+water.Update(Input.Pressure((1).Atmospheres()), Input.Temperature((30).DegreesCelsius()));
+Console.WriteLine(water == clone); // false
 ```
 
 #### Adding other properties

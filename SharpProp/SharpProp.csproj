@@ -7,7 +7,6 @@
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <LangVersion>10</LangVersion>
         <NoWarn>$(NoWarn);1591</NoWarn>
         <Nullable>enable</Nullable>
         <PackageIcon>icon.png</PackageIcon>
@@ -15,12 +14,12 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <PackageReleaseNotes>Bump UnitsNet from 4.104.0 to 4.105.0. Bump UnitsNet.NumberExtensions from 4.104.0 to 4.105.0. Bump UnitsNet.Serialization.JsonNet from 4.4.0 to 4.5.0. Update target frameworks. Update README.md.</PackageReleaseNotes>
+        <PackageReleaseNotes>Bump UnitsNet from 4.104.0 to 4.105.0. Bump UnitsNet.NumberExtensions from 4.104.0 to 4.105.0. Bump UnitsNet.Serialization.JsonNet from 4.4.0 to 4.5.0. Update README.md.</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>3.1.5</PackageVersion>
+        <PackageVersion>3.1.6</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <TargetFramework>net5.0</TargetFramework>
         <Title>SharpProp</Title>
     </PropertyGroup>
 

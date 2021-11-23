@@ -1,17 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <Authors>Vladimir Portyanikhin</Authors>
+        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
+        <Description>Unit tests for the SharpProp</Description>
         <IsPackable>false</IsPackable>
         <Nullable>enable</Nullable>
-        <Title>SharpProp.Tests</Title>
-        <Authors>Vladimir Portyanikhin</Authors>
-        <Description>Unit tests for the SharpProp</Description>
-        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
+        <PackageVersion>3.1.6</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <PackageVersion>3.1.4</PackageVersion>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
-        <LangVersion>10</LangVersion>
+        <TargetFramework>net5.0</TargetFramework>
+        <Title>SharpProp.Tests</Title>
     </PropertyGroup>
 
     <ItemGroup>

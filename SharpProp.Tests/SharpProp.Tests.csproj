@@ -6,8 +6,9 @@
         <Description>Unit tests for the SharpProp</Description>
         <IsPackable>false</IsPackable>
         <Nullable>enable</Nullable>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-        <PackageVersion>3.1.6</PackageVersion>
+        <PackageVersion>3.1.7</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <TargetFramework>net5.0</TargetFramework>
         <Title>SharpProp.Tests</Title>

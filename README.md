@@ -1,4 +1,4 @@
-# ![SharpProp](https://raw.githubusercontent.com/portyanikhin/SharpProp/f7f79cdc0fedbca3e4c816ef2205cfb8300e193f/SharpProp/pictures/header.svg)
+# ![SharpProp](https://raw.githubusercontent.com/portyanikhin/SharpProp/master/SharpProp/pictures/header.svg)
 
 [![Build & Tests](https://github.com/portyanikhin/SharpProp/actions/workflows/build-tests.yml/badge.svg)](https://github.com/portyanikhin/SharpProp/actions/workflows/build-tests.yml)
 [![CodeQL](https://github.com/portyanikhin/SharpProp/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/portyanikhin/SharpProp/actions/workflows/codeql-analysis.yml)

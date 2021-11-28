@@ -9,7 +9,22 @@
 
 A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org/) wrapper for C#.
 
-## Quick start
+## Overview
+- [Project structure](#project-structure)
+- [Unit safety](#unit-safety)
+- [List of properties](#list-of-properties)
+- [Examples](#examples)
+  - [Pure fluids](#pure-fluids)
+  - [Incompressible binary mixtures](#incompressible-binary-mixtures)
+  - [Mixtures](#mixtures)
+  - [Humid air](#humid-air)
+- [Equality of instances](#equality-of-instances)
+- [Converting to a JSON string](#converting-to-a-json-string)
+- [Deep cloning](#deep-cloning)
+- [Adding other properties](#adding-other-properties)
+- [Adding other inputs](#adding-other-inputs)
+
+## Project structure
 
 * `Fluid` class - for pure fluids and binary mixtures.
 * `Mixture` class - for mixtures with pure fluids components.
@@ -18,14 +33,14 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
 * `HumidAir` class - for humid air.
 * `InputHumidAir` record - inputs for the `HumidAir` class.
 
-### Unit safety
+## Unit safety
 
 All calculations of thermophysical properties are **_unit safe_** (thanks to [UnitsNet](https://github.com/angularsen/UnitsNet)).
 This allows you to avoid errors associated with incorrect dimensions of quantities,
 and will help you save a lot of time on their search and elimination.
 In addition, you will be able to convert all values to many other dimensions without the slightest difficulty.
 
-### List of properties
+## List of properties
 
 For instances of `Fluid` and `Mixture`:
 
@@ -75,9 +90,9 @@ For instances of `HumidAir`:
 **NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
 the `Fluid`, `Mixture` or `HumidAir` classes.
 
-### Examples
+## Examples
 
-#### Pure fluids
+### Pure fluids
 
 To calculate the specific heat of saturated water vapor at _1 atm_:
 
@@ -98,7 +113,7 @@ Console.WriteLine(waterVapour.SpecificHeat
     .ToUnit(SpecificEntropyUnit.CaloriePerGramKelvin));              // 0.5 cal/g.K
 ```
 
-#### Incompressible binary mixtures
+### Incompressible binary mixtures
 
 To calculate the dynamic viscosity of propylene glycol aqueous solution 
 with _60 %_ mass fraction at _100 kPa_ and _-20 °C_:
@@ -121,7 +136,7 @@ Console.WriteLine(propyleneGlycol.DynamicViscosity?
     .ToUnit(DynamicViscosityUnit.Poise));                           // 1.39 P
 ```
 
-#### Mixtures
+### Mixtures
 
 To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass fraction) 
 at _200 kPa_ and _277.15 K_:
@@ -146,7 +161,7 @@ Console.WriteLine(mixture.Density);                                      // 883.
 Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.34 g/dl
 ```
 
-#### Humid air
+### Humid air
 
 To calculate the wet bulb temperature of humid air 
 at _99 kPa_, _30 °C_ and _50 %_ relative humidity:
@@ -174,7 +189,7 @@ Console.WriteLine(humidAir.WetBulbTemperature
     .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.5 °F
 ```
 
-#### Equality of instances
+## Equality of instances
 
 You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
 Just use the `Equals` method or the equality operators (`==` or `!=`).
@@ -200,7 +215,7 @@ Console.WriteLine(InputHumidAir.Pressure((1).Atmospheres()) ==
                   InputHumidAir.Pressure((101.325).Kilopascals())); // true
 ```
 
-#### Converting to a JSON string
+## Converting to a JSON string
 
 The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `AsJson`,
 which performs converting of instance to a JSON string.
@@ -320,7 +335,7 @@ As a result:
 }
 ```
 
-#### Deep cloning
+## Deep cloning
 
 The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `Clone`, 
 which performs deep (full) copy of instance:
@@ -342,12 +357,12 @@ water.Update(Input.Pressure((1).Atmospheres()), Input.Temperature((30).DegreesCe
 Console.WriteLine(water == clone); // false
 ```
 
-#### Adding other properties
+## Adding other properties
 
 * [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestFluidExtended.cs).
 * [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestHumidAirExtended.cs).
 
-#### Adding other inputs
+## Adding other inputs
 
 * [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestInputExtended.cs).
 * [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestInputHumidAirExtended.cs).

@@ -7,7 +7,6 @@
         <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <LangVersion>10</LangVersion>
         <NoWarn>$(NoWarn);1591</NoWarn>
         <Nullable>enable</Nullable>
         <PackageIcon>icon.png</PackageIcon>
@@ -20,7 +19,7 @@
         <PackageVersion>3.1.11</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <TargetFramework>net5.0</TargetFramework>
         <Title>SharpProp</Title>
     </PropertyGroup>
 

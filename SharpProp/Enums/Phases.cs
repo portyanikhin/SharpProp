@@ -1,17 +1,18 @@
-﻿namespace SharpProp;
-
-/// <summary>
-///     Fluids and mixtures phase states.
-/// </summary>
-public enum Phases
+﻿namespace SharpProp
 {
-    Liquid,
-    Supercritical,
-    SupercriticalGas,
-    SupercriticalLiquid,
-    CriticalPoint,
-    Gas,
-    TwoPhase,
-    Unknown,
-    NotImposed
+    /// <summary>
+    ///     Fluids and mixtures phase states.
+    /// </summary>
+    public enum Phases
+    {
+        Liquid,
+        Supercritical,
+        SupercriticalGas,
+        SupercriticalLiquid,
+        CriticalPoint,
+        Gas,
+        TwoPhase,
+        Unknown,
+        NotImposed
+    }
 }

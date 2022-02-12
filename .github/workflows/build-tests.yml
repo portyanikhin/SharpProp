@@ -8,12 +8,11 @@ on:
 
 jobs:
   build-tests:
-    name: build-tests-${{ matrix.os }}
+    name: Build & Tests-${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ windows-2022, ubuntu-20.04 ]
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
@@ -28,3 +27,24 @@ jobs:
         run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
+
+  publish:
+    if: ${{ github.event_name == 'push' }}
+    needs: build-tests
+    name: Publish
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      - name: Publish on version change
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
+          PACKAGE_NAME: SharpProp
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+          TAG_FORMAT: v*
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}

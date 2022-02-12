@@ -21,7 +21,6 @@ jobs:
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>(.*)<\/Version>\s*$
           TAG_FORMAT: v*
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: https://api.nuget.org
+          PACKAGE_NAME: SharpProp

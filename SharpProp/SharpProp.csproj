@@ -15,8 +15,8 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>
-            Bump UnitsNet from 4.121.0 to 4.123.0.
-            Bump UnitsNet.NumberExtensions from 4.121.0 to 4.123.0.
+            - Bump UnitsNet from 4.123.0 to 4.124.0.
+            - Bump UnitsNet.NumberExtensions from 4.123.0 to 4.124.0.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
         <PackageVersion>3.1.17</PackageVersion>

@@ -13,7 +13,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="coolPropKey">CoolProp internal key.</param>
         /// <param name="value">Input value.</param>
-        protected Input(Parameters coolPropKey, double value) => 
+        protected Input(Parameters coolPropKey, double value) =>
             (CoolPropKey, Value) = (coolPropKey, value);
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass density for the input.</returns>
-        public static Input Density(Density value) => 
+        public static Input Density(Density value) =>
             new(Parameters.iDmass, value.KilogramsPerCubicMeter);
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass specific enthalpy for the input.</returns>
-        public static Input Enthalpy(SpecificEnergy value) => 
+        public static Input Enthalpy(SpecificEnergy value) =>
             new(Parameters.iHmass, value.JoulesPerKilogram);
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass specific entropy for the input.</returns>
-        public static Input Entropy(SpecificEntropy value) => 
+        public static Input Entropy(SpecificEntropy value) =>
             new(Parameters.iSmass, value.JoulesPerKilogramKelvin);
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass specific internal energy for the input.</returns>
-        public static Input InternalEnergy(SpecificEnergy value) => 
+        public static Input InternalEnergy(SpecificEnergy value) =>
             new(Parameters.iUmass, value.JoulesPerKilogram);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Absolute pressure for the input.</returns>
-        public static Input Pressure(Pressure value) => 
+        public static Input Pressure(Pressure value) =>
             new(Parameters.iP, value.Pascals);
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass vapor quality for the input.</returns>
-        public static Input Quality(Ratio value) => 
+        public static Input Quality(Ratio value) =>
             new(Parameters.iQ, value.DecimalFractions);
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Temperature for the input.</returns>
-        public static Input Temperature(Temperature value) => 
+        public static Input Temperature(Temperature value) =>
             new(Parameters.iT, value.Kelvins);
     }
 }

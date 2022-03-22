@@ -12,7 +12,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="coolPropKey">CoolProp internal key.</param>
         /// <param name="value">Input value.</param>
-        protected InputHumidAir(string coolPropKey, double value) => 
+        protected InputHumidAir(string coolPropKey, double value) =>
             (CoolPropKey, Value) = (coolPropKey, value);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass density per humid air unit for the input.</returns>
-        public static InputHumidAir Density(Density value) => 
+        public static InputHumidAir Density(Density value) =>
             new("Vha", 1.0 / value.KilogramsPerCubicMeter);
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Dew-point temperature for the input.</returns>
-        public static InputHumidAir DewTemperature(Temperature value) => 
+        public static InputHumidAir DewTemperature(Temperature value) =>
             new("D", value.Kelvins);
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass specific enthalpy per humid air for the input.</returns>
-        public static InputHumidAir Enthalpy(SpecificEnergy value) => 
+        public static InputHumidAir Enthalpy(SpecificEnergy value) =>
             new("Hha", value.JoulesPerKilogram);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Mass specific entropy per humid air for the input.</returns>
-        public static InputHumidAir Entropy(SpecificEntropy value) => 
+        public static InputHumidAir Entropy(SpecificEntropy value) =>
             new("Sha", value.JoulesPerKilogramKelvin);
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Absolute humidity ratio for the input.</returns>
-        public static InputHumidAir Humidity(Ratio value) => 
+        public static InputHumidAir Humidity(Ratio value) =>
             new("W", value.DecimalFractions);
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Partial pressure of water vapor for the input.</returns>
-        public static InputHumidAir PartialPressure(Pressure value) => 
+        public static InputHumidAir PartialPressure(Pressure value) =>
             new("P_w", value.Pascals);
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Absolute pressure for the input.</returns>
-        public static InputHumidAir Pressure(Pressure value) => 
+        public static InputHumidAir Pressure(Pressure value) =>
             new("P", value.Pascals);
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Relative humidity ratio for the input.</returns>
-        public static InputHumidAir RelativeHumidity(RelativeHumidity value) => 
+        public static InputHumidAir RelativeHumidity(RelativeHumidity value) =>
             new("R", Ratio.FromPercent(value.Percent).DecimalFractions);
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Dry-bulb temperature for the input.</returns>
-        public static InputHumidAir Temperature(Temperature value) => 
+        public static InputHumidAir Temperature(Temperature value) =>
             new("T", value.Kelvins);
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace SharpProp
         /// </summary>
         /// <param name="value">The value of the input.</param>
         /// <returns>Wet-bulb temperature for the input.</returns>
-        public static InputHumidAir WetBulbTemperature(Temperature value) => 
+        public static InputHumidAir WetBulbTemperature(Temperature value) =>
             new("B", value.Kelvins);
     }
 }

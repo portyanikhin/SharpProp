@@ -11,7 +11,7 @@ namespace SharpProp.Extensions
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The CoolProp internal name.</returns>
-        public static string CoolPropName(this FluidsList member) => 
+        public static string CoolPropName(this FluidsList member) =>
             member.GetAttribute<FluidInfo>().Name;
 
         /// <summary>
@@ -19,7 +19,7 @@ namespace SharpProp.Extensions
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The CoolProp backend type.</returns>
-        public static string CoolPropBackend(this FluidsList member) => 
+        public static string CoolPropBackend(this FluidsList member) =>
             member.GetAttribute<FluidInfo>().Backend;
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace SharpProp.Extensions
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The type of the fluid.</returns>
-        public static bool Pure(this FluidsList member) => 
+        public static bool Pure(this FluidsList member) =>
             member.GetAttribute<FluidInfo>().Pure;
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace SharpProp.Extensions
         /// </summary>
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The mixture type.</returns>
-        public static Mix MixType(this FluidsList member) => 
+        public static Mix MixType(this FluidsList member) =>
             member.GetAttribute<FluidInfo>().MixType;
 
         /// <summary>

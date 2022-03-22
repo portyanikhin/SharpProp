@@ -19,7 +19,7 @@ namespace SharpProp
         /// <summary>
         ///     CoolProp key in high-level interface.
         /// </summary>
-        public string CoolPropHighLevelKey => 
+        public string CoolPropHighLevelKey =>
             CoolPropKey!.ToString()!.TrimStart('i');
 
         /// <summary>

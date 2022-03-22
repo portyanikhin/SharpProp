@@ -24,7 +24,7 @@ namespace SharpProp
         /// <summary>
         ///     Compressibility factor (dimensionless).
         /// </summary>
-        public double Compressibility => 
+        public double Compressibility =>
             _compressibility ??= KeyedOutput("Z");
 
         /// <summary>
@@ -70,11 +70,17 @@ namespace SharpProp
         /// <summary>
         ///     Absolute humidity ratio (by default, g/kg d.a.).
         /// </summary>
-        public Ratio Humidity => _humidity ??= 
+        public Ratio Humidity => _humidity ??=
             Ratio.FromDecimalFractions(KeyedOutput("W"))
                 .ToUnit(RatioUnit.PartPerThousand);
 
         private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
+
+        /// <summary>
+        ///     Kinematic viscosity (by default, cSt).
+        /// </summary>
+        public KinematicViscosity KinematicViscosity =>
+            (DynamicViscosity / Density).ToUnit(KinematicViscosityUnit.Centistokes);
 
         /// <summary>
         ///     Partial pressure of water vapor (by default, kPa).
@@ -82,6 +88,13 @@ namespace SharpProp
         public Pressure PartialPressure => _partialPressure ??=
             Pressure.FromPascals(KeyedOutput("P_w"))
                 .ToUnit(PressureUnit.Kilopascal);
+
+        /// <summary>
+        ///     Prandtl number (dimensionless).
+        /// </summary>
+        public double Prandtl =>
+            DynamicViscosity.PascalSeconds * SpecificHeat.JoulesPerKilogramKelvin /
+            Conductivity.WattsPerMeterKelvin;
 
         /// <summary>
         ///     Absolute pressure (by default, kPa).
@@ -93,8 +106,8 @@ namespace SharpProp
         /// <summary>
         ///     Relative humidity ratio (by default, %).
         /// </summary>
-        public RelativeHumidity RelativeHumidity => 
-            _relativeHumidity ??= 
+        public RelativeHumidity RelativeHumidity =>
+            _relativeHumidity ??=
                 RelativeHumidity.FromPercent(Ratio.FromDecimalFractions(KeyedOutput("R")).Percent);
 
         /// <summary>

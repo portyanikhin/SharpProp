@@ -55,6 +55,7 @@ For instances of `Fluid` and `Mixture`:
 * `Entropy` - mass specific entropy _(by default, kJ/kg/K)_.
 * `FreezingTemperature` - temperature at freezing point (for incompressible fluids) _(by default, °C)_.
 * `InternalEnergy` - mass specific internal energy _(by default, kJ/kg)_.
+* `KinematicViscosity` - kinematic viscosity _(by default, cSt)_.
 * `MaxPressure` - maximum pressure limit _(by default, kPa)_.
 * `MaxTemperature` - maximum temperature limit _(by default, °C)_.
 * `MinPressure` - minimum pressure limit _(by default, kPa)_.
@@ -81,7 +82,9 @@ For instances of `HumidAir`:
 * `Enthalpy` - mass specific enthalpy per humid air _(by default, kJ/kg)_.
 * `Entropy` - mass specific entropy per humid air _(by default, kJ/kg/K)_.
 * `Humidity` - absolute humidity ratio _(by default, g/kg d.a.)_.
+* `KinematicViscosity` - kinematic viscosity _(by default, cSt)_.
 * `PartialPressure` - partial pressure of water vapor _(by default, kPa)_.
+* `Prandtl` - Prandtl number _(dimensionless)_.
 * `Pressure` - absolute pressure _(by default, kPa)_.
 * `RelativeHumidity` - relative humidity ratio _(by default, %)_.
 * `SpecificHeat` - mass specific constant pressure specific heat per humid air _(by default, kJ/kg/K)_.
@@ -89,7 +92,7 @@ For instances of `HumidAir`:
 * `WetBulbTemperature` - wet-bulb temperature _(by default, °C)_.
 
 **NB.** If the required property is not present in the instance of the fluid, then you can add it by extending
-the `Fluid`, `Mixture` or `HumidAir` classes.
+the `Fluid`, `Mixture` or `HumidAir` classes (see [how to add other properties](#adding-other-properties)).
 
 ## Examples
 

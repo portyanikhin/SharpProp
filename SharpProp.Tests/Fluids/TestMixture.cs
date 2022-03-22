@@ -50,7 +50,7 @@ namespace SharpProp.Tests
         private readonly Mixture _mixture = new(Fluids, Fractions);
 
         [TestCaseSource(nameof(_mixtureCases))]
-        public static void TestInitThrows(List<FluidsList> fluids, List<Ratio> fractions, string message)
+        public static void TestInvalidInputs(List<FluidsList> fluids, List<Ratio> fractions, string message)
         {
             Action action = () => _ = new Mixture(fluids, fractions);
             action.Should().Throw<ArgumentException>().WithMessage(message);
@@ -81,7 +81,7 @@ namespace SharpProp.Tests
             mixtureWithState.Pressure.Pascals.Should().Be(101325);
             mixtureWithState.Temperature.Kelvins.Should().Be(293.15);
         }
-        
+
         [Test]
         public void TestEquals()
         {
@@ -101,7 +101,7 @@ namespace SharpProp.Tests
             (mixtureWithState == mixtureWithSameState).Should().Be(mixtureWithState.Equals(mixtureWithSameState));
             (mixtureWithState != mixtureWithOtherState).Should().Be(!mixtureWithState.Equals(mixtureWithOtherState));
         }
-        
+
         [Test]
         public void TestGetHashCode()
         {
@@ -114,7 +114,7 @@ namespace SharpProp.Tests
             mixtureWithState.GetHashCode().Should().Be(mixtureWithSameState.GetHashCode());
             mixtureWithState.GetHashCode().Should().NotBe(mixtureWithOtherState.GetHashCode());
         }
-        
+
         [Test]
         public void TestAsJson()
         {
@@ -127,7 +127,7 @@ namespace SharpProp.Tests
                     Formatting = Formatting.Indented
                 }));
         }
-        
+
         [Test]
         public void TestClone()
         {

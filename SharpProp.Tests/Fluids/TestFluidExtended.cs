@@ -19,15 +19,15 @@ namespace SharpProp.Tests
         }
 
         [Test(ExpectedResult = 4156.6814728615545)]
-        public double TestSpecificHeatConstVolume() => 
+        public double TestSpecificHeatConstVolume() =>
             _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         [Test(ExpectedResult = 55408.953697937126)]
-        public double? TestMolarDensity() => 
+        public double? TestMolarDensity() =>
             _fluid.MolarDensity?.KilogramsPerMole;
 
         [Test(ExpectedResult = null)]
-        public double? TestOzoneDepletionPotential() => 
+        public double? TestOzoneDepletionPotential() =>
             _fluid.OzoneDepletionPotential;
 
         /// <summary>
@@ -35,9 +35,9 @@ namespace SharpProp.Tests
         /// </summary>
         private class FluidExtended : Fluid
         {
-            private SpecificEntropy? _specificHeatConstVolume;
             private MolarMass? _molarDensity;
             private double? _ozoneDepletionPotential;
+            private SpecificEntropy? _specificHeatConstVolume;
 
             public FluidExtended(FluidsList name, Ratio? fraction = null) : base(name, fraction)
             {
@@ -61,7 +61,7 @@ namespace SharpProp.Tests
             /// <summary>
             ///     Ozone depletion potential (ODP).
             /// </summary>
-            public double? OzoneDepletionPotential => 
+            public double? OzoneDepletionPotential =>
                 _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
 
             protected override void Reset()

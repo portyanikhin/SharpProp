@@ -20,7 +20,7 @@ namespace SharpProp.Tests
         }
 
         [Test(ExpectedResult = 722.68718970632506)]
-        public double TestSpecificHeatConstVolume() => 
+        public double TestSpecificHeatConstVolume() =>
             _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace SharpProp.Tests
             /// <summary>
             ///     Mixture specific heat at constant volume per unit humid air.
             /// </summary>
-            public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??= 
+            public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
                 SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("CVha"))
                     .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 

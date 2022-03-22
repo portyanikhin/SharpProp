@@ -9,7 +9,7 @@ namespace SharpProp.Tests
         private InputHumidAirExtended _input = null!;
 
         [SetUp]
-        public void SetUp() => 
+        public void SetUp() =>
             _input = InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
 
         [Test(ExpectedResult = "psi_w")]

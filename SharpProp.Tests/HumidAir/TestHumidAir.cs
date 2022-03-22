@@ -52,25 +52,25 @@ namespace SharpProp.Tests
             [Range(253.15, 323.15, 10)] double temperature,
             [Range(0, 1, 0.1)] double relativeHumidity)
         {
-            _humidAir.Update(InputHumidAir.Pressure(pressure.Pascals()), 
+            _humidAir.Update(InputHumidAir.Pressure(pressure.Pascals()),
                 InputHumidAir.Temperature(temperature.Kelvins()),
                 InputHumidAir.RelativeHumidity((relativeHumidity * 1e2).Percent()));
 
             var actual = new List<double>
             {
-                _humidAir.Compressibility, 
-                _humidAir.Conductivity.WattsPerMeterKelvin, 
-                _humidAir.Density.KilogramsPerCubicMeter, 
+                _humidAir.Compressibility,
+                _humidAir.Conductivity.WattsPerMeterKelvin,
+                _humidAir.Density.KilogramsPerCubicMeter,
                 _humidAir.DewTemperature.Kelvins,
-                _humidAir.DynamicViscosity.PascalSeconds, 
-                _humidAir.Enthalpy.JoulesPerKilogram, 
-                _humidAir.Entropy.JoulesPerKilogramKelvin, 
+                _humidAir.DynamicViscosity.PascalSeconds,
+                _humidAir.Enthalpy.JoulesPerKilogram,
+                _humidAir.Entropy.JoulesPerKilogramKelvin,
                 _humidAir.Humidity.DecimalFractions,
-                _humidAir.PartialPressure.Pascals, 
-                _humidAir.Pressure.Pascals, 
-                Ratio.FromPercent(_humidAir.RelativeHumidity.Percent).DecimalFractions, 
+                _humidAir.PartialPressure.Pascals,
+                _humidAir.Pressure.Pascals,
+                Ratio.FromPercent(_humidAir.RelativeHumidity.Percent).DecimalFractions,
                 _humidAir.SpecificHeat.JoulesPerKilogramKelvin,
-                _humidAir.Temperature.Kelvins, 
+                _humidAir.Temperature.Kelvins,
                 _humidAir.WetBulbTemperature.Kelvins
             };
             var keys = new List<string>
@@ -83,6 +83,10 @@ namespace SharpProp.Tests
                 expected = keys[i] == "Vha" ? 1 / expected : expected;
                 actual[i].Should().BeApproximately(expected, 1e-6);
             }
+
+            _humidAir.KinematicViscosity.Should().Be(_humidAir.DynamicViscosity / _humidAir.Density);
+            _humidAir.Prandtl.Should().Be(_humidAir.DynamicViscosity.PascalSeconds *
+                _humidAir.SpecificHeat.JoulesPerKilogramKelvin / _humidAir.Conductivity.WattsPerMeterKelvin);
         }
 
         [Test]
@@ -94,7 +98,7 @@ namespace SharpProp.Tests
             humidAirWithSameState.Temperature.Kelvins.Should().Be(293.15);
             humidAirWithSameState.RelativeHumidity.Percent.Should().Be(50);
         }
-        
+
         [Test]
         public void TestEquals()
         {
@@ -111,7 +115,7 @@ namespace SharpProp.Tests
             (humidAirWithState == humidAirWithSameState).Should().Be(humidAirWithState.Equals(humidAirWithSameState));
             (humidAirWithState != _humidAir).Should().Be(!humidAirWithState.Equals(_humidAir));
         }
-        
+
         [Test]
         public void TestAsJson()
         {
@@ -125,7 +129,7 @@ namespace SharpProp.Tests
                     Formatting = Formatting.Indented
                 }));
         }
-        
+
         [Test]
         public void TestClone()
         {

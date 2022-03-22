@@ -56,7 +56,7 @@ namespace SharpProp.Tests
         [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
         [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %.")]
         [TestCase(FluidsList.MPG, 2, "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %.")]
-        public static void TestInitThrows(FluidsList name, double? fraction, string message)
+        public static void TestInvalidFraction(FluidsList name, double? fraction, string message)
         {
             Action action = () =>
                 _ = new Fluid(name, fraction.HasValue ? Ratio.FromDecimalFractions(fraction.Value) : null);
@@ -105,10 +105,11 @@ namespace SharpProp.Tests
             for (var i = 0; i < keys.Count; i++)
                 if (keys[i] is not ("P" or "T"))
                     actual[i].Should().BeApproximately(HighLevelInterface(keys[i]), 1e-9);
+            _fluid.KinematicViscosity.Should().Be(_fluid.DynamicViscosity / _fluid.Density);
         }
 
         [Test]
-        public void TestUpdateThrows()
+        public void TestUpdateInvalidInput()
         {
             Action action = () => _water.Update(Input.Pressure(1.Atmospheres()), Input.Pressure(101325.Pascals()));
             action.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");

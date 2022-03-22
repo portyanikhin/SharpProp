@@ -10,7 +10,7 @@ namespace SharpProp.Tests
         private InputExtended _input = null!;
 
         [SetUp]
-        public void SetUp() => 
+        public void SetUp() =>
             _input = InputExtended.MolarDensity(900.KilogramsPerMole());
 
         [Test(ExpectedResult = Parameters.iDmolar)]

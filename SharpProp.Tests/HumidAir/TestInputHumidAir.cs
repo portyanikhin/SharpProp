@@ -35,7 +35,7 @@ namespace SharpProp.Tests
             input.Value.Should().Be(value);
 
         [Test]
-        public static void TestEquals() => 
+        public static void TestEquals() =>
             InputHumidAir.Pressure(1.Atmospheres()).Should().Be(InputHumidAir.Pressure(101325.Pascals()));
     }
 }

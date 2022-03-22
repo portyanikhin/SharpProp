@@ -19,13 +19,16 @@ namespace SharpProp.Tests
         }
 
         [Test(ExpectedResult = 4156.6814728615545)]
-        public double TestSpecificHeatConstVolume() => _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
+        public double TestSpecificHeatConstVolume() => 
+            _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         [Test(ExpectedResult = 55408.953697937126)]
-        public double? TestMolarDensity() => _fluid.MolarDensity?.KilogramsPerMole;
+        public double? TestMolarDensity() => 
+            _fluid.MolarDensity?.KilogramsPerMole;
 
         [Test(ExpectedResult = null)]
-        public double? TestOzoneDepletionPotential() => _fluid.OzoneDepletionPotential;
+        public double? TestOzoneDepletionPotential() => 
+            _fluid.OzoneDepletionPotential;
 
         /// <summary>
         ///     An example of how to add new properties to a <see cref="Fluid" />.
@@ -58,7 +61,8 @@ namespace SharpProp.Tests
             /// <summary>
             ///     Ozone depletion potential (ODP).
             /// </summary>
-            public double? OzoneDepletionPotential => _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
+            public double? OzoneDepletionPotential => 
+                _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
 
             protected override void Reset()
             {

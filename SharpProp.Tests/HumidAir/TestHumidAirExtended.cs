@@ -20,7 +20,8 @@ namespace SharpProp.Tests
         }
 
         [Test(ExpectedResult = 722.68718970632506)]
-        public double TestSpecificHeatConstVolume() => _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
+        public double TestSpecificHeatConstVolume() => 
+            _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         /// <summary>
         ///     An example of how to add new properties to a <see cref="HumidAir" />.

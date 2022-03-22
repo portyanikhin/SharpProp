@@ -24,7 +24,8 @@ namespace SharpProp
         /// <summary>
         ///     Compressibility factor (dimensionless).
         /// </summary>
-        public double Compressibility => _compressibility ??= KeyedOutput("Z");
+        public double Compressibility => 
+            _compressibility ??= KeyedOutput("Z");
 
         /// <summary>
         ///     Thermal conductivity (by default, W/m/K).
@@ -92,8 +93,9 @@ namespace SharpProp
         /// <summary>
         ///     Relative humidity ratio (by default, %).
         /// </summary>
-        public RelativeHumidity RelativeHumidity => _relativeHumidity ??=
-            RelativeHumidity.FromPercent(Ratio.FromDecimalFractions(KeyedOutput("R")).Percent);
+        public RelativeHumidity RelativeHumidity => 
+            _relativeHumidity ??= 
+                RelativeHumidity.FromPercent(Ratio.FromDecimalFractions(KeyedOutput("R")).Percent);
 
         /// <summary>
         ///     Mass specific constant pressure specific heat per humid air (by default, kJ/kg/K).

@@ -96,8 +96,9 @@ namespace SharpProp
         public override bool Equals(object? obj) => Equals(obj as HumidAir);
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-        public override int GetHashCode() => HashCode.Combine(Inputs.Select(input => input.Value).Sum(),
-            string.Join("&", Inputs.Select(input => input.CoolPropKey)));
+        public override int GetHashCode() => 
+            HashCode.Combine(Inputs.Select(input => input.Value).Sum(), 
+                string.Join("&", Inputs.Select(input => input.CoolPropKey)));
 
         public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);
 

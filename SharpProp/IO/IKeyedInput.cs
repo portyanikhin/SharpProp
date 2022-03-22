@@ -19,7 +19,8 @@ namespace SharpProp
         /// <summary>
         ///     CoolProp key in high-level interface.
         /// </summary>
-        public string CoolPropHighLevelKey => CoolPropKey!.ToString()!.TrimStart('i');
+        public string CoolPropHighLevelKey => 
+            CoolPropKey!.ToString()!.TrimStart('i');
 
         /// <summary>
         ///     Input value in SI units.

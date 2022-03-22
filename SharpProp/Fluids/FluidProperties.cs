@@ -41,7 +41,8 @@ namespace SharpProp
         /// <summary>
         ///     Compressibility factor (dimensionless).
         /// </summary>
-        public double? Compressibility => _compressibility ??= NullableKeyedOutput(Parameters.iZ);
+        public double? Compressibility => 
+            _compressibility ??= NullableKeyedOutput(Parameters.iZ);
 
         /// <summary>
         ///     Thermal conductivity (by default, W/m/K).
@@ -154,12 +155,14 @@ namespace SharpProp
         /// <summary>
         ///     Phase state.
         /// </summary>
-        public Phases Phase => _phase ??= (Phases) KeyedOutput(Parameters.iPhase);
+        public Phases Phase => 
+            _phase ??= (Phases) KeyedOutput(Parameters.iPhase);
 
         /// <summary>
         ///     Prandtl number (dimensionless).
         /// </summary>
-        public double? Prandtl => _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
+        public double? Prandtl => 
+            _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
 
         /// <summary>
         ///     Absolute pressure (by default, kPa).

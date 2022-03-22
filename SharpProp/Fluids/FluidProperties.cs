@@ -41,7 +41,7 @@ namespace SharpProp
         /// <summary>
         ///     Compressibility factor (dimensionless).
         /// </summary>
-        public double? Compressibility => 
+        public double? Compressibility =>
             _compressibility ??= NullableKeyedOutput(Parameters.iZ);
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace SharpProp
         /// <summary>
         ///     Mass density (by default, kg/m3).
         /// </summary>
-        public Density Density => _density ??= 
+        public Density Density => _density ??=
             Density.FromKilogramsPerCubicMeter(KeyedOutput(Parameters.iDmass));
 
         /// <summary>
@@ -86,14 +86,14 @@ namespace SharpProp
         /// <summary>
         ///     Mass specific enthalpy (by default, kJ/kg).
         /// </summary>
-        public SpecificEnergy Enthalpy => _enthalpy ??= 
+        public SpecificEnergy Enthalpy => _enthalpy ??=
             SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iHmass))
                 .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
         /// <summary>
         ///     Mass specific entropy (by default, kJ/kg/K).
         /// </summary>
-        public SpecificEntropy Entropy => _entropy ??= 
+        public SpecificEntropy Entropy => _entropy ??=
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iSmass))
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
@@ -106,13 +106,19 @@ namespace SharpProp
                 : null;
 
         private List<IKeyedInput<Parameters>> Inputs { get; set; } = new(2);
-        
+
         /// <summary>
         ///     Mass specific internal energy (by default, kJ/kg).
         /// </summary>
-        public SpecificEnergy InternalEnergy => _internalEnergy ??= 
+        public SpecificEnergy InternalEnergy => _internalEnergy ??=
             SpecificEnergy.FromJoulesPerKilogram(KeyedOutput(Parameters.iUmass))
                 .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
+
+        /// <summary>
+        ///     Kinematic viscosity (by default, cSt).
+        /// </summary>
+        public KinematicViscosity? KinematicViscosity =>
+            (DynamicViscosity / Density)?.ToUnit(KinematicViscosityUnit.Centistokes);
 
         /// <summary>
         ///     Maximum pressure limit (by default, kPa).
@@ -140,7 +146,7 @@ namespace SharpProp
         /// <summary>
         ///     Minimum temperature limit (by default, °C).
         /// </summary>
-        public Temperature MinTemperature => _minTemperature ??= 
+        public Temperature MinTemperature => _minTemperature ??=
             Temperature.FromKelvins(KeyedOutput(Parameters.iT_min))
                 .ToUnit(TemperatureUnit.DegreeCelsius);
 
@@ -155,19 +161,19 @@ namespace SharpProp
         /// <summary>
         ///     Phase state.
         /// </summary>
-        public Phases Phase => 
+        public Phases Phase =>
             _phase ??= (Phases) KeyedOutput(Parameters.iPhase);
 
         /// <summary>
         ///     Prandtl number (dimensionless).
         /// </summary>
-        public double? Prandtl => 
+        public double? Prandtl =>
             _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
 
         /// <summary>
         ///     Absolute pressure (by default, kPa).
         /// </summary>
-        public Pressure Pressure => _pressure ??= 
+        public Pressure Pressure => _pressure ??=
             Pressure.FromPascals(KeyedOutput(Parameters.iP))
                 .ToUnit(PressureUnit.Kilopascal);
 
@@ -190,7 +196,7 @@ namespace SharpProp
         /// <summary>
         ///     Mass specific constant pressure specific heat (by default, kJ/kg/K).
         /// </summary>
-        public SpecificEntropy SpecificHeat => _specificHeat ??= 
+        public SpecificEntropy SpecificHeat => _specificHeat ??=
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCpmass))
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
@@ -205,7 +211,7 @@ namespace SharpProp
         /// <summary>
         ///     Temperature (by default, °C).
         /// </summary>
-        public Temperature Temperature => _temperature ??= 
+        public Temperature Temperature => _temperature ??=
             Temperature.FromKelvins(KeyedOutput(Parameters.iT))
                 .ToUnit(TemperatureUnit.DegreeCelsius);
 

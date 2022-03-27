@@ -41,6 +41,7 @@ jobs:
           dotnet-version: 5.0.x
       - name: Publish on version change
         id: publish_nuget
+        continue-on-error: true
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: SharpProp/SharpProp.csproj

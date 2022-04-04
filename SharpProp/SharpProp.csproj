@@ -15,14 +15,11 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageReleaseNotes>
-- Added kinematic viscosity to the fluids and mixture properties.
-- Added kinematic viscosity and Prandtl number to the humid air properties.
-- Documentation update.
-- Bump UnitsNet from 4.125.0 to 4.126.0.
-- Bump UnitsNet.NumberExtensions from 4.125.0 to 4.126.0.
+- Bump UnitsNet from 4.126.0 to 4.127.0.
+- Bump UnitsNet.NumberExtensions from 4.126.0 to 4.127.0.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>3.2.0</PackageVersion>
+        <PackageVersion>3.2.1</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

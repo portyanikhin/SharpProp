@@ -26,7 +26,7 @@ jobs:
       - name: Test
         run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v3
 
   publish:
     if: ${{ github.event_name == 'push' }}

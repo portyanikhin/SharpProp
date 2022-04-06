@@ -14,7 +14,11 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>Documentation update.</PackageReleaseNotes>
+        <PackageReleaseNotes>
+- Bump UnitsNet from 4.127.0 to 4.128.0.
+- Bump UnitsNet.NumberExtensions from 4.127.0 to 4.128.0.
+- Documentation update.
+        </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
         <PackageVersion>3.2.2</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>

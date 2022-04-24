@@ -14,13 +14,9 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>
-- Bump UnitsNet from 4.127.0 to 4.128.0.
-- Bump UnitsNet.NumberExtensions from 4.127.0 to 4.128.0.
-- Documentation update.
-        </PackageReleaseNotes>
+        <PackageReleaseNotes>Replacing Enum.Extensions to the library Enums.NET.</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>3.2.2</PackageVersion>
+        <PackageVersion>3.2.3</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

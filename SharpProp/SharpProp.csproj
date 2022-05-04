@@ -40,7 +40,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="DeepCloner" Version="0.10.3"/>
+        <PackageReference Include="DeepCloner" Version="0.10.4"/>
         <PackageReference Include="Enums.NET" Version="4.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="UnitsNet" Version="4.128.0"/>

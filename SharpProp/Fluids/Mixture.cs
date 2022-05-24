@@ -59,16 +59,18 @@ namespace SharpProp
         /// </summary>
         public List<Ratio> Fractions { get; }
 
+        public bool Equals(Mixture? other) => base.Equals(other);
+
         public override Mixture Factory() => new(Fluids, Fractions);
 
-        public override Mixture WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
+        public override Mixture WithState(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput) =>
             (Mixture) base.WithState(firstInput, secondInput);
 
-        public bool Equals(Mixture? other) => base.Equals(other);
-        
         public new bool Equals(object? obj) => Equals(obj as Mixture);
 
         public override int GetHashCode() =>
-            HashCode.Combine(string.Join("&", Fluids), string.Join("&", Fractions), base.GetHashCode());
+            HashCode.Combine(string.Join("&", Fluids),
+                string.Join("&", Fractions), base.GetHashCode());
     }
 }

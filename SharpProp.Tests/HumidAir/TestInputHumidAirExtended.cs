@@ -23,7 +23,8 @@ namespace SharpProp.Tests
         /// </summary>
         public record InputHumidAirExtended : InputHumidAir
         {
-            private InputHumidAirExtended(string coolPropKey, double value) : base(coolPropKey, value)
+            private InputHumidAirExtended(string coolPropKey, double value) :
+                base(coolPropKey, value)
             {
             }
 

@@ -31,10 +31,14 @@ namespace SharpProp.Tests
         }
 
         private static Ratio? SetUpFraction(FluidsList name) =>
-            name.Pure() ? null : 0.1 * name.FractionMin() + 0.9 * name.FractionMax();
+            name.Pure()
+                ? null
+                : 0.1 * name.FractionMin() +
+                  0.9 * name.FractionMax();
 
         private static Temperature SetUpTemperature(AbstractFluid fluid) =>
-            (0.1 * fluid.MinTemperature.Kelvins + 0.9 * fluid.MaxTemperature.Kelvins).Kelvins();
+            (0.1 * fluid.MinTemperature.Kelvins +
+             0.9 * fluid.MaxTemperature.Kelvins).Kelvins();
 
         [Test]
         public void TestFactory()
@@ -48,8 +52,8 @@ namespace SharpProp.Tests
         [Test]
         public void TestWithState()
         {
-            var waterWithState =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var waterWithState = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius()));
             waterWithState.Phase.Should().Be(Phases.Liquid);
         }
 
@@ -59,7 +63,9 @@ namespace SharpProp.Tests
         public static void TestInvalidFraction(FluidsList name, double? fraction, string message)
         {
             Action action = () =>
-                _ = new Fluid(name, fraction.HasValue ? Ratio.FromDecimalFractions(fraction.Value) : null);
+                _ = new Fluid(name, fraction.HasValue
+                    ? Ratio.FromDecimalFractions(fraction.Value)
+                    : null);
             action.Should().Throw<ArgumentException>().WithMessage(message);
         }
 
@@ -111,56 +117,60 @@ namespace SharpProp.Tests
         [Test]
         public void TestUpdateInvalidInput()
         {
-            Action action = () => _water.Update(Input.Pressure(1.Atmospheres()), Input.Pressure(101325.Pascals()));
-            action.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
+            Action action =
+                () => _water.Update(Input.Pressure(1.Atmospheres()),
+                    Input.Pressure(101325.Pascals()));
+            action.Should().Throw<ArgumentException>()
+                .WithMessage("Need to define 2 unique inputs!");
         }
 
         [Test]
         public void TestCachedInputs()
         {
-            var waterWithState =
-                _water.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
-            waterWithState.Pressure.Pascals.Should().Be(101325);
-            waterWithState.Temperature.Kelvins.Should().Be(293.15);
+            var water = _water.WithState(Input.Pressure(101325.Pascals()),
+                Input.Temperature(293.15.Kelvins()));
+            water.Pressure.Pascals.Should().Be(101325);
+            water.Temperature.Kelvins.Should().Be(293.15);
         }
 
         [Test]
         public void TestEquals()
         {
-            var waterWithState =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
-            var waterWithSameState =
-                _water.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
-            var waterWithOtherState =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(30.DegreesCelsius()));
-            waterWithState.Should().Be(waterWithState);
-            waterWithState.Should().BeSameAs(waterWithState);
-            waterWithState.Should().NotBe(waterWithOtherState);
-            waterWithState.Should().NotBeNull();
-            waterWithState.Equals(new object()).Should().BeFalse();
-            waterWithState.Should().Be(waterWithSameState);
-            waterWithState.Should().NotBeSameAs(waterWithSameState);
-            (waterWithState == waterWithSameState).Should().Be(waterWithState.Equals(waterWithSameState));
-            (waterWithState != waterWithOtherState).Should().Be(!waterWithState.Equals(waterWithOtherState));
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius()));
+            var sameWater = _water.WithState(Input.Pressure(101325.Pascals()),
+                Input.Temperature(293.15.Kelvins()));
+            var otherWater = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(30.DegreesCelsius()));
+            water.Should().Be(water);
+            water.Should().BeSameAs(water);
+            water.Should().NotBe(otherWater);
+            water.Should().NotBeNull();
+            water.Equals(new object()).Should().BeFalse();
+            water.Should().Be(sameWater);
+            water.Should().NotBeSameAs(sameWater);
+            (water == sameWater).Should().Be(water.Equals(sameWater));
+            (water != otherWater).Should().Be(!water.Equals(otherWater));
         }
 
         [Test]
         public void TestGetHashCode()
         {
-            var waterWithState =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
-            var waterWithSameState =
-                _water.WithState(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
-            var waterWithOtherState =
-                _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(30.DegreesCelsius()));
-            waterWithState.GetHashCode().Should().Be(waterWithSameState.GetHashCode());
-            waterWithState.GetHashCode().Should().NotBe(waterWithOtherState.GetHashCode());
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius()));
+            var sameWater = _water.WithState(Input.Pressure(101325.Pascals()),
+                Input.Temperature(293.15.Kelvins()));
+            var otherWater = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(30.DegreesCelsius()));
+            water.GetHashCode().Should().Be(sameWater.GetHashCode());
+            water.GetHashCode().Should().NotBe(otherWater.GetHashCode());
         }
 
         [Test]
         public void TestAsJson()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius()));
             water.AsJson().Should().Be(
                 JsonConvert.SerializeObject(water, new JsonSerializerSettings
                 {
@@ -173,9 +183,13 @@ namespace SharpProp.Tests
         [Test]
         public void TestClone()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius()));
             var clone = water.Clone();
             clone.Should().Be(water);
+            clone.Update(Input.Pressure(1.Atmospheres()),
+                Input.Temperature(30.DegreesCelsius()));
+            clone.Should().NotBe(water);
         }
 
         private double? HighLevelInterface(string outputKey)
@@ -209,11 +223,11 @@ namespace SharpProp.Tests
                 ? name.CoolPropName()
                 : $"{name.CoolPropBackend()}::{name.CoolPropName()}";
 
-        private static double? CheckedValue(double value, string outputKey)
-        {
-            if (double.IsInfinity(value) || double.IsNaN(value) || outputKey == "Q" && value is < 0 or > 1)
-                return null;
-            return value;
-        }
+        private static double? CheckedValue(double value, string outputKey) =>
+            double.IsInfinity(value) ||
+            double.IsNaN(value) ||
+            (outputKey == "Q" && value is < 0 or > 1)
+                ? null
+                : value;
     }
 }

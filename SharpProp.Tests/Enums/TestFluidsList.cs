@@ -90,7 +90,8 @@ namespace SharpProp.Tests
                         coolPropFluid.CoolPropName().Should().Be("Water");
                         break;
                     default:
-                        coolPropFluid.ToString().Should().Be(coolPropFluid.CoolPropName().RemoveChars('-', '(', ')'));
+                        coolPropFluid.ToString().Should().Be(
+                            coolPropFluid.CoolPropName().RemoveChars('-', '(', ')'));
                         break;
                 }
         }

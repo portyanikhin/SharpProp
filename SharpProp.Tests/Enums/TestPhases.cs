@@ -8,7 +8,8 @@ namespace SharpProp.Tests
     {
         [Test]
         [Sequential]
-        public static void CompareWithCoolPropPhases([Values] phases coolPropPhase, [Values] Phases sharpPropPhase) =>
+        public static void CompareWithCoolPropPhases([Values] phases coolPropPhase,
+            [Values] Phases sharpPropPhase) =>
             sharpPropPhase.Should().HaveSameValueAs(coolPropPhase);
     }
 }

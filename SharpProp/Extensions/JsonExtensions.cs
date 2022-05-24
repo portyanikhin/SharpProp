@@ -8,7 +8,10 @@ namespace SharpProp.Extensions
     public static class JsonExtensions
     {
         private static readonly JsonSerializerSettings Settings = new()
-            {Converters = new List<JsonConverter> {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()}};
+        {
+            Converters = new List<JsonConverter>
+                {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()}
+        };
 
         /// <summary>
         ///     Converts a <see cref="Fluid" /> instance to a JSON string.

@@ -47,9 +47,12 @@ namespace SharpProp
         /// </summary>
         public Ratio Fraction { get; }
 
+        public bool Equals(Fluid? other) => base.Equals(other);
+
         public override Fluid Factory() => new(Name, Fraction);
 
-        public override Fluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
+        public override Fluid WithState(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput) =>
             (Fluid) base.WithState(firstInput, secondInput);
 
         private void SetFraction()
@@ -61,10 +64,9 @@ namespace SharpProp
                 Backend.set_volu_fractions(fractionsVector);
         }
 
-        public bool Equals(Fluid? other) => base.Equals(other);
-        
         public new bool Equals(object? obj) => Equals(obj as Fluid);
 
-        public override int GetHashCode() => HashCode.Combine(Name, Fraction, base.GetHashCode());
+        public override int GetHashCode() =>
+            HashCode.Combine(Name, Fraction, base.GetHashCode());
     }
 }

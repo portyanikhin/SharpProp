@@ -9,6 +9,13 @@ namespace SharpProp
     /// </summary>
     public abstract partial class AbstractFluid : IEquatable<AbstractFluid>
     {
+        public bool Equals(AbstractFluid? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return GetHashCode() == other.GetHashCode();
+        }
+
         /// <summary>
         ///     Returns a new fluid object with no defined state.
         /// </summary>
@@ -22,7 +29,8 @@ namespace SharpProp
         /// <param name="secondInput">Second input property.</param>
         /// <returns>A new fluid object with a defined state.</returns>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-        public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
+        public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput)
         {
             var fluid = Factory();
             fluid.Update(firstInput, secondInput);
@@ -35,10 +43,12 @@ namespace SharpProp
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-        public void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
+        public void Update(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput)
         {
             Reset();
-            var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
+            var (inputPair, firstValue, secondValue) =
+                GenerateUpdatePair(firstInput, secondInput);
             Backend.update(inputPair, firstValue, secondValue);
             Inputs = new List<IKeyedInput<Parameters>> {firstInput, secondInput};
         }
@@ -142,13 +152,6 @@ namespace SharpProp
             GetInputPairName(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
             $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS";
 
-        public bool Equals(AbstractFluid? other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return GetHashCode() == other.GetHashCode();
-        }
-        
         public override bool Equals(object? obj) => Equals(obj as AbstractFluid);
 
         public override int GetHashCode()

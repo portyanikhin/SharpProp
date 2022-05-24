@@ -14,8 +14,9 @@ namespace SharpProp.Tests
         [SetUp]
         public void SetUp()
         {
-            _humidAir = new HumidAirExtended();
-            _humidAir.Update(InputHumidAir.Pressure(1.Atmospheres()), InputHumidAir.Temperature(20.DegreesCelsius()),
+            _humidAir = new HumidAirExtended().WithState(
+                InputHumidAir.Pressure(1.Atmospheres()),
+                InputHumidAir.Temperature(20.DegreesCelsius()),
                 InputHumidAir.RelativeHumidity(50.Percent()));
         }
 
@@ -42,6 +43,12 @@ namespace SharpProp.Tests
                 base.Reset();
                 _specificHeatConstVolume = null;
             }
+
+            public override HumidAirExtended Factory() => new();
+
+            public override HumidAirExtended WithState(IKeyedInput<string> fistInput,
+                IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput) =>
+                (HumidAirExtended) base.WithState(fistInput, secondInput, thirdInput);
         }
     }
 }

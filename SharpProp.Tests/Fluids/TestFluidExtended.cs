@@ -14,8 +14,9 @@ namespace SharpProp.Tests
         [SetUp]
         public void SetUp()
         {
-            _fluid = new FluidExtended(FluidsList.Water);
-            _fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            _fluid = new FluidExtended(FluidsList.Water)
+                .WithState(Input.Pressure(1.Atmospheres()),
+                    Input.Temperature(20.DegreesCelsius()));
         }
 
         [Test(ExpectedResult = 4156.6814728615545)]
@@ -39,7 +40,8 @@ namespace SharpProp.Tests
             private double? _ozoneDepletionPotential;
             private SpecificEntropy? _specificHeatConstVolume;
 
-            public FluidExtended(FluidsList name, Ratio? fraction = null) : base(name, fraction)
+            public FluidExtended(FluidsList name, Ratio? fraction = null) :
+                base(name, fraction)
             {
             }
 
@@ -71,6 +73,12 @@ namespace SharpProp.Tests
                 _molarDensity = null;
                 _ozoneDepletionPotential = null;
             }
+
+            public override FluidExtended Factory() => new(Name, Fraction);
+
+            public override FluidExtended WithState(IKeyedInput<Parameters> firstInput,
+                IKeyedInput<Parameters> secondInput) =>
+                (FluidExtended) base.WithState(firstInput, secondInput);
         }
     }
 }

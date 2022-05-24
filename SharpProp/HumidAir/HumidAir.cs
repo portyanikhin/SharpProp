@@ -11,6 +11,18 @@ namespace SharpProp
     /// </summary>
     public partial class HumidAir : IEquatable<HumidAir>
     {
+        public bool Equals(HumidAir? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
+        }
+
+        /// <summary>
+        ///     Returns a new humid air object with no defined state.
+        /// </summary>
+        /// <returns>A new humid air object with no defined state.</returns>
+        public virtual HumidAir Factory() => new();
+
         /// <summary>
         ///     Returns a new <see cref="HumidAir" /> object with a defined state.
         /// </summary>
@@ -19,10 +31,10 @@ namespace SharpProp
         /// <param name="thirdInput">Third input property.</param>
         /// <returns>A new <see cref="HumidAir" /> object with a defined state.</returns>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-        public static HumidAir WithState(IKeyedInput<string> fistInput, IKeyedInput<string> secondInput,
-            IKeyedInput<string> thirdInput)
+        public virtual HumidAir WithState(IKeyedInput<string> fistInput,
+            IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
         {
-            var humidAir = new HumidAir();
+            var humidAir = Factory();
             humidAir.Update(fistInput, secondInput, thirdInput);
             return humidAir;
         }
@@ -34,8 +46,8 @@ namespace SharpProp
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
         /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-        public void Update(IKeyedInput<string> firstInput, IKeyedInput<string> secondInput,
-            IKeyedInput<string> thirdInput)
+        public void Update(IKeyedInput<string> firstInput,
+            IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
         {
             Reset();
             Inputs = new List<IKeyedInput<string>> {firstInput, secondInput, thirdInput};
@@ -86,18 +98,12 @@ namespace SharpProp
             if (Inputs.Count != 3 || uniqueKeys.Count != 3)
                 throw new ArgumentException("Need to define 3 unique inputs!");
         }
-        
-        public bool Equals(HumidAir? other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
-        }
 
         public override bool Equals(object? obj) => Equals(obj as HumidAir);
 
         [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-        public override int GetHashCode() => 
-            HashCode.Combine(Inputs.Select(input => input.Value).Sum(), 
+        public override int GetHashCode() =>
+            HashCode.Combine(Inputs.Select(input => input.Value).Sum(),
                 string.Join("&", Inputs.Select(input => input.CoolPropKey)));
 
         public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);

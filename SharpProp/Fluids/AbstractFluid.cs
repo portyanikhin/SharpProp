@@ -28,7 +28,9 @@ namespace SharpProp
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <returns>A new fluid object with a defined state.</returns>
-        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define 2 unique inputs!
+        /// </exception>
         public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput,
             IKeyedInput<Parameters> secondInput)
         {
@@ -42,7 +44,9 @@ namespace SharpProp
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
-        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define 2 unique inputs!
+        /// </exception>
         public void Update(IKeyedInput<Parameters> firstInput,
             IKeyedInput<Parameters> secondInput)
         {
@@ -112,7 +116,9 @@ namespace SharpProp
         /// </summary>
         /// <param name="key">Key of output.</param>
         /// <returns>A not nullable keyed output.</returns>
-        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Invalid or not defined state!
+        /// </exception>
         protected double KeyedOutput(Parameters key)
         {
             var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;

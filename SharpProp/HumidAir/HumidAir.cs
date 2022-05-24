@@ -30,7 +30,9 @@ namespace SharpProp
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
         /// <returns>A new <see cref="HumidAir" /> object with a defined state.</returns>
-        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define 3 unique inputs!
+        /// </exception>
         public virtual HumidAir WithState(IKeyedInput<string> fistInput,
             IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
         {
@@ -45,7 +47,9 @@ namespace SharpProp
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
-        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define 3 unique inputs!
+        /// </exception>
         public void Update(IKeyedInput<string> firstInput,
             IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
         {
@@ -80,8 +84,12 @@ namespace SharpProp
         /// </summary>
         /// <param name="key">Key of output.</param>
         /// <returns>A not nullable keyed output.</returns>
-        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define 3 unique inputs!
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///     Invalid or not defined state!
+        /// </exception>
         protected double KeyedOutput(string key)
         {
             CheckInputs();

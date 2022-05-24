@@ -21,7 +21,9 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
         /// </exception>
-        /// <exception cref="ArgumentException">Need to define fraction!</exception>
+        /// <exception cref="ArgumentException">
+        ///     Need to define fraction!
+        /// </exception>
         public Fluid(FluidsList name, Ratio? fraction = null)
         {
             if (fraction is not null && (fraction < name.FractionMin() || fraction > name.FractionMax()))

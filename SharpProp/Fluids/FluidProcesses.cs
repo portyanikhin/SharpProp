@@ -129,10 +129,10 @@ namespace SharpProp
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the fluid at the end of the process.</returns>
         /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
+        ///     During the heating process, the temperature should increase!
         /// </exception>
         /// <exception cref="ArgumentException">
-        ///     During the heating process, the temperature should increase!
+        ///     Invalid pressure drop in the heat exchanger!
         /// </exception>
         public virtual AbstractFluid HeatingTo(Temperature temperature, Pressure? pressureDrop = null) =>
             temperature > Temperature
@@ -147,10 +147,10 @@ namespace SharpProp
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the fluid at the end of the process.</returns>
         /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
+        ///     During the heating process, the enthalpy should increase!
         /// </exception>
         /// <exception cref="ArgumentException">
-        ///     During the heating process, the enthalpy should increase!
+        ///     Invalid pressure drop in the heat exchanger!
         /// </exception>
         public virtual AbstractFluid HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null) =>
             enthalpy > Enthalpy

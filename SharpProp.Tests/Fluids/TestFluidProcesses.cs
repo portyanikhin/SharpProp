@@ -101,9 +101,10 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestCoolingToTemperature() =>
-            Water.CoolingTo(Water.Temperature - TemperatureDelta.FromKelvins(10)).Should().Be(
-                Water.WithState(Input.Pressure(Water.Pressure),
-                    Input.Temperature(Water.Temperature - TemperatureDelta.FromKelvins(10))));
+            Water.CoolingTo(Water.Temperature - TemperatureDelta.FromKelvins(10), 50.Kilopascals())
+                .Should().Be(
+                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
+                        Input.Temperature(Water.Temperature - TemperatureDelta.FromKelvins(10))));
 
         [TestCase(5, 0, "During the cooling process, the temperature should decrease!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -119,9 +120,10 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestCoolingToEnthalpy() =>
-            Water.CoolingTo(Water.Enthalpy - 50.KilojoulesPerKilogram()).Should().Be(
-                Water.WithState(Input.Pressure(Water.Pressure),
-                    Input.Enthalpy(Water.Enthalpy - 50.KilojoulesPerKilogram())));
+            Water.CoolingTo(Water.Enthalpy - 50.KilojoulesPerKilogram(), 50.Kilopascals())
+                .Should().Be(
+                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
+                        Input.Enthalpy(Water.Enthalpy - 50.KilojoulesPerKilogram())));
 
         [TestCase(5, 0, "During the cooling process, the enthalpy should decrease!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -137,9 +139,10 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestHeatingToTemperature() =>
-            Water.HeatingTo(Water.Temperature + TemperatureDelta.FromKelvins(10)).Should().Be(
-                Water.WithState(Input.Pressure(Water.Pressure),
-                    Input.Temperature(Water.Temperature + TemperatureDelta.FromKelvins(10))));
+            Water.HeatingTo(Water.Temperature + TemperatureDelta.FromKelvins(10), 50.Kilopascals())
+                .Should().Be(
+                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
+                        Input.Temperature(Water.Temperature + TemperatureDelta.FromKelvins(10))));
 
         [TestCase(5, 0, "During the heating process, the temperature should increase!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -155,9 +158,10 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestHeatingToEnthalpy() =>
-            Water.HeatingTo(Water.Enthalpy + 50.KilojoulesPerKilogram()).Should().Be(
-                Water.WithState(Input.Pressure(Water.Pressure),
-                    Input.Enthalpy(Water.Enthalpy + 50.KilojoulesPerKilogram())));
+            Water.HeatingTo(Water.Enthalpy + 50.KilojoulesPerKilogram(), 50.Kilopascals())
+                .Should().Be(
+                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
+                        Input.Enthalpy(Water.Enthalpy + 50.KilojoulesPerKilogram())));
 
         [TestCase(5, 0, "During the heating process, the enthalpy should increase!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -192,9 +196,10 @@ namespace SharpProp.Tests
         [Test]
         public static void TestMixing()
         {
-            var first = Water.Clone();
-            var second = first.HeatingTo(
-                first.Temperature + TemperatureDelta.FromKelvins(10));
+            var first = Water.CoolingTo(
+                Water.Temperature - TemperatureDelta.FromKelvins(10));
+            var second = Water.HeatingTo(
+                Water.Temperature + TemperatureDelta.FromKelvins(10));
             Water.Mixing(100.Percent(), first, 200.Percent(), second).Should().Be(
                 Water.WithState(
                     Input.Pressure(Water.Pressure),

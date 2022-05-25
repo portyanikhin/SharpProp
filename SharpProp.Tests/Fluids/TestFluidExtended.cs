@@ -1,24 +1,123 @@
 ﻿using CoolProp;
+using FluentAssertions;
 using NUnit.Framework;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
 
 namespace SharpProp.Tests
 {
+    /// <summary>
+    ///     An example of how to add new properties to a <see cref="Fluid" />.
+    /// </summary>
+    public class FluidExtended : Fluid
+    {
+        private MolarMass? _molarDensity;
+        private double? _ozoneDepletionPotential;
+        private SpecificEntropy? _specificHeatConstVolume;
+
+        public FluidExtended(FluidsList name, Ratio? fraction = null) :
+            base(name, fraction)
+        {
+        }
+
+        /// <summary>
+        ///     Mass specific constant volume specific heat.
+        /// </summary>
+        public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
+            SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
+                .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
+
+        /// <summary>
+        ///     Molar density.
+        /// </summary>
+        public MolarMass? MolarDensity => _molarDensity ??=
+            KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
+                ? UnitsNet.MolarMass.FromKilogramsPerMole(output!.Value)
+                : null;
+
+        /// <summary>
+        ///     Ozone depletion potential (ODP).
+        /// </summary>
+        public double? OzoneDepletionPotential =>
+            _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
+
+        protected override void Reset()
+        {
+            base.Reset();
+            _specificHeatConstVolume = null;
+            _molarDensity = null;
+            _ozoneDepletionPotential = null;
+        }
+
+        public override FluidExtended Factory() => new(Name, Fraction);
+
+        public override FluidExtended WithState(IKeyedInput<Parameters> firstInput,
+            IKeyedInput<Parameters> secondInput) =>
+            (FluidExtended) base.WithState(firstInput, secondInput);
+
+        public override FluidExtended IsentropicCompressionTo(Pressure pressure) =>
+            (FluidExtended) base.IsentropicCompressionTo(pressure);
+
+        public override FluidExtended CompressionTo(Pressure pressure, Ratio isentropicEfficiency) =>
+            (FluidExtended) base.CompressionTo(pressure, isentropicEfficiency);
+
+        public override FluidExtended IsenthalpicExpansionTo(Pressure pressure) =>
+            (FluidExtended) base.IsenthalpicExpansionTo(pressure);
+
+        public override FluidExtended IsentropicExpansionTo(Pressure pressure) =>
+            (FluidExtended) base.IsentropicExpansionTo(pressure);
+
+        public override FluidExtended ExpansionTo(Pressure pressure,
+            Ratio isentropicEfficiency) =>
+            (FluidExtended) base.ExpansionTo(pressure, isentropicEfficiency);
+
+        public override FluidExtended CoolingTo(Temperature temperature,
+            Pressure? pressureDrop = null) =>
+            (FluidExtended) base.CoolingTo(temperature, pressureDrop);
+
+        public override FluidExtended CoolingTo(SpecificEnergy enthalpy,
+            Pressure? pressureDrop = null) =>
+            (FluidExtended) base.CoolingTo(enthalpy, pressureDrop);
+
+        public override FluidExtended HeatingTo(Temperature temperature,
+            Pressure? pressureDrop = null) =>
+            (FluidExtended) base.HeatingTo(temperature, pressureDrop);
+
+        public override FluidExtended HeatingTo(SpecificEnergy enthalpy,
+            Pressure? pressureDrop = null) =>
+            (FluidExtended) base.HeatingTo(enthalpy, pressureDrop);
+
+        public override FluidExtended BubblePointAt(Pressure pressure) =>
+            (FluidExtended) base.BubblePointAt(pressure);
+
+        public override FluidExtended DewPointAt(Pressure pressure) =>
+            (FluidExtended) base.DewPointAt(pressure);
+
+        public override FluidExtended TwoPhasePointAt(Pressure pressure, Ratio quality) =>
+            (FluidExtended) base.TwoPhasePointAt(pressure, quality);
+
+        public override FluidExtended Mixing(Ratio firstSpecificMassFlow, AbstractFluid first,
+            Ratio secondSpecificMassFlow, AbstractFluid second) =>
+            (FluidExtended) base.Mixing(firstSpecificMassFlow, first,
+                secondSpecificMassFlow, second);
+    }
+
     public static class TestFluidExtended
     {
         private static FluidExtended Fluid =>
             new FluidExtended(FluidsList.Water)
                 .WithState(Input.Pressure(1.Atmospheres()),
-                    Input.Temperature(20.DegreesCelsius()));
+                    Input.Temperature(150.DegreesCelsius()));
 
-        [Test(ExpectedResult = 4156.6814728615545)]
+        [Test(ExpectedResult = 1496.5437531342086)]
         public static double TestSpecificHeatConstVolume() =>
             Fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
-        [Test(ExpectedResult = 55408.953697937126)]
+        [Test(ExpectedResult = 29.045175781507989)]
         public static double? TestMolarDensity() =>
             Fluid.MolarDensity?.KilogramsPerMole;
 
@@ -26,54 +125,39 @@ namespace SharpProp.Tests
         public static double? TestOzoneDepletionPotential() =>
             Fluid.OzoneDepletionPotential;
 
-        /// <summary>
-        ///     An example of how to add new properties to a <see cref="Fluid" />.
-        /// </summary>
-        private class FluidExtended : Fluid
+        [Test]
+        public static void TestProcesses()
         {
-            private MolarMass? _molarDensity;
-            private double? _ozoneDepletionPotential;
-            private SpecificEntropy? _specificHeatConstVolume;
-
-            public FluidExtended(FluidsList name, Ratio? fraction = null) :
-                base(name, fraction)
-            {
-            }
-
-            /// <summary>
-            ///     Mass specific constant volume specific heat.
-            /// </summary>
-            public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
-                SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
-                    .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
-
-            /// <summary>
-            ///     Molar density.
-            /// </summary>
-            public MolarMass? MolarDensity => _molarDensity ??=
-                KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
-                    ? UnitsNet.MolarMass.FromKilogramsPerMole(output!.Value)
-                    : null;
-
-            /// <summary>
-            ///     Ozone depletion potential (ODP).
-            /// </summary>
-            public double? OzoneDepletionPotential =>
-                _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
-
-            protected override void Reset()
-            {
-                base.Reset();
-                _specificHeatConstVolume = null;
-                _molarDensity = null;
-                _ozoneDepletionPotential = null;
-            }
-
-            public override FluidExtended Factory() => new(Name, Fraction);
-
-            public override FluidExtended WithState(IKeyedInput<Parameters> firstInput,
-                IKeyedInput<Parameters> secondInput) =>
-                (FluidExtended) base.WithState(firstInput, secondInput);
+            Fluid.IsentropicCompressionTo(2 * Fluid.Pressure)
+                .Should().BeOfType<FluidExtended>();
+            Fluid.CompressionTo(2 * Fluid.Pressure, 80.Percent())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.IsenthalpicExpansionTo(0.5 * Fluid.Pressure)
+                .Should().BeOfType<FluidExtended>();
+            Fluid.IsentropicExpansionTo(0.5 * Fluid.Pressure)
+                .Should().BeOfType<FluidExtended>();
+            Fluid.ExpansionTo(0.5 * Fluid.Pressure, 80.Percent())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta.FromKelvins(10))
+                .Should().BeOfType<FluidExtended>();
+            Fluid.CoolingTo(Fluid.Enthalpy - 50.KilojoulesPerKilogram())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta.FromKelvins(10))
+                .Should().BeOfType<FluidExtended>();
+            Fluid.HeatingTo(Fluid.Enthalpy + 50.KilojoulesPerKilogram())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.BubblePointAt(1.Atmospheres())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.DewPointAt(1.Atmospheres())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.TwoPhasePointAt(1.Atmospheres(), 50.Percent())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.Mixing(
+                    100.Percent(),
+                    Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta.FromKelvins(10)),
+                    200.Percent(),
+                    Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta.FromKelvins(10)))
+                .Should().BeOfType<FluidExtended>();
         }
     }
 }

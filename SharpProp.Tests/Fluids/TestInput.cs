@@ -33,6 +33,7 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestEquals() =>
-            Input.Pressure(101325.Pascals()).Should().Be(Input.Pressure(1.Atmospheres()));
+            Input.Pressure(101325.Pascals())
+                .Should().Be(Input.Pressure(1.Atmospheres()));
     }
 }

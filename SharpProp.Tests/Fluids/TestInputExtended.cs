@@ -5,26 +5,24 @@ using UnitsNet.NumberExtensions.NumberToMolarMass;
 
 namespace SharpProp.Tests
 {
-    public class TestInputExtended
+    public static class TestInputExtended
     {
-        private InputExtended _input = null!;
-
-        [SetUp]
-        public void SetUp() =>
-            _input = InputExtended.MolarDensity(900.KilogramsPerMole());
+        private static InputExtended Input =>
+            InputExtended.MolarDensity(900.KilogramsPerMole());
 
         [Test(ExpectedResult = Parameters.iDmolar)]
-        public Parameters TestCoolPropKey() => _input.CoolPropKey;
+        public static Parameters TestCoolPropKey() => Input.CoolPropKey;
 
         [Test(ExpectedResult = 900)]
-        public double TestValue() => _input.Value;
+        public static double TestValue() => Input.Value;
 
         /// <summary>
         ///     An example of how to extend <see cref="Input" />.
         /// </summary>
         private record InputExtended : Input
         {
-            private InputExtended(Parameters coolPropKey, double value) : base(coolPropKey, value)
+            private InputExtended(Parameters coolPropKey, double value) :
+                base(coolPropKey, value)
             {
             }
 

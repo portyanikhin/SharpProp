@@ -15,47 +15,26 @@ namespace SharpProp.Tests
 {
     public class TestFluid
     {
-        private readonly Fluid _water = new(FluidsList.Water);
-        private Fluid _fluid = null!;
-        private Ratio? _fraction;
-        private Pressure _pressure;
-        private Temperature _temperature;
-
-        private void SetUp(FluidsList name, Pressure pressure)
-        {
-            _fraction = SetUpFraction(name);
-            _fluid = new Fluid(name, _fraction);
-            _pressure = pressure;
-            _temperature = SetUpTemperature(_fluid);
-            _fluid.Update(Input.Pressure(_pressure), Input.Temperature(_temperature));
-        }
-
-        private static Ratio? SetUpFraction(FluidsList name) =>
-            name.Pure()
-                ? null
-                : 0.1 * name.FractionMin() +
-                  0.9 * name.FractionMax();
-
-        private static Temperature SetUpTemperature(AbstractFluid fluid) =>
-            (0.1 * fluid.MinTemperature.Kelvins +
-             0.9 * fluid.MaxTemperature.Kelvins).Kelvins();
+        private static Fluid Water => new(FluidsList.Water);
+        private Fluid Fluid { get; set; } = null!;
+        private Ratio? Fraction { get; set; }
+        private Pressure Pressure { get; set; }
+        private Temperature Temperature { get; set; }
 
         [Test]
-        public void TestFactory()
+        public static void TestFactory()
         {
-            var clonedWater = _water.Factory();
-            clonedWater.Name.Should().Be(_water.Name);
-            clonedWater.Fraction.Should().Be(_water.Fraction);
+            var clonedWater = Water.Factory();
+            clonedWater.Name.Should().Be(Water.Name);
+            clonedWater.Fraction.Should().Be(Water.Fraction);
             clonedWater.Phase.Should().Be(Phases.Unknown);
         }
 
         [Test]
-        public void TestWithState()
-        {
-            var waterWithState = _water.WithState(Input.Pressure(1.Atmospheres()),
-                Input.Temperature(20.DegreesCelsius()));
-            waterWithState.Phase.Should().Be(Phases.Liquid);
-        }
+        public static void TestWithState() =>
+            Water.WithState(Input.Pressure(1.Atmospheres()),
+                    Input.Temperature(20.DegreesCelsius())).Phase
+                .Should().Be(Phases.Liquid);
 
         [TestCase(FluidsList.MPG, null, "Need to define fraction!")]
         [TestCase(FluidsList.MPG, -2, "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %.")]
@@ -78,30 +57,30 @@ namespace SharpProp.Tests
             SetUp(name, pressure.Pascals());
             var actual = new List<double?>
             {
-                _fluid.Compressibility,
-                _fluid.Conductivity?.WattsPerMeterKelvin,
-                _fluid.CriticalPressure?.Pascals,
-                _fluid.CriticalTemperature?.Kelvins,
-                _fluid.Density.KilogramsPerCubicMeter,
-                _fluid.DynamicViscosity?.PascalSeconds,
-                _fluid.Enthalpy.JoulesPerKilogram,
-                _fluid.Entropy.JoulesPerKilogramKelvin,
-                _fluid.FreezingTemperature?.Kelvins,
-                _fluid.InternalEnergy.JoulesPerKilogram,
-                _fluid.MaxPressure?.Pascals,
-                _fluid.MaxTemperature.Kelvins,
-                _fluid.MinPressure?.Pascals,
-                _fluid.MinTemperature.Kelvins,
-                _fluid.MolarMass?.KilogramsPerMole,
-                _fluid.Prandtl,
-                _fluid.Pressure.Pascals,
-                _fluid.Quality?.DecimalFractions,
-                _fluid.SoundSpeed?.MetersPerSecond,
-                _fluid.SpecificHeat.JoulesPerKilogramKelvin,
-                _fluid.SurfaceTension?.NewtonsPerMeter,
-                _fluid.Temperature.Kelvins,
-                _fluid.TriplePressure?.Pascals,
-                _fluid.TripleTemperature?.Kelvins
+                Fluid.Compressibility,
+                Fluid.Conductivity?.WattsPerMeterKelvin,
+                Fluid.CriticalPressure?.Pascals,
+                Fluid.CriticalTemperature?.Kelvins,
+                Fluid.Density.KilogramsPerCubicMeter,
+                Fluid.DynamicViscosity?.PascalSeconds,
+                Fluid.Enthalpy.JoulesPerKilogram,
+                Fluid.Entropy.JoulesPerKilogramKelvin,
+                Fluid.FreezingTemperature?.Kelvins,
+                Fluid.InternalEnergy.JoulesPerKilogram,
+                Fluid.MaxPressure?.Pascals,
+                Fluid.MaxTemperature.Kelvins,
+                Fluid.MinPressure?.Pascals,
+                Fluid.MinTemperature.Kelvins,
+                Fluid.MolarMass?.KilogramsPerMole,
+                Fluid.Prandtl,
+                Fluid.Pressure.Pascals,
+                Fluid.Quality?.DecimalFractions,
+                Fluid.SoundSpeed?.MetersPerSecond,
+                Fluid.SpecificHeat.JoulesPerKilogramKelvin,
+                Fluid.SurfaceTension?.NewtonsPerMeter,
+                Fluid.Temperature.Kelvins,
+                Fluid.TriplePressure?.Pascals,
+                Fluid.TripleTemperature?.Kelvins
             };
             var keys = new List<string>
             {
@@ -111,36 +90,36 @@ namespace SharpProp.Tests
             for (var i = 0; i < keys.Count; i++)
                 if (keys[i] is not ("P" or "T"))
                     actual[i].Should().BeApproximately(HighLevelInterface(keys[i]), 1e-9);
-            _fluid.KinematicViscosity.Should().Be(_fluid.DynamicViscosity / _fluid.Density);
+            Fluid.KinematicViscosity.Should().Be(Fluid.DynamicViscosity / Fluid.Density);
         }
 
         [Test]
-        public void TestUpdateInvalidInput()
+        public static void TestUpdateInvalidInput()
         {
             Action action =
-                () => _water.Update(Input.Pressure(1.Atmospheres()),
+                () => Water.Update(Input.Pressure(1.Atmospheres()),
                     Input.Pressure(101325.Pascals()));
             action.Should().Throw<ArgumentException>()
                 .WithMessage("Need to define 2 unique inputs!");
         }
 
         [Test]
-        public void TestCachedInputs()
+        public static void TestCachedInputs()
         {
-            var water = _water.WithState(Input.Pressure(101325.Pascals()),
+            var water = Water.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
             water.Pressure.Pascals.Should().Be(101325);
             water.Temperature.Kelvins.Should().Be(293.15);
         }
 
         [Test]
-        public void TestEquals()
+        public static void TestEquals()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameWater = _water.WithState(Input.Pressure(101325.Pascals()),
+            var sameWater = Water.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherWater = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var otherWater = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
             water.Should().Be(water);
             water.Should().BeSameAs(water);
@@ -154,22 +133,22 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public void TestGetHashCode()
+        public static void TestGetHashCode()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameWater = _water.WithState(Input.Pressure(101325.Pascals()),
+            var sameWater = Water.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherWater = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var otherWater = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
             water.GetHashCode().Should().Be(sameWater.GetHashCode());
             water.GetHashCode().Should().NotBe(otherWater.GetHashCode());
         }
 
         [Test]
-        public void TestAsJson()
+        public static void TestAsJson()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
             water.AsJson().Should().Be(
                 JsonConvert.SerializeObject(water, new JsonSerializerSettings
@@ -181,9 +160,9 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public void TestClone()
+        public static void TestClone()
         {
-            var water = _water.WithState(Input.Pressure(1.Atmospheres()),
+            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
             var clone = water.Clone();
             clone.Should().Be(water);
@@ -192,24 +171,43 @@ namespace SharpProp.Tests
             clone.Should().NotBe(water);
         }
 
+        private void SetUp(FluidsList name, Pressure pressure)
+        {
+            Fraction = SetUpFraction(name);
+            Fluid = new Fluid(name, Fraction);
+            Pressure = pressure;
+            Temperature = SetUpTemperature(Fluid);
+            Fluid.Update(Input.Pressure(Pressure), Input.Temperature(Temperature));
+        }
+
+        private static Ratio? SetUpFraction(FluidsList name) =>
+            name.Pure()
+                ? null
+                : 0.1 * name.FractionMin() +
+                  0.9 * name.FractionMax();
+
+        private static Temperature SetUpTemperature(AbstractFluid fluid) =>
+            (0.1 * fluid.MinTemperature.Kelvins +
+             0.9 * fluid.MaxTemperature.Kelvins).Kelvins();
+
         private double? HighLevelInterface(string outputKey)
         {
             try
             {
                 double value;
-                if (_fraction.HasValue)
+                if (Fraction.HasValue)
                 {
                     value = CP.PropsSImulti(new StringVector {outputKey},
-                        "P", new DoubleVector {_pressure.Pascals},
-                        "T", new DoubleVector {_temperature.Kelvins},
-                        _fluid.Name.CoolPropBackend(),
-                        new StringVector {_fluid.Name.CoolPropName()},
-                        new DoubleVector {_fraction.Value.DecimalFractions})[0][0];
+                        "P", new DoubleVector {Pressure.Pascals},
+                        "T", new DoubleVector {Temperature.Kelvins},
+                        Fluid.Name.CoolPropBackend(),
+                        new StringVector {Fluid.Name.CoolPropName()},
+                        new DoubleVector {Fraction.Value.DecimalFractions})[0][0];
                     return CheckedValue(value, outputKey);
                 }
 
-                value = CP.PropsSI(outputKey, "P", _pressure.Pascals, "T", _temperature.Kelvins,
-                    CoolPropHighLevelName(_fluid.Name));
+                value = CP.PropsSI(outputKey, "P", Pressure.Pascals, "T", Temperature.Kelvins,
+                    CoolPropHighLevelName(Fluid.Name));
                 return CheckedValue(value, outputKey);
             }
             catch (ApplicationException)

@@ -35,18 +35,23 @@ namespace SharpProp
         public Mixture(List<FluidsList> fluids, IReadOnlyCollection<Ratio> fractions)
         {
             if (fluids.Count != fractions.Count)
-                throw new ArgumentException("Invalid input! Fluids and Fractions should be of the same length.");
+                throw new ArgumentException(
+                    "Invalid input! Fluids and Fractions should be of the same length.");
             if (!fluids.All(fluid => fluid.Pure() && fluid.CoolPropBackend() == "HEOS"))
                 throw new ArgumentException(
                     "Invalid components! All of them should be a pure fluid with HEOS backend.");
             if (!fractions.All(frac => frac.Percent is > 0 and < 100))
-                throw new ArgumentException("Invalid component mass fractions! All of them should be in (0;100) %.");
+                throw new ArgumentException(
+                    "Invalid component mass fractions! All of them should be in (0;100) %.");
             if (Math.Abs(fractions.Sum(frac => frac.Percent) - 100) > 1e-6)
-                throw new ArgumentException("Invalid component mass fractions! Their sum should be equal to 100 %.");
+                throw new ArgumentException(
+                    "Invalid component mass fractions! Their sum should be equal to 100 %.");
             Fluids = fluids;
-            Fractions = fractions.Select(frac => frac.ToUnit(RatioUnit.Percent)).ToList();
+            Fractions = fractions.Select(
+                frac => frac.ToUnit(RatioUnit.Percent)).ToList();
             Backend = AbstractState.factory("HEOS", string.Join("&", Fluids.ToArray()));
-            Backend.set_mass_fractions(new DoubleVector(Fractions.Select(frac => frac.DecimalFractions)));
+            Backend.set_mass_fractions(
+                new DoubleVector(Fractions.Select(frac => frac.DecimalFractions)));
         }
 
         /// <summary>
@@ -66,6 +71,12 @@ namespace SharpProp
         public override Mixture WithState(IKeyedInput<Parameters> firstInput,
             IKeyedInput<Parameters> secondInput) =>
             (Mixture) base.WithState(firstInput, secondInput);
+
+        public override Mixture CoolingTo(Temperature temperature, Pressure? pressureDrop = null) =>
+            (Mixture) base.CoolingTo(temperature, pressureDrop);
+
+        public override Mixture HeatingTo(Temperature temperature, Pressure? pressureDrop = null) =>
+            (Mixture) base.HeatingTo(temperature, pressureDrop);
 
         public new bool Equals(object? obj) => Equals(obj as Mixture);
 

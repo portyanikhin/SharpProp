@@ -7,29 +7,24 @@ using UnitsNet.Units;
 
 namespace SharpProp.Tests
 {
-    public class TestFluidExtended
+    public static class TestFluidExtended
     {
-        private FluidExtended _fluid = null!;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _fluid = new FluidExtended(FluidsList.Water)
+        private static FluidExtended Fluid =>
+            new FluidExtended(FluidsList.Water)
                 .WithState(Input.Pressure(1.Atmospheres()),
                     Input.Temperature(20.DegreesCelsius()));
-        }
 
         [Test(ExpectedResult = 4156.6814728615545)]
-        public double TestSpecificHeatConstVolume() =>
-            _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
+        public static double TestSpecificHeatConstVolume() =>
+            Fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
 
         [Test(ExpectedResult = 55408.953697937126)]
-        public double? TestMolarDensity() =>
-            _fluid.MolarDensity?.KilogramsPerMole;
+        public static double? TestMolarDensity() =>
+            Fluid.MolarDensity?.KilogramsPerMole;
 
         [Test(ExpectedResult = null)]
-        public double? TestOzoneDepletionPotential() =>
-            _fluid.OzoneDepletionPotential;
+        public static double? TestOzoneDepletionPotential() =>
+            Fluid.OzoneDepletionPotential;
 
         /// <summary>
         ///     An example of how to add new properties to a <see cref="Fluid" />.

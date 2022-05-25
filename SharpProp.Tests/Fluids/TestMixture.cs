@@ -13,14 +13,8 @@ using UnitsNet.Serialization.JsonNet;
 
 namespace SharpProp.Tests
 {
-    public class TestMixture
+    public static class TestMixture
     {
-        private static readonly List<FluidsList> Fluids =
-            new() {FluidsList.Water, FluidsList.Ethanol};
-
-        private static readonly List<Ratio> Fractions =
-            new() {50.Percent(), 50.Percent()};
-
         private static object[] _mixtureCases =
         {
             new object[]
@@ -50,7 +44,13 @@ namespace SharpProp.Tests
             }
         };
 
-        private readonly Mixture _mixture = new(Fluids, Fractions);
+        private static List<FluidsList> Fluids =>
+            new() {FluidsList.Water, FluidsList.Ethanol};
+
+        private static List<Ratio> Fractions =>
+            new() {50.Percent(), 50.Percent()};
+
+        private static Mixture Mixture => new(Fluids, Fractions);
 
         [TestCaseSource(nameof(_mixtureCases))]
         public static void TestInvalidInputs(List<FluidsList> fluids,
@@ -61,39 +61,39 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public void TestFactory()
+        public static void TestFactory()
         {
-            var newMixture = _mixture.Factory();
-            newMixture.Fluids.Should().BeSameAs(_mixture.Fluids);
-            newMixture.Fractions.Should().BeEquivalentTo(_mixture.Fractions);
+            var newMixture = Mixture.Factory();
+            newMixture.Fluids.Should().BeEquivalentTo(Mixture.Fluids);
+            newMixture.Fractions.Should().BeEquivalentTo(Mixture.Fractions);
             newMixture.Phase.Should().Be(Phases.Unknown);
         }
 
         [Test]
-        public void TestWithState()
+        public static void TestWithState()
         {
-            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
             mixture.Phase.Should().Be(Phases.Liquid);
         }
 
         [Test]
-        public void TestCachedInputs()
+        public static void TestCachedInputs()
         {
-            var mixture = _mixture.WithState(Input.Pressure(101325.Pascals()),
+            var mixture = Mixture.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
             mixture.Pressure.Pascals.Should().Be(101325);
             mixture.Temperature.Kelvins.Should().Be(293.15);
         }
 
         [Test]
-        public void TestEquals()
+        public static void TestEquals()
         {
-            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameMixture = _mixture.WithState(Input.Pressure(101325.Pascals()),
+            var sameMixture = Mixture.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherMixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var otherMixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
             mixture.Should().Be(mixture);
             mixture.Should().BeSameAs(mixture);
@@ -107,22 +107,22 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public void TestGetHashCode()
+        public static void TestGetHashCode()
         {
-            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameMixture = _mixture.WithState(Input.Pressure(101325.Pascals()),
+            var sameMixture = Mixture.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherMixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var otherMixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
             mixture.GetHashCode().Should().Be(sameMixture.GetHashCode());
             mixture.GetHashCode().Should().NotBe(otherMixture.GetHashCode());
         }
 
         [Test]
-        public void TestAsJson()
+        public static void TestAsJson()
         {
-            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
             mixture.AsJson().Should().Be(
                 JsonConvert.SerializeObject(mixture, new JsonSerializerSettings
@@ -134,9 +134,9 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public void TestClone()
+        public static void TestClone()
         {
-            var mixture = _mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
             var clone = mixture.Clone();
             clone.Should().Be(mixture);

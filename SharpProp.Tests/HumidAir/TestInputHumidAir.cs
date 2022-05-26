@@ -12,7 +12,7 @@ namespace SharpProp.Tests
 {
     public static class TestInputHumidAir
     {
-        private static object[] _inputHumidAirCases =
+        private static readonly object[] InputHumidAirCases =
         {
             new object[] {InputHumidAir.Density(1.2.KilogramsPerCubicMeter()), "Vha", 0.8333333333333334},
             new object[] {InputHumidAir.DewTemperature(10.DegreesCelsius()), "D", 283.15},
@@ -26,11 +26,11 @@ namespace SharpProp.Tests
             new object[] {InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), "B", 288.15}
         };
 
-        [TestCaseSource(nameof(_inputHumidAirCases))]
+        [TestCaseSource(nameof(InputHumidAirCases))]
         public static void TestCoolPropKey(InputHumidAir input, string coolPropKey, double value) =>
             input.CoolPropKey.Should().Be(coolPropKey);
 
-        [TestCaseSource(nameof(_inputHumidAirCases))]
+        [TestCaseSource(nameof(InputHumidAirCases))]
         public static void TestValue(InputHumidAir input, string coolPropKey, double value) =>
             input.Value.Should().Be(value);
 

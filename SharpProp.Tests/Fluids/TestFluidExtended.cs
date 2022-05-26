@@ -108,10 +108,16 @@ namespace SharpProp.Tests
 
     public static class TestFluidExtended
     {
-        private static FluidExtended Fluid =>
+        private static readonly FluidExtended Fluid =
             new FluidExtended(FluidsList.Water)
                 .WithState(Input.Pressure(1.Atmospheres()),
                     Input.Temperature(150.DegreesCelsius()));
+
+        private static readonly Pressure HighPressure = 2 * Fluid.Pressure;
+        private static readonly Pressure LowPressure = 0.5 * Fluid.Pressure;
+        private static readonly Ratio IsentropicEfficiency = 80.Percent();
+        private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
+        private static readonly SpecificEnergy EnthalpyDelta = 50.KilojoulesPerKilogram();
 
         [Test(ExpectedResult = 1496.5437531342086)]
         public static double TestSpecificHeatConstVolume() =>
@@ -128,23 +134,23 @@ namespace SharpProp.Tests
         [Test]
         public static void TestProcesses()
         {
-            Fluid.IsentropicCompressionTo(2 * Fluid.Pressure)
+            Fluid.IsentropicCompressionTo(HighPressure)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.CompressionTo(2 * Fluid.Pressure, 80.Percent())
+            Fluid.CompressionTo(HighPressure, IsentropicEfficiency)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.IsenthalpicExpansionTo(0.5 * Fluid.Pressure)
+            Fluid.IsenthalpicExpansionTo(LowPressure)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.IsentropicExpansionTo(0.5 * Fluid.Pressure)
+            Fluid.IsentropicExpansionTo(LowPressure)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.ExpansionTo(0.5 * Fluid.Pressure, 80.Percent())
+            Fluid.ExpansionTo(LowPressure, IsentropicEfficiency)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta.FromKelvins(10))
+            Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.CoolingTo(Fluid.Enthalpy - 50.KilojoulesPerKilogram())
+            Fluid.CoolingTo(Fluid.Enthalpy - EnthalpyDelta)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta.FromKelvins(10))
+            Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta)
                 .Should().BeOfType<FluidExtended>();
-            Fluid.HeatingTo(Fluid.Enthalpy + 50.KilojoulesPerKilogram())
+            Fluid.HeatingTo(Fluid.Enthalpy + EnthalpyDelta)
                 .Should().BeOfType<FluidExtended>();
             Fluid.BubblePointAt(1.Atmospheres())
                 .Should().BeOfType<FluidExtended>();
@@ -154,9 +160,9 @@ namespace SharpProp.Tests
                 .Should().BeOfType<FluidExtended>();
             Fluid.Mixing(
                     100.Percent(),
-                    Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta.FromKelvins(10)),
+                    Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta),
                     200.Percent(),
-                    Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta.FromKelvins(10)))
+                    Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta))
                 .Should().BeOfType<FluidExtended>();
         }
     }

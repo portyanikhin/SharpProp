@@ -12,7 +12,7 @@ namespace SharpProp.Tests
 {
     public static class TestInput
     {
-        private static object[] _inputCases =
+        private static readonly object[] InputCases =
         {
             new object[] {Input.Density(999.KilogramsPerCubicMeter()), Parameters.iDmass, 999},
             new object[] {Input.Enthalpy(1.KilojoulesPerKilogram()), Parameters.iHmass, 1e3},
@@ -23,11 +23,11 @@ namespace SharpProp.Tests
             new object[] {Input.Temperature(20.DegreesCelsius()), Parameters.iT, 293.15}
         };
 
-        [TestCaseSource(nameof(_inputCases))]
+        [TestCaseSource(nameof(InputCases))]
         public static void TestCoolPropKey(Input input, Parameters coolPropKey, double value) =>
             input.CoolPropKey.Should().Be(coolPropKey);
 
-        [TestCaseSource(nameof(_inputCases))]
+        [TestCaseSource(nameof(InputCases))]
         public static void TestValue(Input input, Parameters coolPropKey, double value) =>
             input.Value.Should().Be(value);
 

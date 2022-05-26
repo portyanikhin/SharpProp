@@ -15,7 +15,15 @@ namespace SharpProp.Tests
 {
     public static class TestMixture
     {
-        private static object[] _mixtureCases =
+        private static readonly List<FluidsList> Fluids =
+            new() {FluidsList.Water, FluidsList.Ethanol};
+
+        private static readonly List<Ratio> Fractions =
+            new() {50.Percent(), 50.Percent()};
+
+        private static readonly Mixture Mixture = new(Fluids, Fractions);
+
+        private static readonly object[] MixtureCases =
         {
             new object[]
             {
@@ -44,15 +52,7 @@ namespace SharpProp.Tests
             }
         };
 
-        private static List<FluidsList> Fluids =>
-            new() {FluidsList.Water, FluidsList.Ethanol};
-
-        private static List<Ratio> Fractions =>
-            new() {50.Percent(), 50.Percent()};
-
-        private static Mixture Mixture => new(Fluids, Fractions);
-
-        [TestCaseSource(nameof(_mixtureCases))]
+        [TestCaseSource(nameof(MixtureCases))]
         public static void TestInvalidInputs(List<FluidsList> fluids,
             List<Ratio> fractions, string message)
         {
@@ -89,34 +89,34 @@ namespace SharpProp.Tests
         [Test]
         public static void TestEquals()
         {
-            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameMixture = Mixture.WithState(Input.Pressure(101325.Pascals()),
+            var same = Mixture.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherMixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var other = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            mixture.Should().Be(mixture);
-            mixture.Should().BeSameAs(mixture);
-            mixture.Should().NotBe(otherMixture);
-            mixture.Should().NotBeNull();
-            mixture.Equals(new object()).Should().BeFalse();
-            mixture.Should().Be(sameMixture);
-            mixture.Should().NotBeSameAs(sameMixture);
-            (mixture == sameMixture).Should().Be(mixture.Equals(sameMixture));
-            (mixture != otherMixture).Should().Be(!mixture.Equals(otherMixture));
+            origin.Should().Be(origin);
+            origin.Should().BeSameAs(origin);
+            origin.Should().NotBe(other);
+            origin.Should().NotBeNull();
+            origin.Equals(new object()).Should().BeFalse();
+            origin.Should().Be(same);
+            origin.Should().NotBeSameAs(same);
+            (origin == same).Should().Be(origin.Equals(same));
+            (origin != other).Should().Be(!origin.Equals(other));
         }
 
         [Test]
         public static void TestGetHashCode()
         {
-            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameMixture = Mixture.WithState(Input.Pressure(101325.Pascals()),
+            var same = Mixture.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherMixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var other = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            mixture.GetHashCode().Should().Be(sameMixture.GetHashCode());
-            mixture.GetHashCode().Should().NotBe(otherMixture.GetHashCode());
+            origin.GetHashCode().Should().Be(same.GetHashCode());
+            origin.GetHashCode().Should().NotBe(other.GetHashCode());
         }
 
         [Test]
@@ -136,13 +136,13 @@ namespace SharpProp.Tests
         [Test]
         public static void TestClone()
         {
-            var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var clone = mixture.Clone();
-            clone.Should().Be(mixture);
+            var clone = origin.Clone();
+            clone.Should().Be(origin);
             clone.Update(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            clone.Should().NotBe(mixture);
+            clone.Should().NotBe(origin);
         }
     }
 }

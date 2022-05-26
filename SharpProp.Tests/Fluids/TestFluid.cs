@@ -15,7 +15,7 @@ namespace SharpProp.Tests
 {
     public class TestFluid
     {
-        private static Fluid Water => new(FluidsList.Water);
+        private static readonly Fluid Water = new(FluidsList.Water);
         private Fluid Fluid { get; set; } = null!;
         private Ratio? Fraction { get; set; }
         private Pressure Pressure { get; set; }
@@ -24,10 +24,10 @@ namespace SharpProp.Tests
         [Test]
         public static void TestFactory()
         {
-            var clonedWater = Water.Factory();
-            clonedWater.Name.Should().Be(Water.Name);
-            clonedWater.Fraction.Should().Be(Water.Fraction);
-            clonedWater.Phase.Should().Be(Phases.Unknown);
+            var newWater = Water.Factory();
+            newWater.Name.Should().Be(Water.Name);
+            newWater.Fraction.Should().Be(Water.Fraction);
+            newWater.Phase.Should().Be(Phases.Unknown);
         }
 
         [Test]
@@ -115,34 +115,34 @@ namespace SharpProp.Tests
         [Test]
         public static void TestEquals()
         {
-            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameWater = Water.WithState(Input.Pressure(101325.Pascals()),
+            var same = Water.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherWater = Water.WithState(Input.Pressure(1.Atmospheres()),
+            var other = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            water.Should().Be(water);
-            water.Should().BeSameAs(water);
-            water.Should().NotBe(otherWater);
-            water.Should().NotBeNull();
-            water.Equals(new object()).Should().BeFalse();
-            water.Should().Be(sameWater);
-            water.Should().NotBeSameAs(sameWater);
-            (water == sameWater).Should().Be(water.Equals(sameWater));
-            (water != otherWater).Should().Be(!water.Equals(otherWater));
+            origin.Should().Be(origin);
+            origin.Should().BeSameAs(origin);
+            origin.Should().NotBe(other);
+            origin.Should().NotBeNull();
+            origin.Equals(new object()).Should().BeFalse();
+            origin.Should().Be(same);
+            origin.Should().NotBeSameAs(same);
+            (origin == same).Should().Be(origin.Equals(same));
+            (origin != other).Should().Be(!origin.Equals(other));
         }
 
         [Test]
         public static void TestGetHashCode()
         {
-            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var sameWater = Water.WithState(Input.Pressure(101325.Pascals()),
+            var same = Water.WithState(Input.Pressure(101325.Pascals()),
                 Input.Temperature(293.15.Kelvins()));
-            var otherWater = Water.WithState(Input.Pressure(1.Atmospheres()),
+            var other = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            water.GetHashCode().Should().Be(sameWater.GetHashCode());
-            water.GetHashCode().Should().NotBe(otherWater.GetHashCode());
+            origin.GetHashCode().Should().Be(same.GetHashCode());
+            origin.GetHashCode().Should().NotBe(other.GetHashCode());
         }
 
         [Test]
@@ -162,13 +162,13 @@ namespace SharpProp.Tests
         [Test]
         public static void TestClone()
         {
-            var water = Water.WithState(Input.Pressure(1.Atmospheres()),
+            var origin = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            var clone = water.Clone();
-            clone.Should().Be(water);
+            var clone = origin.Clone();
+            clone.Should().Be(origin);
             clone.Update(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(30.DegreesCelsius()));
-            clone.Should().NotBe(water);
+            clone.Should().NotBe(origin);
         }
 
         private void SetUp(FluidsList name, Pressure pressure)

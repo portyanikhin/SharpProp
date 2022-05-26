@@ -11,18 +11,21 @@ namespace SharpProp.Tests
 {
     public static class TestMixtureProcesses
     {
-        private static Mixture Mixture =>
+        private static readonly Mixture Mixture =
             new Mixture(
                     new List<FluidsList> {FluidsList.Argon, FluidsList.IsoButane},
                     new List<Ratio> {50.Percent(), 50.Percent()})
                 .WithState(Input.Pressure(1.Atmospheres()),
                     Input.Temperature(20.DegreesCelsius()));
 
+        private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
+        private static readonly Pressure PressureDrop = 50.Kilopascals();
+
         [Test]
         public static void TestCoolingToTemperature() =>
-            Mixture.CoolingTo(Mixture.Temperature - TemperatureDelta.FromKelvins(10)).Should().Be(
-                Mixture.WithState(Input.Pressure(Mixture.Pressure),
-                    Input.Temperature(Mixture.Temperature - TemperatureDelta.FromKelvins(10))));
+            Mixture.CoolingTo(Mixture.Temperature - TemperatureDelta, PressureDrop).Should().Be(
+                Mixture.WithState(Input.Pressure(Mixture.Pressure - PressureDrop),
+                    Input.Temperature(Mixture.Temperature - TemperatureDelta)));
 
         [TestCase(5, 0, "During the cooling process, the temperature should decrease!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -38,9 +41,9 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestHeatingToTemperature() =>
-            Mixture.HeatingTo(Mixture.Temperature + TemperatureDelta.FromKelvins(10)).Should().Be(
-                Mixture.WithState(Input.Pressure(Mixture.Pressure),
-                    Input.Temperature(Mixture.Temperature + TemperatureDelta.FromKelvins(10))));
+            Mixture.HeatingTo(Mixture.Temperature + TemperatureDelta, PressureDrop).Should().Be(
+                Mixture.WithState(Input.Pressure(Mixture.Pressure - PressureDrop),
+                    Input.Temperature(Mixture.Temperature + TemperatureDelta)));
 
         [TestCase(5, 0, "During the heating process, the temperature should increase!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]

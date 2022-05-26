@@ -12,31 +12,38 @@ namespace SharpProp.Tests
 {
     public static class TestFluidProcesses
     {
-        private static Fluid Water =>
+        private static readonly Fluid Water =
             new Fluid(FluidsList.Water).WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(150.DegreesCelsius()));
 
+        private static readonly Pressure HighPressure = 2 * Water.Pressure;
+        private static readonly Pressure LowPressure = 0.5 * Water.Pressure;
+        private static readonly Ratio IsentropicEfficiency = 80.Percent();
+        private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
+        private static readonly SpecificEnergy EnthalpyDelta = 50.KilojoulesPerKilogram();
+        private static readonly Pressure PressureDrop = 50.Kilopascals();
+
         [Test]
         public static void TestIsentropicCompressionTo() =>
-            Water.IsentropicCompressionTo(2 * Water.Pressure).Should().Be(
-                Water.WithState(Input.Pressure(2 * Water.Pressure),
+            Water.IsentropicCompressionTo(HighPressure).Should().Be(
+                Water.WithState(Input.Pressure(HighPressure),
                     Input.Entropy(Water.Entropy)));
 
         [Test]
         public static void TestIsentropicCompressionTo_WrongInput()
         {
             Action action = () =>
-                _ = Water.IsentropicCompressionTo(0.5 * Water.Pressure);
+                _ = Water.IsentropicCompressionTo(LowPressure);
             action.Should().Throw<ArgumentException>().WithMessage(
                 "Compressor outlet pressure should be higher than inlet pressure!");
         }
 
         [Test]
         public static void TestCompressionTo() =>
-            Water.CompressionTo(2 * Water.Pressure, 80.Percent()).Should().Be(
-                Water.WithState(Input.Pressure(2 * Water.Pressure),
+            Water.CompressionTo(HighPressure, IsentropicEfficiency).Should().Be(
+                Water.WithState(Input.Pressure(HighPressure),
                     Input.Enthalpy(Water.Enthalpy + (Water.IsentropicCompressionTo(
-                        2 * Water.Pressure).Enthalpy - Water.Enthalpy) / 0.8)));
+                        HighPressure).Enthalpy - Water.Enthalpy) / IsentropicEfficiency.DecimalFractions)));
 
         [TestCase(0.5, 80, "Compressor outlet pressure should be higher than inlet pressure!")]
         [TestCase(2, 0, "Invalid compressor isentropic efficiency!")]
@@ -52,40 +59,40 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestIsenthalpicExpansionTo() =>
-            Water.IsenthalpicExpansionTo(0.5 * Water.Pressure).Should().Be(
-                Water.WithState(Input.Pressure(0.5 * Water.Pressure),
+            Water.IsenthalpicExpansionTo(LowPressure).Should().Be(
+                Water.WithState(Input.Pressure(LowPressure),
                     Input.Enthalpy(Water.Enthalpy)));
 
         [Test]
         public static void TestIsenthalpicExpansionTo_WrongInput()
         {
             Action action = () =>
-                _ = Water.IsenthalpicExpansionTo(2 * Water.Pressure);
+                _ = Water.IsenthalpicExpansionTo(HighPressure);
             action.Should().Throw<ArgumentException>().WithMessage(
                 "Expansion valve outlet pressure should be lower than inlet pressure!");
         }
 
         [Test]
         public static void TestIsentropicExpansionTo() =>
-            Water.IsentropicExpansionTo(0.5 * Water.Pressure).Should().Be(
-                Water.WithState(Input.Pressure(0.5 * Water.Pressure),
+            Water.IsentropicExpansionTo(LowPressure).Should().Be(
+                Water.WithState(Input.Pressure(LowPressure),
                     Input.Entropy(Water.Entropy)));
 
         [Test]
         public static void TestIsentropicExpansionTo_WrongInput()
         {
             Action action = () =>
-                _ = Water.IsentropicExpansionTo(2 * Water.Pressure);
+                _ = Water.IsentropicExpansionTo(HighPressure);
             action.Should().Throw<ArgumentException>().WithMessage(
                 "Expander outlet pressure should be lower than inlet pressure!");
         }
 
         [Test]
         public static void TestExpansionTo() =>
-            Water.ExpansionTo(0.5 * Water.Pressure, 80.Percent()).Should().Be(
-                Water.WithState(Input.Pressure(0.5 * Water.Pressure),
+            Water.ExpansionTo(LowPressure, IsentropicEfficiency).Should().Be(
+                Water.WithState(Input.Pressure(LowPressure),
                     Input.Enthalpy(Water.Enthalpy - (Water.Enthalpy - Water.IsentropicExpansionTo(
-                        0.5 * Water.Pressure).Enthalpy) * 0.8)));
+                        LowPressure).Enthalpy) * IsentropicEfficiency.DecimalFractions)));
 
         [TestCase(2, 80, "Expander outlet pressure should be lower than inlet pressure!")]
         [TestCase(0.5, 0, "Invalid expander isentropic efficiency!")]
@@ -101,10 +108,9 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestCoolingToTemperature() =>
-            Water.CoolingTo(Water.Temperature - TemperatureDelta.FromKelvins(10), 50.Kilopascals())
-                .Should().Be(
-                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
-                        Input.Temperature(Water.Temperature - TemperatureDelta.FromKelvins(10))));
+            Water.CoolingTo(Water.Temperature - TemperatureDelta, PressureDrop)
+                .Should().Be(Water.WithState(Input.Pressure(Water.Pressure - PressureDrop),
+                    Input.Temperature(Water.Temperature - TemperatureDelta)));
 
         [TestCase(5, 0, "During the cooling process, the temperature should decrease!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -120,10 +126,9 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestCoolingToEnthalpy() =>
-            Water.CoolingTo(Water.Enthalpy - 50.KilojoulesPerKilogram(), 50.Kilopascals())
-                .Should().Be(
-                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
-                        Input.Enthalpy(Water.Enthalpy - 50.KilojoulesPerKilogram())));
+            Water.CoolingTo(Water.Enthalpy - EnthalpyDelta, PressureDrop)
+                .Should().Be(Water.WithState(Input.Pressure(Water.Pressure - PressureDrop),
+                    Input.Enthalpy(Water.Enthalpy - EnthalpyDelta)));
 
         [TestCase(5, 0, "During the cooling process, the enthalpy should decrease!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -139,10 +144,9 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestHeatingToTemperature() =>
-            Water.HeatingTo(Water.Temperature + TemperatureDelta.FromKelvins(10), 50.Kilopascals())
-                .Should().Be(
-                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
-                        Input.Temperature(Water.Temperature + TemperatureDelta.FromKelvins(10))));
+            Water.HeatingTo(Water.Temperature + TemperatureDelta, PressureDrop)
+                .Should().Be(Water.WithState(Input.Pressure(Water.Pressure - PressureDrop),
+                    Input.Temperature(Water.Temperature + TemperatureDelta)));
 
         [TestCase(5, 0, "During the heating process, the temperature should increase!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -158,10 +162,9 @@ namespace SharpProp.Tests
 
         [Test]
         public static void TestHeatingToEnthalpy() =>
-            Water.HeatingTo(Water.Enthalpy + 50.KilojoulesPerKilogram(), 50.Kilopascals())
-                .Should().Be(
-                    Water.WithState(Input.Pressure(Water.Pressure - 50.Kilopascals()),
-                        Input.Enthalpy(Water.Enthalpy + 50.KilojoulesPerKilogram())));
+            Water.HeatingTo(Water.Enthalpy + EnthalpyDelta, PressureDrop)
+                .Should().Be(Water.WithState(Input.Pressure(Water.Pressure - PressureDrop),
+                    Input.Enthalpy(Water.Enthalpy + EnthalpyDelta)));
 
         [TestCase(5, 0, "During the heating process, the enthalpy should increase!")]
         [TestCase(-5, -10, "Invalid pressure drop in the heat exchanger!")]
@@ -196,13 +199,10 @@ namespace SharpProp.Tests
         [Test]
         public static void TestMixing()
         {
-            var first = Water.CoolingTo(
-                Water.Temperature - TemperatureDelta.FromKelvins(10));
-            var second = Water.HeatingTo(
-                Water.Temperature + TemperatureDelta.FromKelvins(10));
+            var first = Water.CoolingTo(Water.Temperature - TemperatureDelta);
+            var second = Water.HeatingTo(Water.Temperature + TemperatureDelta);
             Water.Mixing(100.Percent(), first, 200.Percent(), second).Should().Be(
-                Water.WithState(
-                    Input.Pressure(Water.Pressure),
+                Water.WithState(Input.Pressure(Water.Pressure),
                     Input.Enthalpy((1 * first.Enthalpy + 2 * second.Enthalpy) / 3.0)));
         }
 
@@ -210,8 +210,7 @@ namespace SharpProp.Tests
         public static void TestMixing_WrongFluids()
         {
             var first = new Fluid(FluidsList.Ammonia).DewPointAt(1.Atmospheres());
-            var second = Water.HeatingTo(
-                Water.Temperature + TemperatureDelta.FromKelvins(10));
+            var second = Water.HeatingTo(Water.Temperature + TemperatureDelta);
             Action action = () =>
                 _ = Water.Mixing(100.Percent(), first, 200.Percent(), second);
             action.Should().Throw<ArgumentException>().WithMessage(
@@ -222,7 +221,7 @@ namespace SharpProp.Tests
         public static void TestMixing_WrongPressures()
         {
             var first = Water.Clone();
-            var second = Water.IsentropicCompressionTo(2 * Water.Pressure);
+            var second = Water.IsentropicCompressionTo(HighPressure);
             Action action = () =>
                 _ = Water.Mixing(100.Percent(), first, 200.Percent(), second);
             action.Should().Throw<ArgumentException>().WithMessage(

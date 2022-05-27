@@ -116,8 +116,8 @@ For more information, see the XML documentation.
 * `ExpansionTo` - the process of expansion to a given pressure.
 * `CoolingTo` - the process of cooling to a given temperature or enthalpy.
 * `HeatingTo` - the process of heating to a given temperature or enthalpy.
-* `BubblePointAt` - bubble point at a given pressure.
-* `DewPointAt` - dew point at a given pressure.
+* `BubblePointAt` - bubble point at a given pressure or temperature.
+* `DewPointAt` - dew point at a given pressure or temperature.
 * `TwoPhasePointAt` - two-phase point at a given pressure.
 * `Mixing` - the mixing process.
 
@@ -234,8 +234,7 @@ For example, converting a `Fluid` instance to an _indented_ JSON string:
 
 ```c#
 var refrigerant = new Fluid(FluidsList.R32)
-    .WithState(Input.Temperature((5).DegreesCelsius()),
-        Input.Quality((100).Percent()));
+    .DewPointAt((5).DegreesCelsius());
 Console.WriteLine(refrigerant.AsJson());
 ```
 

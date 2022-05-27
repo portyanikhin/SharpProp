@@ -24,12 +24,12 @@ namespace SharpProp
         public virtual HumidAir Factory() => new();
 
         /// <summary>
-        ///     Returns a new <see cref="HumidAir" /> object with a defined state.
+        ///     Returns a new humid air object with a defined state.
         /// </summary>
         /// <param name="fistInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
-        /// <returns>A new <see cref="HumidAir" /> object with a defined state.</returns>
+        /// <returns>A new humid air object with a defined state.</returns>
         /// <exception cref="ArgumentException">
         ///     Need to define 3 unique inputs!
         /// </exception>
@@ -42,7 +42,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update humid air state with three inputs.
+        ///     Update humid air state.
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>

@@ -40,7 +40,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update fluid state with two inputs.
+        ///     Update fluid state.
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>

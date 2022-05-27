@@ -1,6 +1,5 @@
 ﻿using System;
 using CoolProp;
-using SharpProp.Extensions;
 using UnitsNet;
 using UnitsNet.Units;
 

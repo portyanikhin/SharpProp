@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using UnitsNet.Serialization.JsonNet;
 
-namespace SharpProp.Extensions
+namespace SharpProp
 {
     public static class JsonExtensions
     {

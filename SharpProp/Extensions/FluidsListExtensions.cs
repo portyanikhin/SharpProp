@@ -3,7 +3,7 @@ using SharpProp.Attributes;
 using UnitsNet;
 using UnitsNet.Units;
 
-namespace SharpProp.Extensions
+namespace SharpProp
 {
     public static class FluidsListExtensions
     {

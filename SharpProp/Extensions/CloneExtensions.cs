@@ -1,30 +1,30 @@
 ﻿using Force.DeepCloner;
 
-namespace SharpProp.Extensions
+namespace SharpProp
 {
     public static class CloneExtensions
     {
         /// <summary>
-        ///     Performs deep (full) copy of the <see cref="Fluid" /> instance.
+        ///     Performs deep (full) copy of the fluid instance.
         /// </summary>
-        /// <param name="instance">The <see cref="Fluid" /> instance.</param>
-        /// <returns>Deep copy of the <see cref="Fluid" /> instance.</returns>
+        /// <param name="instance">The fluid instance.</param>
+        /// <returns>Deep copy of the fluid instance.</returns>
         public static Fluid Clone(this Fluid instance) =>
             instance.DeepClone();
 
         /// <summary>
-        ///     Performs deep (full) copy of the <see cref="Mixture" /> instance.
+        ///     Performs deep (full) copy of the mixture instance.
         /// </summary>
-        /// <param name="instance">The <see cref="Mixture" /> instance.</param>
-        /// <returns>Deep copy of the <see cref="Mixture" /> instance.</returns>
+        /// <param name="instance">The mixture instance.</param>
+        /// <returns>Deep copy of the mixture instance.</returns>
         public static Mixture Clone(this Mixture instance) =>
             instance.DeepClone();
 
         /// <summary>
-        ///     Performs deep (full) copy of the <see cref="HumidAir" /> instance.
+        ///     Performs deep (full) copy of the humid air instance.
         /// </summary>
-        /// <param name="instance">The <see cref="HumidAir" /> instance.</param>
-        /// <returns>Deep copy of the <see cref="HumidAir" /> instance.</returns>
+        /// <param name="instance">The humid air instance.</param>
+        /// <returns>Deep copy of the humid air instance.</returns>
         public static HumidAir Clone(this HumidAir instance) =>
             instance.DeepClone();
     }

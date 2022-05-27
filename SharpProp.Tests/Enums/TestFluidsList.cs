@@ -2,7 +2,6 @@
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using NUnit.Framework;
-using SharpProp.Extensions;
 
 namespace SharpProp.Tests
 {

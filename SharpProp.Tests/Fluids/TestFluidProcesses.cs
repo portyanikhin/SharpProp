@@ -179,15 +179,27 @@ namespace SharpProp.Tests
         }
 
         [Test]
-        public static void TestBubblePointAt() =>
+        public static void TestBubblePointAtPressure() =>
             Water.BubblePointAt(1.Atmospheres()).Should().Be(
                 Water.WithState(Input.Pressure(1.Atmospheres()),
                     Input.Quality(0.Percent())));
 
         [Test]
-        public static void TestDewPointAt() =>
+        public static void TestBubblePointAtTemperature() =>
+            Water.BubblePointAt(100.DegreesCelsius()).Should().Be(
+                Water.WithState(Input.Temperature(100.DegreesCelsius()),
+                    Input.Quality(0.Percent())));
+
+        [Test]
+        public static void TestDewPointAtPressure() =>
             Water.DewPointAt(1.Atmospheres()).Should().Be(
                 Water.WithState(Input.Pressure(1.Atmospheres()),
+                    Input.Quality(100.Percent())));
+
+        [Test]
+        public static void TestDewPointAtTemperature() =>
+            Water.DewPointAt(100.DegreesCelsius()).Should().Be(
+                Water.WithState(Input.Temperature(100.DegreesCelsius()),
                     Input.Quality(100.Percent())));
 
         [Test]

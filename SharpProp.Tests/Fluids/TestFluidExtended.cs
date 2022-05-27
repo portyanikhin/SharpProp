@@ -94,8 +94,14 @@ namespace SharpProp.Tests
         public override FluidExtended BubblePointAt(Pressure pressure) =>
             (FluidExtended) base.BubblePointAt(pressure);
 
+        public override FluidExtended BubblePointAt(Temperature temperature) =>
+            (FluidExtended) base.BubblePointAt(temperature);
+
         public override FluidExtended DewPointAt(Pressure pressure) =>
             (FluidExtended) base.DewPointAt(pressure);
+
+        public override FluidExtended DewPointAt(Temperature temperature) =>
+            (FluidExtended) base.DewPointAt(temperature);
 
         public override FluidExtended TwoPhasePointAt(Pressure pressure, Ratio quality) =>
             (FluidExtended) base.TwoPhasePointAt(pressure, quality);
@@ -154,7 +160,11 @@ namespace SharpProp.Tests
                 .Should().BeOfType<FluidExtended>();
             Fluid.BubblePointAt(1.Atmospheres())
                 .Should().BeOfType<FluidExtended>();
+            Fluid.BubblePointAt(100.DegreesCelsius())
+                .Should().BeOfType<FluidExtended>();
             Fluid.DewPointAt(1.Atmospheres())
+                .Should().BeOfType<FluidExtended>();
+            Fluid.DewPointAt(100.DegreesCelsius())
                 .Should().BeOfType<FluidExtended>();
             Fluid.TwoPhasePointAt(1.Atmospheres(), 50.Percent())
                 .Should().BeOfType<FluidExtended>();

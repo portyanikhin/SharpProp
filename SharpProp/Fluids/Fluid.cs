@@ -89,8 +89,14 @@ namespace SharpProp
         public override Fluid BubblePointAt(Pressure pressure) =>
             (Fluid) base.BubblePointAt(pressure);
 
+        public override Fluid BubblePointAt(Temperature temperature) =>
+            (Fluid) base.BubblePointAt(temperature);
+
         public override Fluid DewPointAt(Pressure pressure) =>
             (Fluid) base.DewPointAt(pressure);
+
+        public override Fluid DewPointAt(Temperature temperature) =>
+            (Fluid) base.DewPointAt(temperature);
 
         public override Fluid TwoPhasePointAt(Pressure pressure, Ratio quality) =>
             (Fluid) base.TwoPhasePointAt(pressure, quality);

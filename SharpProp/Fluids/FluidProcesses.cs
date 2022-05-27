@@ -167,12 +167,28 @@ namespace SharpProp
             WithState(Input.Pressure(pressure), Input.Quality(0.Percent()));
 
         /// <summary>
+        ///     Bubble point at a given temperature.
+        /// </summary>
+        /// <param name="temperature">Temperature.</param>
+        /// <returns>Bubble point at a given temperature.</returns>
+        public virtual AbstractFluid BubblePointAt(Temperature temperature) =>
+            WithState(Input.Temperature(temperature), Input.Quality(0.Percent()));
+
+        /// <summary>
         ///     Dew point at a given pressure.
         /// </summary>
         /// <param name="pressure">Pressure.</param>
         /// <returns>Dew point at a given pressure.</returns>
         public virtual AbstractFluid DewPointAt(Pressure pressure) =>
             WithState(Input.Pressure(pressure), Input.Quality(100.Percent()));
+
+        /// <summary>
+        ///     Dew point at a given temperature.
+        /// </summary>
+        /// <param name="temperature">Temperature.</param>
+        /// <returns>Dew point at a given temperature.</returns>
+        public virtual AbstractFluid DewPointAt(Temperature temperature) =>
+            WithState(Input.Temperature(temperature), Input.Quality(100.Percent()));
 
         /// <summary>
         ///     Two-phase point at a given pressure.

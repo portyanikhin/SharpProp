@@ -52,7 +52,7 @@ BREAKING CHANGES:
         <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
         <PackageReference Include="UnitsNet" Version="4.132.0"/>
         <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="4.5.0"/>
-        <PackageReference Include="UnitsNet.NumberExtensions" Version="4.131.0"/>
+        <PackageReference Include="UnitsNet.NumberExtensions" Version="4.132.0"/>
     </ItemGroup>
 
 </Project>

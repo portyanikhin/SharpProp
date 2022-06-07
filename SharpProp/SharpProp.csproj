@@ -15,15 +15,11 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageReleaseNotes>
-BREAKING CHANGES:
-- The WithState method of HumidAir instances becomes non-static.
-- Added methods that implement processes with fluids, mixtures and humid air (more info in documentation).
-- Documentation update.
-- Bump UnitsNet from 4.129.0 to 4.131.0.
-- Bump UnitsNet.NumberExtensions from 4.129.0 to 4.131.0.
+- Bump UnitsNet from 4.131.0 to 4.132.0.
+- Bump UnitsNet.NumberExtensions from 4.131.0 to 4.132.0.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.0.0</PackageVersion>
+        <PackageVersion>4.0.1</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

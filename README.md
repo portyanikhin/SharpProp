@@ -9,7 +9,7 @@
 
 A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org) wrapper for C#.
 
-## Overview
+## Navigation
 
 - [Unit safety](#unit-safety)
 - [Project structure](#project-structure)

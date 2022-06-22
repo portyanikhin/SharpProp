@@ -25,11 +25,11 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
     - [Incompressible binary mixtures](#incompressible-binary-mixtures)
     - [Mixtures](#mixtures)
     - [Humid air](#humid-air)
-- [Equality of instances](#equality-of-instances)
-- [Converting to a JSON string](#converting-to-a-json-string)
-- [Deep cloning](#deep-cloning)
-- [Adding other properties](#adding-other-properties)
-- [Adding other inputs](#adding-other-inputs)
+    - [Equality of instances](#equality-of-instances)
+    - [Converting to a JSON string](#converting-to-a-json-string)
+    - [Deep cloning](#deep-cloning)
+    - [Adding other properties](#adding-other-properties)
+    - [Adding other inputs](#adding-other-inputs)
 
 ## Unit safety
 
@@ -203,7 +203,7 @@ Console.WriteLine(humidAir.WetBulbTemperature
     .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.5 °F
 ```
 
-## Equality of instances
+### Equality of instances
 
 You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
 Just use the `Equals` method or the equality operators (`==` or `!=`).
@@ -226,7 +226,7 @@ Console.WriteLine(
     InputHumidAir.Pressure((101.325).Kilopascals())); // true
 ```
 
-## Converting to a JSON string
+### Converting to a JSON string
 
 The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `AsJson`,
 which performs converting of instance to a JSON string.
@@ -342,7 +342,7 @@ As a result:
 }
 ```
 
-## Deep cloning
+### Deep cloning
 
 The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `Clone`, 
 which performs deep (full) copy of instance:
@@ -358,12 +358,12 @@ clone.Update(Input.Pressure((1).Atmospheres()),
 Console.WriteLine(origin == clone); // false
 ```
 
-## Adding other properties
+### Adding other properties
 
 * [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestFluidExtended.cs).
 * [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestHumidAirExtended.cs).
 
-## Adding other inputs
+### Adding other inputs
 
 * [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/TestInputExtended.cs).
 * [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/TestInputHumidAirExtended.cs).

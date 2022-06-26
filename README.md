@@ -11,6 +11,7 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
 
 ## Navigation
 
+- [How to install](#how-to-install)
 - [Unit safety](#unit-safety)
 - [Project structure](#project-structure)
 - [List of properties](#list-of-properties)
@@ -31,9 +32,27 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
     - [Adding other properties](#adding-other-properties)
     - [Adding other inputs](#adding-other-inputs)
 
+## How to install
+
+Run the following command in the
+[Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+
+```shell
+PM> Install-Package SharpProp -Version 4.0.3
+```
+
+Or add this to the `.csproj` file:
+
+```xml
+<ItemGroup>
+    <PackageReference Include="SharpProp" Version="4.0.3"/>
+</ItemGroup>
+```
+
 ## Unit safety
 
-All calculations of thermophysical properties are **_unit safe_** (thanks to [UnitsNet](https://github.com/angularsen/UnitsNet)).
+All calculations of thermophysical properties are **_unit safe_** 
+(thanks to [UnitsNet](https://github.com/angularsen/UnitsNet)).
 This allows you to avoid errors associated with incorrect dimensions of quantities,
 and will help you save a lot of time on their search and elimination.
 In addition, you will be able to convert all values to many other dimensions without the slightest difficulty.

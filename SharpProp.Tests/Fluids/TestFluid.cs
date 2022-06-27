@@ -170,6 +170,9 @@ namespace SharpProp.Tests
             clone.Should().NotBe(origin);
         }
 
+        [Test]
+        public static void TestDispose() => Water.Factory().Dispose();
+
         private void SetUp(FluidsList name, Pressure pressure)
         {
             Fraction = SetUpFraction(name);

@@ -143,5 +143,8 @@ namespace SharpProp.Tests
                 Input.Temperature(30.DegreesCelsius()));
             clone.Should().NotBe(origin);
         }
+
+        [Test]
+        public static void TestDispose() => Mixture.Factory().Dispose();
     }
 }

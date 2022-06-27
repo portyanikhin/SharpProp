@@ -7,8 +7,14 @@ namespace SharpProp
     /// <summary>
     ///     Fluids base class.
     /// </summary>
-    public abstract partial class AbstractFluid : IEquatable<AbstractFluid>
+    public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDisposable
     {
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public bool Equals(AbstractFluid? other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -194,5 +200,10 @@ namespace SharpProp
         public static bool operator ==(AbstractFluid? left, AbstractFluid? right) => Equals(left, right);
 
         public static bool operator !=(AbstractFluid? left, AbstractFluid? right) => !Equals(left, right);
+
+        private void Dispose(bool disposing)
+        {
+            if (disposing) Backend.Dispose();
+        }
     }
 }

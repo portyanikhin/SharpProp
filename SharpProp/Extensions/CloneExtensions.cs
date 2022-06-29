@@ -1,6 +1,4 @@
-﻿using Force.DeepCloner;
-
-namespace SharpProp
+﻿namespace SharpProp
 {
     public static class CloneExtensions
     {
@@ -10,7 +8,8 @@ namespace SharpProp
         /// <param name="instance">The fluid instance.</param>
         /// <returns>Deep copy of the fluid instance.</returns>
         public static Fluid Clone(this Fluid instance) =>
-            instance.DeepClone();
+            instance.Factory()
+                .WithState(instance.Inputs[0], instance.Inputs[1]);
 
         /// <summary>
         ///     Performs deep (full) copy of the mixture instance.
@@ -18,7 +17,8 @@ namespace SharpProp
         /// <param name="instance">The mixture instance.</param>
         /// <returns>Deep copy of the mixture instance.</returns>
         public static Mixture Clone(this Mixture instance) =>
-            instance.DeepClone();
+            instance.Factory()
+                .WithState(instance.Inputs[0], instance.Inputs[1]);
 
         /// <summary>
         ///     Performs deep (full) copy of the humid air instance.
@@ -26,6 +26,7 @@ namespace SharpProp
         /// <param name="instance">The humid air instance.</param>
         /// <returns>Deep copy of the humid air instance.</returns>
         public static HumidAir Clone(this HumidAir instance) =>
-            instance.DeepClone();
+            instance.Factory()
+                .WithState(instance.Inputs[0], instance.Inputs[1], instance.Inputs[2]);
     }
 }

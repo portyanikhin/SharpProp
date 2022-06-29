@@ -74,7 +74,7 @@ namespace SharpProp
             Ratio.FromDecimalFractions(KeyedOutput("W"))
                 .ToUnit(RatioUnit.PartPerThousand);
 
-        private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
+        internal List<IKeyedInput<string>> Inputs { get; private set; } = new(3);
 
         /// <summary>
         ///     Kinematic viscosity (by default, cSt).

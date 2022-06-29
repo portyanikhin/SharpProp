@@ -29,17 +29,19 @@ public class AbstractState : global::System.IDisposable {
   public void Dispose() {
     lock(this) {
       if (_disposed) return;
-      _disposed = true;
     }
     InternalDispose();
     global::System.GC.SuppressFinalize(this);
   }
 
   private void InternalDispose() {
-    if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-      swigCMemOwn = false;
-      CPInvoke.delete_AbstractState(swigCPtr);
-      swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+    lock (this) {
+      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
+        swigCMemOwn = false;
+        _disposed = true;
+        CPInvoke.delete_AbstractState(swigCPtr);
+        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+      }
     }
   }
 

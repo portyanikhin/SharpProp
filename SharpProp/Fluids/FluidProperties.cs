@@ -105,7 +105,7 @@ namespace SharpProp
                 ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
                 : null;
 
-        private List<IKeyedInput<Parameters>> Inputs { get; set; } = new(2);
+        internal List<IKeyedInput<Parameters>> Inputs { get; private set; } = new(2);
 
         /// <summary>
         ///     Mass specific internal energy (by default, kJ/kg).

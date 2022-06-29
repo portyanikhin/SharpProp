@@ -14,9 +14,14 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>The AbstractFluid now implements the IDisposable interface.</PackageReleaseNotes>
+        <PackageReleaseNotes>
+- Fixed a problem with CoolProp memory usage.
+- Remove DeepCloner from the dependencies.
+- Bump UnitsNet from 4.134.0 to 4.135.0.
+- Bump UnitsNet.NumberExtensions from 4.134.0 to 4.135.0.
+        </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.1.0</PackageVersion>
+        <PackageVersion>4.2.0</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

@@ -11,7 +11,7 @@ namespace SharpProp
     {
         public void Dispose()
         {
-            Dispose(true);
+            Backend.Dispose();
             GC.SuppressFinalize(this);
         }
 
@@ -107,9 +107,7 @@ namespace SharpProp
             try
             {
                 var value = KeyedOutput(key);
-                if (key is Parameters.iQ && value is < 0 or > 1)
-                    return null;
-                return value;
+                return key is Parameters.iQ && value is < 0 or > 1 ? null : value;
             }
             catch (Exception e) when (e is ApplicationException or ArgumentException)
             {
@@ -200,10 +198,5 @@ namespace SharpProp
         public static bool operator ==(AbstractFluid? left, AbstractFluid? right) => Equals(left, right);
 
         public static bool operator !=(AbstractFluid? left, AbstractFluid? right) => !Equals(left, right);
-
-        private void Dispose(bool disposing)
-        {
-            if (disposing) Backend.Dispose();
-        }
     }
 }

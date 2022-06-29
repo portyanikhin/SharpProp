@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SharpProp.Attributes
+namespace SharpProp
 {
     /// <summary>
     ///     Fluid predefined info.

@@ -22,6 +22,9 @@ namespace SharpProp.Tests
                     case FluidsList.RE143a:
                         coolPropFluid.CoolPropName().Should().Be("HFE143m");
                         break;
+                    case FluidsList.R152a:
+                        coolPropFluid.CoolPropName().Should().Be("R152A");
+                        break;
                     case FluidsList.R170:
                         coolPropFluid.CoolPropName().Should().Be("Ethane");
                         break;

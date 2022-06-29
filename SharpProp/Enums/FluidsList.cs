@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using SharpProp.Attributes;
 
 namespace SharpProp
 {
@@ -129,7 +128,7 @@ namespace SharpProp
         [FluidInfo("R141b")] R141b,
         [FluidInfo("R142b")] R142b,
         [FluidInfo("R143a")] R143a,
-        [FluidInfo("R152A")] R152A,
+        [FluidInfo("R152A")] R152a,
         [FluidInfo("R161")] R161,
         [FluidInfo("R21")] R21,
         [FluidInfo("R218")] R218,

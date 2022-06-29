@@ -1,5 +1,4 @@
 ﻿using EnumsNET;
-using SharpProp.Attributes;
 using UnitsNet;
 using UnitsNet.Units;
 
@@ -45,7 +44,8 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The minimum possible fraction (by default, %).</returns>
         public static Ratio FractionMin(this FluidsList member) =>
-            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMin).ToUnit(RatioUnit.Percent);
+            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMin)
+                .ToUnit(RatioUnit.Percent);
 
         /// <summary>
         ///     Gets access to the maximum possible fraction.
@@ -53,6 +53,7 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The maximum possible fraction (by default, %).</returns>
         public static Ratio FractionMax(this FluidsList member) =>
-            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMax).ToUnit(RatioUnit.Percent);
+            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMax)
+                .ToUnit(RatioUnit.Percent);
     }
 }

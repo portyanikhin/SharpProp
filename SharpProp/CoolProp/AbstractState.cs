@@ -13,6 +13,7 @@ namespace CoolProp
 public class AbstractState : global::System.IDisposable {
   private global::System.Runtime.InteropServices.HandleRef swigCPtr;
   protected bool swigCMemOwn;
+  private bool _disposed;
 
   internal AbstractState(global::System.IntPtr cPtr, bool cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
@@ -23,17 +24,23 @@ public class AbstractState : global::System.IDisposable {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~AbstractState() => Dispose();
+  ~AbstractState() => InternalDispose();
 
   public void Dispose() {
     lock(this) {
-      if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        swigCMemOwn = false;
-        CPInvoke.delete_AbstractState(swigCPtr);
-        swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
-      }
+      if (_disposed) return;
+      _disposed = true;
     }
+    InternalDispose();
     global::System.GC.SuppressFinalize(this);
+  }
+
+  private void InternalDispose() {
+    if (swigCPtr.Handle != global::System.IntPtr.Zero) {
+      swigCMemOwn = false;
+      CPInvoke.delete_AbstractState(swigCPtr);
+      swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
+    }
   }
 
   public static AbstractState factory(string backend, string fluid_names) {

@@ -23,25 +23,17 @@ public class AbstractState : global::System.IDisposable {
     return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
   }
 
-  ~AbstractState() {
-    Dispose(false);
-  }
+  ~AbstractState() => Dispose();
 
   public void Dispose() {
-    Dispose(true);
-    global::System.GC.SuppressFinalize(this);
-  }
-
-  protected virtual void Dispose(bool disposing) {
     lock(this) {
       if (swigCPtr.Handle != global::System.IntPtr.Zero) {
-        if (swigCMemOwn) {
-          swigCMemOwn = false;
-          CPInvoke.delete_AbstractState(swigCPtr);
-        }
+        swigCMemOwn = false;
+        CPInvoke.delete_AbstractState(swigCPtr);
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
       }
     }
+    global::System.GC.SuppressFinalize(this);
   }
 
   public static AbstractState factory(string backend, string fluid_names) {

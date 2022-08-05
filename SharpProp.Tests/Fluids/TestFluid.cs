@@ -144,17 +144,18 @@ namespace SharpProp.Tests
             origin.GetHashCode().Should().NotBe(other.GetHashCode());
         }
 
-        [Test]
-        public static void TestAsJson()
+        [TestCase(true)]
+        [TestCase(false)]
+        public static void TestAsJson(bool indented)
         {
             var water = Water.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            water.AsJson().Should().Be(
+            water.AsJson(indented).Should().Be(
                 JsonConvert.SerializeObject(water, new JsonSerializerSettings
                 {
                     Converters = new List<JsonConverter>
                         {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
-                    Formatting = Formatting.Indented
+                    Formatting = indented ? Formatting.Indented : Formatting.None
                 }));
         }
 

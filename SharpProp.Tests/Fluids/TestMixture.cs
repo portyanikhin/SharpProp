@@ -118,17 +118,18 @@ namespace SharpProp.Tests
             origin.GetHashCode().Should().NotBe(other.GetHashCode());
         }
 
-        [Test]
-        public static void TestAsJson()
+        [TestCase(true)]
+        [TestCase(false)]
+        public static void TestAsJson(bool indented)
         {
             var mixture = Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()));
-            mixture.AsJson().Should().Be(
+            mixture.AsJson(indented).Should().Be(
                 JsonConvert.SerializeObject(mixture, new JsonSerializerSettings
                 {
                     Converters = new List<JsonConverter>
                         {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
-                    Formatting = Formatting.Indented
+                    Formatting = indented ? Formatting.Indented : Formatting.None
                 }));
         }
 

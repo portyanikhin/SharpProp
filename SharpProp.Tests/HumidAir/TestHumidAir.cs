@@ -153,19 +153,20 @@ namespace SharpProp.Tests
             origin.GetHashCode().Should().NotBe(other.GetHashCode());
         }
 
-        [Test]
-        public static void TestAsJson()
+        [TestCase(true)]
+        [TestCase(false)]
+        public static void TestAsJson(bool indented)
         {
             var humidAir = new HumidAir().WithState(
                 InputHumidAir.Pressure(1.Atmospheres()),
                 InputHumidAir.Temperature(20.DegreesCelsius()),
                 InputHumidAir.RelativeHumidity(50.Percent()));
-            humidAir.AsJson().Should().Be(
+            humidAir.AsJson(indented).Should().Be(
                 JsonConvert.SerializeObject(humidAir, new JsonSerializerSettings
                 {
                     Converters = new List<JsonConverter>
                         {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
-                    Formatting = Formatting.Indented
+                    Formatting = indented ? Formatting.Indented : Formatting.None
                 }));
         }
 

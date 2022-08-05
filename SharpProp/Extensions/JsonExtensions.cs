@@ -17,25 +17,28 @@ namespace SharpProp
         ///     Converts a <see cref="Fluid" /> instance to a JSON string.
         /// </summary>
         /// <param name="instance">A <see cref="Fluid" /> instance.</param>
+        /// <param name="indented"><c>true</c> if indented.</param>
         /// <returns>A JSON string.</returns>
-        public static string AsJson(this Fluid instance) =>
-            instance.AsJson<Fluid>();
+        public static string AsJson(this Fluid instance, bool indented = true) =>
+            instance.AsJson<Fluid>(indented);
 
         /// <summary>
         ///     Converts a <see cref="Mixture" /> instance to a JSON string.
         /// </summary>
         /// <param name="instance">A <see cref="Mixture" /> instance.</param>
+        /// <param name="indented"><c>true</c> if indented.</param>
         /// <returns>A JSON string.</returns>
-        public static string AsJson(this Mixture instance) =>
-            instance.AsJson<Mixture>();
+        public static string AsJson(this Mixture instance, bool indented = true) =>
+            instance.AsJson<Mixture>(indented);
 
         /// <summary>
         ///     Converts a <see cref="HumidAir" /> instance to a JSON string.
         /// </summary>
         /// <param name="instance">A <see cref="HumidAir" /> instance.</param>
+        /// <param name="indented"><c>true</c> if indented.</param>
         /// <returns>A JSON string.</returns>
-        public static string AsJson(this HumidAir instance) =>
-            instance.AsJson<HumidAir>();
+        public static string AsJson(this HumidAir instance, bool indented = true) =>
+            instance.AsJson<HumidAir>(indented);
 
         private static string AsJson<T>(this T instance, bool indented = true)
         {

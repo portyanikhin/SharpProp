@@ -15,11 +15,12 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageReleaseNotes>
-- Bump UnitsNet from 4.136.0 to 4.137.0.
-- Bump UnitsNet.NumberExtensions from 4.136.0 to 4.137.0.
+- Added the ability to convert instances of the Fluid, Mixture and HumidAir classes to a JSON string without indentation.
+- Bump UnitsNet from 4.137.0 to 4.143.0.
+- Bump UnitsNet.NumberExtensions from 4.137.0 to 4.143.0.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.2.2</PackageVersion>
+        <PackageVersion>4.2.3</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

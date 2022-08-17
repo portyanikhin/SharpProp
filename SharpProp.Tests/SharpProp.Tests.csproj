@@ -5,12 +5,11 @@
         <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <Description>Unit tests for the SharpProp</Description>
         <IsPackable>false</IsPackable>
-        <LangVersion>10</LangVersion>
         <Nullable>enable</Nullable>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+        <TargetFramework>net5.0</TargetFramework>
         <Title>SharpProp.Tests</Title>
     </PropertyGroup>
 

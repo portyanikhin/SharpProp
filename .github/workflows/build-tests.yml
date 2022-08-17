@@ -15,14 +15,10 @@ jobs:
         os: [ windows-2022, ubuntu-20.04 ]
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET 5.0
+      - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 5.0.x
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
       - name: Restore dependencies
         run: dotnet restore
       - name: Build
@@ -39,22 +35,17 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Setup .NET 5.0
+      - name: Setup .NET
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 5.0.x
-      - name: Setup .NET 6.0
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 6.0.x
       - name: Publish on version change
         id: publish_nuget
         continue-on-error: true
-        uses: brandedoutcast/publish-nuget@v2
+        uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
-          BUILD_CONFIGURATION: Release
           PACKAGE_NAME: SharpProp
-          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
           TAG_FORMAT: v*
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}

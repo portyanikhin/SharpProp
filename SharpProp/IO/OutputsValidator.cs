@@ -1,16 +1,17 @@
 ﻿using System;
 
-namespace SharpProp;
-
-internal static class OutputsValidator
+namespace SharpProp
 {
-    /// <summary>
-    ///     Validates the CoolProp output.
-    /// </summary>
-    /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
-    public static void Validate(double value)
+    internal static class OutputsValidator
     {
-        if (double.IsInfinity(value) || double.IsNaN(value))
-            throw new ArgumentException("Invalid or not defined state!");
+        /// <summary>
+        ///     Validates the CoolProp output.
+        /// </summary>
+        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
+        public static void Validate(double value)
+        {
+            if (double.IsInfinity(value) || double.IsNaN(value))
+                throw new ArgumentException("Invalid or not defined state!");
+        }
     }
 }

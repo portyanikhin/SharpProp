@@ -53,7 +53,8 @@ jobs:
         uses: brandedoutcast/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
+          BUILD_CONFIGURATION: Release
           PACKAGE_NAME: SharpProp
-          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+          VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
           TAG_FORMAT: v*
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}

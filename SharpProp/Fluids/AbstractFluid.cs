@@ -127,7 +127,7 @@ namespace SharpProp
         {
             var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
             var value = input ?? Backend.keyed_output(key);
-            OutputsValidator.Validate(value);
+            new OutputsValidator(value).Validate();
             return value;
         }
 

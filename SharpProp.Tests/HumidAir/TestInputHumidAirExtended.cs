@@ -18,7 +18,7 @@ namespace SharpProp.Tests
         ///     Water mole fraction.
         /// </summary>
         /// <param name="value">The value of the input.</param>
-        /// <returns>Molar density for the input.</returns>
+        /// <returns>Water mole fraction for the input.</returns>
         public static InputHumidAirExtended WaterMoleFraction(Ratio value) =>
             new("psi_w", value.DecimalFractions);
     }

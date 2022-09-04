@@ -128,6 +128,7 @@ For more information, see the XML documentation.
 * `Factory` - returns a new fluid object with no defined state.
 * `WithState` - returns a new fluid object with a defined state.
 * `Update` - update fluid state.
+* `Reset` - reset all non-trivial properties.
 * `Clone` - performs deep (full) copy of the fluid instance.
 * `IsentropicCompressionTo` - the process of isentropic compression to a given pressure.
 * `CompressionTo` - the process of compression to a given pressure.
@@ -147,6 +148,7 @@ For more information, see the XML documentation.
 * `Factory` - returns a new fluid object with no defined state.
 * `WithState` - returns a new fluid object with a defined state.
 * `Update` - update fluid state.
+* `Reset` - reset all non-trivial properties.
 * `Clone` - performs deep (full) copy of the mixture instance.
 * `CoolingTo` - the process of cooling to a given temperature.
 * `HeatingTo` - the process of heating to a given temperature.
@@ -157,6 +159,7 @@ For more information, see the XML documentation.
 * `Factory` - returns a new humid air object with no defined state.
 * `WithState` - returns a new humid air object with a defined state.
 * `Update` - update humid air state.
+* `Reset` - reset all properties.
 * `Clone` - performs deep (full) copy of the humid air instance.
 * `DryCoolingTo` - the process of cooling without dehumidification to a given temperature or enthalpy.
 * `WetCoolingTo` - the process of cooling with dehumidification to a given temperature or enthalpy and relative or absolute humidity ratio.

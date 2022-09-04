@@ -25,14 +25,14 @@ namespace SharpProp.Tests
         }
 
         /// <summary>
-        ///     Mass specific constant volume specific heat.
+        ///     Mass specific constant volume specific heat (by default, kJ/kg/K).
         /// </summary>
         public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Molar density.
+        ///     Molar density  (by default, kg/mol).
         /// </summary>
         public MolarMass? MolarDensity => _molarDensity ??=
             KeyedOutputIsNotNull(Parameters.iDmolar, out var output)

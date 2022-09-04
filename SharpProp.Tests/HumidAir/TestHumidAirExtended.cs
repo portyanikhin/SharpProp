@@ -17,7 +17,7 @@ namespace SharpProp.Tests
         private SpecificEntropy? _specificHeatConstVolume;
 
         /// <summary>
-        ///     Mixture specific heat at constant volume per unit humid air.
+        ///     Mass specific constant volume specific heat per humid air (by default, kJ/kg/K).
         /// </summary>
         public SpecificEntropy SpecificHeatConstVolume => _specificHeatConstVolume ??=
             SpecificEntropy.FromJoulesPerKilogramKelvin(KeyedOutput("CVha"))

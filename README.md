@@ -140,6 +140,7 @@ For more information, see the XML documentation.
 * `DewPointAt` - dew point at a given pressure or temperature.
 * `TwoPhasePointAt` - two-phase point at a given pressure.
 * `Mixing` - the mixing process.
+* `AsJson` - converts the fluid instance to a JSON string.
 
 ### Methods of `Mixture` instances
 
@@ -149,6 +150,7 @@ For more information, see the XML documentation.
 * `Clone` - performs deep (full) copy of the mixture instance.
 * `CoolingTo` - the process of cooling to a given temperature.
 * `HeatingTo` - the process of heating to a given temperature.
+* `AsJson` - converts the mixture instance to a JSON string.
 
 ### Methods of `HumidAir` instances
 
@@ -162,6 +164,7 @@ For more information, see the XML documentation.
 * `HumidificationByWaterTo` - the process of humidification by water (isenthalpic) to a given relative or absolute humidity ratio.
 * `HumidificationBySteamTo` - the process of humidification by steam (isothermal) to a given relative or absolute humidity ratio.
 * `Mixing` - the mixing process.
+* `AsJson` - converts the humid air instance to a JSON string.
 
 ## Examples
 

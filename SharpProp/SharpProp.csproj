@@ -15,11 +15,13 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageReleaseNotes>
-- Bump UnitsNet from 4.143.0 to 4.144.0.
-- Bump UnitsNet.NumberExtensions from 4.143.0 to 4.144.0.
+- Refactorings.
+- Documentation update.
+- Bump UnitsNet from 4.144.0 to 4.145.0.
+- Bump UnitsNet.NumberExtensions from 4.144.0 to 4.145.0.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.2.4</PackageVersion>
+        <PackageVersion>4.2.5</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

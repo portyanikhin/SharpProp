@@ -27,25 +27,3 @@ jobs:
         run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v3
-
-  publish:
-    if: ${{ github.event_name == 'push' }}
-    needs: build-tests
-    name: Publish to NuGet
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: 5.0.x
-      - name: Publish on version change
-        id: publish_nuget
-        continue-on-error: true
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
-          PACKAGE_NAME: SharpProp
-          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
-          TAG_FORMAT: v*
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}

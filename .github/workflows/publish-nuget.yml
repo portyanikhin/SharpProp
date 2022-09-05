@@ -1,0 +1,30 @@
+﻿name: Publish to NuGet
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    name: Publish to NuGet
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 5.0.x
+      - name: Publish package to NuGet
+        id: publish_nuget
+        continue-on-error: true
+        uses: brandedoutcast/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: SharpProp/SharpProp.csproj
+          PACKAGE_NAME: SharpProp
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+          TAG_FORMAT: v*
+          NUGET_KEY: ${{ secrets.NUGET_API_KEY }}

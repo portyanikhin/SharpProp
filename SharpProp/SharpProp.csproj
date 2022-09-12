@@ -16,7 +16,7 @@
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageReleaseNotes>Rename: R227EA to R227ea, R236EA to R236ea, R236FA to R236fa, R365MFC to R365mfc.</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.3.0</PackageVersion>
+        <PackageVersion>4.3.1</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

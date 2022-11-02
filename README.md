@@ -38,7 +38,7 @@ Run the following command in the
 [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
 
 ```shell
-PM> Install-Package SharpProp -Version 4.3.1
+PM> NuGet\Install-Package SharpProp -Version 4.3.1
 ```
 
 Or add this to the `.csproj` file:

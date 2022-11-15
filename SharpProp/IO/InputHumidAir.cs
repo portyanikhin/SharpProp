@@ -1,4 +1,5 @@
-﻿using UnitsNet;
+﻿using System;
+using UnitsNet;
 
 namespace SharpProp
 {
@@ -24,6 +25,23 @@ namespace SharpProp
         ///     Input value.
         /// </summary>
         public double Value { get; }
+
+        /// <summary>
+        ///     Altitude above sea level.
+        /// </summary>
+        /// <remarks>
+        ///     The pressure will be calculated by altitude above sea level according to ASHRAE Fundamentals Handbook.
+        /// </remarks>
+        /// <param name="value">The value of the input.</param>
+        /// <returns>Altitude above sea level for the input.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Altitude above sea level should be between -5000 and 11000 meters!
+        /// </exception>
+        public static InputHumidAir Altitude(Length value) =>
+            value.Meters is < -5000 or > 11000
+                ? throw new ArgumentOutOfRangeException(nameof(value), value,
+                    "Altitude above sea level should be between -5000 and 11000 meters!")
+                : new InputHumidAir("P", 101325 * Math.Pow(1 - 2.25577e-5 * value.Meters, 5.2559));
 
         /// <summary>
         ///     Mass density per humid air unit.

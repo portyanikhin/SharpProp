@@ -1,7 +1,9 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using NUnit.Framework;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToDensity;
+using UnitsNet.NumberExtensions.NumberToLength;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
@@ -14,6 +16,7 @@ namespace SharpProp.Tests
     {
         private static readonly object[] InputHumidAirCases =
         {
+            new object[] {InputHumidAir.Altitude(300.Meters()), "P", 97772.56060611102},
             new object[] {InputHumidAir.Density(1.2.KilogramsPerCubicMeter()), "Vha", 0.8333333333333334},
             new object[] {InputHumidAir.DewTemperature(10.DegreesCelsius()), "D", 283.15},
             new object[] {InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), "Hha", 2e4},
@@ -35,8 +38,21 @@ namespace SharpProp.Tests
             input.Value.Should().Be(value);
 
         [Test]
-        public static void TestEquals() =>
+        public static void TestEquals()
+        {
+            InputHumidAir.Altitude(0.Meters())
+                .Should().Be(InputHumidAir.Pressure(1.Atmospheres()));
             InputHumidAir.Pressure(1.Atmospheres())
                 .Should().Be(InputHumidAir.Pressure(101325.Pascals()));
+        }
+
+        [TestCase(-5001)]
+        [TestCase(11001)]
+        public static void TestWrongAltitude(double altitude)
+        {
+            Action action = () => InputHumidAir.Altitude(altitude.Meters());
+            action.Should().Throw<ArgumentOutOfRangeException>()
+                .WithMessage("*Altitude above sea level should be between -5000 and 11000 meters!*");
+        }
     }
 }

@@ -218,17 +218,17 @@ Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.3
 ### Humid air
 
 To calculate the wet bulb temperature of humid air 
-at _99 kPa_, _30 °C_ and _50 %_ relative humidity:
+at _300 m_ above sea level, _30 °C_ and _50 %_ relative humidity:
 
 ```c#
 var humidAir = new HumidAir().WithState(
-    InputHumidAir.Pressure((99).Kilopascals()),
+    InputHumidAir.Altitude((300).Meters()),
     InputHumidAir.Temperature((30).DegreesCelsius()),
     InputHumidAir.RelativeHumidity((50).Percent()));
-Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.0965785590792
-Console.WriteLine(humidAir.WetBulbTemperature);         // 21.95 °C
+Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.06756903318154
+Console.WriteLine(humidAir.WetBulbTemperature);         // 21.92 °C
 Console.WriteLine(humidAir.WetBulbTemperature
-    .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.5 °F
+    .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.45 °F
 ```
 
 ### Equality of instances

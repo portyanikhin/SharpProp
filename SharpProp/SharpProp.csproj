@@ -14,9 +14,12 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>Added altitude above sea level as an input for humid air.</PackageReleaseNotes>
+        <PackageReleaseNotes>
+- Bump UnitsNet from 4.148.0 to 4.149.0.
+- Bump UnitsNet.NumberExtensions from 4.148.0 to 4.149.0.
+        </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.4.0</PackageVersion>
+        <PackageVersion>4.4.1</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFramework>net5.0</TargetFramework>

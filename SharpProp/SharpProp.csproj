@@ -17,6 +17,7 @@
         <PackageReleaseNotes>
 - Bump UnitsNet from 4.148.0 to 4.149.0.
 - Bump UnitsNet.NumberExtensions from 4.148.0 to 4.149.0.
+- Bump Enums.NET from 4.0.0 to 4.0.1.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
         <PackageVersion>4.4.1</PackageVersion>

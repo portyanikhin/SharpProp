@@ -9,7 +9,7 @@ using Xunit;
 
 namespace SharpProp.Tests
 {
-    [Collection("HumidAir")]
+    [Collection("Fluids")]
     public class TestHumidAirProcesses
     {
         private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(5);

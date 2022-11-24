@@ -15,6 +15,7 @@ using Xunit;
 
 namespace SharpProp.Tests
 {
+    [Collection("HumidAir")]
     public class HumidAirTests
     {
         public HumidAirTests() => HumidAir = new HumidAir();

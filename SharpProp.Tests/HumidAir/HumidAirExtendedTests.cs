@@ -87,6 +87,7 @@ namespace SharpProp.Tests
                 secondSpecificMassFlow, second);
     }
 
+    [Collection("HumidAir")]
     public class HumidAirExtendedTests
     {
         private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(5);

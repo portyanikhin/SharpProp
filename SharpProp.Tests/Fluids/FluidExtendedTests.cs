@@ -1,12 +1,13 @@
-﻿using CoolProp;
+﻿using System;
+using CoolProp;
 using FluentAssertions;
-using NUnit.Framework;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
+using Xunit;
 
 namespace SharpProp.Tests
 {
@@ -32,7 +33,7 @@ namespace SharpProp.Tests
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Molar density  (by default, kg/mol).
+        ///     Molar density (by default, kg/mol).
         /// </summary>
         public MolarMass? MolarDensity => _molarDensity ??=
             KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
@@ -112,33 +113,44 @@ namespace SharpProp.Tests
                 secondSpecificMassFlow, second);
     }
 
-    public static class TestFluidExtended
+    [Collection("Fluids")]
+    public class FluidExtendedTests : IDisposable
     {
-        private static readonly FluidExtended Fluid =
-            new FluidExtended(FluidsList.Water)
-                .WithState(Input.Pressure(1.Atmospheres()),
-                    Input.Temperature(150.DegreesCelsius()));
-
-        private static readonly Pressure HighPressure = 2 * Fluid.Pressure;
-        private static readonly Pressure LowPressure = 0.5 * Fluid.Pressure;
         private static readonly Ratio IsentropicEfficiency = 80.Percent();
         private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
         private static readonly SpecificEnergy EnthalpyDelta = 50.KilojoulesPerKilogram();
 
-        [Test(ExpectedResult = 1496.5437531342086)]
-        public static double TestSpecificHeatConstVolume() =>
-            Fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
+        public FluidExtendedTests() =>
+            Fluid = new FluidExtended(FluidsList.Water)
+                .WithState(Input.Pressure(1.Atmospheres()),
+                    Input.Temperature(20.DegreesCelsius()));
 
-        [Test(ExpectedResult = 29.045175781507989)]
-        public static double? TestMolarDensity() =>
-            Fluid.MolarDensity?.KilogramsPerMole;
+        private FluidExtended Fluid { get; }
+        private Pressure HighPressure => 2 * Fluid.Pressure;
+        private Pressure LowPressure => 0.5 * Fluid.Pressure;
 
-        [Test(ExpectedResult = null)]
-        public static double? TestOzoneDepletionPotential() =>
-            Fluid.OzoneDepletionPotential;
+        public void Dispose()
+        {
+            Fluid.Dispose();
+            GC.SuppressFinalize(this);
+        }
 
-        [Test]
-        public static void TestProcesses()
+        [Fact]
+        public void SpecificHeatConstVolume_WaterInStandardConditions_Returns4156() =>
+            Fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin
+                .Should().Be(4156.6814728615545);
+
+        [Fact]
+        public void MolarDensity_WaterInStandardConditions_Returns55408() =>
+            Fluid.MolarDensity?.KilogramsPerMole
+                .Should().Be(55408.953697937126);
+
+        [Fact]
+        public void OzoneDepletionPotential_Water_ReturnsNull() =>
+            Fluid.OzoneDepletionPotential.Should().BeNull();
+
+        [Fact]
+        public void Processes_Override_ReturnsInstancesOfInheritedType()
         {
             Fluid.IsentropicCompressionTo(HighPressure)
                 .Should().BeOfType<FluidExtended>();

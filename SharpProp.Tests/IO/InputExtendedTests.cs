@@ -1,7 +1,8 @@
 ﻿using CoolProp;
-using NUnit.Framework;
+using FluentAssertions;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToMolarMass;
+using Xunit;
 
 namespace SharpProp.Tests
 {
@@ -24,15 +25,19 @@ namespace SharpProp.Tests
             new(Parameters.iDmolar, value.KilogramsPerMole);
     }
 
-    public static class TestInputExtended
+    public class InputExtendedTests
     {
-        private static readonly InputExtended Input =
-            InputExtended.MolarDensity(900.KilogramsPerMole());
+        public InputExtendedTests() =>
+            Input = InputExtended.MolarDensity(9e5.GramsPerMole());
 
-        [Test(ExpectedResult = Parameters.iDmolar)]
-        public static Parameters TestCoolPropKey() => Input.CoolPropKey;
+        private InputExtended Input { get; }
 
-        [Test(ExpectedResult = 900)]
-        public static double TestValue() => Input.Value;
+        [Fact]
+        public void CoolPropKey_NewInput_MatchesWithCoolProp() =>
+            Input.CoolPropKey.Should().Be(Parameters.iDmolar);
+
+        [Fact]
+        public void Value_NewInput_ShouldBeInSIUnits() =>
+            Input.Value.Should().Be(900);
     }
 }

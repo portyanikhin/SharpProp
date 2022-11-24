@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
+﻿using FluentAssertions;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToRatio;
+using Xunit;
 
 namespace SharpProp.Tests
 {
@@ -23,15 +24,19 @@ namespace SharpProp.Tests
             new("psi_w", value.DecimalFractions);
     }
 
-    public static class TestInputHumidAirExtended
+    public class InputHumidAirExtendedTests
     {
-        private static readonly InputHumidAirExtended Input =
-            InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
+        public InputHumidAirExtendedTests() =>
+            Input = InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
 
-        [Test(ExpectedResult = "psi_w")]
-        public static string TestCoolPropKey() => Input.CoolPropKey;
+        private InputHumidAirExtended Input { get; }
 
-        [Test(ExpectedResult = 5e-3)]
-        public static double TestValue() => Input.Value;
+        [Fact]
+        public void CoolPropKey_NewInput_MatchesWithCoolProp() =>
+            Input.CoolPropKey.Should().Be("psi_w");
+
+        [Fact]
+        public void Value_NewInput_ShouldBeInSIUnits() =>
+            Input.Value.Should().Be(5e-3);
     }
 }

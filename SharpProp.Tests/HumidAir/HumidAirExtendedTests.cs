@@ -1,11 +1,11 @@
 ﻿using FluentAssertions;
-using NUnit.Framework;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
+using Xunit;
 
 namespace SharpProp.Tests
 {
@@ -87,14 +87,8 @@ namespace SharpProp.Tests
                 secondSpecificMassFlow, second);
     }
 
-    public static class TestHumidAirExtended
+    public class HumidAirExtendedTests
     {
-        private static readonly HumidAirExtended HumidAir =
-            new HumidAirExtended().WithState(
-                InputHumidAir.Pressure(1.Atmospheres()),
-                InputHumidAir.Temperature(20.DegreesCelsius()),
-                InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)));
-
         private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(5);
         private static readonly SpecificEnergy EnthalpyDelta = 5.KilojoulesPerKilogram();
         private static readonly Ratio LowHumidity = 5.PartsPerThousand();
@@ -106,12 +100,21 @@ namespace SharpProp.Tests
         private static readonly RelativeHumidity HighRelativeHumidity =
             RelativeHumidity.FromPercent(90);
 
-        [Test(ExpectedResult = 722.68718970632506)]
-        public static double TestSpecificHeatConstVolume() =>
-            HumidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin;
+        public HumidAirExtendedTests() =>
+            HumidAir = new HumidAirExtended().WithState(
+                InputHumidAir.Pressure(1.Atmospheres()),
+                InputHumidAir.Temperature(20.DegreesCelsius()),
+                InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)));
 
-        [Test]
-        public static void TestProcesses()
+        private HumidAirExtended HumidAir { get; }
+
+        [Fact]
+        public void SpecificHeatConstVolume_HumidAirInStandardConditions_Returns722() =>
+            HumidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin
+                .Should().Be(722.68718970632506);
+
+        [Fact]
+        public void Processes_Override_ReturnsInstancesOfInheritedType()
         {
             HumidAir.DryCoolingTo(HumidAir.Temperature - TemperatureDelta)
                 .Should().BeOfType<HumidAirExtended>();

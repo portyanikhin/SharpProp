@@ -6,7 +6,7 @@ namespace SharpProp
     ///     Fluid predefined info.
     /// </summary>
     [AttributeUsage(AttributeTargets.Field)]
-    public sealed class FluidInfo : Attribute
+    public sealed class FluidInfoAttribute : Attribute
     {
         /// <summary>
         ///     Fluid predefined info.
@@ -17,8 +17,8 @@ namespace SharpProp
         /// <param name="mixType">Mass-based or volume-based mixture.</param>
         /// <param name="fractionMin">Minimum possible fraction.</param>
         /// <param name="fractionMax">Maximum possible fraction.</param>
-        public FluidInfo(string name, string backend = "HEOS", bool pure = true, Mix mixType = Mix.Mass,
-            double fractionMin = 0, double fractionMax = 1) =>
+        public FluidInfoAttribute(string name, string backend = "HEOS", bool pure = true,
+            Mix mixType = Mix.Mass, double fractionMin = 0, double fractionMax = 1) =>
             (Name, Backend, Pure, MixType, FractionMin, FractionMax) =
             (name, backend, pure, mixType, fractionMin, fractionMax);
 

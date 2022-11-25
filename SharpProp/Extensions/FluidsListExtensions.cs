@@ -12,7 +12,7 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The CoolProp internal name.</returns>
         public static string CoolPropName(this FluidsList member) =>
-            member.GetAttributes()!.Get<FluidInfo>()!.Name;
+            member.GetAttributes()!.Get<FluidInfoAttribute>()!.Name;
 
         /// <summary>
         ///     Gets access to the CoolProp backend type.
@@ -20,7 +20,7 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The CoolProp backend type.</returns>
         public static string CoolPropBackend(this FluidsList member) =>
-            member.GetAttributes()!.Get<FluidInfo>()!.Backend;
+            member.GetAttributes()!.Get<FluidInfoAttribute>()!.Backend;
 
         /// <summary>
         ///     Gets access to the type of the fluid (true if pure of pseudo-pure).
@@ -28,7 +28,7 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The type of the fluid.</returns>
         public static bool Pure(this FluidsList member) =>
-            member.GetAttributes()!.Get<FluidInfo>()!.Pure;
+            member.GetAttributes()!.Get<FluidInfoAttribute>()!.Pure;
 
         /// <summary>
         ///     Gets access to the mixture type.
@@ -36,7 +36,7 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The mixture type.</returns>
         public static Mix MixType(this FluidsList member) =>
-            member.GetAttributes()!.Get<FluidInfo>()!.MixType;
+            member.GetAttributes()!.Get<FluidInfoAttribute>()!.MixType;
 
         /// <summary>
         ///     Gets access to the minimum possible fraction.
@@ -44,7 +44,8 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The minimum possible fraction (by default, %).</returns>
         public static Ratio FractionMin(this FluidsList member) =>
-            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMin)
+            Ratio.FromDecimalFractions(
+                    member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMin)
                 .ToUnit(RatioUnit.Percent);
 
         /// <summary>
@@ -53,7 +54,8 @@ namespace SharpProp
         /// <param name="member">The <see cref="FluidsList" /> member.</param>
         /// <returns>The maximum possible fraction (by default, %).</returns>
         public static Ratio FractionMax(this FluidsList member) =>
-            Ratio.FromDecimalFractions(member.GetAttributes()!.Get<FluidInfo>()!.FractionMax)
+            Ratio.FromDecimalFractions(
+                    member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMax)
                 .ToUnit(RatioUnit.Percent);
     }
 }

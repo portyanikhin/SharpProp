@@ -29,8 +29,8 @@ namespace SharpProp.Tests
         }
 
         [Theory]
-        [MemberData(nameof(MixtureCases))]
-        public static void Mixture_InvalidFluidsOrFractions_ThrowsArgumentException(
+        [MemberData(nameof(WrongFluidsOrFractions))]
+        public static void Mixture_WrongFluidsOrFractions_ThrowsArgumentException(
             List<FluidsList> fluids, List<Ratio> fractions, string message)
         {
             Action action = () => _ = new Mixture(fluids, fractions);
@@ -149,7 +149,7 @@ namespace SharpProp.Tests
             clone.Should().NotBe(origin);
         }
 
-        public static IEnumerable<object[]> MixtureCases() =>
+        public static IEnumerable<object[]> WrongFluidsOrFractions() =>
             new[]
             {
                 new object[]

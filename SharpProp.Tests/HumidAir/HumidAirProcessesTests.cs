@@ -173,7 +173,7 @@ namespace SharpProp.Tests
         }
 
         [Fact]
-        public void HeatingTo_TemperatureWithPressureDrop_ReturnsAirAtTemperatureAndLowerPressure() =>
+        public void HeatingTo_TemperatureWithPressureDrop_ReturnsAirAtTemperatureSameHumidityAndLowerPressure() =>
             HumidAir.HeatingTo(HumidAir.Temperature + TemperatureDelta, PressureDrop)
                 .Should().Be(HumidAir.WithState(
                     InputHumidAir.Pressure(HumidAir.Pressure - PressureDrop),
@@ -192,7 +192,7 @@ namespace SharpProp.Tests
         }
 
         [Fact]
-        public void HeatingTo_EnthalpyWithPressureDrop_ReturnsAirAtEnthalpyAndLowerPressure() =>
+        public void HeatingTo_EnthalpyWithPressureDrop_ReturnsAirAtEnthalpySameHumidityAndLowerPressure() =>
             HumidAir.HeatingTo(HumidAir.Enthalpy + EnthalpyDelta, PressureDrop)
                 .Should().Be(HumidAir.WithState(
                     InputHumidAir.Pressure(HumidAir.Pressure - PressureDrop),

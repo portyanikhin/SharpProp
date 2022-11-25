@@ -36,12 +36,12 @@ namespace SharpProp.Tests
         }
 
         [Fact]
-        public static void Equals_SameInput_ReturnsTrue() =>
+        public static void Equals_Same_ReturnsTrue() =>
             InputHumidAir.Pressure(1.Atmospheres())
                 .Should().Be(InputHumidAir.Altitude(0.Meters()));
 
         [Fact]
-        public static void Equals_OtherInput_ReturnsFalse() =>
+        public static void Equals_Other_ReturnsFalse() =>
             InputHumidAir.Pressure(1.Atmospheres())
                 .Should().NotBe(InputHumidAir.Temperature(20.DegreesCelsius()));
 

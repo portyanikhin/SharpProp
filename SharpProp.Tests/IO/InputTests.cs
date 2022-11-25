@@ -24,12 +24,12 @@ namespace SharpProp.Tests
             input.Value.Should().Be(value);
 
         [Fact]
-        public static void Equals_SameInput_ReturnsTrue() =>
+        public static void Equals_Same_ReturnsTrue() =>
             Input.Pressure(1.Atmospheres())
                 .Should().Be(Input.Pressure(101325.Pascals()));
 
         [Fact]
-        public static void Equals_OtherInput_ReturnsFalse() =>
+        public static void Equals_Other_ReturnsFalse() =>
             Input.Pressure(1.Atmospheres())
                 .Should().NotBe(Input.Temperature(20.DegreesCelsius()));
 

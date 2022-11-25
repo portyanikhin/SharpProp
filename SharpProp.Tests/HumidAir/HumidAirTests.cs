@@ -214,7 +214,7 @@ namespace SharpProp.Tests
             var value = CP.HAPropsSI(key,
                 "P", HumidAir.Pressure.Pascals, "T", HumidAir.Temperature.Kelvins,
                 "R", Ratio.FromPercent(HumidAir.RelativeHumidity.Percent).DecimalFractions);
-            return key == "Vha" ? 1 / value : value;
+            return key == "Vha" ? 1.0 / value : value;
         }
     }
 }

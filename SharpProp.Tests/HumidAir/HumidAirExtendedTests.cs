@@ -10,7 +10,7 @@ using Xunit;
 namespace SharpProp.Tests
 {
     /// <summary>
-    ///     An example of how to add new properties to a <see cref="HumidAir" />.
+    ///     An example of how to add new properties to the <see cref="HumidAir" /> class.
     /// </summary>
     public class HumidAirExtended : HumidAir
     {

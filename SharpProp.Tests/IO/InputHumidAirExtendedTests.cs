@@ -6,7 +6,7 @@ using Xunit;
 namespace SharpProp.Tests
 {
     /// <summary>
-    ///     An example of how to extend <see cref="InputHumidAir" />.
+    ///     An example of how to extend the <see cref="InputHumidAir" /> record.
     /// </summary>
     public record InputHumidAirExtended : InputHumidAir
     {

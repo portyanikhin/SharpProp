@@ -12,7 +12,7 @@ using Xunit;
 namespace SharpProp.Tests
 {
     /// <summary>
-    ///     An example of how to add new properties to a <see cref="Fluid" />.
+    ///     An example of how to add new properties to the <see cref="Fluid" /> class.
     /// </summary>
     public class FluidExtended : Fluid
     {

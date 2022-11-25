@@ -111,7 +111,7 @@ namespace SharpProp
         ///     Specific mass flow rate of the fluid at the second state.
         /// </param>
         /// <param name="second">Fluid at the second state.</param>
-        /// <returns>The state of the refrigerant at the end of the process.</returns>
+        /// <returns>The state of the fluid at the end of the process.</returns>
         /// <exception cref="ArgumentException">
         ///     The mixing process is possible only for the same fluids!
         /// </exception>

@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// ReSharper disable All
 
 namespace SharpProp
 {
@@ -9,8 +9,6 @@ namespace SharpProp
     ///     <a href="http://www.coolprop.org/fluid_properties/Incompressibles.html">incompressible fluids</a> and
     ///     <a href="http://www.coolprop.org/coolprop/HighLevelAPI.html#predefined-mixtures">predefined mixtures</a>.
     /// </summary>
-    [SuppressMessage("ReSharper", "InconsistentNaming")]
-    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public enum FluidsList
     {
         // Pure and pseudo-pure fluids

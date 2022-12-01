@@ -1,5 +1,4 @@
 ﻿using System;
-using CoolProp;
 using UnitsNet;
 using UnitsNet.Units;
 
@@ -36,7 +35,7 @@ namespace SharpProp
                 ? Ratio.FromPercent(100)
                 : fraction?.ToUnit(RatioUnit.Percent) ??
                   throw new ArgumentException("Need to define fraction!");
-            Backend = AbstractState.factory(Name.CoolPropBackend(), Name.CoolPropName());
+            Backend = AbstractState.Factory(Name.CoolPropBackend(), Name.CoolPropName());
             if (!Name.Pure()) SetFraction();
         }
 
@@ -137,9 +136,9 @@ namespace SharpProp
         {
             var fractionsVector = new DoubleVector(new[] {Fraction.DecimalFractions});
             if (Name.MixType() is Mix.Mass)
-                Backend.set_mass_fractions(fractionsVector);
+                Backend.SetMassFractions(fractionsVector);
             else
-                Backend.set_volu_fractions(fractionsVector);
+                Backend.SetVolumeFractions(fractionsVector);
         }
 
         public new bool Equals(object? obj) => Equals(obj as Fluid);

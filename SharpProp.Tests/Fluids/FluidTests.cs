@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoolProp;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToTemperature;
@@ -36,6 +37,16 @@ namespace SharpProp.Tests
             Action action = () =>
                 _ = new Fluid(FluidsList.MPG, fraction?.Percent());
             action.Should().Throw<ArgumentException>().WithMessage(message);
+        }
+
+        [Fact]
+        public async Task Fluid_MultiThreading_IsThreadSafe()
+        {
+            var tasks = new List<Task<Temperature>>();
+            for (var i = 0; i < 100; i++)
+                tasks.Add(Task.Run(() => Fluid.DewPointAt(1.Atmospheres()).Temperature));
+            var result = await Task.WhenAll(tasks);
+            result.Distinct().Count().Should().Be(1);
         }
 
         [Fact]
@@ -199,7 +210,11 @@ namespace SharpProp.Tests
 
         private void SetUpFluid(FluidsList name)
         {
-            Fluid = new Fluid(name, name.Pure() ? null : name.FractionMax());
+            var fraction = name.Pure()
+                ? null as Ratio?
+                : Math.Round(0.5 * (name.FractionMin() + name.FractionMax()).Percent)
+                    .Percent();
+            Fluid = new Fluid(name, fraction);
             Fluid.Update(Input.Pressure(Fluid.MaxPressure ?? 10.Megapascals()),
                 Input.Temperature(Fluid.MaxTemperature));
         }
@@ -215,21 +230,10 @@ namespace SharpProp.Tests
                 default:
                     try
                     {
-                        double value;
-                        if (Fluid.Name.Pure())
-                        {
-                            value = CP.PropsSI(outputKey,
-                                "P", Fluid.Pressure.Pascals, "T", Fluid.Temperature.Kelvins,
-                                $"{Fluid.Name.CoolPropBackend()}::{Fluid.Name.CoolPropName()}");
-                            return CheckedValue(value, outputKey);
-                        }
-
-                        value = CP.PropsSImulti(new StringVector {outputKey},
-                            "P", new DoubleVector {Fluid.Pressure.Pascals},
-                            "T", new DoubleVector {Fluid.Temperature.Kelvins},
-                            Fluid.Name.CoolPropBackend(),
-                            new StringVector {Fluid.Name.CoolPropName()},
-                            new DoubleVector {Fluid.Fraction.DecimalFractions})[0][0];
+                        var value = CoolProp.PropsSI(outputKey,
+                            "P", Fluid.Pressure.Pascals, "T", Fluid.Temperature.Kelvins,
+                            $"{Fluid.Name.CoolPropBackend()}::{Fluid.Name.CoolPropName()}"
+                            + (Fluid.Name.Pure() ? string.Empty : $"-{Fluid.Fraction.Percent}%"));
                         return CheckedValue(value, outputKey);
                     }
                     catch (ApplicationException)

@@ -1,4 +1,6 @@
-﻿namespace SharpProp
+﻿// ReSharper disable All
+
+namespace SharpProp
 {
     /// <summary>
     ///     Fluids and mixtures phase states.

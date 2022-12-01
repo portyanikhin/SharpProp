@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoolProp;
 using UnitsNet;
 using UnitsNet.Units;
 
@@ -48,8 +47,8 @@ namespace SharpProp
             Fluids = fluids;
             Fractions = fractions.Select(
                 frac => frac.ToUnit(RatioUnit.Percent)).ToList();
-            Backend = AbstractState.factory("HEOS", string.Join("&", Fluids.ToArray()));
-            Backend.set_mass_fractions(
+            Backend = AbstractState.Factory("HEOS", string.Join("&", Fluids.ToArray()));
+            Backend.SetMassFractions(
                 new DoubleVector(Fractions.Select(frac => frac.DecimalFractions)));
         }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using CoolProp;
 
 namespace SharpProp
 {
@@ -94,10 +93,10 @@ namespace SharpProp
         {
             CheckInputs();
             var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
-            var value = input ?? CP.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
+            var result = input ?? CoolProp.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
                 Inputs[1].CoolPropKey, Inputs[1].Value, Inputs[2].CoolPropKey, Inputs[2].Value);
-            new OutputsValidator(value).Validate();
-            return value;
+            new OutputsValidator(result).Validate();
+            return result;
         }
 
         private void CheckInputs()

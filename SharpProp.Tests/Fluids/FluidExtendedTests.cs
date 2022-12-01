@@ -1,5 +1,4 @@
 ﻿using System;
-using CoolProp;
 using FluentAssertions;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToPressure;

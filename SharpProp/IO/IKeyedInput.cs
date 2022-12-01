@@ -1,6 +1,4 @@
-﻿using CoolProp;
-
-namespace SharpProp
+﻿namespace SharpProp
 {
     /// <summary>
     ///     CoolProp keyed input interface.

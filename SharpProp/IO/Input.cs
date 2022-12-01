@@ -1,5 +1,4 @@
-﻿using CoolProp;
-using UnitsNet;
+﻿using UnitsNet;
 
 namespace SharpProp
 {

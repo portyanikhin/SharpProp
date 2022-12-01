@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CoolProp;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -21,6 +21,21 @@ namespace SharpProp.Tests
         public HumidAirTests() => HumidAir = new HumidAir();
 
         private HumidAir HumidAir { get; }
+
+        [Fact]
+        public async Task HumidAir_MultiThreading_IsThreadSafe()
+        {
+            var tasks = new List<Task<Temperature>>();
+            for (var i = 0; i < 100; i++)
+                tasks.Add(Task.Run(() =>
+                    HumidAir.WithState(
+                            InputHumidAir.Pressure(1.Atmospheres()),
+                            InputHumidAir.Temperature(20.DegreesCelsius()),
+                            InputHumidAir.RelativeHumidity(50.Percent()))
+                        .DewTemperature));
+            var result = await Task.WhenAll(tasks);
+            result.Distinct().Count().Should().Be(1);
+        }
 
         [Fact]
         public void Factory_Always_ReturnsNewInstanceWithNoDefinedState() =>
@@ -74,7 +89,7 @@ namespace SharpProp.Tests
         [Theory]
         [CombinatorialData]
         public void Update_VariousConditions_MatchesWithCoolProp(
-            [CombinatorialValues(0.5, 1, 2, 5)] double pressure,
+            [CombinatorialValues(1, 2, 5)] double pressure,
             [CombinatorialRange(-20, 50, 10)] double temperature,
             [CombinatorialRange(0, 100, 10)] double relativeHumidity)
         {
@@ -211,7 +226,7 @@ namespace SharpProp.Tests
 
         private double CoolPropInterface(string key)
         {
-            var value = CP.HAPropsSI(key,
+            var value = CoolProp.HAPropsSI(key,
                 "P", HumidAir.Pressure.Pascals, "T", HumidAir.Temperature.Kelvins,
                 "R", Ratio.FromPercent(HumidAir.RelativeHumidity.Percent).DecimalFractions);
             return key == "Vha" ? 1.0 / value : value;

@@ -1,5 +1,4 @@
-﻿using CoolProp;
-using FluentAssertions;
+﻿using FluentAssertions;
 using UnitsNet;
 using UnitsNet.NumberExtensions.NumberToMolarMass;
 using Xunit;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using CoolProp;
 using FluentAssertions;
 using UnitsNet.NumberExtensions.NumberToDensity;
 using UnitsNet.NumberExtensions.NumberToPressure;

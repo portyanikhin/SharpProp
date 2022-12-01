@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CoolProp;
 
 namespace SharpProp
 {
@@ -59,7 +58,7 @@ namespace SharpProp
             Reset();
             var (inputPair, firstValue, secondValue) =
                 GenerateUpdatePair(firstInput, secondInput);
-            Backend.update(inputPair, firstValue, secondValue);
+            Backend.Update(inputPair, firstValue, secondValue);
             Inputs = new List<IKeyedInput<Parameters>> {firstInput, secondInput};
         }
 
@@ -126,12 +125,12 @@ namespace SharpProp
         protected double KeyedOutput(Parameters key)
         {
             var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
-            var value = input ?? Backend.keyed_output(key);
-            new OutputsValidator(value).Validate();
-            return value;
+            var result = input ?? Backend.KeyedOutput(key);
+            new OutputsValidator(result).Validate();
+            return result;
         }
 
-        private static (input_pairs inputPair, double firstValue, double secondValue) GenerateUpdatePair(
+        private static (InputPairs inputPair, double firstValue, double secondValue) GenerateUpdatePair(
             IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
         {
             var inputPair = GetInputPair(firstInput, secondInput);
@@ -141,26 +140,13 @@ namespace SharpProp
                 throw new ArgumentException("Need to define 2 unique inputs!");
 
             return !swap
-                ? ((input_pairs) inputPair, firstValue: firstInput.Value, secondValue: secondInput.Value)
-                : ((input_pairs) inputPair, firstValue: secondInput.Value, secondValue: firstInput.Value);
+                ? ((InputPairs) inputPair, firstValue: firstInput.Value, secondValue: secondInput.Value)
+                : ((InputPairs) inputPair, firstValue: secondInput.Value, secondValue: firstInput.Value);
         }
 
-        private static input_pairs? GetInputPair(IKeyedInput<Parameters> firstInput,
-            IKeyedInput<Parameters> secondInput)
-        {
-            try
-            {
-                return CP.get_input_pair_index(GetInputPairName(firstInput, secondInput));
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
-        private static string
-            GetInputPairName(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
-            $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS";
+        private static InputPairs? GetInputPair(
+            IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
+            AbstractState.GetInputPair($"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS");
 
         public override bool Equals(object? obj) => Equals(obj as AbstractFluid);
 

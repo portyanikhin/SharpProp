@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using CoolProp;
 using UnitsNet;
 using UnitsNet.Units;
 

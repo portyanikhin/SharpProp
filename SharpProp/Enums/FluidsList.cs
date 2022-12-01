@@ -10,6 +10,7 @@ namespace SharpProp
     ///     <a href="http://www.coolprop.org/coolprop/HighLevelAPI.html#predefined-mixtures">predefined mixtures</a>.
     /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
+    [SuppressMessage("ReSharper", "UnusedMember.Global")]
     public enum FluidsList
     {
         // Pure and pseudo-pure fluids

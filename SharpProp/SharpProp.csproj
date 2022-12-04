@@ -24,7 +24,7 @@
 - Bump Newtonsoft.Json from 13.0.1 to 13.0.2.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>5.0.0-rc002</PackageVersion>
+        <PackageVersion>5.0.0</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFrameworks>net6.0;net7.0</TargetFrameworks>

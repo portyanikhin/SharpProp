@@ -1,10 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace SharpProp
+namespace SharpProp;
+
+[ExcludeFromCodeCoverage]
+internal static class Library
 {
-    [ExcludeFromCodeCoverage]
-    internal static class Library
-    {
-        public const string Name = "libCoolProp";
-    }
+    public const string Name = "libCoolProp";
 }

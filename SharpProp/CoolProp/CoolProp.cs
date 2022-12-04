@@ -1,34 +1,33 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace SharpProp
+namespace SharpProp;
+
+[ExcludeFromCodeCoverage]
+public static class CoolProp
 {
-    [ExcludeFromCodeCoverage]
-    public static class CoolProp
+    private static readonly object LibraryLock = new();
+
+    public static double PropsSI(string outputKey, string firstInputKey, double firstInputValue,
+        string secondInputKey, double secondInputValue, string fluidName)
     {
-        private static readonly object LibraryLock = new();
-
-        public static double PropsSI(string outputKey, string firstInputKey, double firstInputValue,
-            string secondInputKey, double secondInputValue, string fluidName)
+        lock (LibraryLock)
         {
-            lock (LibraryLock)
-            {
-                var result = CoolPropPInvoke.PropsSI(outputKey, firstInputKey, firstInputValue,
-                    secondInputKey, secondInputValue, fluidName);
-                SwigExceptions.ThrowPendingException();
-                return result;
-            }
+            var result = CoolPropPInvoke.PropsSI(outputKey, firstInputKey, firstInputValue,
+                secondInputKey, secondInputValue, fluidName);
+            SwigExceptions.ThrowPendingException();
+            return result;
         }
+    }
 
-        public static double HAPropsSI(string outputKey, string firstInputKey, double firstInputValue,
-            string secondInputKey, double secondInputValue, string thirdInputKey, double thirdInputValue)
+    public static double HAPropsSI(string outputKey, string firstInputKey, double firstInputValue,
+        string secondInputKey, double secondInputValue, string thirdInputKey, double thirdInputValue)
+    {
+        lock (LibraryLock)
         {
-            lock (LibraryLock)
-            {
-                var result = CoolPropPInvoke.HAPropsSI(outputKey, firstInputKey, firstInputValue,
-                    secondInputKey, secondInputValue, thirdInputKey, thirdInputValue);
-                SwigExceptions.ThrowPendingException();
-                return result;
-            }
+            var result = CoolPropPInvoke.HAPropsSI(outputKey, firstInputKey, firstInputValue,
+                secondInputKey, secondInputValue, thirdInputKey, thirdInputValue);
+            SwigExceptions.ThrowPendingException();
+            return result;
         }
     }
 }

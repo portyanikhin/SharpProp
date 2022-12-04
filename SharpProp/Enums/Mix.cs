@@ -1,18 +1,17 @@
-﻿namespace SharpProp
+﻿namespace SharpProp;
+
+/// <summary>
+///     Mixture types.
+/// </summary>
+public enum Mix
 {
     /// <summary>
-    ///     Mixture types.
+    ///     Mass-based mixture.
     /// </summary>
-    public enum Mix
-    {
-        /// <summary>
-        ///     Mass-based mixture.
-        /// </summary>
-        Mass,
+    Mass,
 
-        /// <summary>
-        ///     Volume-based mixture.
-        /// </summary>
-        Volume
-    }
+    /// <summary>
+    ///     Volume-based mixture.
+    /// </summary>
+    Volume
 }

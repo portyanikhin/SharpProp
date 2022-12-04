@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     Base class of fluids.

@@ -1,6 +1,4 @@
-﻿using UnitsNet;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     CoolProp keyed input for fluids and mixtures.

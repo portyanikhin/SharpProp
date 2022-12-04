@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     Real humid air (see ASHRAE RP-1485).

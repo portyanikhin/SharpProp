@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using UnitsNet;
-using UnitsNet.Units;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     Mass-based mixture of pure fluids.

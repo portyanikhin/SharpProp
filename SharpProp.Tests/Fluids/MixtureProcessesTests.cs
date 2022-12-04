@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using UnitsNet;
-using UnitsNet.NumberExtensions.NumberToPressure;
-using UnitsNet.NumberExtensions.NumberToRatio;
-using UnitsNet.NumberExtensions.NumberToTemperature;
-using Xunit;
+﻿using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;
 

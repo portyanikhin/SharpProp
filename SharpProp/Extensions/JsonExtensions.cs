@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using UnitsNet.Serialization.JsonNet;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 public static class JsonExtensions
 {

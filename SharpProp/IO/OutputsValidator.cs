@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     CoolProp outputs validator.

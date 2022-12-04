@@ -1,8 +1,4 @@
-﻿using System;
-using UnitsNet;
-using UnitsNet.Units;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 /// <summary>
 ///     Pure/pseudo-pure fluid or binary mixture.

@@ -1,0 +1,15 @@
+﻿global using FluentAssertions;
+global using Newtonsoft.Json;
+global using Newtonsoft.Json.Converters;
+global using System.Diagnostics.CodeAnalysis;
+global using UnitsNet;
+global using UnitsNet.NumberExtensions.NumberToDensity;
+global using UnitsNet.NumberExtensions.NumberToLength;
+global using UnitsNet.NumberExtensions.NumberToMolarMass;
+global using UnitsNet.NumberExtensions.NumberToPressure;
+global using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
+global using UnitsNet.NumberExtensions.NumberToSpecificEntropy;
+global using UnitsNet.NumberExtensions.NumberToTemperature;
+global using UnitsNet.Serialization.JsonNet;
+global using UnitsNet.Units;
+global using Xunit;

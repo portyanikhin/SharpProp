@@ -1,9 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Runtime.InteropServices;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 internal static class SwigExceptions

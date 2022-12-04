@@ -1,7 +1,4 @@
-﻿using FluentAssertions;
-using UnitsNet;
-using UnitsNet.NumberExtensions.NumberToRatio;
-using Xunit;
+﻿using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;
 

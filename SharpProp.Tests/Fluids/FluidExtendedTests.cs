@@ -1,12 +1,4 @@
-﻿using System;
-using FluentAssertions;
-using UnitsNet;
-using UnitsNet.NumberExtensions.NumberToPressure;
-using UnitsNet.NumberExtensions.NumberToRatio;
-using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
-using UnitsNet.NumberExtensions.NumberToTemperature;
-using UnitsNet.Units;
-using Xunit;
+﻿using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;
 

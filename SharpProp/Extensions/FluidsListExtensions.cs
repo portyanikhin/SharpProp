@@ -1,8 +1,4 @@
-﻿using EnumsNET;
-using UnitsNet;
-using UnitsNet.Units;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 public static class FluidsListExtensions
 {

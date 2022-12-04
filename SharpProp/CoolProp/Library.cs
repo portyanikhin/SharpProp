@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 internal static class Library

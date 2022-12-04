@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using UnitsNet;
-using UnitsNet.Units;
-
-namespace SharpProp;
+﻿namespace SharpProp;
 
 public abstract partial class AbstractFluid
 {

@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using UnitsNet;
-using UnitsNet.NumberExtensions.NumberToPressure;
-using UnitsNet.NumberExtensions.NumberToRatio;
-using UnitsNet.NumberExtensions.NumberToTemperature;
-using UnitsNet.Serialization.JsonNet;
-using Xunit;
+﻿using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;
 

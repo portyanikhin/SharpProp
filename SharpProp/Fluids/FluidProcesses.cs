@@ -1,6 +1,4 @@
-﻿using System;
-using UnitsNet;
-using UnitsNet.NumberExtensions.NumberToRatio;
+﻿using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp;
 

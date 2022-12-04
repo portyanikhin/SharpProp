@@ -24,26 +24,26 @@ public class Mixture : AbstractFluid, IEquatable<Mixture>
     /// <exception cref="ArgumentException">
     ///     Invalid component mass fractions! Their sum should be equal to 100 %.
     /// </exception>
-    public Mixture(List<FluidsList> fluids, IReadOnlyCollection<Ratio> fractions)
+    public Mixture(IEnumerable<FluidsList> fluids, IEnumerable<Ratio> fractions)
     {
-        if (fluids.Count != fractions.Count)
+        Fluids = fluids.ToList();
+        Fractions = fractions.Select(
+            fraction => fraction.ToUnit(RatioUnit.Percent)).ToList();
+        if (Fluids.Count != Fractions.Count)
             throw new ArgumentException(
                 "Invalid input! Fluids and Fractions should be of the same length.");
-        if (!fluids.All(fluid => fluid.Pure() && fluid.CoolPropBackend() == "HEOS"))
+        if (!Fluids.All(fluid => fluid.Pure() && fluid.CoolPropBackend() == "HEOS"))
             throw new ArgumentException(
                 "Invalid components! All of them should be a pure fluid with HEOS backend.");
-        if (!fractions.All(frac => frac.Percent is > 0 and < 100))
+        if (!Fractions.All(fraction => fraction.Percent is > 0 and < 100))
             throw new ArgumentException(
                 "Invalid component mass fractions! All of them should be in (0;100) %.");
-        if (Math.Abs(fractions.Sum(frac => frac.Percent) - 100) > 1e-6)
+        if (Math.Abs(Fractions.Sum(fraction => fraction.Percent) - 100) > 1e-6)
             throw new ArgumentException(
                 "Invalid component mass fractions! Their sum should be equal to 100 %.");
-        Fluids = fluids;
-        Fractions = fractions.Select(
-            frac => frac.ToUnit(RatioUnit.Percent)).ToList();
         Backend = AbstractState.Factory("HEOS", string.Join("&", Fluids.ToArray()));
         Backend.SetMassFractions(
-            new DoubleVector(Fractions.Select(frac => frac.DecimalFractions)));
+            new DoubleVector(Fractions.Select(fraction => fraction.DecimalFractions)));
     }
 
     /// <summary>

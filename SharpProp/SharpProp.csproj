@@ -16,12 +16,15 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
         <PackageReleaseNotes>
-- Bump UnitsNet from 4.148.0 to 4.149.0.
-- Bump UnitsNet.NumberExtensions from 4.148.0 to 4.149.0.
-- Bump Enums.NET from 4.0.0 to 4.0.1.
+- Change target frameworks to .NET 6.0 and .NET 7.0.
+- Thread safety is implemented.
+- All CoolProp files have been moved to the SharpProp namespace.
+- Documentation update.
+- Refactoring.
+- Bump Newtonsoft.Json from 13.0.1 to 13.0.2.
         </PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>4.4.1</PackageVersion>
+        <PackageVersion>5.0.0-rc001</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFrameworks>net6.0;net7.0</TargetFrameworks>

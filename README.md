@@ -38,14 +38,14 @@ Run the following command in the
 [Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
 
 ```shell
-NuGet\Install-Package SharpProp -Version 4.4.1
+NuGet\Install-Package SharpProp -Version 5.0.0
 ```
 
 Or add this to the `.csproj` file:
 
 ```xml
 <ItemGroup>
-    <PackageReference Include="SharpProp" Version="4.4.1"/>
+    <PackageReference Include="SharpProp" Version="5.0.0"/>
 </ItemGroup>
 ```
 

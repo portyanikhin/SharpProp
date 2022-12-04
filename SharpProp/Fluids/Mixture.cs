@@ -7,16 +7,16 @@ using UnitsNet.Units;
 namespace SharpProp
 {
     /// <summary>
-    ///     CoolProp mass-based mixture of pure fluids.
+    ///     Mass-based mixture of pure fluids.
     /// </summary>
 #pragma warning disable CA1067
     public class Mixture : AbstractFluid, IEquatable<Mixture>
 #pragma warning restore CA1067
     {
         /// <summary>
-        ///     CoolProp mass-based mixture of pure fluids.
+        ///     Mass-based mixture of pure fluids.
         /// </summary>
-        /// <param name="fluids">List of selected pure fluids.</param>
+        /// <param name="fluids">List of selected names of pure fluids.</param>
         /// <param name="fractions">List of mass-based fractions.</param>
         /// <exception cref="ArgumentException">
         ///     Invalid input! Fluids and Fractions should be of the same length.
@@ -53,7 +53,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     List of selected pure fluids.
+        ///     List of selected names of pure fluids.
         /// </summary>
         public List<FluidsList> Fluids { get; }
 

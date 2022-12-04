@@ -6,7 +6,7 @@ using System.Linq;
 namespace SharpProp
 {
     /// <summary>
-    ///     Implementation of the humid air.
+    ///     Real humid air (see ASHRAE RP-1485).
     /// </summary>
     public partial class HumidAir : IEquatable<HumidAir>
     {
@@ -17,18 +17,18 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns a new humid air object with no defined state.
+        ///     Returns a new humid air instance with no defined state.
         /// </summary>
-        /// <returns>A new humid air object with no defined state.</returns>
+        /// <returns>A new humid air instance with no defined state.</returns>
         public virtual HumidAir Factory() => new();
 
         /// <summary>
-        ///     Returns a new humid air object with a defined state.
+        ///     Returns a new humid air instance with a defined state.
         /// </summary>
         /// <param name="fistInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
-        /// <returns>A new humid air object with a defined state.</returns>
+        /// <returns>A new humid air instance with a defined state.</returns>
         /// <exception cref="ArgumentException">
         ///     Need to define 3 unique inputs!
         /// </exception>
@@ -41,14 +41,12 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update humid air state.
+        ///     Updates the state of the humid air.
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <param name="thirdInput">Third input property.</param>
-        /// <exception cref="ArgumentException">
-        ///     Need to define 3 unique inputs!
-        /// </exception>
+        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
         public void Update(IKeyedInput<string> firstInput,
             IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
         {
@@ -58,7 +56,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Reset all properties.
+        ///     Resets all properties.
         /// </summary>
         protected virtual void Reset()
         {
@@ -79,16 +77,12 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns not nullable keyed output.
+        ///     Returns a not nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output.</param>
+        /// <param name="key">The output key.</param>
         /// <returns>A not nullable keyed output.</returns>
-        /// <exception cref="ArgumentException">
-        ///     Need to define 3 unique inputs!
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid or not defined state!
-        /// </exception>
+        /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
+        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(string key)
         {
             CheckInputs();

@@ -9,8 +9,7 @@ namespace SharpProp
     public partial class HumidAir
     {
         private HumidAir DewPoint =>
-            WithState(
-                InputHumidAir.Pressure(Pressure),
+            WithState(InputHumidAir.Pressure(Pressure),
                 InputHumidAir.Temperature(DewTemperature),
                 InputHumidAir.RelativeHumidity(100.Percent()));
 
@@ -20,16 +19,12 @@ namespace SharpProp
         /// <param name="temperature">Temperature.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the temperature should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the cooling process, the temperature should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     The outlet temperature after dry heat transfer should be
         ///     greater than the dew point temperature!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir DryCoolingTo(Temperature temperature,
             Pressure? pressureDrop = null) =>
             DryHeatTransferTo(temperature, true, pressureDrop);
@@ -40,16 +35,12 @@ namespace SharpProp
         /// <param name="enthalpy">Enthalpy.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the enthalpy should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the cooling process, the enthalpy should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     The outlet enthalpy after dry heat transfer should be
         ///     greater than the dew point enthalpy!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir DryCoolingTo(SpecificEnergy enthalpy,
             Pressure? pressureDrop = null) =>
             DryHeatTransferTo(enthalpy, true, pressureDrop);
@@ -62,21 +53,15 @@ namespace SharpProp
         /// <param name="relativeHumidity">Relative humidity ratio.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the temperature should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the cooling process, the temperature should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     During the wet cooling process, the absolute humidity ratio should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir WetCoolingTo(Temperature temperature,
             RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
-            WetCoolingTo(
-                InputHumidAir.Temperature(temperature),
-                InputHumidAir.RelativeHumidity(relativeHumidity),
-                pressureDrop);
+            WetCoolingTo(InputHumidAir.Temperature(temperature),
+                InputHumidAir.RelativeHumidity(relativeHumidity), pressureDrop);
 
         /// <summary>
         ///     The process of cooling with dehumidification
@@ -86,21 +71,15 @@ namespace SharpProp
         /// <param name="humidity">Absolute humidity ratio.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the temperature should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the cooling process, the temperature should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     During the wet cooling process, the absolute humidity ratio should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir WetCoolingTo(Temperature temperature,
             Ratio humidity, Pressure? pressureDrop = null) =>
-            WetCoolingTo(
-                InputHumidAir.Temperature(temperature),
-                InputHumidAir.Humidity(humidity),
-                pressureDrop);
+            WetCoolingTo(InputHumidAir.Temperature(temperature),
+                InputHumidAir.Humidity(humidity), pressureDrop);
 
         /// <summary>
         ///     The process of cooling with dehumidification
@@ -110,21 +89,15 @@ namespace SharpProp
         /// <param name="relativeHumidity">Relative humidity ratio.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the enthalpy should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the cooling process, the enthalpy should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     During the wet cooling process, the absolute humidity ratio should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir WetCoolingTo(SpecificEnergy enthalpy,
             RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
-            WetCoolingTo(
-                InputHumidAir.Enthalpy(enthalpy),
-                InputHumidAir.RelativeHumidity(relativeHumidity),
-                pressureDrop);
+            WetCoolingTo(InputHumidAir.Enthalpy(enthalpy),
+                InputHumidAir.RelativeHumidity(relativeHumidity), pressureDrop);
 
         /// <summary>
         ///     The process of cooling with dehumidification
@@ -134,21 +107,15 @@ namespace SharpProp
         /// <param name="humidity">Absolute humidity ratio.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the cooling process, the enthalpy should decrease!
-        /// </exception>
+        /// <exception cref="ArgumentException"> During the cooling process, the enthalpy should decrease!</exception>
         /// <exception cref="ArgumentException">
         ///     During the wet cooling process, the absolute humidity ratio should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir WetCoolingTo(SpecificEnergy enthalpy,
             Ratio humidity, Pressure? pressureDrop = null) =>
-            WetCoolingTo(
-                InputHumidAir.Enthalpy(enthalpy),
-                InputHumidAir.Humidity(humidity),
-                pressureDrop);
+            WetCoolingTo(InputHumidAir.Enthalpy(enthalpy),
+                InputHumidAir.Humidity(humidity), pressureDrop);
 
         /// <summary>
         ///     The process of heating to a given temperature.
@@ -156,12 +123,8 @@ namespace SharpProp
         /// <param name="temperature">Temperature.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the heating process, the temperature should increase!
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the heating process, the temperature should increase!</exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir HeatingTo(Temperature temperature,
             Pressure? pressureDrop = null) =>
             DryHeatTransferTo(temperature, false, pressureDrop);
@@ -172,12 +135,8 @@ namespace SharpProp
         /// <param name="enthalpy">Enthalpy.</param>
         /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
         /// <returns>The state of the humid air at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     During the heating process, the enthalpy should increase!
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">During the heating process, the enthalpy should increase!</exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual HumidAir HeatingTo(SpecificEnergy enthalpy,
             Pressure? pressureDrop = null) =>
             DryHeatTransferTo(enthalpy, false, pressureDrop);

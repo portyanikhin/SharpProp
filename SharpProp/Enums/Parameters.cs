@@ -2,6 +2,9 @@
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     CoolProp parameter keys.
+    /// </summary>
     public enum Parameters
     {
         INVALID_PARAMETER = 0,

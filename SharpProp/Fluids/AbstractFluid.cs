@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace SharpProp
 {
     /// <summary>
-    ///     Fluids base class.
+    ///     Base class of fluids.
     /// </summary>
     public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDisposable
     {
@@ -22,20 +22,18 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns a new fluid object with no defined state.
+        ///     Returns a new fluid instance with no defined state.
         /// </summary>
-        /// <returns>A new fluid object with no defined state.</returns>
+        /// <returns>A new fluid instance with no defined state.</returns>
         public abstract AbstractFluid Factory();
 
         /// <summary>
-        ///     Returns a new fluid object with a defined state.
+        ///     Returns a new fluid instance with a defined state.
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
         /// <returns>A new fluid object with a defined state.</returns>
-        /// <exception cref="ArgumentException">
-        ///     Need to define 2 unique inputs!
-        /// </exception>
+        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput,
             IKeyedInput<Parameters> secondInput)
         {
@@ -45,13 +43,11 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Update fluid state.
+        ///     Updates the state of the fluid.
         /// </summary>
         /// <param name="firstInput">First input property.</param>
         /// <param name="secondInput">Second input property.</param>
-        /// <exception cref="ArgumentException">
-        ///     Need to define 2 unique inputs!
-        /// </exception>
+        /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
         public void Update(IKeyedInput<Parameters> firstInput,
             IKeyedInput<Parameters> secondInput)
         {
@@ -63,7 +59,7 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Reset all non-trivial properties.
+        ///     Resets all non-trivial properties.
         /// </summary>
         protected virtual void Reset()
         {
@@ -85,11 +81,11 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns <c>true</c> if output is not <c>null</c>.
+        ///     Returns true if the output is not null.
         /// </summary>
-        /// <param name="key">Key of output.</param>
-        /// <param name="value">Value of output.</param>
-        /// <returns><c>true</c> if output is not <c>null</c>.</returns>
+        /// <param name="key">The output key.</param>
+        /// <param name="value">The output value.</param>
+        /// <returns>True if the output is not null.</returns>
         protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
         {
             value = NullableKeyedOutput(key);
@@ -97,9 +93,9 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns nullable keyed output.
+        ///     Returns a nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output.</param>
+        /// <param name="key">The output key.</param>
         /// <returns>A nullable keyed output.</returns>
         protected double? NullableKeyedOutput(Parameters key)
         {
@@ -115,13 +111,11 @@ namespace SharpProp
         }
 
         /// <summary>
-        ///     Returns not nullable keyed output.
+        ///     Returns a not nullable keyed output.
         /// </summary>
-        /// <param name="key">Key of output.</param>
+        /// <param name="key">The output key.</param>
         /// <returns>A not nullable keyed output.</returns>
-        /// <exception cref="ArgumentException">
-        ///     Invalid or not defined state!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
         protected double KeyedOutput(Parameters key)
         {
             var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;

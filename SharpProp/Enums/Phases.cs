@@ -3,7 +3,7 @@
 namespace SharpProp
 {
     /// <summary>
-    ///     Fluids and mixtures phase states.
+    ///     Phase states of fluids and mixtures.
     /// </summary>
     public enum Phases
     {

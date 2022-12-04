@@ -29,7 +29,7 @@ namespace SharpProp.Tests
         }
 
         [Theory]
-        [InlineData(null, "Need to define fraction!")]
+        [InlineData(null, "Need to define the fraction!")]
         [InlineData(-200.0, "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %.")]
         [InlineData(200.0, "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %.")]
         public static void Fluid_InvalidFraction_ThrowsArgumentException(double? fraction, string message)

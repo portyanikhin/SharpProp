@@ -59,11 +59,11 @@ In addition, you will be able to convert all values to many other dimensions wit
 
 ## Project structure
 
-* `Fluid` class - for pure fluids and binary mixtures.
-* `Mixture` class - for mixtures with pure fluids components.
+* `Fluid` class - implementation of pure fluids and binary mixtures.
+* `Mixture` class - implementation of mixtures with pure fluids components.
 * `FluidsList` enum - list of all available fluids.
 * `Input` record - inputs for the `Fluid` and `Mixture` classes.
-* `HumidAir` class - for humid air.
+* `HumidAir` class - implementation of real humid air.
 * `InputHumidAir` record - inputs for the `HumidAir` class.
 
 ## List of properties
@@ -81,7 +81,7 @@ the `Fluid`, `Mixture` or `HumidAir` classes (see [how to add other properties](
 * `DynamicViscosity` - dynamic viscosity _(by default, mPa*s)_.
 * `Enthalpy` - mass specific enthalpy _(by default, kJ/kg)_.
 * `Entropy` - mass specific entropy _(by default, kJ/kg/K)_.
-* `FreezingTemperature` - temperature at freezing point (for incompressible fluids) _(by default, °C)_.
+* `FreezingTemperature` - temperature at the freezing point (for incompressible fluids) _(by default, °C)_.
 * `InternalEnergy` - mass specific internal energy _(by default, kJ/kg)_.
 * `KinematicViscosity` - kinematic viscosity _(by default, cSt)_.
 * `MaxPressure` - maximum pressure limit _(by default, kPa)_.
@@ -125,11 +125,10 @@ For more information, see the XML documentation.
 
 ### Methods of `Fluid` instances
 
-* `Factory` - returns a new fluid object with no defined state.
-* `WithState` - returns a new fluid object with a defined state.
-* `Update` - update fluid state.
-* `Reset` - reset all non-trivial properties.
-* `Clone` - performs deep (full) copy of the fluid instance.
+* `Factory` - returns a new fluid instance with no defined state.
+* `WithState` - returns a new fluid instance with a defined state.
+* `Update` - updates the state of the fluid.
+* `Reset` - resets all non-trivial properties.
 * `IsentropicCompressionTo` - the process of isentropic compression to a given pressure.
 * `CompressionTo` - the process of compression to a given pressure.
 * `IsenthalpicExpansionTo` - the process of isenthalpic expansion to a given pressure.
@@ -137,36 +136,37 @@ For more information, see the XML documentation.
 * `ExpansionTo` - the process of expansion to a given pressure.
 * `CoolingTo` - the process of cooling to a given temperature or enthalpy.
 * `HeatingTo` - the process of heating to a given temperature or enthalpy.
-* `BubblePointAt` - bubble point at a given pressure or temperature.
-* `DewPointAt` - dew point at a given pressure or temperature.
-* `TwoPhasePointAt` - two-phase point at a given pressure.
+* `BubblePointAt` - returns a bubble point at a given pressure or temperature.
+* `DewPointAt` - returns a dew point at a given pressure or temperature.
+* `TwoPhasePointAt` - returns a two-phase point at a given pressure.
 * `Mixing` - the mixing process.
+* `Clone` - performs deep (full) copy of the fluid instance.
 * `AsJson` - converts the fluid instance to a JSON string.
 
 ### Methods of `Mixture` instances
 
-* `Factory` - returns a new fluid object with no defined state.
-* `WithState` - returns a new fluid object with a defined state.
-* `Update` - update fluid state.
-* `Reset` - reset all non-trivial properties.
-* `Clone` - performs deep (full) copy of the mixture instance.
+* `Factory` - returns a new mixture instance with no defined state.
+* `WithState` - returns a new mixture instance with a defined state.
+* `Update` - updates the state of the mixture.
+* `Reset` - resets all non-trivial properties.
 * `CoolingTo` - the process of cooling to a given temperature.
 * `HeatingTo` - the process of heating to a given temperature.
+* `Clone` - performs deep (full) copy of the mixture instance.
 * `AsJson` - converts the mixture instance to a JSON string.
 
 ### Methods of `HumidAir` instances
 
-* `Factory` - returns a new humid air object with no defined state.
-* `WithState` - returns a new humid air object with a defined state.
-* `Update` - update humid air state.
-* `Reset` - reset all properties.
-* `Clone` - performs deep (full) copy of the humid air instance.
+* `Factory` - returns a new humid air instance with no defined state.
+* `WithState` - returns a new humid air instance with a defined state.
+* `Update` - updates the state of the humid air.
+* `Reset` - resets all properties.
 * `DryCoolingTo` - the process of cooling without dehumidification to a given temperature or enthalpy.
 * `WetCoolingTo` - the process of cooling with dehumidification to a given temperature or enthalpy and relative or absolute humidity ratio.
 * `HeatingTo` - the process of heating to a given temperature or enthalpy.
 * `HumidificationByWaterTo` - the process of humidification by water (isenthalpic) to a given relative or absolute humidity ratio.
 * `HumidificationBySteamTo` - the process of humidification by steam (isothermal) to a given relative or absolute humidity ratio.
 * `Mixing` - the mixing process.
+* `Clone` - performs deep (full) copy of the humid air instance.
 * `AsJson` - converts the humid air instance to a JSON string.
 
 ## Examples

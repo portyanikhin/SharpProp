@@ -2,6 +2,9 @@
 
 namespace SharpProp
 {
+    /// <summary>
+    ///     CoolProp input pairs.
+    /// </summary>
     public enum InputPairs
     {
         INPUT_PAIR_INVALID = 0,

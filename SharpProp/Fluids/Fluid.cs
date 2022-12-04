@@ -5,23 +5,21 @@ using UnitsNet.Units;
 namespace SharpProp
 {
     /// <summary>
-    ///     CoolProp pure/pseudo-pure fluid or binary mixture.
+    ///     Pure/pseudo-pure fluid or binary mixture.
     /// </summary>
 #pragma warning disable CA1067
     public class Fluid : AbstractFluid, IEquatable<Fluid>
 #pragma warning restore CA1067
     {
         /// <summary>
-        ///     CoolProp pure/pseudo-pure fluid or binary mixture.
+        ///     Pure/pseudo-pure fluid or binary mixture.
         /// </summary>
-        /// <param name="name">Selected fluid.</param>
+        /// <param name="name">Selected fluid name.</param>
         /// <param name="fraction">Mass-based or volume-based fraction for binary mixtures (optional).</param>
         /// <exception cref="ArgumentException">
         ///     Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Need to define fraction!
-        /// </exception>
+        /// <exception cref="ArgumentException">Need to define the fraction!</exception>
         public Fluid(FluidsList name, Ratio? fraction = null)
         {
             if (fraction is not null && (fraction < name.FractionMin() || fraction > name.FractionMax()))
@@ -34,13 +32,13 @@ namespace SharpProp
             Fraction = Name.Pure()
                 ? Ratio.FromPercent(100)
                 : fraction?.ToUnit(RatioUnit.Percent) ??
-                  throw new ArgumentException("Need to define fraction!");
+                  throw new ArgumentException("Need to define the fraction!");
             Backend = AbstractState.Factory(Name.CoolPropBackend(), Name.CoolPropName());
             if (!Name.Pure()) SetFraction();
         }
 
         /// <summary>
-        ///     Selected fluid.
+        ///     Selected fluid name.
         /// </summary>
         public FluidsList Name { get; }
 
@@ -111,9 +109,7 @@ namespace SharpProp
         /// </param>
         /// <param name="second">Fluid at the second state.</param>
         /// <returns>The state of the fluid at the end of the process.</returns>
-        /// <exception cref="ArgumentException">
-        ///     The mixing process is possible only for the same fluids!
-        /// </exception>
+        /// <exception cref="ArgumentException">The mixing process is possible only for the same fluids!</exception>
         /// <exception cref="ArgumentException">
         ///     The mixing process is possible only for flows with the same pressure!
         /// </exception>

@@ -29,9 +29,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     Compressor outlet pressure should be higher than inlet pressure!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid compressor isentropic efficiency!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid compressor isentropic efficiency!</exception>
         public virtual AbstractFluid CompressionTo(Pressure pressure, Ratio isentropicEfficiency) =>
             isentropicEfficiency.Percent is > 0 and < 100
                 ? WithState(Input.Pressure(pressure),
@@ -76,9 +74,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     Expander outlet pressure should be lower than inlet pressure!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid expander isentropic efficiency!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid expander isentropic efficiency!</exception>
         public virtual AbstractFluid ExpansionTo(Pressure pressure, Ratio isentropicEfficiency) =>
             isentropicEfficiency.Percent is > 0 and < 100
                 ? WithState(Input.Pressure(pressure),
@@ -95,9 +91,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     During the cooling process, the temperature should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual AbstractFluid CoolingTo(Temperature temperature, Pressure? pressureDrop = null) =>
             temperature < Temperature
                 ? HeatTransferTo(temperature, pressureDrop)
@@ -113,9 +107,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     During the cooling process, the enthalpy should decrease!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual AbstractFluid CoolingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null) =>
             enthalpy < Enthalpy
                 ? HeatTransferTo(enthalpy, pressureDrop)
@@ -131,9 +123,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     During the heating process, the temperature should increase!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual AbstractFluid HeatingTo(Temperature temperature, Pressure? pressureDrop = null) =>
             temperature > Temperature
                 ? HeatTransferTo(temperature, pressureDrop)
@@ -149,9 +139,7 @@ namespace SharpProp
         /// <exception cref="ArgumentException">
         ///     During the heating process, the enthalpy should increase!
         /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     Invalid pressure drop in the heat exchanger!
-        /// </exception>
+        /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
         public virtual AbstractFluid HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null) =>
             enthalpy > Enthalpy
                 ? HeatTransferTo(enthalpy, pressureDrop)
@@ -159,39 +147,39 @@ namespace SharpProp
                     "During the heating process, the enthalpy should increase!");
 
         /// <summary>
-        ///     Bubble point at a given pressure.
+        ///     Returns a bubble point at a given pressure.
         /// </summary>
         /// <param name="pressure">Pressure.</param>
-        /// <returns>Bubble point at a given pressure.</returns>
+        /// <returns>A bubble point at a given pressure.</returns>
         public virtual AbstractFluid BubblePointAt(Pressure pressure) =>
             WithState(Input.Pressure(pressure), Input.Quality(0.Percent()));
 
         /// <summary>
-        ///     Bubble point at a given temperature.
+        ///     Returns a bubble point at a given temperature.
         /// </summary>
         /// <param name="temperature">Temperature.</param>
-        /// <returns>Bubble point at a given temperature.</returns>
+        /// <returns>A bubble point at a given temperature.</returns>
         public virtual AbstractFluid BubblePointAt(Temperature temperature) =>
             WithState(Input.Temperature(temperature), Input.Quality(0.Percent()));
 
         /// <summary>
-        ///     Dew point at a given pressure.
+        ///     Returns a dew point at a given pressure.
         /// </summary>
         /// <param name="pressure">Pressure.</param>
-        /// <returns>Dew point at a given pressure.</returns>
+        /// <returns>A dew point at a given pressure.</returns>
         public virtual AbstractFluid DewPointAt(Pressure pressure) =>
             WithState(Input.Pressure(pressure), Input.Quality(100.Percent()));
 
         /// <summary>
-        ///     Dew point at a given temperature.
+        ///     Returns a dew point at a given temperature.
         /// </summary>
         /// <param name="temperature">Temperature.</param>
-        /// <returns>Dew point at a given temperature.</returns>
+        /// <returns>A dew point at a given temperature.</returns>
         public virtual AbstractFluid DewPointAt(Temperature temperature) =>
             WithState(Input.Temperature(temperature), Input.Quality(100.Percent()));
 
         /// <summary>
-        ///     Two-phase point at a given pressure.
+        ///     Returns a two-phase point at a given pressure.
         /// </summary>
         /// <param name="pressure">Pressure.</param>
         /// <param name="quality">Vapor quality.</param>

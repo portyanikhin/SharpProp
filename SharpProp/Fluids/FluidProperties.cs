@@ -97,7 +97,7 @@ namespace SharpProp
                 .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
         /// <summary>
-        ///     Temperature at freezing point (for incompressible fluids) (by default, °C).
+        ///     Temperature at the freezing point (for incompressible fluids) (by default, °C).
         /// </summary>
         public Temperature? FreezingTemperature => _freezingTemperature ??=
             KeyedOutputIsNotNull(Parameters.iT_freeze, out var output)

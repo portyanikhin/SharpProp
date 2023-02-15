@@ -113,7 +113,9 @@ public class FluidTests : IDisposable
         }.Select(CoolPropInterface).ToList();
         for (var i = 0; i < actual.Count; i++)
             actual[i].Should().BeApproximately(expected[i], 1e-9);
-        Fluid.KinematicViscosity.Should().Be(Fluid.DynamicViscosity / Fluid.Density);
+        Fluid.KinematicViscosity?.Equals(
+                (Fluid.DynamicViscosity / Fluid.Density)!.Value, 1e-9, ComparisonType.Relative)
+            .Should().BeTrue();
     }
 
     [Fact]

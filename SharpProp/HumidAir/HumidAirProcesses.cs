@@ -206,7 +206,7 @@ public partial class HumidAir
     /// </exception>
     public virtual HumidAir Mixing(Ratio firstSpecificMassFlow, HumidAir first,
         Ratio secondSpecificMassFlow, HumidAir second) =>
-        first.Pressure == second.Pressure
+        first.Pressure.Equals(second.Pressure, ComparisonTolerance, ComparisonType)
             ? WithState(
                 InputHumidAir.Pressure(first.Pressure),
                 InputHumidAir.Enthalpy(

@@ -60,6 +60,7 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
     /// </summary>
     protected virtual void Reset()
     {
+        Inputs.Clear();
         _compressibility = null;
         _conductivity = null;
         _density = null;
@@ -141,36 +142,11 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
 
     public override bool Equals(object? obj) => Equals(obj as AbstractFluid);
 
-    public override int GetHashCode()
-    {
-        var hashCode = new HashCode();
-        hashCode.Add(Compressibility);
-        hashCode.Add(Conductivity);
-        hashCode.Add(CriticalPressure);
-        hashCode.Add(CriticalTemperature);
-        hashCode.Add(Density);
-        hashCode.Add(DynamicViscosity);
-        hashCode.Add(Enthalpy);
-        hashCode.Add(Entropy);
-        hashCode.Add(FreezingTemperature);
-        hashCode.Add(InternalEnergy);
-        hashCode.Add(MaxPressure);
-        hashCode.Add(MaxTemperature);
-        hashCode.Add(MinPressure);
-        hashCode.Add(MinTemperature);
-        hashCode.Add(MolarMass);
-        hashCode.Add(Phase);
-        hashCode.Add(Prandtl);
-        hashCode.Add(Pressure);
-        hashCode.Add(Quality);
-        hashCode.Add(SoundSpeed);
-        hashCode.Add(SpecificHeat);
-        hashCode.Add(SurfaceTension);
-        hashCode.Add(Temperature);
-        hashCode.Add(TriplePressure);
-        hashCode.Add(TripleTemperature);
-        return hashCode.ToHashCode();
-    }
+    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+    public override int GetHashCode() =>
+        HashCode.Combine(
+            string.Join("&", Inputs.Select(input => input.Value)),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey)));
 
     public static bool operator ==(AbstractFluid? left, AbstractFluid? right) => Equals(left, right);
 

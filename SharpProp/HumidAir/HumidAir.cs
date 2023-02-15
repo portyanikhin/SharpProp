@@ -8,7 +8,8 @@ public partial class HumidAir : IEquatable<HumidAir>
     public bool Equals(HumidAir? other)
     {
         if (ReferenceEquals(null, other)) return false;
-        return ReferenceEquals(this, other) || Inputs.SequenceEqual(other.Inputs);
+        if (ReferenceEquals(this, other)) return true;
+        return GetHashCode() == other.GetHashCode();
     }
 
     /// <summary>
@@ -55,6 +56,7 @@ public partial class HumidAir : IEquatable<HumidAir>
     /// </summary>
     protected virtual void Reset()
     {
+        Inputs.Clear();
         _compressibility = null;
         _conductivity = null;
         _density = null;
@@ -99,7 +101,8 @@ public partial class HumidAir : IEquatable<HumidAir>
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-        HashCode.Combine(Inputs.Select(input => input.Value).Sum(),
+        HashCode.Combine(
+            string.Join("&", Inputs.Select(input => input.Value)),
             string.Join("&", Inputs.Select(input => input.CoolPropKey)));
 
     public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);

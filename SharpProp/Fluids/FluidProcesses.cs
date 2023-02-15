@@ -202,7 +202,7 @@ public abstract partial class AbstractFluid
     /// </exception>
     public virtual AbstractFluid Mixing(Ratio firstSpecificMassFlow, AbstractFluid first,
         Ratio secondSpecificMassFlow, AbstractFluid second) =>
-        first.Pressure == second.Pressure
+        first.Pressure.Equals(second.Pressure, ComparisonTolerance, ComparisonType)
             ? WithState(Input.Pressure(first.Pressure), Input.Enthalpy(
                 (firstSpecificMassFlow.DecimalFractions * first.Enthalpy +
                  secondSpecificMassFlow.DecimalFractions * second.Enthalpy) /

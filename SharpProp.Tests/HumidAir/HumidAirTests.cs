@@ -107,8 +107,9 @@ public class HumidAirTests
         }.Select(CoolPropInterface).ToList();
         for (var i = 0; i < actual.Count; i++)
             actual[i].Should().BeApproximately(expected[i], 1e-9);
-        HumidAir.KinematicViscosity.Should().Be(
-            HumidAir.DynamicViscosity / HumidAir.Density);
+        HumidAir.KinematicViscosity.Equals(
+                HumidAir.DynamicViscosity / HumidAir.Density, 1e-9, ComparisonType.Relative)
+            .Should().BeTrue();
         HumidAir.Prandtl.Should().Be(
             HumidAir.DynamicViscosity.PascalSeconds *
             HumidAir.SpecificHeat.JoulesPerKilogramKelvin /

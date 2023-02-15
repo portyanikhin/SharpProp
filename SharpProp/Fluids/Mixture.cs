@@ -3,9 +3,7 @@
 /// <summary>
 ///     Mass-based mixture of pure fluids.
 /// </summary>
-#pragma warning disable CA1067
 public class Mixture : AbstractFluid, IEquatable<Mixture>
-#pragma warning restore CA1067
 {
     /// <summary>
     ///     Mass-based mixture of pure fluids.
@@ -73,6 +71,8 @@ public class Mixture : AbstractFluid, IEquatable<Mixture>
     public new bool Equals(object? obj) => Equals(obj as Mixture);
 
     public override int GetHashCode() =>
-        HashCode.Combine(string.Join("&", Fluids),
-            string.Join("&", Fractions), base.GetHashCode());
+        HashCode.Combine(
+            string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())),
+            string.Join("&", Fractions.Select(fraction => fraction.DecimalFractions)),
+            base.GetHashCode());
 }

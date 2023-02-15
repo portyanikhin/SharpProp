@@ -3,9 +3,7 @@
 /// <summary>
 ///     Pure/pseudo-pure fluid or binary mixture.
 /// </summary>
-#pragma warning disable CA1067
 public class Fluid : AbstractFluid, IEquatable<Fluid>
-#pragma warning restore CA1067
 {
     /// <summary>
     ///     Pure/pseudo-pure fluid or binary mixture.
@@ -121,8 +119,8 @@ public class Fluid : AbstractFluid, IEquatable<Fluid>
         second is Fluid secondFluid &&
         Name == firstFluid.Name &&
         firstFluid.Name == secondFluid.Name &&
-        Fraction == firstFluid.Fraction &&
-        firstFluid.Fraction == secondFluid.Fraction;
+        Fraction.Equals(firstFluid.Fraction, ComparisonTolerance, ComparisonType) &&
+        firstFluid.Fraction.Equals(secondFluid.Fraction, ComparisonTolerance, ComparisonType);
 
     private void SetFraction()
     {
@@ -136,5 +134,5 @@ public class Fluid : AbstractFluid, IEquatable<Fluid>
     public new bool Equals(object? obj) => Equals(obj as Fluid);
 
     public override int GetHashCode() =>
-        HashCode.Combine(Name, Fraction, base.GetHashCode());
+        HashCode.Combine(Name.CoolPropName(), Fraction.DecimalFractions, base.GetHashCode());
 }

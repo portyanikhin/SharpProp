@@ -176,6 +176,10 @@ For more information, see the XML documentation.
 To calculate the specific heat of saturated water vapor at _1 atm_:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.Units;
+
 var waterVapour = new Fluid(FluidsList.Water)
     .DewPointAt((1).Atmospheres());
 Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin); // 2079.937085633241
@@ -190,6 +194,12 @@ To calculate the dynamic viscosity of propylene glycol aqueous solution
 with _60 %_ mass fraction at _100 kPa_ and _-20 °C_:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+
 var propyleneGlycol = new Fluid(FluidsList.MPG, (60).Percent())
     .WithState(Input.Pressure((100).Kilopascals()),
         Input.Temperature((-20).DegreesCelsius()));
@@ -205,9 +215,16 @@ To calculate the density of ethanol aqueous solution (with ethanol _40 %_ mass f
 at _200 kPa_ and _277.15 K_:
 
 ```c#
+using SharpProp;
+using UnitsNet;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+
 var mixture = new Mixture(
-    new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-    new List<Ratio> {(60).Percent(), (40).Percent()})
+        new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
+        new List<Ratio> {(60).Percent(), (40).Percent()})
     .WithState(Input.Pressure((200).Kilopascals()),
         Input.Temperature((277.15).Kelvins()));
 Console.WriteLine(mixture.Density.KilogramsPerCubicMeter);               // 883.3922771627759
@@ -221,6 +238,12 @@ To calculate the wet bulb temperature of humid air
 at _300 m_ above sea level, _30 °C_ and _50 %_ relative humidity:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToLength;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+using UnitsNet.Units;
+
 var humidAir = new HumidAir().WithState(
     InputHumidAir.Altitude((300).Meters()),
     InputHumidAir.Temperature((30).DegreesCelsius()),
@@ -240,6 +263,11 @@ Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IK
 For example:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+
 var humidAir = new HumidAir().WithState(
     InputHumidAir.Pressure((1).Atmospheres()),
     InputHumidAir.Temperature((20).DegreesCelsius()),
@@ -261,6 +289,9 @@ which performs converting of instance to a JSON string.
 For example, converting a `Fluid` instance to an _indented_ JSON string:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+
 var refrigerant = new Fluid(FluidsList.R32)
     .DewPointAt((5).DegreesCelsius());
 Console.WriteLine(refrigerant.AsJson());
@@ -376,14 +407,18 @@ The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `Clone`,
 which performs deep (full) copy of instance:
 
 ```c#
+using SharpProp;
+using UnitsNet.NumberExtensions.NumberToPressure;
+using UnitsNet.NumberExtensions.NumberToTemperature;
+
 var origin = new Fluid(FluidsList.Water)
     .WithState(Input.Pressure((1).Atmospheres()),
         Input.Temperature((20).DegreesCelsius()));
 var clone = origin.Clone();
-Console.WriteLine(origin == clone); // true
+Console.WriteLine(origin == clone);                // true
 clone.Update(Input.Pressure((1).Atmospheres()),
     Input.Temperature((30).DegreesCelsius()));
-Console.WriteLine(origin == clone); // false
+Console.WriteLine(origin == clone);                // false
 ```
 
 ### Adding other properties

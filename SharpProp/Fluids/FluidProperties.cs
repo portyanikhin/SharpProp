@@ -2,6 +2,8 @@
 
 public abstract partial class AbstractFluid
 {
+    protected const double ComparisonTolerance = 1e-6;
+    protected const ComparisonType ComparisonType = UnitsNet.ComparisonType.Relative;
     private double? _compressibility;
     private ThermalConductivity? _conductivity;
     private Pressure? _criticalPressure;

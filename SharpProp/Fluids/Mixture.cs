@@ -39,7 +39,8 @@ public class Mixture : AbstractFluid, IEquatable<Mixture>
         if (Math.Abs(Fractions.Sum(fraction => fraction.Percent) - 100) > 1e-6)
             throw new ArgumentException(
                 "Invalid component mass fractions! Their sum should be equal to 100 %.");
-        Backend = AbstractState.Factory("HEOS", string.Join("&", Fluids.ToArray()));
+        Backend = AbstractState.Factory(
+            "HEOS", string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())));
         Backend.SetMassFractions(
             new DoubleVector(Fractions.Select(fraction => fraction.DecimalFractions)));
     }

@@ -24,7 +24,7 @@ public class HumidAirExtended : HumidAir
 
     protected override HumidAir CreateInstance() => new HumidAirExtended();
 
-    public new HumidAirExtended Factory() => new();
+    public new HumidAirExtended Factory() => (HumidAirExtended) base.Factory();
 
     public new HumidAirExtended WithState(IKeyedInput<string> fistInput,
         IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput) =>

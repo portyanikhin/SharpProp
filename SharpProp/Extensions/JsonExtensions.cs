@@ -1,6 +1,6 @@
 ﻿namespace SharpProp;
 
-public static class JsonExtensions
+internal static class JsonExtensions
 {
     private static readonly JsonSerializerSettings Settings = new()
     {
@@ -8,7 +8,7 @@ public static class JsonExtensions
             {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()}
     };
 
-    internal static string AsJson<T>(this T instance, bool indented = true)
+    public static string ConvertToJson(this object? instance, bool indented)
     {
         Settings.Formatting = indented ? Formatting.Indented : Formatting.None;
         return JsonConvert.SerializeObject(instance, Settings);

@@ -68,7 +68,7 @@ public class Mixture : AbstractFluid, IClonable<Mixture>, IEquatable<Mixture>, I
 
     public Mixture Factory() => (Mixture) CreateInstance();
 
-    public string AsJson(bool indented = true) => this.AsJson<Mixture>(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
     public override bool Equals(object? obj) => Equals(obj as Mixture);
 

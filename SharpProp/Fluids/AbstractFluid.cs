@@ -5,6 +5,11 @@
 /// </summary>
 public abstract partial class AbstractFluid : IDisposable
 {
+    [SuppressMessage("ReSharper", "PropertyCanBeMadeInitOnly.Global")]
+    protected AbstractState Backend { get; set; } = null!;
+
+    protected List<IKeyedInput<Parameters>> Inputs { get; private set; } = new(2);
+
     public void Dispose()
     {
         Backend.Dispose();

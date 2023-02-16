@@ -31,11 +31,6 @@ public abstract partial class AbstractFluid
     private Temperature? _tripleTemperature;
 
     /// <summary>
-    ///     CoolProp backend.
-    /// </summary>
-    protected AbstractState Backend { get; set; } = null!;
-
-    /// <summary>
     ///     Compressibility factor (dimensionless).
     /// </summary>
     public double? Compressibility =>
@@ -101,8 +96,6 @@ public abstract partial class AbstractFluid
         KeyedOutputIsNotNull(Parameters.iT_freeze, out var output)
             ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
             : null;
-
-    internal List<IKeyedInput<Parameters>> Inputs { get; private set; } = new(2);
 
     /// <summary>
     ///     Mass specific internal energy (by default, kJ/kg).

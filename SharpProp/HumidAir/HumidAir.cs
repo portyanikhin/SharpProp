@@ -5,6 +5,8 @@
 /// </summary>
 public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFactory<HumidAir>, IJsonable
 {
+    private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
+
     public HumidAir Clone() => WithState(Inputs[0], Inputs[1], Inputs[2]);
 
     public bool Equals(HumidAir? other)
@@ -16,7 +18,7 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
 
     public HumidAir Factory() => CreateInstance();
 
-    public string AsJson(bool indented = true) => this.AsJson<HumidAir>(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
     public override bool Equals(object? obj) => Equals(obj as HumidAir);
 

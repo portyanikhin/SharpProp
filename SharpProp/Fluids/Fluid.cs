@@ -53,7 +53,7 @@ public class Fluid : AbstractFluid, IClonable<Fluid>, IEquatable<Fluid>, IFactor
 
     public Fluid Factory() => (Fluid) CreateInstance();
 
-    public string AsJson(bool indented = true) => this.AsJson<Fluid>(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
     public override bool Equals(object? obj) => Equals(obj as Fluid);
 

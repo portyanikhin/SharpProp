@@ -72,8 +72,6 @@ public partial class HumidAir
         Ratio.FromDecimalFractions(KeyedOutput("W"))
             .ToUnit(RatioUnit.PartPerThousand);
 
-    internal List<IKeyedInput<string>> Inputs { get; private set; } = new(3);
-
     /// <summary>
     ///     Kinematic viscosity (by default, cSt).
     /// </summary>

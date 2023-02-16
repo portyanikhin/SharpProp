@@ -34,20 +34,13 @@ A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolp
 
 ## How to install
 
-Run the following command in the
-[Package Manager Console](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+Add it via CLI:
 
 ```shell
-NuGet\Install-Package SharpProp -Version 5.0.0
+dotnet add package SharpProp
 ```
 
-Or add this to the `.csproj` file:
-
-```xml
-<ItemGroup>
-    <PackageReference Include="SharpProp" Version="5.0.0"/>
-</ItemGroup>
-```
+Or go to [NuGet Gallery | SharpProp](https://www.nuget.org/packages/SharpProp) for detailed instructions.
 
 ## Unit safety
 

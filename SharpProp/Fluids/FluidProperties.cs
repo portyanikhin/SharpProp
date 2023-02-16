@@ -33,7 +33,7 @@ public abstract partial class AbstractFluid
     /// <summary>
     ///     CoolProp backend.
     /// </summary>
-    protected AbstractState Backend { get; init; } = null!;
+    protected AbstractState Backend { get; set; } = null!;
 
     /// <summary>
     ///     Compressibility factor (dimensionless).

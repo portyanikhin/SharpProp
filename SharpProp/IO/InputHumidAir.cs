@@ -13,14 +13,10 @@ public record InputHumidAir : IKeyedInput<string>
     protected InputHumidAir(string coolPropKey, double value) =>
         (CoolPropKey, Value) = (coolPropKey, value);
 
-    /// <summary>
-    ///     CoolProp internal key.
-    /// </summary>
     public string CoolPropKey { get; }
 
-    /// <summary>
-    ///     Input value.
-    /// </summary>
+    public string CoolPropHighLevelKey => CoolPropKey;
+
     public double Value { get; }
 
     /// <summary>

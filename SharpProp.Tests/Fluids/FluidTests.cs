@@ -38,18 +38,6 @@ public class FluidTests : IDisposable
     }
 
     [Fact]
-    public void Factory_Always_NameIsConstant() =>
-        Fluid.Factory().Name.Should().Be(Fluid.Name);
-
-    [Fact]
-    public void Factory_Always_FractionIsConstant() =>
-        Fluid.Factory().Fraction.Should().Be(Fluid.Fraction);
-
-    [Fact]
-    public void Factory_Always_PhaseIsUnknown() =>
-        Fluid.Factory().Phase.Should().Be(Phases.Unknown);
-
-    [Fact]
     public void WithState_WaterInStandardConditions_PhaseIsLiquid() =>
         Fluid.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()))
@@ -119,6 +107,18 @@ public class FluidTests : IDisposable
     }
 
     [Fact]
+    public void Clone_Always_ReturnsNewInstanceWithSameState()
+    {
+        IClonable<Fluid> origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius()));
+        var clone = origin.Clone();
+        clone.Should().Be(origin);
+        clone.Update(Input.Pressure(1.Atmospheres()),
+            Input.Temperature(30.DegreesCelsius()));
+        clone.Should().NotBe(origin);
+    }
+
+    [Fact]
     public void Equals_Same_ReturnsTrue()
     {
         var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
@@ -165,12 +165,33 @@ public class FluidTests : IDisposable
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
+    [Fact]
+    public void Factory_Always_NameIsConstant()
+    {
+        IFactory<Fluid> fluid = Fluid;
+        fluid.Factory().Name.Should().Be(Fluid.Name);
+    }
+
+    [Fact]
+    public void Factory_Always_FractionIsConstant()
+    {
+        IFactory<Fluid> fluid = Fluid;
+        fluid.Factory().Fraction.Should().Be(Fluid.Fraction);
+    }
+
+    [Fact]
+    public void Factory_Always_PhaseIsUnknown()
+    {
+        IFactory<Fluid> fluid = Fluid;
+        fluid.Factory().Phase.Should().Be(Phases.Unknown);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
     {
-        var fluid = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        IJsonable fluid = Fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         fluid.AsJson(indented).Should().Be(
             JsonConvert.SerializeObject(fluid, new JsonSerializerSettings
@@ -179,18 +200,6 @@ public class FluidTests : IDisposable
                     {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
                 Formatting = indented ? Formatting.Indented : Formatting.None
             }));
-    }
-
-    [Fact]
-    public void Clone_Always_ReturnsNewInstanceWithSameState()
-    {
-        var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius()));
-        var clone = origin.Clone();
-        clone.Should().Be(origin);
-        clone.Update(Input.Pressure(1.Atmospheres()),
-            Input.Temperature(30.DegreesCelsius()));
-        clone.Should().NotBe(origin);
     }
 
     public static IEnumerable<object[]> FluidNames() =>

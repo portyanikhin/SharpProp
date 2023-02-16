@@ -28,18 +28,6 @@ public class MixtureTests : IDisposable
     }
 
     [Fact]
-    public void Factory_Always_FluidsAreConstant() =>
-        Mixture.Factory().Fluids.Should().BeEquivalentTo(Mixture.Fluids);
-
-    [Fact]
-    public void Factory_Always_FractionsAreConstant() =>
-        Mixture.Factory().Fractions.Should().BeEquivalentTo(Mixture.Fractions);
-
-    [Fact]
-    public void Factory_Always_PhaseIsUnknown() =>
-        Mixture.Factory().Phase.Should().Be(Phases.Unknown);
-
-    [Fact]
     public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
         Mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()))
@@ -62,6 +50,18 @@ public class MixtureTests : IDisposable
             Input.Temperature(293.15.Kelvins()));
         Mixture.Pressure.Pascals.Should().Be(101325);
         Mixture.Temperature.Kelvins.Should().Be(293.15);
+    }
+
+    [Fact]
+    public void Clone_Always_ReturnsNewInstanceWithSameState()
+    {
+        IClonable<Mixture> origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius()));
+        var clone = origin.Clone();
+        clone.Should().Be(origin);
+        clone.Update(Input.Pressure(1.Atmospheres()),
+            Input.Temperature(30.DegreesCelsius()));
+        clone.Should().NotBe(origin);
     }
 
     [Fact]
@@ -111,12 +111,33 @@ public class MixtureTests : IDisposable
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
+    [Fact]
+    public void Factory_Always_FluidsAreConstant()
+    {
+        IFactory<Mixture> mixture = Mixture;
+        mixture.Factory().Fluids.Should().BeEquivalentTo(Mixture.Fluids);
+    }
+
+    [Fact]
+    public void Factory_Always_FractionsAreConstant()
+    {
+        IFactory<Mixture> mixture = Mixture;
+        mixture.Factory().Fractions.Should().BeEquivalentTo(Mixture.Fractions);
+    }
+
+    [Fact]
+    public void Factory_Always_PhaseIsUnknown()
+    {
+        IFactory<Mixture> mixture = Mixture;
+        mixture.Factory().Phase.Should().Be(Phases.Unknown);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
     public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
     {
-        var fluid = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        IJsonable fluid = Mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         fluid.AsJson(indented).Should().Be(
             JsonConvert.SerializeObject(fluid, new JsonSerializerSettings
@@ -125,18 +146,6 @@ public class MixtureTests : IDisposable
                     {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
                 Formatting = indented ? Formatting.Indented : Formatting.None
             }));
-    }
-
-    [Fact]
-    public void Clone_Always_ReturnsNewInstanceWithSameState()
-    {
-        var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius()));
-        var clone = origin.Clone();
-        clone.Should().Be(origin);
-        clone.Update(Input.Pressure(1.Atmospheres()),
-            Input.Temperature(30.DegreesCelsius()));
-        clone.Should().NotBe(origin);
     }
 
     public static IEnumerable<object[]> WrongFluidsOrFractions() =>

@@ -21,7 +21,7 @@ public partial class HumidAir
     ///     greater than the dew point temperature!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir DryCoolingTo(Temperature temperature,
+    public HumidAir DryCoolingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         DryHeatTransferTo(temperature, true, pressureDrop);
 
@@ -37,7 +37,7 @@ public partial class HumidAir
     ///     greater than the dew point enthalpy!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir DryCoolingTo(SpecificEnergy enthalpy,
+    public HumidAir DryCoolingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         DryHeatTransferTo(enthalpy, true, pressureDrop);
 
@@ -54,7 +54,7 @@ public partial class HumidAir
     ///     During the wet cooling process, the absolute humidity ratio should decrease!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir WetCoolingTo(Temperature temperature,
+    public HumidAir WetCoolingTo(Temperature temperature,
         RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
         WetCoolingTo(InputHumidAir.Temperature(temperature),
             InputHumidAir.RelativeHumidity(relativeHumidity), pressureDrop);
@@ -72,7 +72,7 @@ public partial class HumidAir
     ///     During the wet cooling process, the absolute humidity ratio should decrease!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir WetCoolingTo(Temperature temperature,
+    public HumidAir WetCoolingTo(Temperature temperature,
         Ratio humidity, Pressure? pressureDrop = null) =>
         WetCoolingTo(InputHumidAir.Temperature(temperature),
             InputHumidAir.Humidity(humidity), pressureDrop);
@@ -90,7 +90,7 @@ public partial class HumidAir
     ///     During the wet cooling process, the absolute humidity ratio should decrease!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir WetCoolingTo(SpecificEnergy enthalpy,
+    public HumidAir WetCoolingTo(SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
         WetCoolingTo(InputHumidAir.Enthalpy(enthalpy),
             InputHumidAir.RelativeHumidity(relativeHumidity), pressureDrop);
@@ -108,7 +108,7 @@ public partial class HumidAir
     ///     During the wet cooling process, the absolute humidity ratio should decrease!
     /// </exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir WetCoolingTo(SpecificEnergy enthalpy,
+    public HumidAir WetCoolingTo(SpecificEnergy enthalpy,
         Ratio humidity, Pressure? pressureDrop = null) =>
         WetCoolingTo(InputHumidAir.Enthalpy(enthalpy),
             InputHumidAir.Humidity(humidity), pressureDrop);
@@ -121,7 +121,7 @@ public partial class HumidAir
     /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">During the heating process, the temperature should increase!</exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir HeatingTo(Temperature temperature,
+    public HumidAir HeatingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         DryHeatTransferTo(temperature, false, pressureDrop);
 
@@ -133,7 +133,7 @@ public partial class HumidAir
     /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">During the heating process, the enthalpy should increase!</exception>
     /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
-    public virtual HumidAir HeatingTo(SpecificEnergy enthalpy,
+    public HumidAir HeatingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         DryHeatTransferTo(enthalpy, false, pressureDrop);
 
@@ -146,7 +146,7 @@ public partial class HumidAir
     /// <exception cref="ArgumentException">
     ///     During the humidification process, the absolute humidity ratio should increase!
     /// </exception>
-    public virtual HumidAir HumidificationByWaterTo(RelativeHumidity relativeHumidity) =>
+    public HumidAir HumidificationByWaterTo(RelativeHumidity relativeHumidity) =>
         HumidificationTo(InputHumidAir.Enthalpy(Enthalpy),
             InputHumidAir.RelativeHumidity(relativeHumidity));
 
@@ -159,7 +159,7 @@ public partial class HumidAir
     /// <exception cref="ArgumentException">
     ///     During the humidification process, the absolute humidity ratio should increase!
     /// </exception>
-    public virtual HumidAir HumidificationByWaterTo(Ratio humidity) =>
+    public HumidAir HumidificationByWaterTo(Ratio humidity) =>
         HumidificationTo(InputHumidAir.Enthalpy(Enthalpy),
             InputHumidAir.Humidity(humidity));
 
@@ -172,7 +172,7 @@ public partial class HumidAir
     /// <exception cref="ArgumentException">
     ///     During the humidification process, the absolute humidity ratio should increase!
     /// </exception>
-    public virtual HumidAir HumidificationBySteamTo(RelativeHumidity relativeHumidity) =>
+    public HumidAir HumidificationBySteamTo(RelativeHumidity relativeHumidity) =>
         HumidificationTo(InputHumidAir.Temperature(Temperature),
             InputHumidAir.RelativeHumidity(relativeHumidity));
 
@@ -185,7 +185,7 @@ public partial class HumidAir
     /// <exception cref="ArgumentException">
     ///     During the humidification process, the absolute humidity ratio should increase!
     /// </exception>
-    public virtual HumidAir HumidificationBySteamTo(Ratio humidity) =>
+    public HumidAir HumidificationBySteamTo(Ratio humidity) =>
         HumidificationTo(InputHumidAir.Temperature(Temperature),
             InputHumidAir.Humidity(humidity));
 
@@ -204,7 +204,7 @@ public partial class HumidAir
     /// <exception cref="ArgumentException">
     ///     The mixing process is possible only for flows with the same pressure!
     /// </exception>
-    public virtual HumidAir Mixing(Ratio firstSpecificMassFlow, HumidAir first,
+    public HumidAir Mixing(Ratio firstSpecificMassFlow, HumidAir first,
         Ratio secondSpecificMassFlow, HumidAir second) =>
         first.Pressure.Equals(second.Pressure, ComparisonTolerance, ComparisonType)
             ? WithState(

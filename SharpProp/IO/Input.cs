@@ -13,14 +13,11 @@ public record Input : IKeyedInput<Parameters>
     protected Input(Parameters coolPropKey, double value) =>
         (CoolPropKey, Value) = (coolPropKey, value);
 
-    /// <summary>
-    ///     CoolProp internal key.
-    /// </summary>
     public Parameters CoolPropKey { get; }
 
-    /// <summary>
-    ///     Input value in SI units.
-    /// </summary>
+    public string CoolPropHighLevelKey =>
+        CoolPropKey.ToString().TrimStart('i');
+
     public double Value { get; }
 
     /// <summary>

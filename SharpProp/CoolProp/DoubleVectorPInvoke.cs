@@ -1,6 +1,7 @@
 ﻿namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
+[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 internal static class DoubleVectorPInvoke
 {
     static DoubleVectorPInvoke() => SwigExceptions.RegisterCallbacks();

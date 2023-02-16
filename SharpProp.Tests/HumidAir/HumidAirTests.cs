@@ -117,6 +117,21 @@ public class HumidAirTests
     }
 
     [Fact]
+    public void Clone_Always_ReturnsNewInstanceWithSameState()
+    {
+        IClonable<HumidAir> origin = HumidAir.WithState(
+            InputHumidAir.Altitude(0.Meters()),
+            InputHumidAir.Temperature(20.DegreesCelsius()),
+            InputHumidAir.RelativeHumidity(50.Percent()));
+        var clone = origin.Clone();
+        clone.Should().Be(origin);
+        clone.Update(InputHumidAir.Altitude(0.Meters()),
+            InputHumidAir.Temperature(20.DegreesCelsius()),
+            InputHumidAir.RelativeHumidity(60.Percent()));
+        clone.Should().NotBe(origin);
+    }
+
+    [Fact]
     public void Equals_Same_ReturnsTrue()
     {
         var origin = HumidAir.WithState(
@@ -184,7 +199,7 @@ public class HumidAirTests
     [InlineData(false)]
     public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
     {
-        var humidAir = HumidAir.WithState(
+        IJsonable humidAir = HumidAir.WithState(
             InputHumidAir.Altitude(0.Meters()),
             InputHumidAir.Temperature(20.DegreesCelsius()),
             InputHumidAir.RelativeHumidity(50.Percent()));
@@ -195,21 +210,6 @@ public class HumidAirTests
                     {new StringEnumConverter(), new UnitsNetIQuantityJsonConverter()},
                 Formatting = indented ? Formatting.Indented : Formatting.None
             }));
-    }
-
-    [Fact]
-    public void Clone_Always_ReturnsNewInstanceWithSameState()
-    {
-        var origin = HumidAir.WithState(
-            InputHumidAir.Altitude(0.Meters()),
-            InputHumidAir.Temperature(20.DegreesCelsius()),
-            InputHumidAir.RelativeHumidity(50.Percent()));
-        var clone = origin.Clone();
-        clone.Should().Be(origin);
-        clone.Update(InputHumidAir.Altitude(0.Meters()),
-            InputHumidAir.Temperature(20.DegreesCelsius()),
-            InputHumidAir.RelativeHumidity(60.Percent()));
-        clone.Should().NotBe(origin);
     }
 
     private double CoolPropInterface(string key)

@@ -45,60 +45,62 @@ public class FluidExtended : Fluid
         _ozoneDepletionPotential = null;
     }
 
-    public override FluidExtended Factory() => new(Name, Fraction);
+    protected override AbstractFluid CreateInstance() => new FluidExtended(Name, Fraction);
 
-    public override FluidExtended WithState(IKeyedInput<Parameters> firstInput,
+    public new FluidExtended Factory() => (FluidExtended) base.Factory();
+
+    public new FluidExtended WithState(IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput) =>
         (FluidExtended) base.WithState(firstInput, secondInput);
 
-    public override FluidExtended IsentropicCompressionTo(Pressure pressure) =>
+    public new FluidExtended IsentropicCompressionTo(Pressure pressure) =>
         (FluidExtended) base.IsentropicCompressionTo(pressure);
 
-    public override FluidExtended CompressionTo(Pressure pressure, Ratio isentropicEfficiency) =>
+    public new FluidExtended CompressionTo(Pressure pressure, Ratio isentropicEfficiency) =>
         (FluidExtended) base.CompressionTo(pressure, isentropicEfficiency);
 
-    public override FluidExtended IsenthalpicExpansionTo(Pressure pressure) =>
+    public new FluidExtended IsenthalpicExpansionTo(Pressure pressure) =>
         (FluidExtended) base.IsenthalpicExpansionTo(pressure);
 
-    public override FluidExtended IsentropicExpansionTo(Pressure pressure) =>
+    public new FluidExtended IsentropicExpansionTo(Pressure pressure) =>
         (FluidExtended) base.IsentropicExpansionTo(pressure);
 
-    public override FluidExtended ExpansionTo(Pressure pressure,
+    public new FluidExtended ExpansionTo(Pressure pressure,
         Ratio isentropicEfficiency) =>
         (FluidExtended) base.ExpansionTo(pressure, isentropicEfficiency);
 
-    public override FluidExtended CoolingTo(Temperature temperature,
+    public new FluidExtended CoolingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         (FluidExtended) base.CoolingTo(temperature, pressureDrop);
 
-    public override FluidExtended CoolingTo(SpecificEnergy enthalpy,
+    public new FluidExtended CoolingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         (FluidExtended) base.CoolingTo(enthalpy, pressureDrop);
 
-    public override FluidExtended HeatingTo(Temperature temperature,
+    public new FluidExtended HeatingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         (FluidExtended) base.HeatingTo(temperature, pressureDrop);
 
-    public override FluidExtended HeatingTo(SpecificEnergy enthalpy,
+    public new FluidExtended HeatingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         (FluidExtended) base.HeatingTo(enthalpy, pressureDrop);
 
-    public override FluidExtended BubblePointAt(Pressure pressure) =>
+    public new FluidExtended BubblePointAt(Pressure pressure) =>
         (FluidExtended) base.BubblePointAt(pressure);
 
-    public override FluidExtended BubblePointAt(Temperature temperature) =>
+    public new FluidExtended BubblePointAt(Temperature temperature) =>
         (FluidExtended) base.BubblePointAt(temperature);
 
-    public override FluidExtended DewPointAt(Pressure pressure) =>
+    public new FluidExtended DewPointAt(Pressure pressure) =>
         (FluidExtended) base.DewPointAt(pressure);
 
-    public override FluidExtended DewPointAt(Temperature temperature) =>
+    public new FluidExtended DewPointAt(Temperature temperature) =>
         (FluidExtended) base.DewPointAt(temperature);
 
-    public override FluidExtended TwoPhasePointAt(Pressure pressure, Ratio quality) =>
+    public new FluidExtended TwoPhasePointAt(Pressure pressure, Ratio quality) =>
         (FluidExtended) base.TwoPhasePointAt(pressure, quality);
 
-    public override FluidExtended Mixing(Ratio firstSpecificMassFlow, AbstractFluid first,
+    public new FluidExtended Mixing(Ratio firstSpecificMassFlow, AbstractFluid first,
         Ratio secondSpecificMassFlow, AbstractFluid second) =>
         (FluidExtended) base.Mixing(firstSpecificMassFlow, first,
             secondSpecificMassFlow, second);
@@ -141,8 +143,10 @@ public class FluidExtendedTests : IDisposable
         Fluid.OzoneDepletionPotential.Should().BeNull();
 
     [Fact]
-    public void Processes_Override_ReturnsInstancesOfInheritedType()
+    public void Methods_New_ReturnsInstancesOfInheritedType()
     {
+        Fluid.Factory()
+            .Should().BeOfType<FluidExtended>();
         Fluid.IsentropicCompressionTo(HighPressure)
             .Should().BeOfType<FluidExtended>();
         Fluid.CompressionTo(HighPressure, IsentropicEfficiency)

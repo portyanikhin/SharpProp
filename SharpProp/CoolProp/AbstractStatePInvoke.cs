@@ -1,6 +1,7 @@
 ﻿namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
+[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 internal static class AbstractStatePInvoke
 {
     static AbstractStatePInvoke() => SwigExceptions.RegisterCallbacks();
@@ -8,9 +9,7 @@ internal static class AbstractStatePInvoke
     [DllImport(Library.Name, EntryPoint = "CSharp_delete_AbstractState")]
     public static extern void Delete(HandleRef abstractState);
 
-#pragma warning disable CA2101
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_factory__SWIG_0")]
-#pragma warning restore CA2101
     public static extern IntPtr Factory(string backend, string fluidNames);
 
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_set_mass_fractions")]
@@ -19,9 +18,7 @@ internal static class AbstractStatePInvoke
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_set_volu_fractions")]
     public static extern void SetVolumeFractions(HandleRef abstractState, HandleRef volumeFractions);
 
-#pragma warning disable CA2101
     [DllImport(Library.Name, EntryPoint = "CSharp_get_input_pair_index")]
-#pragma warning restore CA2101
     public static extern int GetInputPairIndex(string inputPairName);
 
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_update")]

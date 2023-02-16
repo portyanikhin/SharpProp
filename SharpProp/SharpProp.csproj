@@ -8,7 +8,8 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <ImplicitUsings>enable</ImplicitUsings>
-        <NoWarn>$(NoWarn);1591;NU5129;CA1067</NoWarn>
+        <LangVersion>11.0</LangVersion>
+        <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054</NoWarn>
         <Nullable>enable</Nullable>
         <PackageIcon>icon.png</PackageIcon>
         <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
@@ -27,7 +28,7 @@
         <PackageVersion>5.0.0</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
-        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>
         <Title>SharpProp</Title>
     </PropertyGroup>
 

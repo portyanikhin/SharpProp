@@ -22,59 +22,61 @@ public class HumidAirExtended : HumidAir
         _specificHeatConstVolume = null;
     }
 
-    public override HumidAirExtended Factory() => new();
+    protected override HumidAir CreateInstance() => new HumidAirExtended();
 
-    public override HumidAirExtended WithState(IKeyedInput<string> fistInput,
+    public new HumidAirExtended Factory() => new();
+
+    public new HumidAirExtended WithState(IKeyedInput<string> fistInput,
         IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput) =>
         (HumidAirExtended) base.WithState(fistInput, secondInput, thirdInput);
 
-    public override HumidAirExtended DryCoolingTo(Temperature temperature,
+    public new HumidAirExtended DryCoolingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.DryCoolingTo(temperature, pressureDrop);
 
-    public override HumidAirExtended DryCoolingTo(SpecificEnergy enthalpy,
+    public new HumidAirExtended DryCoolingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.DryCoolingTo(enthalpy, pressureDrop);
 
-    public override HumidAirExtended WetCoolingTo(Temperature temperature,
+    public new HumidAirExtended WetCoolingTo(Temperature temperature,
         RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.WetCoolingTo(temperature, relativeHumidity, pressureDrop);
 
-    public override HumidAirExtended WetCoolingTo(Temperature temperature,
+    public new HumidAirExtended WetCoolingTo(Temperature temperature,
         Ratio humidity, Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.WetCoolingTo(temperature, humidity, pressureDrop);
 
-    public override HumidAirExtended WetCoolingTo(SpecificEnergy enthalpy,
+    public new HumidAirExtended WetCoolingTo(SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity, Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.WetCoolingTo(enthalpy, relativeHumidity, pressureDrop);
 
-    public override HumidAirExtended WetCoolingTo(SpecificEnergy enthalpy,
+    public new HumidAirExtended WetCoolingTo(SpecificEnergy enthalpy,
         Ratio humidity, Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.WetCoolingTo(enthalpy, humidity, pressureDrop);
 
-    public override HumidAirExtended HeatingTo(Temperature temperature,
+    public new HumidAirExtended HeatingTo(Temperature temperature,
         Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.HeatingTo(temperature, pressureDrop);
 
-    public override HumidAirExtended HeatingTo(SpecificEnergy enthalpy,
+    public new HumidAirExtended HeatingTo(SpecificEnergy enthalpy,
         Pressure? pressureDrop = null) =>
         (HumidAirExtended) base.HeatingTo(enthalpy, pressureDrop);
 
-    public override HumidAirExtended HumidificationByWaterTo(
+    public new HumidAirExtended HumidificationByWaterTo(
         RelativeHumidity relativeHumidity) =>
         (HumidAirExtended) base.HumidificationByWaterTo(relativeHumidity);
 
-    public override HumidAirExtended HumidificationByWaterTo(Ratio humidity) =>
+    public new HumidAirExtended HumidificationByWaterTo(Ratio humidity) =>
         (HumidAirExtended) base.HumidificationByWaterTo(humidity);
 
-    public override HumidAirExtended HumidificationBySteamTo(
+    public new HumidAirExtended HumidificationBySteamTo(
         RelativeHumidity relativeHumidity) =>
         (HumidAirExtended) base.HumidificationBySteamTo(relativeHumidity);
 
-    public override HumidAirExtended HumidificationBySteamTo(Ratio humidity) =>
+    public new HumidAirExtended HumidificationBySteamTo(Ratio humidity) =>
         (HumidAirExtended) base.HumidificationBySteamTo(humidity);
 
-    public override HumidAirExtended Mixing(Ratio firstSpecificMassFlow, HumidAir first,
+    public new HumidAirExtended Mixing(Ratio firstSpecificMassFlow, HumidAir first,
         Ratio secondSpecificMassFlow, HumidAir second) =>
         (HumidAirExtended) base.Mixing(firstSpecificMassFlow, first,
             secondSpecificMassFlow, second);
@@ -108,8 +110,10 @@ public class HumidAirExtendedTests
             .Should().Be(722.68718970632506);
 
     [Fact]
-    public void Processes_Override_ReturnsInstancesOfInheritedType()
+    public void Methods_New_ReturnsInstancesOfInheritedType()
     {
+        HumidAir.Factory()
+            .Should().BeOfType<HumidAirExtended>();
         HumidAir.DryCoolingTo(HumidAir.Temperature - TemperatureDelta)
             .Should().BeOfType<HumidAirExtended>();
         HumidAir.DryCoolingTo(HumidAir.Enthalpy - EnthalpyDelta)

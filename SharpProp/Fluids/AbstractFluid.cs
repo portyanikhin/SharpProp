@@ -3,40 +3,12 @@
 /// <summary>
 ///     Base class of fluids.
 /// </summary>
-public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDisposable
+public abstract partial class AbstractFluid : IDisposable
 {
     public void Dispose()
     {
         Backend.Dispose();
         GC.SuppressFinalize(this);
-    }
-
-    public bool Equals(AbstractFluid? other)
-    {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return GetHashCode() == other.GetHashCode();
-    }
-
-    /// <summary>
-    ///     Returns a new fluid instance with no defined state.
-    /// </summary>
-    /// <returns>A new fluid instance with no defined state.</returns>
-    public abstract AbstractFluid Factory();
-
-    /// <summary>
-    ///     Returns a new fluid instance with a defined state.
-    /// </summary>
-    /// <param name="firstInput">First input property.</param>
-    /// <param name="secondInput">Second input property.</param>
-    /// <returns>A new fluid object with a defined state.</returns>
-    /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-    public virtual AbstractFluid WithState(IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput)
-    {
-        var fluid = Factory();
-        fluid.Update(firstInput, secondInput);
-        return fluid;
     }
 
     /// <summary>
@@ -55,9 +27,6 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
         Inputs = new List<IKeyedInput<Parameters>> {firstInput, secondInput};
     }
 
-    /// <summary>
-    ///     Resets all non-trivial properties.
-    /// </summary>
     protected virtual void Reset()
     {
         Inputs.Clear();
@@ -78,23 +47,22 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
         _phase = null;
     }
 
-    /// <summary>
-    ///     Returns true if the output is not null.
-    /// </summary>
-    /// <param name="key">The output key.</param>
-    /// <param name="value">The output value.</param>
-    /// <returns>True if the output is not null.</returns>
+    protected AbstractFluid WithState(IKeyedInput<Parameters> firstInput,
+        IKeyedInput<Parameters> secondInput)
+    {
+        var fluid = CreateInstance();
+        fluid.Update(firstInput, secondInput);
+        return fluid;
+    }
+
+    protected abstract AbstractFluid CreateInstance();
+
     protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
     {
         value = NullableKeyedOutput(key);
         return value is not null;
     }
 
-    /// <summary>
-    ///     Returns a nullable keyed output.
-    /// </summary>
-    /// <param name="key">The output key.</param>
-    /// <returns>A nullable keyed output.</returns>
     protected double? NullableKeyedOutput(Parameters key)
     {
         try
@@ -108,12 +76,6 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
         }
     }
 
-    /// <summary>
-    ///     Returns a not nullable keyed output.
-    /// </summary>
-    /// <param name="key">The output key.</param>
-    /// <returns>A not nullable keyed output.</returns>
-    /// <exception cref="ArgumentException">Invalid or not defined state!</exception>
     protected double KeyedOutput(Parameters key)
     {
         var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
@@ -122,7 +84,7 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
         return result;
     }
 
-    private static (InputPairs inputPair, double firstValue, double secondValue) GenerateUpdatePair(
+    private static UpdatePair GenerateUpdatePair(
         IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
     {
         var inputPair = GetInputPair(firstInput, secondInput);
@@ -132,23 +94,17 @@ public abstract partial class AbstractFluid : IEquatable<AbstractFluid>, IDispos
             throw new ArgumentException("Need to define 2 unique inputs!");
 
         return !swap
-            ? ((InputPairs) inputPair, firstValue: firstInput.Value, secondValue: secondInput.Value)
-            : ((InputPairs) inputPair, firstValue: secondInput.Value, secondValue: firstInput.Value);
+            ? new UpdatePair(inputPair.Value, firstInput.Value, secondInput.Value)
+            : new UpdatePair(inputPair.Value, secondInput.Value, firstInput.Value);
     }
 
     private static InputPairs? GetInputPair(
         IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput) =>
         AbstractState.GetInputPair($"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS");
 
-    public override bool Equals(object? obj) => Equals(obj as AbstractFluid);
-
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-        HashCode.Combine(
-            string.Join("&", Inputs.Select(input => input.Value)),
-            string.Join("&", Inputs.Select(input => input.CoolPropKey)));
-
-    public static bool operator ==(AbstractFluid? left, AbstractFluid? right) => Equals(left, right);
-
-    public static bool operator !=(AbstractFluid? left, AbstractFluid? right) => !Equals(left, right);
+        (string.Join("&", Inputs.Select(input => input.Value)),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey)))
+        .GetHashCode();
 }

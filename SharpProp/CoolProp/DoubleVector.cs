@@ -1,11 +1,12 @@
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
+[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
 public class DoubleVector : IList<double>, IDisposable
 {
     private static readonly object CollectionLock = new();
 
-    private DoubleVector(IntPtr pointer) =>
+    private DoubleVector(nint pointer) =>
         Handle = new HandleRef(this, pointer);
 
     public DoubleVector(IEnumerable<double> collection) : this(DoubleVectorPInvoke.Create())

@@ -17,8 +17,7 @@ public interface IKeyedInput<out T>
     /// <summary>
     ///     CoolProp key in high-level interface.
     /// </summary>
-    public string CoolPropHighLevelKey =>
-        CoolPropKey!.ToString()!.TrimStart('i');
+    public string CoolPropHighLevelKey { get; }
 
     /// <summary>
     ///     Input value in SI units.

@@ -11,8 +11,15 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
-        <TargetFrameworks>net48;net6.0;net7.0</TargetFrameworks>
         <Title>SharpProp.Tests</Title>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+        <TargetFrameworks>net48;net6.0;net7.0</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>

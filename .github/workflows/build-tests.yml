@@ -22,7 +22,7 @@ jobs:
             6.0.x
             7.0.x
       - name: Setup .NET Framework
-        if: ${{ matrix.os == "windows-latest" }}
+        if: matrix.os == 'windows-latest'
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 4.8.x
@@ -31,11 +31,11 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Test
-        if: ${{ matrix.os == "ubuntu-latest" }}
+        if: matrix.os == 'ubuntu-latest'
         run: dotnet test --no-build
       - name: Test with coverage
-        if: ${{ matrix.os == "windows-latest" }}
+        if: matrix.os == 'windows-latest'
         run: dotnet test --no-build --verbosity normal --collect:"XPlat Code Coverage" --settings coverlet.runsettings
       - name: Upload coverage to Codecov
-        if: ${{ matrix.os == "windows-latest" }}
+        if: matrix.os == 'windows-latest'
         uses: codecov/codecov-action@v3

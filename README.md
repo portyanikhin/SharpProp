@@ -238,7 +238,7 @@ var humidAir = new HumidAir().WithState(
     InputHumidAir.Altitude((300).Meters()),
     InputHumidAir.Temperature((30).DegreesCelsius()),
     InputHumidAir.RelativeHumidity((50).Percent()));
-Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.06756903318154
+Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.06756903366403
 Console.WriteLine(humidAir.WetBulbTemperature);         // 21.92 °C
 Console.WriteLine(humidAir.WetBulbTemperature
     .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.45 °F

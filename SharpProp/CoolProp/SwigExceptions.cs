@@ -24,7 +24,7 @@ internal static class SwigExceptions
     private static readonly ExceptionArgumentDelegate ArgumentOutOfRangeDelegate =
         SetPendingArgumentOutOfRangeException;
 
-    public static void RegisterCallbacks()
+    static SwigExceptions()
     {
         RegisterExceptionCallbacks(
             ApplicationDelegate,

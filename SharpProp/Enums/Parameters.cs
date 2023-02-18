@@ -67,6 +67,8 @@ namespace SharpProp
         ialpha0,
         idalpha0_dtau_constdelta,
         idalpha0_ddelta_consttau,
+        id2alpha0_ddelta2_consttau,
+        id3alpha0_ddelta3_consttau,
         iBvirial,
         iCvirial,
         idBvirial_dT,

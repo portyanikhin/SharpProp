@@ -37,8 +37,14 @@
         <None Include="..\NuGet.md" Pack="true" PackagePath="\"/>
         <None Include="SharpProp.targets" PackagePath="build\" Pack="true"/>
         <None Include="libCoolProp.dll" PackagePath="build\" Pack="true"/>
+        <None Include="libCoolProp.dylib" PackagePath="build\" Pack="true"/>
         <None Include="libCoolProp.so" PackagePath="build\" Pack="true"/>
         <None Update="libCoolProp.dll">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <PackagePath>build\</PackagePath>
+            <Pack>true</Pack>
+        </None>
+        <None Update="libCoolProp.dylib">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <PackagePath>build\</PackagePath>
             <Pack>true</Pack>

@@ -1,10 +1,8 @@
-namespace SharpProp;
+﻿namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 internal static class CoolPropPInvoke
 {
-    static CoolPropPInvoke() => SwigExceptions.RegisterCallbacks();
-
     [DllImport(Library.Name, EntryPoint = "CSharp_PropsSI")]
     public static extern double PropsSI(string outputKey, string firstInputKey, double firstInputValue,
         string secondInputKey, double secondInputValue, string fluidName);

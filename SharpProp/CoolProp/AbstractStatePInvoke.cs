@@ -4,8 +4,6 @@
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 internal static class AbstractStatePInvoke
 {
-    static AbstractStatePInvoke() => SwigExceptions.RegisterCallbacks();
-
     [DllImport(Library.Name, EntryPoint = "CSharp_delete_AbstractState")]
     public static extern void Delete(HandleRef abstractState);
 

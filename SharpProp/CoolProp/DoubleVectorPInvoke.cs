@@ -4,8 +4,6 @@
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 internal static class DoubleVectorPInvoke
 {
-    static DoubleVectorPInvoke() => SwigExceptions.RegisterCallbacks();
-
     [DllImport(Library.Name, EntryPoint = "CSharp_DoubleVector_Clear")]
     public static extern void Clear(HandleRef doubleVector);
 
@@ -43,5 +41,5 @@ internal static class DoubleVectorPInvoke
     public static extern bool Remove(HandleRef doubleVector, double item);
 
     [DllImport(Library.Name, EntryPoint = "CSharp_delete_DoubleVector")]
-    public static extern void delete_DoubleVector(HandleRef arg1);
+    public static extern void Delete(HandleRef doubleVector);
 }

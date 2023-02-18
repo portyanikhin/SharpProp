@@ -1,12 +1,12 @@
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
-[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyleForMemberAccess")]
+[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 public class DoubleVector : IList<double>, IDisposable
 {
     private static readonly object CollectionLock = new();
 
-    private DoubleVector(nint pointer) =>
+    private DoubleVector(IntPtr pointer) =>
         Handle = new HandleRef(this, pointer);
 
     public DoubleVector(IEnumerable<double> collection) : this(DoubleVectorPInvoke.Create())
@@ -82,7 +82,7 @@ public class DoubleVector : IList<double>, IDisposable
         lock (CollectionLock)
         {
             if (Handle.Handle == IntPtr.Zero) return;
-            DoubleVectorPInvoke.delete_DoubleVector(Handle);
+            DoubleVectorPInvoke.Delete(Handle);
             Handle = new HandleRef(null, IntPtr.Zero);
             Disposed = true;
         }

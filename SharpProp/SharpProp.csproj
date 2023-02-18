@@ -16,16 +16,9 @@
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>
-- Change target frameworks to .NET 6.0 and .NET 7.0.
-- Thread safety is implemented.
-- All CoolProp files have been moved to the SharpProp namespace.
-- Documentation update.
-- Refactoring.
-- Bump Newtonsoft.Json from 13.0.1 to 13.0.2.
-        </PackageReleaseNotes>
+        <PackageReleaseNotes>Release notes can be found at https://github.com/portyanikhin/SharpProp/releases</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>5.0.0</PackageVersion>
+        <PackageVersion>6.0.0-rc001</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
         <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>

@@ -5,18 +5,17 @@ namespace SharpProp;
 public class AbstractState : IDisposable
 {
     private static readonly object HandlesLock = new();
+    private bool _disposed;
+    private HandleRef _handle;
 
     private AbstractState(IntPtr pointer) =>
-        Handle = new HandleRef(this, pointer);
-
-    private bool Disposed { get; set; }
-    private HandleRef Handle { get; set; }
+        _handle = new HandleRef(this, pointer);
 
     public void Dispose()
     {
         lock (HandlesLock)
         {
-            if (Disposed) return;
+            if (_disposed) return;
         }
 
         InternalDispose();
@@ -29,10 +28,10 @@ public class AbstractState : IDisposable
     {
         lock (HandlesLock)
         {
-            if (Handle.Handle == IntPtr.Zero) return;
-            AbstractStatePInvoke.Delete(Handle);
-            Handle = new HandleRef(null, IntPtr.Zero);
-            Disposed = true;
+            if (_handle.Handle == IntPtr.Zero) return;
+            AbstractStatePInvoke.Delete(_handle);
+            _handle = new HandleRef(null, IntPtr.Zero);
+            _disposed = true;
         }
     }
 
@@ -49,13 +48,13 @@ public class AbstractState : IDisposable
 
     public void SetMassFractions(DoubleVector massFractions)
     {
-        AbstractStatePInvoke.SetMassFractions(Handle, massFractions.Handle);
+        AbstractStatePInvoke.SetMassFractions(_handle, massFractions.Handle);
         SwigExceptions.ThrowPendingException();
     }
 
     public void SetVolumeFractions(DoubleVector volumeFractions)
     {
-        AbstractStatePInvoke.SetVolumeFractions(Handle, volumeFractions.Handle);
+        AbstractStatePInvoke.SetVolumeFractions(_handle, volumeFractions.Handle);
         SwigExceptions.ThrowPendingException();
     }
 
@@ -75,13 +74,13 @@ public class AbstractState : IDisposable
 
     public void Update(InputPairs inputPair, double firstInput, double secondInput)
     {
-        AbstractStatePInvoke.Update(Handle, (int) inputPair, firstInput, secondInput);
+        AbstractStatePInvoke.Update(_handle, (int) inputPair, firstInput, secondInput);
         SwigExceptions.ThrowPendingException();
     }
 
     public double KeyedOutput(Parameters key)
     {
-        var result = AbstractStatePInvoke.KeyedOutput(Handle, (int) key);
+        var result = AbstractStatePInvoke.KeyedOutput(_handle, (int) key);
         SwigExceptions.ThrowPendingException();
         return result;
     }

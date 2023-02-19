@@ -23,16 +23,16 @@ public record InputHumidAirExtended : InputHumidAir
 
 public class InputHumidAirExtendedTests
 {
-    public InputHumidAirExtendedTests() =>
-        Input = InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
+    private readonly InputHumidAirExtended _input;
 
-    private InputHumidAirExtended Input { get; }
+    public InputHumidAirExtendedTests() =>
+        _input = InputHumidAirExtended.WaterMoleFraction(5.PartsPerThousand());
 
     [Fact]
     public void CoolPropKey_NewInput_MatchesWithCoolProp() =>
-        Input.CoolPropKey.Should().Be("psi_w");
+        _input.CoolPropKey.Should().Be("psi_w");
 
     [Fact]
     public void Value_NewInput_ShouldBeInSIUnits() =>
-        Input.Value.Should().Be(5e-3);
+        _input.Value.Should().Be(5e-3);
 }

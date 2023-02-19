@@ -98,60 +98,60 @@ public class HumidAirExtendedTests
     private static readonly RelativeHumidity HighRelativeHumidity =
         RelativeHumidity.FromPercent(90);
 
+    private readonly HumidAirExtended _humidAir;
+
     public HumidAirExtendedTests() =>
-        HumidAir = new HumidAirExtended().WithState(
+        _humidAir = new HumidAirExtended().WithState(
             InputHumidAir.Pressure(1.Atmospheres()),
             InputHumidAir.Temperature(20.DegreesCelsius()),
             InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)));
 
-    private HumidAirExtended HumidAir { get; }
-
     [Fact]
     public void SpecificHeatConstVolume_HumidAirInStandardConditions_Returns722() =>
-        HumidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin
+        _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin
             .Should().Be(722.68718970632506);
 
     [Fact]
     public void Methods_New_ReturnsInstancesOfInheritedType()
     {
-        HumidAir.Clone()
+        _humidAir.Clone()
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.Factory()
+        _humidAir.Factory()
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.DryCoolingTo(HumidAir.Temperature - TemperatureDelta)
+        _humidAir.DryCoolingTo(_humidAir.Temperature - TemperatureDelta)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.DryCoolingTo(HumidAir.Enthalpy - EnthalpyDelta)
+        _humidAir.DryCoolingTo(_humidAir.Enthalpy - EnthalpyDelta)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.WetCoolingTo(HumidAir.Temperature - TemperatureDelta,
+        _humidAir.WetCoolingTo(_humidAir.Temperature - TemperatureDelta,
                 LowRelativeHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.WetCoolingTo(HumidAir.Temperature - TemperatureDelta,
+        _humidAir.WetCoolingTo(_humidAir.Temperature - TemperatureDelta,
                 LowHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.WetCoolingTo(HumidAir.Enthalpy - EnthalpyDelta,
+        _humidAir.WetCoolingTo(_humidAir.Enthalpy - EnthalpyDelta,
                 LowRelativeHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.WetCoolingTo(HumidAir.Enthalpy - EnthalpyDelta,
+        _humidAir.WetCoolingTo(_humidAir.Enthalpy - EnthalpyDelta,
                 LowHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HeatingTo(HumidAir.Temperature + TemperatureDelta)
+        _humidAir.HeatingTo(_humidAir.Temperature + TemperatureDelta)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HeatingTo(HumidAir.Enthalpy + EnthalpyDelta)
+        _humidAir.HeatingTo(_humidAir.Enthalpy + EnthalpyDelta)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HumidificationByWaterTo(HighRelativeHumidity)
+        _humidAir.HumidificationByWaterTo(HighRelativeHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HumidificationByWaterTo(HighHumidity)
+        _humidAir.HumidificationByWaterTo(HighHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HumidificationBySteamTo(HighRelativeHumidity)
+        _humidAir.HumidificationBySteamTo(HighRelativeHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.HumidificationBySteamTo(HighHumidity)
+        _humidAir.HumidificationBySteamTo(HighHumidity)
             .Should().BeOfType<HumidAirExtended>();
-        HumidAir.Mixing(
+        _humidAir.Mixing(
                 100.Percent(),
-                HumidAir.WetCoolingTo(HumidAir.Temperature - TemperatureDelta,
+                _humidAir.WetCoolingTo(_humidAir.Temperature - TemperatureDelta,
                     LowHumidity),
                 200.Percent(),
-                HumidAir.HumidificationBySteamTo(HighHumidity))
+                _humidAir.HumidificationBySteamTo(HighHumidity))
             .Should().BeOfType<HumidAirExtended>();
     }
 }

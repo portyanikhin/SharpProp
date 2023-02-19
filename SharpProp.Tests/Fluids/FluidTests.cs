@@ -5,14 +5,14 @@ namespace SharpProp.Tests;
 [Collection("Fluids")]
 public class FluidTests : IDisposable
 {
-    public FluidTests() =>
-        Fluid = new Fluid(FluidsList.Water);
+    private Fluid _fluid;
 
-    private Fluid Fluid { get; set; }
+    public FluidTests() =>
+        _fluid = new Fluid(FluidsList.Water);
 
     public void Dispose()
     {
-        Fluid.Dispose();
+        _fluid.Dispose();
         GC.SuppressFinalize(this);
     }
 
@@ -32,14 +32,14 @@ public class FluidTests : IDisposable
     {
         var tasks = new List<Task<Temperature>>();
         for (var i = 0; i < 100; i++)
-            tasks.Add(Task.Run(() => Fluid.DewPointAt(1.Atmospheres()).Temperature));
+            tasks.Add(Task.Run(() => _fluid.DewPointAt(1.Atmospheres()).Temperature));
         var result = await Task.WhenAll(tasks);
         result.Distinct().Count().Should().Be(1);
     }
 
     [Fact]
     public void WithState_WaterInStandardConditions_PhaseIsLiquid() =>
-        Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        _fluid.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()))
             .Phase.Should().Be(Phases.Liquid);
 
@@ -47,7 +47,7 @@ public class FluidTests : IDisposable
     public void Update_SameInputs_ThrowsArgumentException()
     {
         var action = () =>
-            Fluid.Update(Input.Pressure(1.Atmospheres()),
+            _fluid.Update(Input.Pressure(1.Atmospheres()),
                 Input.Pressure(101325.Pascals()));
         action.Should().Throw<ArgumentException>()
             .WithMessage("Need to define 2 unique inputs!");
@@ -56,10 +56,10 @@ public class FluidTests : IDisposable
     [Fact]
     public void Update_Always_InputsAreCached()
     {
-        Fluid.Update(Input.Pressure(101325.Pascals()),
+        _fluid.Update(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
-        Fluid.Pressure.Pascals.Should().Be(101325);
-        Fluid.Temperature.Kelvins.Should().Be(293.15);
+        _fluid.Pressure.Pascals.Should().Be(101325);
+        _fluid.Temperature.Kelvins.Should().Be(293.15);
     }
 
     [Theory]
@@ -69,30 +69,30 @@ public class FluidTests : IDisposable
         SetUpFluid(name);
         var actual = new List<double?>
         {
-            Fluid.Compressibility,
-            Fluid.Conductivity?.WattsPerMeterKelvin,
-            Fluid.CriticalPressure?.Pascals,
-            Fluid.CriticalTemperature?.Kelvins,
-            Fluid.Density.KilogramsPerCubicMeter,
-            Fluid.DynamicViscosity?.PascalSeconds,
-            Fluid.Enthalpy.JoulesPerKilogram,
-            Fluid.Entropy.JoulesPerKilogramKelvin,
-            Fluid.FreezingTemperature?.Kelvins,
-            Fluid.InternalEnergy.JoulesPerKilogram,
-            Fluid.MaxPressure?.Pascals,
-            Fluid.MaxTemperature.Kelvins,
-            Fluid.MinPressure?.Pascals,
-            Fluid.MinTemperature.Kelvins,
-            Fluid.MolarMass?.KilogramsPerMole,
-            Fluid.Prandtl,
-            Fluid.Pressure.Pascals,
-            Fluid.Quality?.DecimalFractions,
-            Fluid.SoundSpeed?.MetersPerSecond,
-            Fluid.SpecificHeat.JoulesPerKilogramKelvin,
-            Fluid.SurfaceTension?.NewtonsPerMeter,
-            Fluid.Temperature.Kelvins,
-            Fluid.TriplePressure?.Pascals,
-            Fluid.TripleTemperature?.Kelvins
+            _fluid.Compressibility,
+            _fluid.Conductivity?.WattsPerMeterKelvin,
+            _fluid.CriticalPressure?.Pascals,
+            _fluid.CriticalTemperature?.Kelvins,
+            _fluid.Density.KilogramsPerCubicMeter,
+            _fluid.DynamicViscosity?.PascalSeconds,
+            _fluid.Enthalpy.JoulesPerKilogram,
+            _fluid.Entropy.JoulesPerKilogramKelvin,
+            _fluid.FreezingTemperature?.Kelvins,
+            _fluid.InternalEnergy.JoulesPerKilogram,
+            _fluid.MaxPressure?.Pascals,
+            _fluid.MaxTemperature.Kelvins,
+            _fluid.MinPressure?.Pascals,
+            _fluid.MinTemperature.Kelvins,
+            _fluid.MolarMass?.KilogramsPerMole,
+            _fluid.Prandtl,
+            _fluid.Pressure.Pascals,
+            _fluid.Quality?.DecimalFractions,
+            _fluid.SoundSpeed?.MetersPerSecond,
+            _fluid.SpecificHeat.JoulesPerKilogramKelvin,
+            _fluid.SurfaceTension?.NewtonsPerMeter,
+            _fluid.Temperature.Kelvins,
+            _fluid.TriplePressure?.Pascals,
+            _fluid.TripleTemperature?.Kelvins
         };
         var expected = new List<string>
         {
@@ -101,15 +101,15 @@ public class FluidTests : IDisposable
         }.Select(CoolPropInterface).ToList();
         for (var i = 0; i < actual.Count; i++)
             actual[i].Should().BeApproximately(expected[i], 1e-9);
-        Fluid.KinematicViscosity?.Equals(
-                (Fluid.DynamicViscosity / Fluid.Density)!.Value, 1e-9, ComparisonType.Relative)
+        _fluid.KinematicViscosity?.Equals(
+                (_fluid.DynamicViscosity / _fluid.Density)!.Value, 1e-9, ComparisonType.Relative)
             .Should().BeTrue();
     }
 
     [Fact]
     public void Clone_Always_ReturnsNewInstanceWithSameState()
     {
-        IClonable<Fluid> origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        IClonable<Fluid> origin = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         var clone = origin.Clone();
         clone.Should().Be(origin);
@@ -121,9 +121,9 @@ public class FluidTests : IDisposable
     [Fact]
     public void Equals_Same_ReturnsTrue()
     {
-        var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var same = Fluid.WithState(Input.Pressure(101325.Pascals()),
+        var same = _fluid.WithState(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
         origin.Should().Be(origin);
         origin.Should().BeSameAs(origin);
@@ -135,9 +135,9 @@ public class FluidTests : IDisposable
     [Fact]
     public void Equals_Other_ReturnsFalse()
     {
-        var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var other = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var other = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(30.DegreesCelsius()));
         origin.Should().NotBe(other);
         origin.Should().NotBeNull();
@@ -148,9 +148,9 @@ public class FluidTests : IDisposable
     [Fact]
     public void GetHashCode_Same_ReturnsSameHashCode()
     {
-        var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var same = Fluid.WithState(Input.Pressure(101325.Pascals()),
+        var same = _fluid.WithState(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
         origin.GetHashCode().Should().Be(same.GetHashCode());
     }
@@ -158,9 +158,9 @@ public class FluidTests : IDisposable
     [Fact]
     public void GetHashCode_Other_ReturnsOtherHashCode()
     {
-        var origin = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var other = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        var other = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(30.DegreesCelsius()));
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
@@ -168,21 +168,21 @@ public class FluidTests : IDisposable
     [Fact]
     public void Factory_Always_NameIsConstant()
     {
-        IFactory<Fluid> fluid = Fluid;
-        fluid.Factory().Name.Should().Be(Fluid.Name);
+        IFactory<Fluid> fluid = _fluid;
+        fluid.Factory().Name.Should().Be(_fluid.Name);
     }
 
     [Fact]
     public void Factory_Always_FractionIsConstant()
     {
-        IFactory<Fluid> fluid = Fluid;
-        fluid.Factory().Fraction.Should().Be(Fluid.Fraction);
+        IFactory<Fluid> fluid = _fluid;
+        fluid.Factory().Fraction.Should().Be(_fluid.Fraction);
     }
 
     [Fact]
     public void Factory_Always_PhaseIsUnknown()
     {
-        IFactory<Fluid> fluid = Fluid;
+        IFactory<Fluid> fluid = _fluid;
         fluid.Factory().Phase.Should().Be(Phases.Unknown);
     }
 
@@ -191,7 +191,7 @@ public class FluidTests : IDisposable
     [InlineData(false)]
     public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
     {
-        IJsonable fluid = Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        IJsonable fluid = _fluid.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         fluid.AsJson(indented).Should().Be(
             JsonConvert.SerializeObject(fluid, new JsonSerializerSettings
@@ -213,9 +213,9 @@ public class FluidTests : IDisposable
             ? null as Ratio?
             : Math.Round(0.5 * (name.FractionMin() + name.FractionMax()).Percent)
                 .Percent();
-        Fluid = new Fluid(name, fraction);
-        Fluid.Update(Input.Pressure(Fluid.MaxPressure ?? 10.Megapascals()),
-            Input.Temperature(Fluid.MaxTemperature));
+        _fluid = new Fluid(name, fraction);
+        _fluid.Update(Input.Pressure(_fluid.MaxPressure ?? 10.Megapascals()),
+            Input.Temperature(_fluid.MaxTemperature));
     }
 
     private double? CoolPropInterface(string outputKey)
@@ -223,16 +223,16 @@ public class FluidTests : IDisposable
         switch (outputKey)
         {
             case "P":
-                return Fluid.Pressure.Pascals;
+                return _fluid.Pressure.Pascals;
             case "T":
-                return Fluid.Temperature.Kelvins;
+                return _fluid.Temperature.Kelvins;
             default:
                 try
                 {
                     var value = CoolProp.PropsSI(outputKey,
-                        "P", Fluid.Pressure.Pascals, "T", Fluid.Temperature.Kelvins,
-                        $"{Fluid.Name.CoolPropBackend()}::{Fluid.Name.CoolPropName()}"
-                        + (Fluid.Name.Pure() ? string.Empty : $"-{Fluid.Fraction.Percent}%"));
+                        "P", _fluid.Pressure.Pascals, "T", _fluid.Temperature.Kelvins,
+                        $"{_fluid.Name.CoolPropBackend()}::{_fluid.Name.CoolPropName()}"
+                        + (_fluid.Name.Pure() ? string.Empty : $"-{_fluid.Fraction.Percent}%"));
                     return CheckedValue(value, outputKey);
                 }
                 catch (ApplicationException)

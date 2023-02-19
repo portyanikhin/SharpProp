@@ -5,16 +5,16 @@ namespace SharpProp.Tests;
 [Collection("Fluids")]
 public class MixtureTests : IDisposable
 {
+    private readonly Mixture _mixture;
+
     public MixtureTests() =>
-        Mixture = new Mixture(
+        _mixture = new Mixture(
             new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
             new List<Ratio> {60.Percent(), 40.Percent()});
 
-    private Mixture Mixture { get; }
-
     public void Dispose()
     {
-        Mixture.Dispose();
+        _mixture.Dispose();
         GC.SuppressFinalize(this);
     }
 
@@ -29,7 +29,7 @@ public class MixtureTests : IDisposable
 
     [Fact]
     public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
-        Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        _mixture.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius()))
             .Phase.Should().Be(Phases.Liquid);
 
@@ -37,7 +37,7 @@ public class MixtureTests : IDisposable
     public void Update_SameInputs_ThrowsArgumentException()
     {
         var action = () =>
-            Mixture.Update(Input.Pressure(1.Atmospheres()),
+            _mixture.Update(Input.Pressure(1.Atmospheres()),
                 Input.Pressure(101325.Pascals()));
         action.Should().Throw<ArgumentException>()
             .WithMessage("Need to define 2 unique inputs!");
@@ -46,16 +46,16 @@ public class MixtureTests : IDisposable
     [Fact]
     public void Update_Always_InputsAreCached()
     {
-        Mixture.Update(Input.Pressure(101325.Pascals()),
+        _mixture.Update(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
-        Mixture.Pressure.Pascals.Should().Be(101325);
-        Mixture.Temperature.Kelvins.Should().Be(293.15);
+        _mixture.Pressure.Pascals.Should().Be(101325);
+        _mixture.Temperature.Kelvins.Should().Be(293.15);
     }
 
     [Fact]
     public void Clone_Always_ReturnsNewInstanceWithSameState()
     {
-        IClonable<Mixture> origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        IClonable<Mixture> origin = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         var clone = origin.Clone();
         clone.Should().Be(origin);
@@ -67,9 +67,9 @@ public class MixtureTests : IDisposable
     [Fact]
     public void Equals_Same_ReturnsTrue()
     {
-        var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var same = Mixture.WithState(Input.Pressure(101325.Pascals()),
+        var same = _mixture.WithState(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
         origin.Should().Be(origin);
         origin.Should().BeSameAs(origin);
@@ -81,9 +81,9 @@ public class MixtureTests : IDisposable
     [Fact]
     public void Equals_Other_ReturnsFalse()
     {
-        var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var other = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var other = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(30.DegreesCelsius()));
         origin.Should().NotBe(other);
         origin.Should().NotBeNull();
@@ -94,9 +94,9 @@ public class MixtureTests : IDisposable
     [Fact]
     public void GetHashCode_Same_ReturnsSameHashCode()
     {
-        var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var same = Mixture.WithState(Input.Pressure(101325.Pascals()),
+        var same = _mixture.WithState(Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins()));
         origin.GetHashCode().Should().Be(same.GetHashCode());
     }
@@ -104,9 +104,9 @@ public class MixtureTests : IDisposable
     [Fact]
     public void GetHashCode_Other_ReturnsOtherHashCode()
     {
-        var origin = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var origin = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
-        var other = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        var other = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(30.DegreesCelsius()));
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
@@ -114,21 +114,21 @@ public class MixtureTests : IDisposable
     [Fact]
     public void Factory_Always_FluidsAreConstant()
     {
-        IFactory<Mixture> mixture = Mixture;
-        mixture.Factory().Fluids.Should().BeEquivalentTo(Mixture.Fluids);
+        IFactory<Mixture> mixture = _mixture;
+        mixture.Factory().Fluids.Should().BeEquivalentTo(_mixture.Fluids);
     }
 
     [Fact]
     public void Factory_Always_FractionsAreConstant()
     {
-        IFactory<Mixture> mixture = Mixture;
-        mixture.Factory().Fractions.Should().BeEquivalentTo(Mixture.Fractions);
+        IFactory<Mixture> mixture = _mixture;
+        mixture.Factory().Fractions.Should().BeEquivalentTo(_mixture.Fractions);
     }
 
     [Fact]
     public void Factory_Always_PhaseIsUnknown()
     {
-        IFactory<Mixture> mixture = Mixture;
+        IFactory<Mixture> mixture = _mixture;
         mixture.Factory().Phase.Should().Be(Phases.Unknown);
     }
 
@@ -137,7 +137,7 @@ public class MixtureTests : IDisposable
     [InlineData(false)]
     public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
     {
-        IJsonable fluid = Mixture.WithState(Input.Pressure(1.Atmospheres()),
+        IJsonable fluid = _mixture.WithState(Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius()));
         fluid.AsJson(indented).Should().Be(
             JsonConvert.SerializeObject(fluid, new JsonSerializerSettings

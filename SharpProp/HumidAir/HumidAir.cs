@@ -5,9 +5,9 @@
 /// </summary>
 public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFactory<HumidAir>, IJsonable
 {
-    private List<IKeyedInput<string>> Inputs { get; set; } = new(3);
+    private List<IKeyedInput<string>> _inputs = new(3);
 
-    public HumidAir Clone() => WithState(Inputs[0], Inputs[1], Inputs[2]);
+    public HumidAir Clone() => WithState(_inputs[0], _inputs[1], _inputs[2]);
 
     public bool Equals(HumidAir? other)
     {
@@ -24,8 +24,8 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-        (string.Join("&", Inputs.Select(input => input.Value)),
-            string.Join("&", Inputs.Select(input => input.CoolPropKey)))
+        (string.Join("&", _inputs.Select(input => input.Value)),
+            string.Join("&", _inputs.Select(input => input.CoolPropKey)))
         .GetHashCode();
 
     public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);
@@ -59,13 +59,13 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
         IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
     {
         Reset();
-        Inputs = new List<IKeyedInput<string>> {firstInput, secondInput, thirdInput};
+        _inputs = new List<IKeyedInput<string>> {firstInput, secondInput, thirdInput};
         CheckInputs();
     }
 
     protected virtual void Reset()
     {
-        Inputs.Clear();
+        _inputs.Clear();
         _compressibility = null;
         _conductivity = null;
         _density = null;
@@ -87,17 +87,17 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
     protected double KeyedOutput(string key)
     {
         CheckInputs();
-        var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
-        var result = input ?? CoolProp.HAPropsSI(key, Inputs[0].CoolPropKey, Inputs[0].Value,
-            Inputs[1].CoolPropKey, Inputs[1].Value, Inputs[2].CoolPropKey, Inputs[2].Value);
+        var input = _inputs.Find(input => input.CoolPropKey == key)?.Value;
+        var result = input ?? CoolProp.HAPropsSI(key, _inputs[0].CoolPropKey, _inputs[0].Value,
+            _inputs[1].CoolPropKey, _inputs[1].Value, _inputs[2].CoolPropKey, _inputs[2].Value);
         new OutputsValidator(result).Validate();
         return result;
     }
 
     private void CheckInputs()
     {
-        var uniqueKeys = Inputs.Select(input => input.CoolPropKey).Distinct().ToList();
-        if (Inputs.Count != 3 || uniqueKeys.Count != 3)
+        var uniqueKeys = _inputs.Select(input => input.CoolPropKey).Distinct().ToList();
+        if (_inputs.Count != 3 || uniqueKeys.Count != 3)
             throw new ArgumentException("Need to define 3 unique inputs!");
     }
 }

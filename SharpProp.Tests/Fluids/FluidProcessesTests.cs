@@ -9,19 +9,19 @@ public class FluidProcessesTests : IDisposable
     private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
     private static readonly SpecificEnergy EnthalpyDelta = 50.KilojoulesPerKilogram();
     private static readonly Pressure PressureDrop = 50.Kilopascals();
+    private readonly Fluid _fluid;
 
     public FluidProcessesTests() =>
-        Fluid = new Fluid(FluidsList.Water)
+        _fluid = new Fluid(FluidsList.Water)
             .WithState(Input.Pressure(1.Atmospheres()),
                 Input.Temperature(150.DegreesCelsius()));
 
-    private Fluid Fluid { get; }
-    private Pressure HighPressure => 2 * Fluid.Pressure;
-    private Pressure LowPressure => 0.5 * Fluid.Pressure;
+    private Pressure HighPressure => 2 * _fluid.Pressure;
+    private Pressure LowPressure => 0.5 * _fluid.Pressure;
 
     public void Dispose()
     {
-        Fluid.Dispose();
+        _fluid.Dispose();
         GC.SuppressFinalize(this);
     }
 
@@ -29,16 +29,16 @@ public class FluidProcessesTests : IDisposable
     public void IsentropicCompressionTo_WrongPressure_ThrowsArgumentException()
     {
         Action action = () =>
-            _ = Fluid.IsentropicCompressionTo(LowPressure);
+            _ = _fluid.IsentropicCompressionTo(LowPressure);
         action.Should().Throw<ArgumentException>().WithMessage(
             "Compressor outlet pressure should be higher than inlet pressure!");
     }
 
     [Fact]
     public void IsentropicCompressionTo_HighPressure_ReturnsFluidAtHighPressureAndSameEntropy() =>
-        Fluid.IsentropicCompressionTo(HighPressure).Should().Be(
-            Fluid.WithState(Input.Pressure(HighPressure),
-                Input.Entropy(Fluid.Entropy)));
+        _fluid.IsentropicCompressionTo(HighPressure).Should().Be(
+            _fluid.WithState(Input.Pressure(HighPressure),
+                Input.Entropy(_fluid.Entropy)));
 
     [Theory]
     [InlineData(0.5, 80, "Compressor outlet pressure should be higher than inlet pressure!")]
@@ -48,47 +48,47 @@ public class FluidProcessesTests : IDisposable
         double pressureRatio, double isentropicEfficiency, string message)
     {
         Action action = () =>
-            _ = Fluid.CompressionTo(pressureRatio * Fluid.Pressure,
+            _ = _fluid.CompressionTo(pressureRatio * _fluid.Pressure,
                 isentropicEfficiency.Percent());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void CompressionTo_HighPressureWithIsentropicEfficiency_ReturnsFluidAtHighPressureAndHigherEntropy() =>
-        Fluid.CompressionTo(HighPressure, IsentropicEfficiency).Should().Be(
-            Fluid.WithState(Input.Pressure(HighPressure),
-                Input.Enthalpy(Fluid.Enthalpy + (Fluid.IsentropicCompressionTo(
-                    HighPressure).Enthalpy - Fluid.Enthalpy) / IsentropicEfficiency.DecimalFractions)));
+        _fluid.CompressionTo(HighPressure, IsentropicEfficiency).Should().Be(
+            _fluid.WithState(Input.Pressure(HighPressure),
+                Input.Enthalpy(_fluid.Enthalpy + (_fluid.IsentropicCompressionTo(
+                    HighPressure).Enthalpy - _fluid.Enthalpy) / IsentropicEfficiency.DecimalFractions)));
 
     [Fact]
     public void IsenthalpicExpansionTo_WrongPressure_ThrowsArgumentException()
     {
         Action action = () =>
-            _ = Fluid.IsenthalpicExpansionTo(HighPressure);
+            _ = _fluid.IsenthalpicExpansionTo(HighPressure);
         action.Should().Throw<ArgumentException>().WithMessage(
             "Expansion valve outlet pressure should be lower than inlet pressure!");
     }
 
     [Fact]
     public void IsenthalpicExpansionTo_LowPressure_ReturnsFluidAtLowPressureAndSameEnthalpy() =>
-        Fluid.IsenthalpicExpansionTo(LowPressure).Should().Be(
-            Fluid.WithState(Input.Pressure(LowPressure),
-                Input.Enthalpy(Fluid.Enthalpy)));
+        _fluid.IsenthalpicExpansionTo(LowPressure).Should().Be(
+            _fluid.WithState(Input.Pressure(LowPressure),
+                Input.Enthalpy(_fluid.Enthalpy)));
 
     [Fact]
     public void IsentropicExpansionTo_WrongPressure_ThrowsArgumentException()
     {
         Action action = () =>
-            _ = Fluid.IsentropicExpansionTo(HighPressure);
+            _ = _fluid.IsentropicExpansionTo(HighPressure);
         action.Should().Throw<ArgumentException>().WithMessage(
             "Expander outlet pressure should be lower than inlet pressure!");
     }
 
     [Fact]
     public void IsentropicExpansionTo_LowPressure_ReturnsFluidAtLowPressureAndSameEntropy() =>
-        Fluid.IsentropicExpansionTo(LowPressure).Should().Be(
-            Fluid.WithState(Input.Pressure(LowPressure),
-                Input.Entropy(Fluid.Entropy)));
+        _fluid.IsentropicExpansionTo(LowPressure).Should().Be(
+            _fluid.WithState(Input.Pressure(LowPressure),
+                Input.Entropy(_fluid.Entropy)));
 
     [Theory]
     [InlineData(2, 80, "Expander outlet pressure should be lower than inlet pressure!")]
@@ -98,16 +98,16 @@ public class FluidProcessesTests : IDisposable
         double pressureRatio, double isentropicEfficiency, string message)
     {
         Action action = () =>
-            _ = Fluid.ExpansionTo(pressureRatio * Fluid.Pressure,
+            _ = _fluid.ExpansionTo(pressureRatio * _fluid.Pressure,
                 isentropicEfficiency.Percent());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void ExpansionTo_LowPressureWithIsentropicEfficiency_ReturnsFluidAtLowPressureAndHigherEntropy() =>
-        Fluid.ExpansionTo(LowPressure, IsentropicEfficiency).Should().Be(
-            Fluid.WithState(Input.Pressure(LowPressure),
-                Input.Enthalpy(Fluid.Enthalpy - (Fluid.Enthalpy - Fluid.IsentropicExpansionTo(
+        _fluid.ExpansionTo(LowPressure, IsentropicEfficiency).Should().Be(
+            _fluid.WithState(Input.Pressure(LowPressure),
+                Input.Enthalpy(_fluid.Enthalpy - (_fluid.Enthalpy - _fluid.IsentropicExpansionTo(
                     LowPressure).Enthalpy) * IsentropicEfficiency.DecimalFractions)));
 
     [Theory]
@@ -117,17 +117,17 @@ public class FluidProcessesTests : IDisposable
         double temperatureDelta, double pressureDrop, string message)
     {
         Action action = () =>
-            _ = Fluid.CoolingTo(
-                Fluid.Temperature + TemperatureDelta.FromKelvins(temperatureDelta),
+            _ = _fluid.CoolingTo(
+                _fluid.Temperature + TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void CoolingTo_TemperatureWithPressureDrop_ReturnsFluidAtTemperatureAndLowerPressure() =>
-        Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta, PressureDrop)
-            .Should().Be(Fluid.WithState(Input.Pressure(Fluid.Pressure - PressureDrop),
-                Input.Temperature(Fluid.Temperature - TemperatureDelta)));
+        _fluid.CoolingTo(_fluid.Temperature - TemperatureDelta, PressureDrop)
+            .Should().Be(_fluid.WithState(Input.Pressure(_fluid.Pressure - PressureDrop),
+                Input.Temperature(_fluid.Temperature - TemperatureDelta)));
 
     [Theory]
     [InlineData(5, 0, "During the cooling process, the enthalpy should decrease!")]
@@ -136,17 +136,17 @@ public class FluidProcessesTests : IDisposable
         double enthalpyDelta, double pressureDrop, string message)
     {
         Action action = () =>
-            _ = Fluid.CoolingTo(
-                Fluid.Enthalpy + enthalpyDelta.KilojoulesPerKilogram(),
+            _ = _fluid.CoolingTo(
+                _fluid.Enthalpy + enthalpyDelta.KilojoulesPerKilogram(),
                 pressureDrop.Kilopascals());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void CoolingTo_EnthalpyWithPressureDrop_ReturnsFluidAtEnthalpyAndLowerPressure() =>
-        Fluid.CoolingTo(Fluid.Enthalpy - EnthalpyDelta, PressureDrop)
-            .Should().Be(Fluid.WithState(Input.Pressure(Fluid.Pressure - PressureDrop),
-                Input.Enthalpy(Fluid.Enthalpy - EnthalpyDelta)));
+        _fluid.CoolingTo(_fluid.Enthalpy - EnthalpyDelta, PressureDrop)
+            .Should().Be(_fluid.WithState(Input.Pressure(_fluid.Pressure - PressureDrop),
+                Input.Enthalpy(_fluid.Enthalpy - EnthalpyDelta)));
 
     [Theory]
     [InlineData(5, 0, "During the heating process, the temperature should increase!")]
@@ -155,17 +155,17 @@ public class FluidProcessesTests : IDisposable
         double temperatureDelta, double pressureDrop, string message)
     {
         Action action = () =>
-            _ = Fluid.HeatingTo(
-                Fluid.Temperature - TemperatureDelta.FromKelvins(temperatureDelta),
+            _ = _fluid.HeatingTo(
+                _fluid.Temperature - TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void HeatingTo_TemperatureWithPressureDrop_ReturnsFluidAtTemperatureAndLowerPressure() =>
-        Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta, PressureDrop)
-            .Should().Be(Fluid.WithState(Input.Pressure(Fluid.Pressure - PressureDrop),
-                Input.Temperature(Fluid.Temperature + TemperatureDelta)));
+        _fluid.HeatingTo(_fluid.Temperature + TemperatureDelta, PressureDrop)
+            .Should().Be(_fluid.WithState(Input.Pressure(_fluid.Pressure - PressureDrop),
+                Input.Temperature(_fluid.Temperature + TemperatureDelta)));
 
     [Theory]
     [InlineData(5, 0, "During the heating process, the enthalpy should increase!")]
@@ -174,55 +174,55 @@ public class FluidProcessesTests : IDisposable
         double enthalpyDelta, double pressureDrop, string message)
     {
         Action action = () =>
-            _ = Fluid.HeatingTo(
-                Fluid.Enthalpy - enthalpyDelta.KilojoulesPerKilogram(),
+            _ = _fluid.HeatingTo(
+                _fluid.Enthalpy - enthalpyDelta.KilojoulesPerKilogram(),
                 pressureDrop.Kilopascals());
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
     }
 
     [Fact]
     public void HeatingTo_EnthalpyWithPressureDrop_ReturnsFluidAtEnthalpyAndLowerPressure() =>
-        Fluid.HeatingTo(Fluid.Enthalpy + EnthalpyDelta, PressureDrop)
-            .Should().Be(Fluid.WithState(Input.Pressure(Fluid.Pressure - PressureDrop),
-                Input.Enthalpy(Fluid.Enthalpy + EnthalpyDelta)));
+        _fluid.HeatingTo(_fluid.Enthalpy + EnthalpyDelta, PressureDrop)
+            .Should().Be(_fluid.WithState(Input.Pressure(_fluid.Pressure - PressureDrop),
+                Input.Enthalpy(_fluid.Enthalpy + EnthalpyDelta)));
 
     [Fact]
     public void BubblePointAt_Pressure_ReturnsSaturatedLiquidAtPressure() =>
-        Fluid.BubblePointAt(1.Atmospheres()).Should().Be(
-            Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        _fluid.BubblePointAt(1.Atmospheres()).Should().Be(
+            _fluid.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Quality(0.Percent())));
 
     [Fact]
     public void BubblePointAt_Temperature_ReturnsSaturatedLiquidAtTemperature() =>
-        Fluid.BubblePointAt(100.DegreesCelsius()).Should().Be(
-            Fluid.WithState(Input.Temperature(100.DegreesCelsius()),
+        _fluid.BubblePointAt(100.DegreesCelsius()).Should().Be(
+            _fluid.WithState(Input.Temperature(100.DegreesCelsius()),
                 Input.Quality(0.Percent())));
 
     [Fact]
     public void DewPointAt_Pressure_ReturnsSaturatedVaporAtPressure() =>
-        Fluid.DewPointAt(1.Atmospheres()).Should().Be(
-            Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        _fluid.DewPointAt(1.Atmospheres()).Should().Be(
+            _fluid.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Quality(100.Percent())));
 
     [Fact]
     public void DewPointAt_Temperature_ReturnsSaturatedVaporAtTemperature() =>
-        Fluid.DewPointAt(100.DegreesCelsius()).Should().Be(
-            Fluid.WithState(Input.Temperature(100.DegreesCelsius()),
+        _fluid.DewPointAt(100.DegreesCelsius()).Should().Be(
+            _fluid.WithState(Input.Temperature(100.DegreesCelsius()),
                 Input.Quality(100.Percent())));
 
     [Fact]
     public void TwoPhasePointAt_PressureAndQuality_ReturnsFluidAtPressureAndQuality() =>
-        Fluid.TwoPhasePointAt(1.Atmospheres(), 50.Percent()).Should().Be(
-            Fluid.WithState(Input.Pressure(1.Atmospheres()),
+        _fluid.TwoPhasePointAt(1.Atmospheres(), 50.Percent()).Should().Be(
+            _fluid.WithState(Input.Pressure(1.Atmospheres()),
                 Input.Quality(50.Percent())));
 
     [Fact]
     public void Mixing_WrongFluids_ThrowsArgumentException()
     {
         var first = new Fluid(FluidsList.Ammonia).DewPointAt(1.Atmospheres());
-        var second = Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta);
+        var second = _fluid.HeatingTo(_fluid.Temperature + TemperatureDelta);
         Action action = () =>
-            _ = Fluid.Mixing(100.Percent(), first, 200.Percent(), second);
+            _ = _fluid.Mixing(100.Percent(), first, 200.Percent(), second);
         action.Should().Throw<ArgumentException>().WithMessage(
             "The mixing process is possible only for the same fluids!");
     }
@@ -230,10 +230,10 @@ public class FluidProcessesTests : IDisposable
     [Fact]
     public void Mixing_WrongPressures_ThrowsArgumentException()
     {
-        var first = Fluid.Clone();
-        var second = Fluid.IsentropicCompressionTo(HighPressure);
+        var first = _fluid.Clone();
+        var second = _fluid.IsentropicCompressionTo(HighPressure);
         Action action = () =>
-            _ = Fluid.Mixing(100.Percent(), first, 200.Percent(), second);
+            _ = _fluid.Mixing(100.Percent(), first, 200.Percent(), second);
         action.Should().Throw<ArgumentException>().WithMessage(
             "The mixing process is possible only for flows with the same pressure!");
     }
@@ -241,10 +241,10 @@ public class FluidProcessesTests : IDisposable
     [Fact]
     public void Mixing_SamePressures_ReturnsMixPoint()
     {
-        var first = Fluid.CoolingTo(Fluid.Temperature - TemperatureDelta);
-        var second = Fluid.HeatingTo(Fluid.Temperature + TemperatureDelta);
-        Fluid.Mixing(100.Percent(), first, 200.Percent(), second).Should().Be(
-            Fluid.WithState(Input.Pressure(Fluid.Pressure),
+        var first = _fluid.CoolingTo(_fluid.Temperature - TemperatureDelta);
+        var second = _fluid.HeatingTo(_fluid.Temperature + TemperatureDelta);
+        _fluid.Mixing(100.Percent(), first, 200.Percent(), second).Should().Be(
+            _fluid.WithState(Input.Pressure(_fluid.Pressure),
                 Input.Enthalpy((1 * first.Enthalpy + 2 * second.Enthalpy) / 3.0)));
     }
 }

@@ -21,16 +21,16 @@ public record InputExtended : Input
 
 public class InputExtendedTests
 {
-    public InputExtendedTests() =>
-        Input = InputExtended.MolarDensity(9e5.GramsPerMole());
+    private readonly InputExtended _input;
 
-    private InputExtended Input { get; }
+    public InputExtendedTests() =>
+        _input = InputExtended.MolarDensity(9e5.GramsPerMole());
 
     [Fact]
     public void CoolPropKey_NewInput_MatchesWithCoolProp() =>
-        Input.CoolPropKey.Should().Be(Parameters.iDmolar);
+        _input.CoolPropKey.Should().Be(Parameters.iDmolar);
 
     [Fact]
     public void Value_NewInput_ShouldBeInSIUnits() =>
-        Input.Value.Should().Be(900);
+        _input.Value.Should().Be(900);
 }

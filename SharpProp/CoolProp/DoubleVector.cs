@@ -5,6 +5,7 @@ namespace SharpProp;
 public class DoubleVector : IList<double>, IDisposable
 {
     private static readonly object CollectionLock = new();
+    private bool _disposed;
 
     private DoubleVector(IntPtr pointer) =>
         Handle = new HandleRef(this, pointer);
@@ -15,13 +16,12 @@ public class DoubleVector : IList<double>, IDisposable
     }
 
     internal HandleRef Handle { get; private set; }
-    private bool Disposed { get; set; }
 
     public void Dispose()
     {
         lock (CollectionLock)
         {
-            if (Disposed) return;
+            if (_disposed) return;
         }
 
         InternalDispose();
@@ -84,7 +84,7 @@ public class DoubleVector : IList<double>, IDisposable
             if (Handle.Handle == IntPtr.Zero) return;
             DoubleVectorPInvoke.Delete(Handle);
             Handle = new HandleRef(null, IntPtr.Zero);
-            Disposed = true;
+            _disposed = true;
         }
     }
 

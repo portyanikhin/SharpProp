@@ -47,6 +47,8 @@ public class FluidExtended : Fluid
 
     protected override AbstractFluid CreateInstance() => new FluidExtended(Name, Fraction);
 
+    public new FluidExtended Clone() => (FluidExtended) base.Clone();
+
     public new FluidExtended Factory() => (FluidExtended) base.Factory();
 
     public new FluidExtended WithState(IKeyedInput<Parameters> firstInput,
@@ -145,6 +147,8 @@ public class FluidExtendedTests : IDisposable
     [Fact]
     public void Methods_New_ReturnsInstancesOfInheritedType()
     {
+        Fluid.Clone()
+            .Should().BeOfType<FluidExtended>();
         Fluid.Factory()
             .Should().BeOfType<FluidExtended>();
         Fluid.IsentropicCompressionTo(HighPressure)

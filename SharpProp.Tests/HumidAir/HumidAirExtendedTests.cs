@@ -24,6 +24,8 @@ public class HumidAirExtended : HumidAir
 
     protected override HumidAir CreateInstance() => new HumidAirExtended();
 
+    public new HumidAirExtended Clone() => (HumidAirExtended) base.Clone();
+
     public new HumidAirExtended Factory() => (HumidAirExtended) base.Factory();
 
     public new HumidAirExtended WithState(IKeyedInput<string> fistInput,
@@ -112,6 +114,8 @@ public class HumidAirExtendedTests
     [Fact]
     public void Methods_New_ReturnsInstancesOfInheritedType()
     {
+        HumidAir.Clone()
+            .Should().BeOfType<HumidAirExtended>();
         HumidAir.Factory()
             .Should().BeOfType<HumidAirExtended>();
         HumidAir.DryCoolingTo(HumidAir.Temperature - TemperatureDelta)

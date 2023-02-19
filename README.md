@@ -394,7 +394,7 @@ As a result:
 ### Deep cloning
 
 The `Fluid`, `Mixture` and `HumidAir` classes have the `Clone` method,
-which performs a deep (full) copy of the instance.
+which performs a deep (full) copy of the instance:
 
 ```c#
 using SharpProp;

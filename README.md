@@ -274,8 +274,8 @@ Console.WriteLine(
 
 ### Converting to a JSON string
 
-The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `AsJson`,
-which performs converting of instance to a JSON string.
+The `Fluid`, `Mixture` and `HumidAir` classes have the `AsJson` method,
+which converts the instance to a JSON string.
 For example, converting a `Fluid` instance to an _indented_ JSON string:
 
 ```c#
@@ -393,8 +393,8 @@ As a result:
 
 ### Deep cloning
 
-The `Fluid`, `Mixture` and `HumidAir` classes have an extension method `Clone`, 
-which performs deep (full) copy of instance:
+The `Fluid`, `Mixture` and `HumidAir` classes have the `Clone` method,
+which performs a deep (full) copy of the instance.
 
 ```c#
 using SharpProp;

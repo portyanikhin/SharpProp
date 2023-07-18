@@ -6,13 +6,17 @@ public static class InputTests
 {
     [Theory]
     [MemberData(nameof(CoolPropKeys))]
-    public static void CoolPropKey_AllInputs_MatchesWithCoolProp(Input input, Parameters coolPropKey) =>
-        input.CoolPropKey.Should().Be(coolPropKey);
+    public static void CoolPropKey_AllInputs_MatchesWithCoolProp(
+        Input input,
+        Parameters coolPropKey
+    ) => input.CoolPropKey.Should().Be(coolPropKey);
 
     [Theory]
     [MemberData(nameof(Values))]
-    public static void Value_AllInputs_ShouldBeInSIUnits(Input input, double value) =>
-        input.Value.Should().Be(value);
+    public static void Value_AllInputs_ShouldBeInSIUnits(
+        Input input,
+        double value
+    ) => input.Value.Should().Be(value);
 
     [Fact]
     public static void Equals_Same_ReturnsTrue() =>

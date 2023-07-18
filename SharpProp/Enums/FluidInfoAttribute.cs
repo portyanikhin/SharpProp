@@ -15,10 +15,22 @@ public sealed class FluidInfoAttribute : Attribute
     /// <param name="mixType">Mass-based or volume-based mixture.</param>
     /// <param name="fractionMin">Minimum possible fraction.</param>
     /// <param name="fractionMax">Maximum possible fraction.</param>
-    public FluidInfoAttribute(string name, string backend = "HEOS", bool pure = true,
-        Mix mixType = Mix.Mass, double fractionMin = 0, double fractionMax = 1) =>
-        (Name, Backend, Pure, MixType, FractionMin, FractionMax) =
-        (name, backend, pure, mixType, fractionMin, fractionMax);
+    public FluidInfoAttribute(
+        string name,
+        string backend = "HEOS",
+        bool pure = true,
+        Mix mixType = Mix.Mass,
+        double fractionMin = 0,
+        double fractionMax = 1
+    )
+    {
+        Name = name;
+        Backend = backend;
+        Pure = pure;
+        MixType = mixType;
+        FractionMin = fractionMin;
+        FractionMax = fractionMax;
+    }
 
     /// <summary>
     ///     CoolProp internal name.

@@ -10,9 +10,11 @@ public class DoubleVector : IList<double>, IDisposable
     private DoubleVector(IntPtr pointer) =>
         Handle = new HandleRef(this, pointer);
 
-    public DoubleVector(IEnumerable<double> collection) : this(DoubleVectorPInvoke.Create())
+    public DoubleVector(IEnumerable<double> collection) :
+        this(DoubleVectorPInvoke.Create())
     {
-        foreach (var item in collection) Add(item);
+        foreach (var item in collection)
+            Add(item);
     }
 
     internal HandleRef Handle { get; private set; }
@@ -39,7 +41,8 @@ public class DoubleVector : IList<double>, IDisposable
         set => SetItem(index, value);
     }
 
-    public int Count => (int) DoubleVectorPInvoke.Size(Handle);
+    public int Count =>
+        (int) DoubleVectorPInvoke.Size(Handle);
 
     public void CopyTo(double[] array, int arrayIndex) =>
         CopyTo(0, array, arrayIndex, Count);
@@ -88,20 +91,39 @@ public class DoubleVector : IList<double>, IDisposable
         }
     }
 
-    private void CopyTo(int index, double[] array, int arrayIndex, int count)
+    private void CopyTo(
+        int index,
+        double[] array,
+        int arrayIndex,
+        int count
+    )
     {
         if (array is null)
             throw new ArgumentNullException(nameof(array));
         if (index < 0)
-            throw new ArgumentOutOfRangeException(nameof(index), "Value is less than zero");
+            throw new ArgumentOutOfRangeException(
+                nameof(index),
+                "Value is less than zero"
+            );
         if (arrayIndex < 0)
-            throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Value is less than zero");
+            throw new ArgumentOutOfRangeException(
+                nameof(arrayIndex),
+                "Value is less than zero"
+            );
         if (count < 0)
-            throw new ArgumentOutOfRangeException(nameof(count), "Value is less than zero");
+            throw new ArgumentOutOfRangeException(
+                nameof(count),
+                "Value is less than zero"
+            );
         if (array.Rank > 1)
-            throw new ArgumentException("Multi dimensional array.", nameof(array));
+            throw new ArgumentException(
+                "Multi dimensional array.",
+                nameof(array)
+            );
         if (index + count > Count || arrayIndex + count > array.Length)
-            throw new ArgumentException("Number of elements to copy is too large.");
+            throw new ArgumentException(
+                "Number of elements to copy is too large."
+            );
         for (var i = 0; i < count; i++)
             array.SetValue(GetItemCopy(index + i), arrayIndex + i);
     }
@@ -146,11 +168,14 @@ public class DoubleVector : IList<double>, IDisposable
         public bool MoveNext()
         {
             var size = _collectionRef.Count;
-            var moveOkay = _currentIndex + 1 < size && size == _currentSize;
+            var moveOkay =
+                _currentIndex + 1 < size &&
+                size == _currentSize;
             if (moveOkay)
             {
                 _currentIndex++;
-                _currentObject = _collectionRef[_currentIndex];
+                _currentObject =
+                    _collectionRef[_currentIndex];
             }
             else
             {
@@ -165,7 +190,9 @@ public class DoubleVector : IList<double>, IDisposable
             _currentIndex = -1;
             _currentObject = null;
             if (_collectionRef.Count != _currentSize)
-                throw new InvalidOperationException("Collection modified.");
+                throw new InvalidOperationException(
+                    "Collection modified."
+                );
         }
 
         public double Current
@@ -173,11 +200,17 @@ public class DoubleVector : IList<double>, IDisposable
             get
             {
                 if (_currentIndex == -1)
-                    throw new InvalidOperationException("Enumeration not started.");
+                    throw new InvalidOperationException(
+                        "Enumeration not started."
+                    );
                 if (_currentIndex > _currentSize - 1)
-                    throw new InvalidOperationException("Enumeration finished.");
+                    throw new InvalidOperationException(
+                        "Enumeration finished."
+                    );
                 if (_currentObject == null)
-                    throw new InvalidOperationException("Collection modified.");
+                    throw new InvalidOperationException(
+                        "Collection modified."
+                    );
                 return (double) _currentObject;
             }
         }

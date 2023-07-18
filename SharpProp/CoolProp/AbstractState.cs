@@ -35,11 +35,17 @@ public class AbstractState : IDisposable
         }
     }
 
-    public static AbstractState Factory(string backend, string fluidNames)
+    public static AbstractState Factory(
+        string backend,
+        string fluidNames
+    )
     {
         lock (HandlesLock)
         {
-            var pointer = AbstractStatePInvoke.Factory(backend, fluidNames);
+            var pointer = AbstractStatePInvoke.Factory(
+                backend,
+                fluidNames
+            );
             var abstractState = new AbstractState(pointer);
             SwigExceptions.ThrowPendingException();
             return abstractState;
@@ -48,13 +54,19 @@ public class AbstractState : IDisposable
 
     public void SetMassFractions(DoubleVector massFractions)
     {
-        AbstractStatePInvoke.SetMassFractions(_handle, massFractions.Handle);
+        AbstractStatePInvoke.SetMassFractions(
+            _handle,
+            massFractions.Handle
+        );
         SwigExceptions.ThrowPendingException();
     }
 
     public void SetVolumeFractions(DoubleVector volumeFractions)
     {
-        AbstractStatePInvoke.SetVolumeFractions(_handle, volumeFractions.Handle);
+        AbstractStatePInvoke.SetVolumeFractions(
+            _handle,
+            volumeFractions.Handle
+        );
         SwigExceptions.ThrowPendingException();
     }
 
@@ -62,7 +74,8 @@ public class AbstractState : IDisposable
     {
         try
         {
-            var result = (InputPairs) AbstractStatePInvoke.GetInputPairIndex(inputPairName);
+            var result = (InputPairs) AbstractStatePInvoke
+                .GetInputPairIndex(inputPairName);
             SwigExceptions.ThrowPendingException();
             return result;
         }
@@ -72,15 +85,25 @@ public class AbstractState : IDisposable
         }
     }
 
-    public void Update(InputPairs inputPair, double firstInput, double secondInput)
+    public void Update(
+        InputPairs inputPair,
+        double firstInput,
+        double secondInput
+    )
     {
-        AbstractStatePInvoke.Update(_handle, (int) inputPair, firstInput, secondInput);
+        AbstractStatePInvoke.Update(
+            _handle,
+            (int) inputPair,
+            firstInput,
+            secondInput
+        );
         SwigExceptions.ThrowPendingException();
     }
 
     public double KeyedOutput(Parameters key)
     {
-        var result = AbstractStatePInvoke.KeyedOutput(_handle, (int) key);
+        var result = AbstractStatePInvoke
+            .KeyedOutput(_handle, (int) key);
         SwigExceptions.ThrowPendingException();
         return result;
     }

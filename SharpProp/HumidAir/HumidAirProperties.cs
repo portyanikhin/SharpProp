@@ -2,8 +2,7 @@
 
 public partial class HumidAir
 {
-    private const double ComparisonTolerance = 1e-6;
-    private const ComparisonType ComparisonType = UnitsNet.ComparisonType.Relative;
+    private const double Tolerance = 1e-6;
     private double? _compressibility;
     private ThermalConductivity? _conductivity;
     private Density? _density;

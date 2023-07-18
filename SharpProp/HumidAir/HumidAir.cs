@@ -3,11 +3,16 @@
 /// <summary>
 ///     Real humid air (see ASHRAE RP-1485).
 /// </summary>
-public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFactory<HumidAir>, IJsonable
+public partial class HumidAir :
+    IClonable<HumidAir>,
+    IEquatable<HumidAir>,
+    IFactory<HumidAir>,
+    IJsonable
 {
     private List<IKeyedInput<string>> _inputs = new(3);
 
-    public HumidAir Clone() => WithState(_inputs[0], _inputs[1], _inputs[2]);
+    public HumidAir Clone() =>
+        WithState(_inputs[0], _inputs[1], _inputs[2]);
 
     public bool Equals(HumidAir? other)
     {
@@ -16,11 +21,14 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
         return GetHashCode() == other.GetHashCode();
     }
 
-    public HumidAir Factory() => CreateInstance();
+    public HumidAir Factory() =>
+        CreateInstance();
 
-    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
+    public string AsJson(bool indented = true) =>
+        this.ConvertToJson(indented);
 
-    public override bool Equals(object? obj) => Equals(obj as HumidAir);
+    public override bool Equals(object? obj) =>
+        Equals(obj as HumidAir);
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
@@ -28,20 +36,37 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
             string.Join("&", _inputs.Select(input => input.CoolPropKey)))
         .GetHashCode();
 
-    public static bool operator ==(HumidAir? left, HumidAir? right) => Equals(left, right);
+    public static bool operator ==(HumidAir? left, HumidAir? right) =>
+        Equals(left, right);
 
-    public static bool operator !=(HumidAir? left, HumidAir? right) => !Equals(left, right);
+    public static bool operator !=(HumidAir? left, HumidAir? right) =>
+        !Equals(left, right);
 
     /// <summary>
-    ///     Returns a new humid air instance with a defined state.
+    ///     Returns a new humid air
+    ///     instance with a defined state.
     /// </summary>
-    /// <param name="fistInput">First input property.</param>
-    /// <param name="secondInput">Second input property.</param>
-    /// <param name="thirdInput">Third input property.</param>
-    /// <returns>A new humid air instance with a defined state.</returns>
-    /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-    public HumidAir WithState(IKeyedInput<string> fistInput,
-        IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
+    /// <param name="fistInput">
+    ///     First input property.
+    /// </param>
+    /// <param name="secondInput">
+    ///     Second input property.
+    /// </param>
+    /// <param name="thirdInput">
+    ///     Third input property.
+    /// </param>
+    /// <returns>
+    ///     A new humid air instance
+    ///     with a defined state.
+    /// </returns>
+    /// <exception cref="ArgumentException">
+    ///     Need to define 3 unique inputs!
+    /// </exception>
+    public HumidAir WithState(
+        IKeyedInput<string> fistInput,
+        IKeyedInput<string> secondInput,
+        IKeyedInput<string> thirdInput
+    )
     {
         var humidAir = CreateInstance();
         humidAir.Update(fistInput, secondInput, thirdInput);
@@ -51,15 +76,27 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
     /// <summary>
     ///     Updates the state of the humid air.
     /// </summary>
-    /// <param name="firstInput">First input property.</param>
-    /// <param name="secondInput">Second input property.</param>
-    /// <param name="thirdInput">Third input property.</param>
-    /// <exception cref="ArgumentException">Need to define 3 unique inputs!</exception>
-    public void Update(IKeyedInput<string> firstInput,
-        IKeyedInput<string> secondInput, IKeyedInput<string> thirdInput)
+    /// <param name="firstInput">
+    ///     First input property.
+    /// </param>
+    /// <param name="secondInput">
+    ///     Second input property.
+    /// </param>
+    /// <param name="thirdInput">
+    ///     Third input property.
+    /// </param>
+    /// <exception cref="ArgumentException">
+    ///     Need to define 3 unique inputs!
+    /// </exception>
+    public void Update(
+        IKeyedInput<string> firstInput,
+        IKeyedInput<string> secondInput,
+        IKeyedInput<string> thirdInput
+    )
     {
         Reset();
-        _inputs = new List<IKeyedInput<string>> {firstInput, secondInput, thirdInput};
+        _inputs = new List<IKeyedInput<string>>
+            {firstInput, secondInput, thirdInput};
         CheckInputs();
     }
 
@@ -87,17 +124,32 @@ public partial class HumidAir : IClonable<HumidAir>, IEquatable<HumidAir>, IFact
     protected double KeyedOutput(string key)
     {
         CheckInputs();
-        var input = _inputs.Find(input => input.CoolPropKey == key)?.Value;
-        var result = input ?? CoolProp.HAPropsSI(key, _inputs[0].CoolPropKey, _inputs[0].Value,
-            _inputs[1].CoolPropKey, _inputs[1].Value, _inputs[2].CoolPropKey, _inputs[2].Value);
+        var input = _inputs
+            .Find(input => input.CoolPropKey == key)?
+            .Value;
+        var result = input ?? CoolProp.HAPropsSI(
+            key,
+            _inputs[0].CoolPropKey,
+            _inputs[0].Value,
+            _inputs[1].CoolPropKey,
+            _inputs[1].Value,
+            _inputs[2].CoolPropKey,
+            _inputs[2].Value
+        );
         new OutputsValidator(result).Validate();
         return result;
     }
 
     private void CheckInputs()
     {
-        var uniqueKeys = _inputs.Select(input => input.CoolPropKey).Distinct().ToList();
-        if (_inputs.Count != 3 || uniqueKeys.Count != 3)
-            throw new ArgumentException("Need to define 3 unique inputs!");
+        var uniqueKeys = _inputs
+            .Select(input => input.CoolPropKey)
+            .Distinct()
+            .ToList();
+        if (_inputs.Count != 3 ||
+            uniqueKeys.Count != 3)
+            throw new ArgumentException(
+                "Need to define 3 unique inputs!"
+            );
     }
 }

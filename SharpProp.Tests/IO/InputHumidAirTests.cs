@@ -6,18 +6,24 @@ public static class InputHumidAirTests
 {
     [Theory]
     [MemberData(nameof(CoolPropKeys))]
-    public static void CoolPropKey_AllInputs_MatchesWithCoolProp(InputHumidAir input, string coolPropKey) =>
-        input.CoolPropKey.Should().Be(coolPropKey);
+    public static void CoolPropKey_AllInputs_MatchesWithCoolProp(
+        InputHumidAir input,
+        string coolPropKey
+    ) => input.CoolPropKey.Should().Be(coolPropKey);
 
     [Theory]
     [MemberData(nameof(Values))]
-    public static void Value_AllInputs_ShouldBeInSIUnits(InputHumidAir input, double value) =>
-        input.Value.Should().Be(value);
+    public static void Value_AllInputs_ShouldBeInSIUnits(
+        InputHumidAir input,
+        double value
+    ) => input.Value.Should().Be(value);
 
     [Theory]
     [InlineData(-5000.1)]
     [InlineData(11000.1)]
-    public static void Altitude_WrongValue_ThrowsArgumentOutOfRangeException(double altitude)
+    public static void Altitude_WrongValue_ThrowsArgumentOutOfRangeException(
+        double altitude
+    )
     {
         Action action = () => InputHumidAir.Altitude(altitude.Meters());
         action.Should().Throw<ArgumentOutOfRangeException>()

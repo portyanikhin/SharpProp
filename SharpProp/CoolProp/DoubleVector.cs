@@ -10,8 +10,8 @@ public class DoubleVector : IList<double>, IDisposable
     private DoubleVector(IntPtr pointer) =>
         Handle = new HandleRef(this, pointer);
 
-    public DoubleVector(IEnumerable<double> collection) :
-        this(DoubleVectorPInvoke.Create())
+    public DoubleVector(IEnumerable<double> collection)
+        : this(DoubleVectorPInvoke.Create())
     {
         foreach (var item in collection)
             Add(item);
@@ -23,15 +23,15 @@ public class DoubleVector : IList<double>, IDisposable
     {
         lock (CollectionLock)
         {
-            if (_disposed) return;
+            if (_disposed)
+                return;
         }
 
         InternalDispose();
         GC.SuppressFinalize(this);
     }
 
-    IEnumerator IEnumerable.GetEnumerator() =>
-        new DoubleVectorEnumerator(this);
+    IEnumerator IEnumerable.GetEnumerator() => new DoubleVectorEnumerator(this);
 
     public bool IsReadOnly => false;
 
@@ -41,21 +41,17 @@ public class DoubleVector : IList<double>, IDisposable
         set => SetItem(index, value);
     }
 
-    public int Count =>
-        (int) DoubleVectorPInvoke.Size(Handle);
+    public int Count => (int)DoubleVectorPInvoke.Size(Handle);
 
     public void CopyTo(double[] array, int arrayIndex) =>
         CopyTo(0, array, arrayIndex, Count);
 
-    IEnumerator<double> IEnumerable<double>.
-        GetEnumerator() =>
+    IEnumerator<double> IEnumerable<double>.GetEnumerator() =>
         new DoubleVectorEnumerator(this);
 
-    public void Clear() =>
-        DoubleVectorPInvoke.Clear(Handle);
+    public void Clear() => DoubleVectorPInvoke.Clear(Handle);
 
-    public void Add(double item) =>
-        DoubleVectorPInvoke.Add(Handle, item);
+    public void Add(double item) => DoubleVectorPInvoke.Add(Handle, item);
 
     public void Insert(int index, double item)
     {
@@ -75,8 +71,7 @@ public class DoubleVector : IList<double>, IDisposable
     public int IndexOf(double item) =>
         DoubleVectorPInvoke.IndexOf(Handle, item);
 
-    public bool Remove(double item) =>
-        DoubleVectorPInvoke.Remove(Handle, item);
+    public bool Remove(double item) => DoubleVectorPInvoke.Remove(Handle, item);
 
     ~DoubleVector() => InternalDispose();
 
@@ -84,19 +79,15 @@ public class DoubleVector : IList<double>, IDisposable
     {
         lock (CollectionLock)
         {
-            if (Handle.Handle == IntPtr.Zero) return;
+            if (Handle.Handle == IntPtr.Zero)
+                return;
             DoubleVectorPInvoke.Delete(Handle);
             Handle = new HandleRef(null, IntPtr.Zero);
             _disposed = true;
         }
     }
 
-    private void CopyTo(
-        int index,
-        double[] array,
-        int arrayIndex,
-        int count
-    )
+    private void CopyTo(int index, double[] array, int arrayIndex, int count)
     {
         if (array is null)
             throw new ArgumentNullException(nameof(array));
@@ -168,14 +159,11 @@ public class DoubleVector : IList<double>, IDisposable
         public bool MoveNext()
         {
             var size = _collectionRef.Count;
-            var moveOkay =
-                _currentIndex + 1 < size &&
-                size == _currentSize;
+            var moveOkay = _currentIndex + 1 < size && size == _currentSize;
             if (moveOkay)
             {
                 _currentIndex++;
-                _currentObject =
-                    _collectionRef[_currentIndex];
+                _currentObject = _collectionRef[_currentIndex];
             }
             else
             {
@@ -190,9 +178,7 @@ public class DoubleVector : IList<double>, IDisposable
             _currentIndex = -1;
             _currentObject = null;
             if (_collectionRef.Count != _currentSize)
-                throw new InvalidOperationException(
-                    "Collection modified."
-                );
+                throw new InvalidOperationException("Collection modified.");
         }
 
         public double Current
@@ -208,10 +194,8 @@ public class DoubleVector : IList<double>, IDisposable
                         "Enumeration finished."
                     );
                 if (_currentObject == null)
-                    throw new InvalidOperationException(
-                        "Collection modified."
-                    );
-                return (double) _currentObject;
+                    throw new InvalidOperationException("Collection modified.");
+                return (double)_currentObject;
             }
         }
 

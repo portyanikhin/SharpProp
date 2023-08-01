@@ -3,38 +3,37 @@
 /// <summary>
 ///     Real humid air (see ASHRAE RP-1485).
 /// </summary>
-public partial class HumidAir :
-    IClonable<HumidAir>,
-    IEquatable<HumidAir>,
-    IFactory<HumidAir>,
-    IJsonable
+public partial class HumidAir
+    : IClonable<HumidAir>,
+        IEquatable<HumidAir>,
+        IFactory<HumidAir>,
+        IJsonable
 {
     private List<IKeyedInput<string>> _inputs = new(3);
 
-    public HumidAir Clone() =>
-        WithState(_inputs[0], _inputs[1], _inputs[2]);
+    public HumidAir Clone() => WithState(_inputs[0], _inputs[1], _inputs[2]);
 
     public bool Equals(HumidAir? other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
+        if (ReferenceEquals(null, other))
+            return false;
+        if (ReferenceEquals(this, other))
+            return true;
         return GetHashCode() == other.GetHashCode();
     }
 
-    public HumidAir Factory() =>
-        CreateInstance();
+    public HumidAir Factory() => CreateInstance();
 
-    public string AsJson(bool indented = true) =>
-        this.ConvertToJson(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
-    public override bool Equals(object? obj) =>
-        Equals(obj as HumidAir);
+    public override bool Equals(object? obj) => Equals(obj as HumidAir);
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-        (string.Join("&", _inputs.Select(input => input.Value)),
-            string.Join("&", _inputs.Select(input => input.CoolPropKey)))
-        .GetHashCode();
+        (
+            string.Join("&", _inputs.Select(input => input.Value)),
+            string.Join("&", _inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 
     public static bool operator ==(HumidAir? left, HumidAir? right) =>
         Equals(left, right);
@@ -96,7 +95,11 @@ public partial class HumidAir :
     {
         Reset();
         _inputs = new List<IKeyedInput<string>>
-            {firstInput, secondInput, thirdInput};
+        {
+            firstInput,
+            secondInput,
+            thirdInput
+        };
         CheckInputs();
     }
 
@@ -124,18 +127,18 @@ public partial class HumidAir :
     protected double KeyedOutput(string key)
     {
         CheckInputs();
-        var input = _inputs
-            .Find(input => input.CoolPropKey == key)?
-            .Value;
-        var result = input ?? CoolProp.HAPropsSI(
-            key,
-            _inputs[0].CoolPropKey,
-            _inputs[0].Value,
-            _inputs[1].CoolPropKey,
-            _inputs[1].Value,
-            _inputs[2].CoolPropKey,
-            _inputs[2].Value
-        );
+        var input = _inputs.Find(input => input.CoolPropKey == key)?.Value;
+        var result =
+            input
+            ?? CoolProp.HAPropsSI(
+                key,
+                _inputs[0].CoolPropKey,
+                _inputs[0].Value,
+                _inputs[1].CoolPropKey,
+                _inputs[1].Value,
+                _inputs[2].CoolPropKey,
+                _inputs[2].Value
+            );
         new OutputsValidator(result).Validate();
         return result;
     }
@@ -146,10 +149,7 @@ public partial class HumidAir :
             .Select(input => input.CoolPropKey)
             .Distinct()
             .ToList();
-        if (_inputs.Count != 3 ||
-            uniqueKeys.Count != 3)
-            throw new ArgumentException(
-                "Need to define 3 unique inputs!"
-            );
+        if (_inputs.Count != 3 || uniqueKeys.Count != 3)
+            throw new ArgumentException("Need to define 3 unique inputs!");
     }
 }

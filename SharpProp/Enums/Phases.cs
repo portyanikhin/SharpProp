@@ -1,20 +1,19 @@
 ﻿// ReSharper disable All
 
-namespace SharpProp
+namespace SharpProp;
+
+/// <summary>
+///     Phase states of fluids and mixtures.
+/// </summary>
+public enum Phases
 {
-    /// <summary>
-    ///     Phase states of fluids and mixtures.
-    /// </summary>
-    public enum Phases
-    {
-        Liquid,
-        Supercritical,
-        SupercriticalGas,
-        SupercriticalLiquid,
-        CriticalPoint,
-        Gas,
-        TwoPhase,
-        Unknown,
-        NotImposed
-    }
+    Liquid,
+    Supercritical,
+    SupercriticalGas,
+    SupercriticalLiquid,
+    CriticalPoint,
+    Gas,
+    TwoPhase,
+    Unknown,
+    NotImposed
 }

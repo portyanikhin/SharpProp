@@ -5,12 +5,12 @@ namespace SharpProp;
 /// <summary>
 ///     Pure/pseudo-pure fluid or binary mixture.
 /// </summary>
-public class Fluid :
-    AbstractFluid,
-    IClonable<Fluid>,
-    IEquatable<Fluid>,
-    IFactory<Fluid>,
-    IJsonable
+public class Fluid
+    : AbstractFluid,
+        IClonable<Fluid>,
+        IEquatable<Fluid>,
+        IFactory<Fluid>,
+        IJsonable
 {
     /// <summary>
     ///     Pure/pseudo-pure fluid or binary mixture.
@@ -30,27 +30,27 @@ public class Fluid :
     /// </exception>
     public Fluid(FluidsList name, Ratio? fraction = null)
     {
-        if (fraction is not null
-            && (fraction < name.FractionMin() ||
-                fraction > name.FractionMax()))
+        if (
+            fraction is not null
+            && (fraction < name.FractionMin() || fraction > name.FractionMax())
+        )
             throw new ArgumentException(
-                "Invalid fraction value! " +
-                $"It should be in [{name.FractionMin().Percent};" +
-                $"{name.FractionMax().Percent}] %. " +
-                $"Entered value = {fraction.Value.Percent} %."
+                "Invalid fraction value! "
+                    + $"It should be in [{name.FractionMin().Percent};"
+                    + $"{name.FractionMax().Percent}] %. "
+                    + $"Entered value = {fraction.Value.Percent} %."
             );
         Name = name;
         Fraction = Name.Pure()
             ? Ratio.FromPercent(100)
-            : fraction?.ToUnit(RatioUnit.Percent) ??
-              throw new ArgumentException(
-                  "Need to define the fraction!"
-              );
+            : fraction?.ToUnit(RatioUnit.Percent)
+                ?? throw new ArgumentException("Need to define the fraction!");
         Backend = AbstractState.Factory(
             Name.CoolPropBackend(),
             Name.CoolPropName()
         );
-        if (!Name.Pure()) SetFraction();
+        if (!Name.Pure())
+            SetFraction();
     }
 
     /// <summary>
@@ -64,30 +64,29 @@ public class Fluid :
     /// </summary>
     public Ratio Fraction { get; }
 
-    public Fluid Clone() =>
-        WithState(Inputs[0], Inputs[1]);
+    public Fluid Clone() => WithState(Inputs[0], Inputs[1]);
 
     public bool Equals(Fluid? other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
+        if (ReferenceEquals(null, other))
+            return false;
+        if (ReferenceEquals(this, other))
+            return true;
         return GetHashCode() == other.GetHashCode();
     }
 
-    public Fluid Factory() =>
-        (Fluid) CreateInstance();
+    public Fluid Factory() => (Fluid)CreateInstance();
 
-    public string AsJson(bool indented = true) =>
-        this.ConvertToJson(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
-    public override bool Equals(object? obj) =>
-        Equals(obj as Fluid);
+    public override bool Equals(object? obj) => Equals(obj as Fluid);
 
     public override int GetHashCode() =>
-        (Name.CoolPropName(),
+        (
+            Name.CoolPropName(),
             Fraction.DecimalFractions,
-            base.GetHashCode())
-        .GetHashCode();
+            base.GetHashCode()
+        ).GetHashCode();
 
     public static bool operator ==(Fluid? left, Fluid? right) =>
         Equals(left, right);
@@ -115,7 +114,7 @@ public class Fluid :
     public new Fluid WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
-    ) => (Fluid) base.WithState(firstInput, secondInput);
+    ) => (Fluid)base.WithState(firstInput, secondInput);
 
     /// <summary>
     ///     The process of isentropic
@@ -131,7 +130,7 @@ public class Fluid :
     ///     should be higher than inlet pressure!
     /// </exception>
     public new Fluid IsentropicCompressionTo(Pressure pressure) =>
-        (Fluid) base.IsentropicCompressionTo(pressure);
+        (Fluid)base.IsentropicCompressionTo(pressure);
 
     /// <summary>
     ///     The process of compression
@@ -155,10 +154,7 @@ public class Fluid :
     public new Fluid CompressionTo(
         Pressure pressure,
         Ratio isentropicEfficiency
-    ) => (Fluid) base.CompressionTo(
-        pressure,
-        isentropicEfficiency
-    );
+    ) => (Fluid)base.CompressionTo(pressure, isentropicEfficiency);
 
     /// <summary>
     ///     The process of isenthalpic
@@ -174,7 +170,7 @@ public class Fluid :
     ///     should be lower than inlet pressure!
     /// </exception>
     public new Fluid IsenthalpicExpansionTo(Pressure pressure) =>
-        (Fluid) base.IsenthalpicExpansionTo(pressure);
+        (Fluid)base.IsenthalpicExpansionTo(pressure);
 
     /// <summary>
     ///     The process of isentropic
@@ -190,7 +186,7 @@ public class Fluid :
     ///     should be lower than inlet pressure!
     /// </exception>
     public new Fluid IsentropicExpansionTo(Pressure pressure) =>
-        (Fluid) base.IsentropicExpansionTo(pressure);
+        (Fluid)base.IsentropicExpansionTo(pressure);
 
     /// <summary>
     ///     The process of expansion
@@ -214,10 +210,7 @@ public class Fluid :
     public new Fluid ExpansionTo(
         Pressure pressure,
         Ratio isentropicEfficiency
-    ) => (Fluid) base.ExpansionTo(
-        pressure,
-        isentropicEfficiency
-    );
+    ) => (Fluid)base.ExpansionTo(pressure, isentropicEfficiency);
 
     /// <summary>
     ///     The process of cooling
@@ -243,7 +236,7 @@ public class Fluid :
     public new Fluid CoolingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
-    ) => (Fluid) base.CoolingTo(temperature, pressureDrop);
+    ) => (Fluid)base.CoolingTo(temperature, pressureDrop);
 
     /// <summary>
     ///     The process of cooling
@@ -269,7 +262,7 @@ public class Fluid :
     public new Fluid CoolingTo(
         SpecificEnergy enthalpy,
         Pressure? pressureDrop = null
-    ) => (Fluid) base.CoolingTo(enthalpy, pressureDrop);
+    ) => (Fluid)base.CoolingTo(enthalpy, pressureDrop);
 
     /// <summary>
     ///     The process of heating
@@ -294,7 +287,7 @@ public class Fluid :
     public new Fluid HeatingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
-    ) => (Fluid) base.HeatingTo(temperature, pressureDrop);
+    ) => (Fluid)base.HeatingTo(temperature, pressureDrop);
 
     /// <summary>
     ///     The process of heating
@@ -320,7 +313,7 @@ public class Fluid :
     public new Fluid HeatingTo(
         SpecificEnergy enthalpy,
         Pressure? pressureDrop = null
-    ) => (Fluid) base.HeatingTo(enthalpy, pressureDrop);
+    ) => (Fluid)base.HeatingTo(enthalpy, pressureDrop);
 
     /// <summary>
     ///     Returns a bubble point
@@ -331,7 +324,7 @@ public class Fluid :
     ///     A bubble point at a given pressure.
     /// </returns>
     public new Fluid BubblePointAt(Pressure pressure) =>
-        (Fluid) base.BubblePointAt(pressure);
+        (Fluid)base.BubblePointAt(pressure);
 
     /// <summary>
     ///     Returns a bubble point
@@ -342,7 +335,7 @@ public class Fluid :
     ///     A bubble point at a given temperature.
     /// </returns>
     public new Fluid BubblePointAt(Temperature temperature) =>
-        (Fluid) base.BubblePointAt(temperature);
+        (Fluid)base.BubblePointAt(temperature);
 
     /// <summary>
     ///     Returns a dew point
@@ -353,7 +346,7 @@ public class Fluid :
     ///     A dew point at a given pressure.
     /// </returns>
     public new Fluid DewPointAt(Pressure pressure) =>
-        (Fluid) base.DewPointAt(pressure);
+        (Fluid)base.DewPointAt(pressure);
 
     /// <summary>
     ///     Returns a dew point
@@ -364,7 +357,7 @@ public class Fluid :
     ///     A dew point at a given temperature.
     /// </returns>
     public new Fluid DewPointAt(Temperature temperature) =>
-        (Fluid) base.DewPointAt(temperature);
+        (Fluid)base.DewPointAt(temperature);
 
     /// <summary>
     ///     Returns a two-phase point
@@ -375,10 +368,8 @@ public class Fluid :
     /// <returns>
     ///     Two-phase point at a given pressure.
     /// </returns>
-    public new Fluid TwoPhasePointAt(
-        Pressure pressure,
-        Ratio quality
-    ) => (Fluid) base.TwoPhasePointAt(pressure, quality);
+    public new Fluid TwoPhasePointAt(Pressure pressure, Ratio quality) =>
+        (Fluid)base.TwoPhasePointAt(pressure, quality);
 
     /// <summary>
     ///     The mixing process.
@@ -414,38 +405,32 @@ public class Fluid :
         Fluid first,
         Ratio secondSpecificMassFlow,
         Fluid second
-    ) => IsValidFluidsForMixing(first, second)
-        ? (Fluid) base.Mixing(
-            firstSpecificMassFlow,
-            first,
-            secondSpecificMassFlow,
-            second
-        )
-        : throw new ArgumentException(
-            "The mixing process is possible " +
-            "only for the same fluids!"
-        );
+    ) =>
+        IsValidFluidsForMixing(first, second)
+            ? (Fluid)
+                base.Mixing(
+                    firstSpecificMassFlow,
+                    first,
+                    secondSpecificMassFlow,
+                    second
+                )
+            : throw new ArgumentException(
+                "The mixing process is possible only for the same fluids!"
+            );
 
     protected override AbstractFluid CreateInstance() =>
         new Fluid(Name, Fraction);
 
-    private bool IsValidFluidsForMixing(
-        Fluid first,
-        Fluid second
-    ) => Name == first.Name &&
-         first.Name == second.Name &&
-         Fraction.Equals(
-             first.Fraction,
-             Tolerance.DecimalFractions()
-         ) && first.Fraction.Equals(
-             second.Fraction,
-             Tolerance.DecimalFractions()
-         );
+    private bool IsValidFluidsForMixing(Fluid first, Fluid second) =>
+        Name == first.Name
+        && first.Name == second.Name
+        && Fraction.Equals(first.Fraction, Tolerance.DecimalFractions())
+        && first.Fraction.Equals(second.Fraction, Tolerance.DecimalFractions());
 
     private void SetFraction()
     {
         var fractionsVector = new DoubleVector(
-            new[] {Fraction.DecimalFractions}
+            new[] { Fraction.DecimalFractions }
         );
         if (Name.MixType() is Mix.Mass)
             Backend.SetMassFractions(fractionsVector);

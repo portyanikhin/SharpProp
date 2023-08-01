@@ -3,12 +3,12 @@
 /// <summary>
 ///     Mass-based mixture of pure fluids.
 /// </summary>
-public class Mixture :
-    AbstractFluid,
-    IClonable<Mixture>,
-    IEquatable<Mixture>,
-    IFactory<Mixture>,
-    IJsonable
+public class Mixture
+    : AbstractFluid,
+        IClonable<Mixture>,
+        IEquatable<Mixture>,
+        IFactory<Mixture>,
+        IJsonable
 {
     private const string AvailableBackend = "HEOS";
 
@@ -37,58 +37,44 @@ public class Mixture :
     ///     Invalid component mass fractions!
     ///     Their sum should be equal to 100 %.
     /// </exception>
-    public Mixture(
-        IEnumerable<FluidsList> fluids,
-        IEnumerable<Ratio> fractions
-    )
+    public Mixture(IEnumerable<FluidsList> fluids, IEnumerable<Ratio> fractions)
     {
         Fluids = fluids.ToList();
-        Fractions = fractions.Select(
-            fraction => fraction.ToUnit(RatioUnit.Percent)
-        ).ToList();
+        Fractions = fractions
+            .Select(fraction => fraction.ToUnit(RatioUnit.Percent))
+            .ToList();
         if (Fluids.Count != Fractions.Count)
             throw new ArgumentException(
-                "Invalid input! Fluids and Fractions " +
-                "should be of the same length."
+                "Invalid input! Fluids and Fractions "
+                    + "should be of the same length."
             );
-        if (!Fluids.All(fluid =>
-                fluid.Pure() &&
-                fluid.CoolPropBackend() ==
-                AvailableBackend
-            ))
+        if (
+            !Fluids.All(
+                fluid =>
+                    fluid.Pure() && fluid.CoolPropBackend() == AvailableBackend
+            )
+        )
             throw new ArgumentException(
-                "Invalid components! All of them " +
-                "should be a pure fluid with " +
-                $"{AvailableBackend} backend."
+                "Invalid components! All of them should be a pure fluid with "
+                    + $"{AvailableBackend} backend."
             );
-        if (!Fractions.All(fraction =>
-                fraction.Percent is > 0 and < 100
-            ))
+        if (!Fractions.All(fraction => fraction.Percent is > 0 and < 100))
             throw new ArgumentException(
-                "Invalid component mass fractions! " +
-                "All of them should be in (0;100) %."
+                "Invalid component mass fractions! "
+                    + "All of them should be in (0;100) %."
             );
-        if (Math.Abs(
-                Fractions.Sum(fraction => fraction.Percent) - 100
-            ) > 1e-6)
+        if (Math.Abs(Fractions.Sum(fraction => fraction.Percent) - 100) > 1e-6)
             throw new ArgumentException(
-                "Invalid component mass fractions! " +
-                "Their sum should be equal to 100 %."
+                "Invalid component mass fractions! "
+                    + "Their sum should be equal to 100 %."
             );
         Backend = AbstractState.Factory(
             AvailableBackend,
-            string.Join(
-                "&",
-                Fluids.Select(
-                    fluid => fluid.CoolPropName()
-                )
-            )
+            string.Join("&", Fluids.Select(fluid => fluid.CoolPropName()))
         );
         Backend.SetMassFractions(
             new DoubleVector(
-                Fractions.Select(
-                    fraction => fraction.DecimalFractions
-                )
+                Fractions.Select(fraction => fraction.DecimalFractions)
             )
         );
     }
@@ -105,30 +91,32 @@ public class Mixture :
     /// </summary>
     public List<Ratio> Fractions { get; }
 
-    public Mixture Clone() =>
-        WithState(Inputs[0], Inputs[1]);
+    public Mixture Clone() => WithState(Inputs[0], Inputs[1]);
 
     public bool Equals(Mixture? other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
+        if (ReferenceEquals(null, other))
+            return false;
+        if (ReferenceEquals(this, other))
+            return true;
         return GetHashCode() == other.GetHashCode();
     }
 
-    public Mixture Factory() =>
-        (Mixture) CreateInstance();
+    public Mixture Factory() => (Mixture)CreateInstance();
 
-    public string AsJson(bool indented = true) =>
-        this.ConvertToJson(indented);
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
 
-    public override bool Equals(object? obj) =>
-        Equals(obj as Mixture);
+    public override bool Equals(object? obj) => Equals(obj as Mixture);
 
     public override int GetHashCode() =>
-        (string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())),
-            string.Join("&", Fractions.Select(fraction => fraction.DecimalFractions)),
-            base.GetHashCode())
-        .GetHashCode();
+        (
+            string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())),
+            string.Join(
+                "&",
+                Fractions.Select(fraction => fraction.DecimalFractions)
+            ),
+            base.GetHashCode()
+        ).GetHashCode();
 
     public static bool operator ==(Mixture? left, Mixture? right) =>
         Equals(left, right);
@@ -156,7 +144,7 @@ public class Mixture :
     public new Mixture WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
-    ) => (Mixture) base.WithState(firstInput, secondInput);
+    ) => (Mixture)base.WithState(firstInput, secondInput);
 
     /// <summary>
     ///     The process of cooling
@@ -182,7 +170,7 @@ public class Mixture :
     public new Mixture CoolingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
-    ) => (Mixture) base.CoolingTo(temperature, pressureDrop);
+    ) => (Mixture)base.CoolingTo(temperature, pressureDrop);
 
     /// <summary>
     ///     The process of heating
@@ -208,7 +196,7 @@ public class Mixture :
     public new Mixture HeatingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
-    ) => (Mixture) base.HeatingTo(temperature, pressureDrop);
+    ) => (Mixture)base.HeatingTo(temperature, pressureDrop);
 
     protected override AbstractFluid CreateInstance() =>
         new Mixture(Fluids, Fractions);

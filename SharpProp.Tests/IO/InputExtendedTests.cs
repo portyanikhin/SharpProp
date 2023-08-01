@@ -1,17 +1,13 @@
 ﻿namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to
-///     extend the <see cref="Input"/> record.
+///     An example of how to extend
+///     the <see cref="Input"/> record.
 /// </summary>
 public record InputExtended : Input
 {
-    private InputExtended(
-        Parameters coolPropKey,
-        double value
-    ) : base(coolPropKey, value)
-    {
-    }
+    private InputExtended(Parameters coolPropKey, double value)
+        : base(coolPropKey, value) { }
 
     /// <summary>
     ///     Molar density.
@@ -31,8 +27,7 @@ public class InputExtendedTests
     private readonly InputExtended _input;
 
     public InputExtendedTests() =>
-        _input = InputExtended
-            .MolarDensity(9e5.GramsPerMole());
+        _input = InputExtended.MolarDensity(9e5.GramsPerMole());
 
     [Fact]
     public void CoolPropKey_NewInput_MatchesWithCoolProp() =>

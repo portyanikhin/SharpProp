@@ -106,11 +106,12 @@ public partial class HumidAir
         Temperature temperature,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
-    ) => WetCoolingTo(
-        InputHumidAir.Temperature(temperature),
-        InputHumidAir.RelativeHumidity(relativeHumidity),
-        pressureDrop
-    );
+    ) =>
+        WetCoolingTo(
+            InputHumidAir.Temperature(temperature),
+            InputHumidAir.RelativeHumidity(relativeHumidity),
+            pressureDrop
+        );
 
     /// <summary>
     ///     The process of cooling with
@@ -145,11 +146,12 @@ public partial class HumidAir
         Temperature temperature,
         Ratio humidity,
         Pressure? pressureDrop = null
-    ) => WetCoolingTo(
-        InputHumidAir.Temperature(temperature),
-        InputHumidAir.Humidity(humidity),
-        pressureDrop
-    );
+    ) =>
+        WetCoolingTo(
+            InputHumidAir.Temperature(temperature),
+            InputHumidAir.Humidity(humidity),
+            pressureDrop
+        );
 
     /// <summary>
     ///     The process of cooling with
@@ -184,11 +186,12 @@ public partial class HumidAir
         SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
-    ) => WetCoolingTo(
-        InputHumidAir.Enthalpy(enthalpy),
-        InputHumidAir.RelativeHumidity(relativeHumidity),
-        pressureDrop
-    );
+    ) =>
+        WetCoolingTo(
+            InputHumidAir.Enthalpy(enthalpy),
+            InputHumidAir.RelativeHumidity(relativeHumidity),
+            pressureDrop
+        );
 
     /// <summary>
     ///     The process of cooling with
@@ -223,11 +226,12 @@ public partial class HumidAir
         SpecificEnergy enthalpy,
         Ratio humidity,
         Pressure? pressureDrop = null
-    ) => WetCoolingTo(
-        InputHumidAir.Enthalpy(enthalpy),
-        InputHumidAir.Humidity(humidity),
-        pressureDrop
-    );
+    ) =>
+        WetCoolingTo(
+            InputHumidAir.Enthalpy(enthalpy),
+            InputHumidAir.Humidity(humidity),
+            pressureDrop
+        );
 
     /// <summary>
     ///     The process of heating
@@ -299,10 +303,11 @@ public partial class HumidAir
     /// </exception>
     public HumidAir HumidificationByWaterTo(
         RelativeHumidity relativeHumidity
-    ) => HumidificationTo(
-        InputHumidAir.Enthalpy(Enthalpy),
-        InputHumidAir.RelativeHumidity(relativeHumidity)
-    );
+    ) =>
+        HumidificationTo(
+            InputHumidAir.Enthalpy(Enthalpy),
+            InputHumidAir.RelativeHumidity(relativeHumidity)
+        );
 
     /// <summary>
     ///     The process of humidification
@@ -344,10 +349,11 @@ public partial class HumidAir
     /// </exception>
     public HumidAir HumidificationBySteamTo(
         RelativeHumidity relativeHumidity
-    ) => HumidificationTo(
-        InputHumidAir.Temperature(Temperature),
-        InputHumidAir.RelativeHumidity(relativeHumidity)
-    );
+    ) =>
+        HumidificationTo(
+            InputHumidAir.Temperature(Temperature),
+            InputHumidAir.RelativeHumidity(relativeHumidity)
+        );
 
     /// <summary>
     ///     The process of humidification
@@ -401,32 +407,35 @@ public partial class HumidAir
         HumidAir first,
         Ratio secondSpecificMassFlow,
         HumidAir second
-    ) => first.Pressure.Equals(second.Pressure, Tolerance.Pascals())
-        ? WithState(
-            InputHumidAir.Pressure(first.Pressure),
-            InputHumidAir.Enthalpy(
-                (firstSpecificMassFlow.DecimalFractions *
-                 first.Enthalpy +
-                 secondSpecificMassFlow.DecimalFractions *
-                 second.Enthalpy) /
-                (firstSpecificMassFlow +
-                 secondSpecificMassFlow)
-                .DecimalFractions
-            ),
-            InputHumidAir.Humidity(
-                (firstSpecificMassFlow.DecimalFractions *
-                 first.Humidity +
-                 secondSpecificMassFlow.DecimalFractions *
-                 second.Humidity) /
-                (firstSpecificMassFlow +
-                 secondSpecificMassFlow)
-                .DecimalFractions
+    ) =>
+        first.Pressure.Equals(second.Pressure, Tolerance.Pascals())
+            ? WithState(
+                InputHumidAir.Pressure(first.Pressure),
+                InputHumidAir.Enthalpy(
+                    (
+                        firstSpecificMassFlow.DecimalFractions * first.Enthalpy
+                        + secondSpecificMassFlow.DecimalFractions
+                            * second.Enthalpy
+                    )
+                        / (
+                            firstSpecificMassFlow + secondSpecificMassFlow
+                        ).DecimalFractions
+                ),
+                InputHumidAir.Humidity(
+                    (
+                        firstSpecificMassFlow.DecimalFractions * first.Humidity
+                        + secondSpecificMassFlow.DecimalFractions
+                            * second.Humidity
+                    )
+                        / (
+                            firstSpecificMassFlow + secondSpecificMassFlow
+                        ).DecimalFractions
+                )
             )
-        )
-        : throw new ArgumentException(
-            "The mixing process is possible " +
-            "only for flows with the same pressure!"
-        );
+            : throw new ArgumentException(
+                "The mixing process is possible "
+                    + "only for flows with the same pressure!"
+            );
 
     private HumidAir DryHeatTransferTo(
         Temperature temperature,
@@ -438,9 +447,7 @@ public partial class HumidAir
         CheckDewTemperature(temperature);
         CheckPressureDrop(pressureDrop);
         return WithState(
-            InputHumidAir.Pressure(
-                Pressure - (pressureDrop ?? Pressure.Zero)
-            ),
+            InputHumidAir.Pressure(Pressure - (pressureDrop ?? Pressure.Zero)),
             InputHumidAir.Temperature(temperature),
             InputHumidAir.Humidity(Humidity)
         );
@@ -456,9 +463,7 @@ public partial class HumidAir
         CheckDewEnthalpy(enthalpy);
         CheckPressureDrop(pressureDrop);
         return WithState(
-            InputHumidAir.Pressure(
-                Pressure - (pressureDrop ?? Pressure.Zero)
-            ),
+            InputHumidAir.Pressure(Pressure - (pressureDrop ?? Pressure.Zero)),
             InputHumidAir.Enthalpy(enthalpy),
             InputHumidAir.Humidity(Humidity)
         );
@@ -476,17 +481,15 @@ public partial class HumidAir
             CheckEnthalpy(fistInput.Value.JoulesPerKilogram(), true);
         CheckPressureDrop(pressureDrop);
         var result = WithState(
-            InputHumidAir.Pressure(
-                Pressure - (pressureDrop ?? Pressure.Zero)
-            ),
+            InputHumidAir.Pressure(Pressure - (pressureDrop ?? Pressure.Zero)),
             fistInput,
             secondInput
         );
         return result.Humidity < Humidity
             ? result
             : throw new ArgumentException(
-                "During the wet cooling process, " +
-                "the absolute humidity ratio should decrease!"
+                "During the wet cooling process, "
+                    + "the absolute humidity ratio should decrease!"
             );
     }
 
@@ -503,8 +506,8 @@ public partial class HumidAir
         return result.Humidity > Humidity
             ? result
             : throw new ArgumentException(
-                "During the humidification process, " +
-                "the absolute humidity ratio should increase!"
+                "During the humidification process, "
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -514,13 +517,13 @@ public partial class HumidAir
         {
             case true when temperature >= Temperature:
                 throw new ArgumentException(
-                    "During the cooling process, " +
-                    "the temperature should decrease!"
+                    "During the cooling process, "
+                        + "the temperature should decrease!"
                 );
             case false when temperature <= Temperature:
                 throw new ArgumentException(
-                    "During the heating process, " +
-                    "the temperature should increase!"
+                    "During the heating process, "
+                        + "the temperature should increase!"
                 );
         }
     }
@@ -531,13 +534,13 @@ public partial class HumidAir
         {
             case true when enthalpy >= Enthalpy:
                 throw new ArgumentException(
-                    "During the cooling process, " +
-                    "the enthalpy should decrease!"
+                    "During the cooling process, "
+                        + "the enthalpy should decrease!"
                 );
             case false when enthalpy <= Enthalpy:
                 throw new ArgumentException(
-                    "During the heating process, " +
-                    "the enthalpy should increase!"
+                    "During the heating process, "
+                        + "the enthalpy should increase!"
                 );
         }
     }
@@ -546,9 +549,9 @@ public partial class HumidAir
     {
         if (temperature < DewTemperature)
             throw new ArgumentException(
-                "The outlet temperature after " +
-                "dry heat transfer should be " +
-                "greater than the dew point temperature!"
+                "The outlet temperature after "
+                    + "dry heat transfer should be "
+                    + "greater than the dew point temperature!"
             );
     }
 
@@ -556,9 +559,9 @@ public partial class HumidAir
     {
         if (enthalpy < DewPoint.Enthalpy)
             throw new ArgumentException(
-                "The outlet enthalpy after " +
-                "dry heat transfer should be " +
-                "greater than the dew point enthalpy!"
+                "The outlet enthalpy after "
+                    + "dry heat transfer should be "
+                    + "greater than the dew point enthalpy!"
             );
     }
 
@@ -566,8 +569,7 @@ public partial class HumidAir
     {
         if (pressureDrop.HasValue && pressureDrop.Value < Pressure.Zero)
             throw new ArgumentException(
-                "Invalid pressure drop " +
-                "in the heat exchanger!"
+                "Invalid pressure drop in the heat exchanger!"
             );
     }
 }

@@ -13,8 +13,7 @@ internal class OutputsValidator
     /// <param name="output">
     ///     CoolProp output.
     /// </param>
-    public OutputsValidator(double output) =>
-        _output = output;
+    public OutputsValidator(double output) => _output = output;
 
     /// <summary>
     ///     Validates the CoolProp output.
@@ -24,10 +23,7 @@ internal class OutputsValidator
     /// </exception>
     public void Validate()
     {
-        if (double.IsInfinity(_output) ||
-            double.IsNaN(_output))
-            throw new ArgumentException(
-                "Invalid or not defined state!"
-            );
+        if (double.IsInfinity(_output) || double.IsNaN(_output))
+            throw new ArgumentException("Invalid or not defined state!");
     }
 }

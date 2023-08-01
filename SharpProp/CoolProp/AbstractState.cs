@@ -15,7 +15,8 @@ public class AbstractState : IDisposable
     {
         lock (HandlesLock)
         {
-            if (_disposed) return;
+            if (_disposed)
+                return;
         }
 
         InternalDispose();
@@ -28,24 +29,19 @@ public class AbstractState : IDisposable
     {
         lock (HandlesLock)
         {
-            if (_handle.Handle == IntPtr.Zero) return;
+            if (_handle.Handle == IntPtr.Zero)
+                return;
             AbstractStatePInvoke.Delete(_handle);
             _handle = new HandleRef(null, IntPtr.Zero);
             _disposed = true;
         }
     }
 
-    public static AbstractState Factory(
-        string backend,
-        string fluidNames
-    )
+    public static AbstractState Factory(string backend, string fluidNames)
     {
         lock (HandlesLock)
         {
-            var pointer = AbstractStatePInvoke.Factory(
-                backend,
-                fluidNames
-            );
+            var pointer = AbstractStatePInvoke.Factory(backend, fluidNames);
             var abstractState = new AbstractState(pointer);
             SwigExceptions.ThrowPendingException();
             return abstractState;
@@ -54,10 +50,7 @@ public class AbstractState : IDisposable
 
     public void SetMassFractions(DoubleVector massFractions)
     {
-        AbstractStatePInvoke.SetMassFractions(
-            _handle,
-            massFractions.Handle
-        );
+        AbstractStatePInvoke.SetMassFractions(_handle, massFractions.Handle);
         SwigExceptions.ThrowPendingException();
     }
 
@@ -74,8 +67,8 @@ public class AbstractState : IDisposable
     {
         try
         {
-            var result = (InputPairs) AbstractStatePInvoke
-                .GetInputPairIndex(inputPairName);
+            var result = (InputPairs)
+                AbstractStatePInvoke.GetInputPairIndex(inputPairName);
             SwigExceptions.ThrowPendingException();
             return result;
         }
@@ -93,7 +86,7 @@ public class AbstractState : IDisposable
     {
         AbstractStatePInvoke.Update(
             _handle,
-            (int) inputPair,
+            (int)inputPair,
             firstInput,
             secondInput
         );
@@ -102,8 +95,7 @@ public class AbstractState : IDisposable
 
     public double KeyedOutput(Parameters key)
     {
-        var result = AbstractStatePInvoke
-            .KeyedOutput(_handle, (int) key);
+        var result = AbstractStatePInvoke.KeyedOutput(_handle, (int)key);
         SwigExceptions.ThrowPendingException();
         return result;
     }

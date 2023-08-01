@@ -6,7 +6,8 @@
 ///     the same value as an existing instance.
 /// </summary>
 /// <typeparam name="T">Type of the instance.</typeparam>
-public interface IClonable<out T> where T : class
+public interface IClonable<out T>
+    where T : class
 {
     /// <summary>
     ///     Performs deep (full) copy of the instance.

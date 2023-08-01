@@ -9,8 +9,8 @@ public class MixtureTests : IDisposable
 
     public MixtureTests() =>
         _mixture = new Mixture(
-            new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-            new List<Ratio> {60.Percent(), 40.Percent()}
+            new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+            new List<Ratio> { 60.Percent(), 40.Percent() }
         );
 
     public void Dispose()
@@ -27,18 +27,19 @@ public class MixtureTests : IDisposable
         string message
     )
     {
-        Action action = () =>
-            _ = new Mixture(fluids, fractions);
-        action.Should().Throw<ArgumentException>()
-            .WithMessage(message);
+        Action action = () => _ = new Mixture(fluids, fractions);
+        action.Should().Throw<ArgumentException>().WithMessage(message);
     }
 
     [Fact]
     public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
-        _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        ).Phase.Should().Be(Phases.Liquid);
+        _mixture
+            .WithState(
+                Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius())
+            )
+            .Phase.Should()
+            .Be(Phases.Liquid);
 
     [Fact]
     public void Update_SameInputs_ThrowsArgumentException()
@@ -48,7 +49,9 @@ public class MixtureTests : IDisposable
                 Input.Pressure(1.Atmospheres()),
                 Input.Pressure(101325.Pascals())
             );
-        action.Should().Throw<ArgumentException>()
+        action
+            .Should()
+            .Throw<ArgumentException>()
             .WithMessage("Need to define 2 unique inputs!");
     }
 
@@ -94,8 +97,7 @@ public class MixtureTests : IDisposable
         origin.Should().BeSameAs(origin);
         origin.Should().Be(same);
         origin.Should().NotBeSameAs(same);
-        (origin == same)
-            .Should().Be(origin.Equals(same));
+        (origin == same).Should().Be(origin.Equals(same));
     }
 
     [Fact]
@@ -111,10 +113,8 @@ public class MixtureTests : IDisposable
         );
         origin.Should().NotBe(other);
         origin.Should().NotBeNull();
-        origin.Equals(new object())
-            .Should().BeFalse();
-        (origin != other)
-            .Should().Be(!origin.Equals(other));
+        origin.Equals(new object()).Should().BeFalse();
+        (origin != other).Should().Be(!origin.Equals(other));
     }
 
     [Fact]
@@ -128,8 +128,7 @@ public class MixtureTests : IDisposable
             Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins())
         );
-        origin.GetHashCode()
-            .Should().Be(same.GetHashCode());
+        origin.GetHashCode().Should().Be(same.GetHashCode());
     }
 
     [Fact]
@@ -143,32 +142,28 @@ public class MixtureTests : IDisposable
             Input.Pressure(1.Atmospheres()),
             Input.Temperature(30.DegreesCelsius())
         );
-        origin.GetHashCode()
-            .Should().NotBe(other.GetHashCode());
+        origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
     [Fact]
     public void Factory_Always_FluidsAreConstant()
     {
         IFactory<Mixture> mixture = _mixture;
-        mixture.Factory().Fluids
-            .Should().BeEquivalentTo(_mixture.Fluids);
+        mixture.Factory().Fluids.Should().BeEquivalentTo(_mixture.Fluids);
     }
 
     [Fact]
     public void Factory_Always_FractionsAreConstant()
     {
         IFactory<Mixture> mixture = _mixture;
-        mixture.Factory().Fractions
-            .Should().BeEquivalentTo(_mixture.Fractions);
+        mixture.Factory().Fractions.Should().BeEquivalentTo(_mixture.Fractions);
     }
 
     [Fact]
     public void Factory_Always_PhaseIsUnknown()
     {
         IFactory<Mixture> mixture = _mixture;
-        mixture.Factory().Phase
-            .Should().Be(Phases.Unknown);
+        mixture.Factory().Phase.Should().Be(Phases.Unknown);
     }
 
     [Theory]
@@ -180,21 +175,25 @@ public class MixtureTests : IDisposable
             Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius())
         );
-        fluid.AsJson(indented).Should().Be(
-            JsonConvert.SerializeObject(fluid,
-                new JsonSerializerSettings
-                {
-                    Converters = new List<JsonConverter>
+        fluid
+            .AsJson(indented)
+            .Should()
+            .Be(
+                JsonConvert.SerializeObject(
+                    fluid,
+                    new JsonSerializerSettings
                     {
-                        new StringEnumConverter(),
-                        new UnitsNetIQuantityJsonConverter()
-                    },
-                    Formatting = indented
-                        ? Formatting.Indented
-                        : Formatting.None
-                }
-            )
-        );
+                        Converters = new List<JsonConverter>
+                        {
+                            new StringEnumConverter(),
+                            new UnitsNetIQuantityJsonConverter()
+                        },
+                        Formatting = indented
+                            ? Formatting.Indented
+                            : Formatting.None
+                    }
+                )
+            );
     }
 
     public static IEnumerable<object[]> WrongFluidsOrFractions() =>
@@ -202,38 +201,38 @@ public class MixtureTests : IDisposable
         {
             new object[]
             {
-                new List<FluidsList> {FluidsList.Water},
-                new List<Ratio> {60.Percent(), 40.Percent()},
-                "Invalid input! Fluids and Fractions " +
-                "should be of the same length."
+                new List<FluidsList> { FluidsList.Water },
+                new List<Ratio> { 60.Percent(), 40.Percent() },
+                "Invalid input! Fluids and Fractions "
+                    + "should be of the same length."
             },
             new object[]
             {
-                new List<FluidsList> {FluidsList.MPG, FluidsList.MEG},
-                new List<Ratio> {60.Percent(), 40.Percent()},
-                "Invalid components! All of them " +
-                "should be a pure fluid with HEOS backend."
+                new List<FluidsList> { FluidsList.MPG, FluidsList.MEG },
+                new List<Ratio> { 60.Percent(), 40.Percent() },
+                "Invalid components! All of them "
+                    + "should be a pure fluid with HEOS backend."
             },
             new object[]
             {
-                new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-                new List<Ratio> {-200.Percent(), 40.Percent()},
-                "Invalid component mass fractions! " +
-                "All of them should be in (0;100) %."
+                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+                new List<Ratio> { -200.Percent(), 40.Percent() },
+                "Invalid component mass fractions! "
+                    + "All of them should be in (0;100) %."
             },
             new object[]
             {
-                new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-                new List<Ratio> {60.Percent(), 200.Percent()},
-                "Invalid component mass fractions! " +
-                "All of them should be in (0;100) %."
+                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+                new List<Ratio> { 60.Percent(), 200.Percent() },
+                "Invalid component mass fractions! "
+                    + "All of them should be in (0;100) %."
             },
             new object[]
             {
-                new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-                new List<Ratio> {80.Percent(), 80.Percent()},
-                "Invalid component mass fractions! " +
-                "Their sum should be equal to 100 %."
+                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+                new List<Ratio> { 80.Percent(), 80.Percent() },
+                "Invalid component mass fractions! "
+                    + "Their sum should be equal to 100 %."
             }
         };
 }

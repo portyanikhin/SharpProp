@@ -5,7 +5,8 @@
 ///     new instances with no defined state.
 /// </summary>
 /// <typeparam name="T">Type of the instance.</typeparam>
-public interface IFactory<out T> where T : class
+public interface IFactory<out T>
+    where T : class
 {
     /// <summary>
     ///     Creates a new instance

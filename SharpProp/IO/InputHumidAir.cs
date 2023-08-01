@@ -46,10 +46,11 @@ public record InputHumidAir : IKeyedInput<string>
     /// </exception>
     public static InputHumidAir Altitude(Length value) =>
         value.Meters is < -5000 or > 11000
-            ? throw new ArgumentOutOfRangeException(nameof(value),
+            ? throw new ArgumentOutOfRangeException(
+                nameof(value),
                 value,
-                "Altitude above sea level " +
-                "should be between -5000 and 11000 meters!"
+                "Altitude above sea level "
+                    + "should be between -5000 and 11000 meters!"
             )
             : new InputHumidAir(
                 "P",

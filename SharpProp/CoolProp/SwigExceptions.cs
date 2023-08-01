@@ -3,7 +3,8 @@
 [ExcludeFromCodeCoverage]
 internal static class SwigExceptions
 {
-    [ThreadStatic] private static Exception? _pendingException;
+    [ThreadStatic]
+    private static Exception? _pendingException;
     private static int _pendingExceptionsCount;
     private static readonly object ExceptionsLock = new();
 
@@ -73,16 +74,18 @@ internal static class SwigExceptions
 
     public static void ThrowPendingException()
     {
-        if (_pendingException is not null) throw Retrieve()!;
+        if (_pendingException is not null)
+            throw Retrieve()!;
     }
 
     private static void Set(Exception? exception)
     {
         if (_pendingException is not null)
             throw new ApplicationException(
-                "FATAL: An earlier pending exception from " +
-                "unmanaged code was missed and thus not thrown (" +
-                _pendingException + ")",
+                "FATAL: An earlier pending exception from "
+                    + "unmanaged code was missed and thus not thrown ("
+                    + _pendingException
+                    + ")",
                 exception
             );
         _pendingException = exception;
@@ -95,11 +98,9 @@ internal static class SwigExceptions
     private static Exception? Retrieve()
     {
         Exception? exception = null;
-        if (_pendingExceptionsCount <= 0 ||
-            _pendingException is null)
+        if (_pendingExceptionsCount <= 0 || _pendingException is null)
             return exception;
-        (exception, _pendingException) =
-            (_pendingException, null);
+        (exception, _pendingException) = (_pendingException, null);
         lock (ExceptionsLock)
         {
             _pendingExceptionsCount--;
@@ -108,7 +109,10 @@ internal static class SwigExceptions
         return exception;
     }
 
-    [DllImport(Library.Name, EntryPoint = "SWIGRegisterExceptionCallbacks_CoolProp")]
+    [DllImport(
+        Library.Name,
+        EntryPoint = "SWIGRegisterExceptionCallbacks_CoolProp"
+    )]
     private static extern void RegisterExceptionCallbacks(
         ExceptionDelegate applicationDelegate,
         ExceptionDelegate arithmeticDelegate,
@@ -123,7 +127,10 @@ internal static class SwigExceptions
         ExceptionDelegate systemExceptionDelegate
     );
 
-    [DllImport(Library.Name, EntryPoint = "SWIGRegisterExceptionArgumentCallbacks_CoolProp")]
+    [DllImport(
+        Library.Name,
+        EntryPoint = "SWIGRegisterExceptionArgumentCallbacks_CoolProp"
+    )]
     private static extern void RegisterExceptionArgumentCallbacks(
         ExceptionArgumentDelegate argumentDelegate,
         ExceptionArgumentDelegate argumentNullDelegate,

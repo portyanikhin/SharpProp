@@ -7,7 +7,8 @@ public abstract partial class AbstractFluid : IDisposable
 {
     protected AbstractState Backend = null!;
 
-    protected List<IKeyedInput<Parameters>> Inputs { get; private set; } = new(2);
+    protected List<IKeyedInput<Parameters>> Inputs { get; private set; } =
+        new(2);
 
     public void Dispose()
     {
@@ -33,11 +34,12 @@ public abstract partial class AbstractFluid : IDisposable
     )
     {
         Reset();
-        var (inputPair, firstValue, secondValue) =
-            GenerateUpdatePair(firstInput, secondInput);
+        var (inputPair, firstValue, secondValue) = GenerateUpdatePair(
+            firstInput,
+            secondInput
+        );
         Backend.Update(inputPair, firstValue, secondValue);
-        Inputs = new List<IKeyedInput<Parameters>>
-            {firstInput, secondInput};
+        Inputs = new List<IKeyedInput<Parameters>> { firstInput, secondInput };
     }
 
     protected virtual void Reset()
@@ -72,10 +74,7 @@ public abstract partial class AbstractFluid : IDisposable
 
     protected abstract AbstractFluid CreateInstance();
 
-    protected bool KeyedOutputIsNotNull(
-        Parameters key,
-        out double? value
-    )
+    protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
     {
         value = NullableKeyedOutput(key);
         return value is not null;
@@ -86,13 +85,10 @@ public abstract partial class AbstractFluid : IDisposable
         try
         {
             var value = KeyedOutput(key);
-            return key is Parameters.iQ &&
-                   value is < 0 or > 1
-                ? null
-                : value;
+            return key is Parameters.iQ && value is < 0 or > 1 ? null : value;
         }
-        catch (Exception e) when
-            (e is ApplicationException or ArgumentException)
+        catch (Exception exception)
+            when (exception is ApplicationException or ArgumentException)
         {
             return null;
         }
@@ -100,9 +96,7 @@ public abstract partial class AbstractFluid : IDisposable
 
     protected double KeyedOutput(Parameters key)
     {
-        var input = Inputs
-            .Find(input => input.CoolPropKey == key)?
-            .Value;
+        var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
         var result = input ?? Backend.KeyedOutput(key);
         new OutputsValidator(result).Validate();
         return result;
@@ -115,11 +109,10 @@ public abstract partial class AbstractFluid : IDisposable
     {
         var inputPair = GetInputPair(firstInput, secondInput);
         var swap = !inputPair.HasValue;
-        if (swap) inputPair = GetInputPair(secondInput, firstInput);
+        if (swap)
+            inputPair = GetInputPair(secondInput, firstInput);
         if (!inputPair.HasValue)
-            throw new ArgumentException(
-                "Need to define 2 unique inputs!"
-            );
+            throw new ArgumentException("Need to define 2 unique inputs!");
         return !swap
             ? new UpdatePair(
                 inputPair.Value,
@@ -136,15 +129,16 @@ public abstract partial class AbstractFluid : IDisposable
     private static InputPairs? GetInputPair(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
-    ) => AbstractState.GetInputPair(
-        $"{firstInput.CoolPropHighLevelKey}" +
-        $"{secondInput.CoolPropHighLevelKey}" +
-        "_INPUTS"
-    );
+    ) =>
+        AbstractState.GetInputPair(
+            $"{firstInput.CoolPropHighLevelKey}"
+                + $"{secondInput.CoolPropHighLevelKey}_INPUTS"
+        );
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-        (string.Join("&", Inputs.Select(input => input.Value)),
-            string.Join("&", Inputs.Select(input => input.CoolPropKey)))
-        .GetHashCode();
+        (
+            string.Join("&", Inputs.Select(input => input.Value)),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 }

@@ -24,8 +24,7 @@ public record Input : IKeyedInput<Parameters>
 
     public Parameters CoolPropKey { get; }
 
-    public string CoolPropHighLevelKey =>
-        CoolPropKey.ToString().TrimStart('i');
+    public string CoolPropHighLevelKey => CoolPropKey.ToString().TrimStart('i');
 
     public double Value { get; }
 

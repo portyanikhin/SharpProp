@@ -41,4 +41,22 @@
         <ProjectReference Include="..\SharpProp\SharpProp.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <Compile Update="**\*.cs">
+            <DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
+        </Compile>
+        <Compile Update="Fluids\FluidExtendedTests.cs">
+            <DependentUpon>FluidExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="HumidAir\HumidAirExtendedTests.cs">
+            <DependentUpon>HumidAirExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="IO\InputExtendedTests.cs">
+            <DependentUpon>InputExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="IO\InputHumidAirExtendedTests.cs">
+            <DependentUpon>InputHumidAirExtended.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
 </Project>

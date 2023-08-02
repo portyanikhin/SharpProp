@@ -3,90 +3,10 @@
 /// <summary>
 ///     Real humid air (see ASHRAE RP-1485).
 /// </summary>
-public partial class HumidAir
-    : IClonable<HumidAir>,
-        IEquatable<HumidAir>,
-        IFactory<HumidAir>,
-        IJsonable
+public partial class HumidAir : IHumidAir
 {
     private List<IKeyedInput<string>> _inputs = new(3);
 
-    public HumidAir Clone() => WithState(_inputs[0], _inputs[1], _inputs[2]);
-
-    public bool Equals(HumidAir? other)
-    {
-        if (ReferenceEquals(null, other))
-            return false;
-        if (ReferenceEquals(this, other))
-            return true;
-        return GetHashCode() == other.GetHashCode();
-    }
-
-    public HumidAir Factory() => CreateInstance();
-
-    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
-
-    public override bool Equals(object? obj) => Equals(obj as HumidAir);
-
-    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-    public override int GetHashCode() =>
-        (
-            string.Join("&", _inputs.Select(input => input.Value)),
-            string.Join("&", _inputs.Select(input => input.CoolPropKey))
-        ).GetHashCode();
-
-    public static bool operator ==(HumidAir? left, HumidAir? right) =>
-        Equals(left, right);
-
-    public static bool operator !=(HumidAir? left, HumidAir? right) =>
-        !Equals(left, right);
-
-    /// <summary>
-    ///     Returns a new humid air
-    ///     instance with a defined state.
-    /// </summary>
-    /// <param name="fistInput">
-    ///     First input property.
-    /// </param>
-    /// <param name="secondInput">
-    ///     Second input property.
-    /// </param>
-    /// <param name="thirdInput">
-    ///     Third input property.
-    /// </param>
-    /// <returns>
-    ///     A new humid air instance
-    ///     with a defined state.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     Need to define 3 unique inputs!
-    /// </exception>
-    public HumidAir WithState(
-        IKeyedInput<string> fistInput,
-        IKeyedInput<string> secondInput,
-        IKeyedInput<string> thirdInput
-    )
-    {
-        var humidAir = CreateInstance();
-        humidAir.Update(fistInput, secondInput, thirdInput);
-        return humidAir;
-    }
-
-    /// <summary>
-    ///     Updates the state of the humid air.
-    /// </summary>
-    /// <param name="firstInput">
-    ///     First input property.
-    /// </param>
-    /// <param name="secondInput">
-    ///     Second input property.
-    /// </param>
-    /// <param name="thirdInput">
-    ///     Third input property.
-    /// </param>
-    /// <exception cref="ArgumentException">
-    ///     Need to define 3 unique inputs!
-    /// </exception>
     public void Update(
         IKeyedInput<string> firstInput,
         IKeyedInput<string> secondInput,
@@ -103,7 +23,7 @@ public partial class HumidAir
         CheckInputs();
     }
 
-    protected virtual void Reset()
+    public virtual void Reset()
     {
         _inputs.Clear();
         _compressibility = null;
@@ -121,6 +41,41 @@ public partial class HumidAir
         _temperature = null;
         _wetBulbTemperature = null;
     }
+
+    public IHumidAir WithState(
+        IKeyedInput<string> fistInput,
+        IKeyedInput<string> secondInput,
+        IKeyedInput<string> thirdInput
+    )
+    {
+        var humidAir = CreateInstance();
+        humidAir.Update(fistInput, secondInput, thirdInput);
+        return humidAir;
+    }
+
+    public IHumidAir Clone() => WithState(_inputs[0], _inputs[1], _inputs[2]);
+
+    public IHumidAir Factory() => CreateInstance();
+
+    public string AsJson(bool indented = true) => this.ConvertToJson(indented);
+
+    public bool Equals(IHumidAir? other)
+    {
+        if (ReferenceEquals(null, other))
+            return false;
+        if (ReferenceEquals(this, other))
+            return true;
+        return GetHashCode() == other.GetHashCode();
+    }
+
+    public override bool Equals(object? obj) => Equals(obj as HumidAir);
+
+    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+    public override int GetHashCode() =>
+        (
+            string.Join("&", _inputs.Select(input => input.Value)),
+            string.Join("&", _inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 
     protected virtual HumidAir CreateInstance() => new();
 

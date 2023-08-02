@@ -120,9 +120,9 @@ public abstract partial class AbstractFluid
 
     protected AbstractFluid Mixing(
         Ratio firstSpecificMassFlow,
-        AbstractFluid first,
+        IFluidState first,
         Ratio secondSpecificMassFlow,
-        AbstractFluid second
+        IFluidState second
     ) =>
         first.Pressure.Equals(second.Pressure, Tolerance.Pascals())
             ? WithState(

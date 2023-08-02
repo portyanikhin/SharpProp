@@ -9,12 +9,10 @@ public interface IFactory<out T>
     where T : class
 {
     /// <summary>
-    ///     Creates a new instance
-    ///     with no defined state.
+    ///     Creates a new instance with no defined state.
     /// </summary>
     /// <returns>
-    ///     A new instance
-    ///     with no defined state.
+    ///     A new instance with no defined state.
     /// </returns>
     public T Factory();
 }

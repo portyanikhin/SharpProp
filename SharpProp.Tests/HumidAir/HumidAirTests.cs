@@ -6,9 +6,7 @@ namespace SharpProp.Tests;
 public class HumidAirTests
 {
     private const double Tolerance = 1e-9;
-    private readonly HumidAir _humidAir;
-
-    public HumidAirTests() => _humidAir = new HumidAir();
+    private readonly IHumidAir _humidAir = new HumidAir();
 
     [Fact]
     public async Task HumidAir_MultiThreading_IsThreadSafe()
@@ -30,38 +28,6 @@ public class HumidAirTests
         var result = await Task.WhenAll(tasks);
         result.Distinct().Count().Should().Be(1);
     }
-
-    [Fact]
-    public void Factory_Always_ReturnsNewInstanceWithNoDefinedState() =>
-        _humidAir.Factory().Should().Be(new HumidAir());
-
-    [Fact]
-    public void WithState_InvalidState_ThrowsArgumentException()
-    {
-        Action action = () =>
-            _ = _humidAir
-                .WithState(
-                    InputHumidAir.Pressure(1.Atmospheres()),
-                    InputHumidAir.Temperature(20.DegreesCelsius()),
-                    InputHumidAir.RelativeHumidity(200.Percent())
-                )
-                .Density;
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Invalid or not defined state!");
-    }
-
-    [Fact]
-    public void WithState_Always_ReturnsNewInstanceWithDefinedState() =>
-        _humidAir
-            .WithState(
-                InputHumidAir.Pressure(1.Atmospheres()),
-                InputHumidAir.Temperature(20.DegreesCelsius()),
-                InputHumidAir.RelativeHumidity(50.Percent())
-            )
-            .Should()
-            .NotBe(new HumidAir());
 
     [Fact]
     public void Update_SameInputs_ThrowsArgumentException()
@@ -161,9 +127,54 @@ public class HumidAirTests
     }
 
     [Fact]
+    public void Reset_Always_Resets1AllProperties()
+    {
+        _humidAir.Update(
+            InputHumidAir.Pressure(1.Atmospheres()),
+            InputHumidAir.Temperature(20.DegreesCelsius()),
+            InputHumidAir.RelativeHumidity(50.Percent())
+        );
+        Action action = () => _ = _humidAir.Pressure;
+        action.Should().NotThrow();
+        _humidAir.Reset();
+        action
+            .Should()
+            .Throw<ArgumentException>()
+            .WithMessage("Need to define 3 unique inputs!");
+    }
+
+    [Fact]
+    public void WithState_InvalidState_ThrowsArgumentException()
+    {
+        Action action = () =>
+            _ = _humidAir
+                .WithState(
+                    InputHumidAir.Pressure(1.Atmospheres()),
+                    InputHumidAir.Temperature(20.DegreesCelsius()),
+                    InputHumidAir.RelativeHumidity(200.Percent())
+                )
+                .Density;
+        action
+            .Should()
+            .Throw<ArgumentException>()
+            .WithMessage("Invalid or not defined state!");
+    }
+
+    [Fact]
+    public void WithState_ValidState_ReturnsNewInstanceWithDefinedState() =>
+        _humidAir
+            .WithState(
+                InputHumidAir.Pressure(1.Atmospheres()),
+                InputHumidAir.Temperature(20.DegreesCelsius()),
+                InputHumidAir.RelativeHumidity(50.Percent())
+            )
+            .Should()
+            .NotBe(new HumidAir());
+
+    [Fact]
     public void Clone_Always_ReturnsNewInstanceWithSameState()
     {
-        IClonable<HumidAir> origin = _humidAir.WithState(
+        IClonable<IHumidAir> origin = _humidAir.WithState(
             InputHumidAir.Altitude(0.Meters()),
             InputHumidAir.Temperature(20.DegreesCelsius()),
             InputHumidAir.RelativeHumidity(50.Percent())
@@ -176,6 +187,41 @@ public class HumidAirTests
             InputHumidAir.RelativeHumidity(60.Percent())
         );
         clone.Should().NotBe(origin);
+    }
+
+    [Fact]
+    public void Factory_Always_ReturnsNewInstanceWithNoDefinedState() =>
+        _humidAir.Factory().Should().Be(new HumidAir());
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
+    {
+        IJsonable humidAir = _humidAir.WithState(
+            InputHumidAir.Altitude(0.Meters()),
+            InputHumidAir.Temperature(20.DegreesCelsius()),
+            InputHumidAir.RelativeHumidity(50.Percent())
+        );
+        humidAir
+            .AsJson(indented)
+            .Should()
+            .Be(
+                JsonConvert.SerializeObject(
+                    humidAir,
+                    new JsonSerializerSettings
+                    {
+                        Converters = new List<JsonConverter>
+                        {
+                            new StringEnumConverter(),
+                            new UnitsNetIQuantityJsonConverter()
+                        },
+                        Formatting = indented
+                            ? Formatting.Indented
+                            : Formatting.None
+                    }
+                )
+            );
     }
 
     [Fact]
@@ -195,7 +241,6 @@ public class HumidAirTests
         origin.Should().BeSameAs(origin);
         origin.Should().Be(same);
         origin.Should().NotBeSameAs(same);
-        (origin == same).Should().Be(origin.Equals(same));
     }
 
     [Fact]
@@ -214,7 +259,6 @@ public class HumidAirTests
         origin.Should().NotBe(other);
         origin.Should().NotBeNull();
         origin.Equals(new object()).Should().BeFalse();
-        (origin != other).Should().Be(!origin.Equals(other));
     }
 
     [Fact]
@@ -247,37 +291,6 @@ public class HumidAirTests
             InputHumidAir.RelativeHumidity(60.Percent())
         );
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public void AsJson_IndentedOrNot_ReturnsProperlyFormattedJson(bool indented)
-    {
-        IJsonable humidAir = _humidAir.WithState(
-            InputHumidAir.Altitude(0.Meters()),
-            InputHumidAir.Temperature(20.DegreesCelsius()),
-            InputHumidAir.RelativeHumidity(50.Percent())
-        );
-        humidAir
-            .AsJson(indented)
-            .Should()
-            .Be(
-                JsonConvert.SerializeObject(
-                    humidAir,
-                    new JsonSerializerSettings
-                    {
-                        Converters = new List<JsonConverter>
-                        {
-                            new StringEnumConverter(),
-                            new UnitsNetIQuantityJsonConverter()
-                        },
-                        Formatting = indented
-                            ? Formatting.Indented
-                            : Formatting.None
-                    }
-                )
-            );
     }
 
     private double CoolPropInterface(string key)

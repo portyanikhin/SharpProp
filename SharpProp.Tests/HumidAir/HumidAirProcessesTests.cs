@@ -23,14 +23,11 @@ public class TestHumidAirProcesses
     private static readonly RelativeHumidity HighRelativeHumidity =
         RelativeHumidity.FromPercent(90);
 
-    private readonly HumidAir _humidAir;
-
-    public TestHumidAirProcesses() =>
-        _humidAir = new HumidAir().WithState(
-            InputHumidAir.Pressure(1.Atmospheres()),
-            InputHumidAir.Temperature(20.DegreesCelsius()),
-            InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50))
-        );
+    private readonly IHumidAir _humidAir = new HumidAir().WithState(
+        InputHumidAir.Pressure(1.Atmospheres()),
+        InputHumidAir.Temperature(20.DegreesCelsius()),
+        InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50))
+    );
 
     [Theory]
     [InlineData(
@@ -519,7 +516,7 @@ public class TestHumidAirProcesses
             _humidAir.Temperature + TemperatureDelta
         );
         var second = _humidAir.HumidificationByWaterTo(HighRelativeHumidity);
-        new HumidAir()
+        first
             .Mixing(100.Percent(), first, 200.Percent(), second)
             .Should()
             .Be(

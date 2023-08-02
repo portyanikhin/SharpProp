@@ -5,13 +5,10 @@ namespace SharpProp.Tests;
 [Collection("Fluids")]
 public class MixtureTests : IDisposable
 {
-    private readonly Mixture _mixture;
-
-    public MixtureTests() =>
-        _mixture = new Mixture(
-            new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-            new List<Ratio> { 60.Percent(), 40.Percent() }
-        );
+    private readonly IMixture _mixture = new Mixture(
+        new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+        new List<Ratio> { 60.Percent(), 40.Percent() }
+    );
 
     public void Dispose()
     {
@@ -32,20 +29,11 @@ public class MixtureTests : IDisposable
     }
 
     [Fact]
-    public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
-        _mixture
-            .WithState(
-                Input.Pressure(1.Atmospheres()),
-                Input.Temperature(20.DegreesCelsius())
-            )
-            .Phase.Should()
-            .Be(Phases.Liquid);
-
-    [Fact]
     public void Update_SameInputs_ThrowsArgumentException()
     {
+        IAbstractFluid mixture = _mixture;
         var action = () =>
-            _mixture.Update(
+            mixture.Update(
                 Input.Pressure(1.Atmospheres()),
                 Input.Pressure(101325.Pascals())
             );
@@ -58,18 +46,29 @@ public class MixtureTests : IDisposable
     [Fact]
     public void Update_Always_InputsAreCached()
     {
-        _mixture.Update(
+        IAbstractFluid mixture = _mixture;
+        mixture.Update(
             Input.Pressure(101325.Pascals()),
             Input.Temperature(293.15.Kelvins())
         );
-        _mixture.Pressure.Pascals.Should().Be(101325);
-        _mixture.Temperature.Kelvins.Should().Be(293.15);
+        mixture.Pressure.Pascals.Should().Be(101325);
+        mixture.Temperature.Kelvins.Should().Be(293.15);
     }
+
+    [Fact]
+    public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
+        _mixture
+            .WithState(
+                Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius())
+            )
+            .Phase.Should()
+            .Be(Phases.Liquid);
 
     [Fact]
     public void Clone_Always_ReturnsNewInstanceWithSameState()
     {
-        IClonable<Mixture> origin = _mixture.WithState(
+        IClonable<IMixture> origin = _mixture.WithState(
             Input.Pressure(1.Atmospheres()),
             Input.Temperature(20.DegreesCelsius())
         );
@@ -83,86 +82,23 @@ public class MixtureTests : IDisposable
     }
 
     [Fact]
-    public void Equals_Same_ReturnsTrue()
-    {
-        var origin = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        );
-        var same = _mixture.WithState(
-            Input.Pressure(101325.Pascals()),
-            Input.Temperature(293.15.Kelvins())
-        );
-        origin.Should().Be(origin);
-        origin.Should().BeSameAs(origin);
-        origin.Should().Be(same);
-        origin.Should().NotBeSameAs(same);
-        (origin == same).Should().Be(origin.Equals(same));
-    }
-
-    [Fact]
-    public void Equals_Other_ReturnsFalse()
-    {
-        var origin = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        );
-        var other = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(30.DegreesCelsius())
-        );
-        origin.Should().NotBe(other);
-        origin.Should().NotBeNull();
-        origin.Equals(new object()).Should().BeFalse();
-        (origin != other).Should().Be(!origin.Equals(other));
-    }
-
-    [Fact]
-    public void GetHashCode_Same_ReturnsSameHashCode()
-    {
-        var origin = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        );
-        var same = _mixture.WithState(
-            Input.Pressure(101325.Pascals()),
-            Input.Temperature(293.15.Kelvins())
-        );
-        origin.GetHashCode().Should().Be(same.GetHashCode());
-    }
-
-    [Fact]
-    public void GetHashCode_Other_ReturnsOtherHashCode()
-    {
-        var origin = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        );
-        var other = _mixture.WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(30.DegreesCelsius())
-        );
-        origin.GetHashCode().Should().NotBe(other.GetHashCode());
-    }
-
-    [Fact]
     public void Factory_Always_FluidsAreConstant()
     {
-        IFactory<Mixture> mixture = _mixture;
+        IFactory<IMixture> mixture = _mixture;
         mixture.Factory().Fluids.Should().BeEquivalentTo(_mixture.Fluids);
     }
 
     [Fact]
     public void Factory_Always_FractionsAreConstant()
     {
-        IFactory<Mixture> mixture = _mixture;
+        IFactory<IMixture> mixture = _mixture;
         mixture.Factory().Fractions.Should().BeEquivalentTo(_mixture.Fractions);
     }
 
     [Fact]
     public void Factory_Always_PhaseIsUnknown()
     {
-        IFactory<Mixture> mixture = _mixture;
+        IFactory<IMixture> mixture = _mixture;
         mixture.Factory().Phase.Should().Be(Phases.Unknown);
     }
 
@@ -194,6 +130,67 @@ public class MixtureTests : IDisposable
                     }
                 )
             );
+    }
+
+    [Fact]
+    public void Equals_Same_ReturnsTrue()
+    {
+        var origin = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius())
+        );
+        var same = _mixture.WithState(
+            Input.Pressure(101325.Pascals()),
+            Input.Temperature(293.15.Kelvins())
+        );
+        origin.Should().Be(origin);
+        origin.Should().BeSameAs(origin);
+        origin.Should().Be(same);
+        origin.Should().NotBeSameAs(same);
+    }
+
+    [Fact]
+    public void Equals_Other_ReturnsFalse()
+    {
+        var origin = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius())
+        );
+        var other = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(30.DegreesCelsius())
+        );
+        origin.Should().NotBe(other);
+        origin.Should().NotBeNull();
+        origin.Equals(new object()).Should().BeFalse();
+    }
+
+    [Fact]
+    public void GetHashCode_Same_ReturnsSameHashCode()
+    {
+        var origin = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius())
+        );
+        var same = _mixture.WithState(
+            Input.Pressure(101325.Pascals()),
+            Input.Temperature(293.15.Kelvins())
+        );
+        origin.GetHashCode().Should().Be(same.GetHashCode());
+    }
+
+    [Fact]
+    public void GetHashCode_Other_ReturnsOtherHashCode()
+    {
+        var origin = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(20.DegreesCelsius())
+        );
+        var other = _mixture.WithState(
+            Input.Pressure(1.Atmospheres()),
+            Input.Temperature(30.DegreesCelsius())
+        );
+        origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
     public static IEnumerable<object[]> WrongFluidsOrFractions() =>

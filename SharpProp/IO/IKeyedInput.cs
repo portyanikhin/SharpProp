@@ -1,7 +1,7 @@
 ﻿namespace SharpProp;
 
 /// <summary>
-///     CoolProp keyed input interface.
+///     CoolProp keyed input.
 /// </summary>
 /// <typeparam name="T">
 ///     Type of Coolprop internal keys

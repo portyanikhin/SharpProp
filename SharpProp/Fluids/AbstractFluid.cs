@@ -1,9 +1,9 @@
 ﻿namespace SharpProp;
 
 /// <summary>
-///     Base class of fluids.
+///     Abstract fluid.
 /// </summary>
-public abstract partial class AbstractFluid : IDisposable
+public abstract partial class AbstractFluid : IAbstractFluid
 {
     protected AbstractState Backend = null!;
 
@@ -16,18 +16,6 @@ public abstract partial class AbstractFluid : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    /// <summary>
-    ///     Updates the state of the fluid.
-    /// </summary>
-    /// <param name="firstInput">
-    ///     First input property.
-    /// </param>
-    /// <param name="secondInput">
-    ///     Second input property.
-    /// </param>
-    /// <exception cref="ArgumentException">
-    ///     Need to define 2 unique inputs!
-    /// </exception>
     public void Update(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
@@ -42,9 +30,10 @@ public abstract partial class AbstractFluid : IDisposable
         Inputs = new List<IKeyedInput<Parameters>> { firstInput, secondInput };
     }
 
-    protected virtual void Reset()
+    public virtual void Reset()
     {
         Inputs.Clear();
+        Backend.Clear();
         _compressibility = null;
         _conductivity = null;
         _density = null;
@@ -61,6 +50,13 @@ public abstract partial class AbstractFluid : IDisposable
         _temperature = null;
         _phase = null;
     }
+
+    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
+    public override int GetHashCode() =>
+        (
+            string.Join("&", Inputs.Select(input => input.Value)),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 
     protected AbstractFluid WithState(
         IKeyedInput<Parameters> firstInput,
@@ -134,11 +130,4 @@ public abstract partial class AbstractFluid : IDisposable
             $"{firstInput.CoolPropHighLevelKey}"
                 + $"{secondInput.CoolPropHighLevelKey}_INPUTS"
         );
-
-    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
-    public override int GetHashCode() =>
-        (
-            string.Join("&", Inputs.Select(input => input.Value)),
-            string.Join("&", Inputs.Select(input => input.CoolPropKey))
-        ).GetHashCode();
 }

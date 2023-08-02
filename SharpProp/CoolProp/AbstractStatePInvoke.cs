@@ -42,6 +42,9 @@ internal static class AbstractStatePInvoke
         double secondInput
     );
 
+    [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_clear")]
+    public static extern bool Clear(HandleRef abstractState);
+
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_keyed_output")]
     public static extern double KeyedOutput(HandleRef abstractState, int key);
 }

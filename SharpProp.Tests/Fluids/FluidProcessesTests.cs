@@ -15,13 +15,10 @@ public class FluidProcessesTests : IDisposable
 
     private static readonly Pressure PressureDrop = 50.Kilopascals();
 
-    private readonly Fluid _fluid;
-
-    public FluidProcessesTests() =>
-        _fluid = new Fluid(FluidsList.Water).WithState(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(150.DegreesCelsius())
-        );
+    private readonly IFluid _fluid = new Fluid(FluidsList.Water).WithState(
+        Input.Pressure(1.Atmospheres()),
+        Input.Temperature(150.DegreesCelsius())
+    );
 
     private Pressure HighPressure => 2 * _fluid.Pressure;
 

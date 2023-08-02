@@ -93,6 +93,12 @@ public class AbstractState : IDisposable
         SwigExceptions.ThrowPendingException();
     }
 
+    public virtual void Clear()
+    {
+        AbstractStatePInvoke.Clear(_handle);
+        SwigExceptions.ThrowPendingException();
+    }
+
     public double KeyedOutput(Parameters key)
     {
         var result = AbstractStatePInvoke.KeyedOutput(_handle, (int)key);

@@ -4,105 +4,24 @@ namespace SharpProp;
 
 public partial class HumidAir
 {
-    private HumidAir DewPoint =>
+    private IHumidAir DewPoint =>
         WithState(
             InputHumidAir.Pressure(Pressure),
             InputHumidAir.Temperature(DewTemperature),
             InputHumidAir.RelativeHumidity(100.Percent())
         );
 
-    /// <summary>
-    ///     The process of cooling without
-    ///     dehumidification to a given temperature.
-    /// </summary>
-    /// <param name="temperature">Temperature.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the temperature should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     The outlet temperature
-    ///     after dry heat transfer should be
-    ///     greater than the dew point temperature!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir DryCoolingTo(
+    public IHumidAir DryCoolingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
     ) => DryHeatTransferTo(temperature, true, pressureDrop);
 
-    /// <summary>
-    ///     The process of cooling without
-    ///     dehumidification to a given enthalpy.
-    /// </summary>
-    /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the enthalpy should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     The outlet enthalpy
-    ///     after dry heat transfer should be
-    ///     greater than the dew point enthalpy!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir DryCoolingTo(
+    public IHumidAir DryCoolingTo(
         SpecificEnergy enthalpy,
         Pressure? pressureDrop = null
     ) => DryHeatTransferTo(enthalpy, true, pressureDrop);
 
-    /// <summary>
-    ///     The process of cooling with
-    ///     dehumidification to a given temperature
-    ///     and relative humidity ratio.
-    /// </summary>
-    /// <param name="temperature">Temperature.</param>
-    /// <param name="relativeHumidity">
-    ///     Relative humidity ratio.
-    /// </param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the temperature should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     During the wet cooling process,
-    ///     the absolute humidity ratio should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir WetCoolingTo(
+    public IHumidAir WetCoolingTo(
         Temperature temperature,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
@@ -113,36 +32,7 @@ public partial class HumidAir
             pressureDrop
         );
 
-    /// <summary>
-    ///     The process of cooling with
-    ///     dehumidification to a given temperature
-    ///     and absolute humidity ratio.
-    /// </summary>
-    /// <param name="temperature">Temperature.</param>
-    /// <param name="humidity">
-    ///     Absolute humidity ratio.
-    /// </param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the temperature should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     During the wet cooling process,
-    ///     the absolute humidity ratio should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir WetCoolingTo(
+    public IHumidAir WetCoolingTo(
         Temperature temperature,
         Ratio humidity,
         Pressure? pressureDrop = null
@@ -153,36 +43,7 @@ public partial class HumidAir
             pressureDrop
         );
 
-    /// <summary>
-    ///     The process of cooling with
-    ///     dehumidification to a given enthalpy
-    ///     and relative humidity ratio.
-    /// </summary>
-    /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="relativeHumidity">
-    ///     Relative humidity ratio.
-    /// </param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the enthalpy should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     During the wet cooling process,
-    ///     the absolute humidity ratio should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir WetCoolingTo(
+    public IHumidAir WetCoolingTo(
         SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
@@ -193,36 +54,7 @@ public partial class HumidAir
             pressureDrop
         );
 
-    /// <summary>
-    ///     The process of cooling with
-    ///     dehumidification to a given enthalpy
-    ///     and absolute humidity ratio.
-    /// </summary>
-    /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="humidity">
-    ///     Absolute humidity ratio.
-    /// </param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the cooling process,
-    ///     the enthalpy should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     During the wet cooling process,
-    ///     the absolute humidity ratio should decrease!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir WetCoolingTo(
+    public IHumidAir WetCoolingTo(
         SpecificEnergy enthalpy,
         Ratio humidity,
         Pressure? pressureDrop = null
@@ -233,75 +65,17 @@ public partial class HumidAir
             pressureDrop
         );
 
-    /// <summary>
-    ///     The process of heating
-    ///     to a given temperature.
-    /// </summary>
-    /// <param name="temperature">Temperature.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the heating process,
-    ///     the temperature should increase!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir HeatingTo(
+    public IHumidAir HeatingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
     ) => DryHeatTransferTo(temperature, false, pressureDrop);
 
-    /// <summary>
-    ///     The process of heating
-    ///     to a given enthalpy.
-    /// </summary>
-    /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in
-    ///     the heat exchanger (optional).
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the heating process,
-    ///     the enthalpy should increase!
-    /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop
-    ///     in the heat exchanger!
-    /// </exception>
-    public HumidAir HeatingTo(
+    public IHumidAir HeatingTo(
         SpecificEnergy enthalpy,
         Pressure? pressureDrop = null
     ) => DryHeatTransferTo(enthalpy, false, pressureDrop);
 
-    /// <summary>
-    ///     The process of humidification
-    ///     by water (isenthalpic)
-    ///     to a given relative humidity ratio.
-    /// </summary>
-    /// <param name="relativeHumidity">
-    ///     Relative humidity ratio.
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the humidification process,
-    ///     the absolute humidity ratio should increase!
-    /// </exception>
-    public HumidAir HumidificationByWaterTo(
+    public IHumidAir HumidificationByWaterTo(
         RelativeHumidity relativeHumidity
     ) =>
         HumidificationTo(
@@ -309,45 +83,13 @@ public partial class HumidAir
             InputHumidAir.RelativeHumidity(relativeHumidity)
         );
 
-    /// <summary>
-    ///     The process of humidification
-    ///     by water (isenthalpic)
-    ///     to a given absolute humidity ratio.
-    /// </summary>
-    /// <param name="humidity">
-    ///     Absolute humidity ratio.
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the humidification process,
-    ///     the absolute humidity ratio should increase!
-    /// </exception>
-    public HumidAir HumidificationByWaterTo(Ratio humidity) =>
+    public IHumidAir HumidificationByWaterTo(Ratio humidity) =>
         HumidificationTo(
             InputHumidAir.Enthalpy(Enthalpy),
             InputHumidAir.Humidity(humidity)
         );
 
-    /// <summary>
-    ///     The process of humidification
-    ///     by steam (isothermal)
-    ///     to a given relative humidity ratio.
-    /// </summary>
-    /// <param name="relativeHumidity">
-    ///     Relative humidity ratio.
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the humidification process,
-    ///     the absolute humidity ratio should increase!
-    /// </exception>
-    public HumidAir HumidificationBySteamTo(
+    public IHumidAir HumidificationBySteamTo(
         RelativeHumidity relativeHumidity
     ) =>
         HumidificationTo(
@@ -355,58 +97,17 @@ public partial class HumidAir
             InputHumidAir.RelativeHumidity(relativeHumidity)
         );
 
-    /// <summary>
-    ///     The process of humidification
-    ///     by steam (isothermal)
-    ///     to a given absolute humidity ratio.
-    /// </summary>
-    /// <param name="humidity">
-    ///     Absolute humidity ratio.
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     During the humidification process,
-    ///     the absolute humidity ratio should increase!
-    /// </exception>
-    public HumidAir HumidificationBySteamTo(Ratio humidity) =>
+    public IHumidAir HumidificationBySteamTo(Ratio humidity) =>
         HumidificationTo(
             InputHumidAir.Temperature(Temperature),
             InputHumidAir.Humidity(humidity)
         );
 
-    /// <summary>
-    ///     The mixing process.
-    /// </summary>
-    /// <param name="firstSpecificMassFlow">
-    ///     Specific mass flow rate
-    ///     of the humid air at the first state.
-    /// </param>
-    /// <param name="first">
-    ///     Humid air at the first state.
-    /// </param>
-    /// <param name="secondSpecificMassFlow">
-    ///     Specific mass flow rate
-    ///     of the humid air the second state.
-    /// </param>
-    /// <param name="second">
-    ///     Humid air at the second state.
-    /// </param>
-    /// <returns>
-    ///     The state of the humid air
-    ///     at the end of the process.
-    /// </returns>
-    /// <exception cref="ArgumentException">
-    ///     The mixing process is possible
-    ///     only for flows with the same pressure!
-    /// </exception>
-    public HumidAir Mixing(
+    public IHumidAir Mixing(
         Ratio firstSpecificMassFlow,
-        HumidAir first,
+        IHumidAir first,
         Ratio secondSpecificMassFlow,
-        HumidAir second
+        IHumidAir second
     ) =>
         first.Pressure.Equals(second.Pressure, Tolerance.Pascals())
             ? WithState(
@@ -437,7 +138,7 @@ public partial class HumidAir
                     + "only for flows with the same pressure!"
             );
 
-    private HumidAir DryHeatTransferTo(
+    private IHumidAir DryHeatTransferTo(
         Temperature temperature,
         bool cooling,
         Pressure? pressureDrop = null
@@ -453,7 +154,7 @@ public partial class HumidAir
         );
     }
 
-    private HumidAir DryHeatTransferTo(
+    private IHumidAir DryHeatTransferTo(
         SpecificEnergy enthalpy,
         bool cooling,
         Pressure? pressureDrop = null
@@ -469,7 +170,7 @@ public partial class HumidAir
         );
     }
 
-    private HumidAir WetCoolingTo(
+    private IHumidAir WetCoolingTo(
         IKeyedInput<string> fistInput,
         IKeyedInput<string> secondInput,
         Pressure? pressureDrop = null
@@ -493,7 +194,7 @@ public partial class HumidAir
             );
     }
 
-    private HumidAir HumidificationTo(
+    private IHumidAir HumidificationTo(
         IKeyedInput<string> fistInput,
         IKeyedInput<string> secondInput
     )

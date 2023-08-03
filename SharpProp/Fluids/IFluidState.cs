@@ -117,6 +117,11 @@ public interface IFluidState
     public SpecificEntropy SpecificHeat { get; }
 
     /// <summary>
+    ///     Mass specific volume (by default, m3/kg).
+    /// </summary>
+    public SpecificVolume SpecificVolume { get; }
+
+    /// <summary>
     ///     Surface tension (by default, N/m).
     /// </summary>
     public ForcePerLength? SurfaceTension { get; }

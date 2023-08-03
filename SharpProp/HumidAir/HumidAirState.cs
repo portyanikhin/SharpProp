@@ -5,7 +5,6 @@ public partial class HumidAir
     private const double Tolerance = 1e-6;
     private double? _compressibility;
     private ThermalConductivity? _conductivity;
-    private Density? _density;
     private Temperature? _dewTemperature;
     private DynamicViscosity? _dynamicViscosity;
     private SpecificEnergy? _enthalpy;
@@ -15,6 +14,7 @@ public partial class HumidAir
     private Pressure? _pressure;
     private RelativeHumidity? _relativeHumidity;
     private SpecificEntropy? _specificHeat;
+    private SpecificVolume? _specificVolume;
     private Temperature? _temperature;
     private Temperature? _wetBulbTemperature;
 
@@ -26,8 +26,8 @@ public partial class HumidAir
         );
 
     public Density Density =>
-        _density ??= Density.FromKilogramsPerCubicMeter(
-            1.0 / KeyedOutput("Vha")
+        Density.FromKilogramsPerCubicMeter(
+            1.0 / SpecificVolume.CubicMetersPerKilogram
         );
 
     public Temperature DewTemperature =>
@@ -82,6 +82,11 @@ public partial class HumidAir
         _specificHeat ??= SpecificEntropy
             .FromJoulesPerKilogramKelvin(KeyedOutput("Cha"))
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
+
+    public SpecificVolume SpecificVolume =>
+        _specificVolume ??= SpecificVolume.FromCubicMetersPerKilogram(
+            KeyedOutput("Vha")
+        );
 
     public Temperature Temperature =>
         _temperature ??= Temperature

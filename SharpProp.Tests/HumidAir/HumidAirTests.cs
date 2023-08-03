@@ -74,7 +74,6 @@ public class HumidAirTests
         {
             _humidAir.Compressibility,
             _humidAir.Conductivity.WattsPerMeterKelvin,
-            _humidAir.Density.KilogramsPerCubicMeter,
             _humidAir.DewTemperature.Kelvins,
             _humidAir.DynamicViscosity.PascalSeconds,
             _humidAir.Enthalpy.JoulesPerKilogram,
@@ -86,6 +85,7 @@ public class HumidAirTests
                 .FromPercent(_humidAir.RelativeHumidity.Percent)
                 .DecimalFractions,
             _humidAir.SpecificHeat.JoulesPerKilogramKelvin,
+            _humidAir.SpecificVolume.CubicMetersPerKilogram,
             _humidAir.Temperature.Kelvins,
             _humidAir.WetBulbTemperature.Kelvins
         };
@@ -93,7 +93,6 @@ public class HumidAirTests
         {
             "Z",
             "K",
-            "Vha",
             "D",
             "M",
             "Hha",
@@ -103,6 +102,7 @@ public class HumidAirTests
             "P",
             "R",
             "Cha",
+            "Vha",
             "T",
             "B"
         }
@@ -110,6 +110,15 @@ public class HumidAirTests
             .ToList();
         for (var i = 0; i < actual.Count; i++)
             actual[i].Should().BeApproximately(expected[i], Tolerance);
+        _humidAir.Density
+            .Equals(
+                Density.FromKilogramsPerCubicMeter(
+                    1.0 / _humidAir.SpecificVolume.CubicMetersPerKilogram
+                ),
+                Tolerance.KilogramsPerCubicMeter()
+            )
+            .Should()
+            .BeTrue();
         _humidAir.KinematicViscosity
             .Equals(
                 _humidAir.DynamicViscosity / _humidAir.Density,
@@ -293,9 +302,8 @@ public class HumidAirTests
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
-    private double CoolPropInterface(string key)
-    {
-        var value = CoolProp.HAPropsSI(
+    private double CoolPropInterface(string key) =>
+        CoolProp.HAPropsSI(
             key,
             "P",
             _humidAir.Pressure.Pascals,
@@ -306,6 +314,4 @@ public class HumidAirTests
                 .FromPercent(_humidAir.RelativeHumidity.Percent)
                 .DecimalFractions
         );
-        return key == "Vha" ? 1.0 / value : value;
-    }
 }

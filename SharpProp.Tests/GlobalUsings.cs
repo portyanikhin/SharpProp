@@ -10,6 +10,7 @@ global using UnitsNet.NumberExtensions.NumberToMolarMass;
 global using UnitsNet.NumberExtensions.NumberToPressure;
 global using UnitsNet.NumberExtensions.NumberToSpecificEnergy;
 global using UnitsNet.NumberExtensions.NumberToSpecificEntropy;
+global using UnitsNet.NumberExtensions.NumberToSpecificVolume;
 global using UnitsNet.NumberExtensions.NumberToTemperature;
 global using UnitsNet.Serialization.JsonNet;
 global using UnitsNet.Units;

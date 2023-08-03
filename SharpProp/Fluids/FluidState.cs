@@ -1,6 +1,6 @@
 ﻿namespace SharpProp;
 
-public abstract partial class AbstractFluid : IFluidState
+public abstract partial class AbstractFluid
 {
     protected const double Tolerance = 1e-6;
     private double? _compressibility;
@@ -168,6 +168,11 @@ public abstract partial class AbstractFluid : IFluidState
         _specificHeat ??= SpecificEntropy
             .FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCpmass))
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
+
+    public SpecificVolume SpecificVolume =>
+        SpecificVolume.FromCubicMetersPerKilogram(
+            1.0 / Density.KilogramsPerCubicMeter
+        );
 
     public ForcePerLength? SurfaceTension =>
         _surfaceTension ??= KeyedOutputIsNotNull(

@@ -144,6 +144,15 @@ public class FluidTests : IDisposable
             )
             .Should()
             .BeTrue();
+        fluid.SpecificVolume
+            .Equals(
+                SpecificVolume.FromCubicMetersPerKilogram(
+                    1.0 / fluid.Density.KilogramsPerCubicMeter
+                ),
+                Tolerance.CubicMetersPerKilogram()
+            )
+            .Should()
+            .BeTrue();
     }
 
     [Fact]

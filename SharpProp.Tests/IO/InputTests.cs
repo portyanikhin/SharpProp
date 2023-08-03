@@ -59,6 +59,11 @@ public static class InputTests
             new object[] { Input.Quality(50.Percent()), Parameters.iQ },
             new object[]
             {
+                Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()),
+                Parameters.iDmass
+            },
+            new object[]
+            {
                 Input.Temperature(20.DegreesCelsius()),
                 Parameters.iT
             }
@@ -81,6 +86,11 @@ public static class InputTests
             },
             new object[] { Input.Pressure(1.Atmospheres()), 101325 },
             new object[] { Input.Quality(50.Percent()), 0.5 },
+            new object[]
+            {
+                Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()),
+                999
+            },
             new object[] { Input.Temperature(20.DegreesCelsius()), 293.15 }
         };
 }

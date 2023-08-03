@@ -28,7 +28,6 @@ public partial class HumidAir : IHumidAir
         _inputs.Clear();
         _compressibility = null;
         _conductivity = null;
-        _density = null;
         _dewTemperature = null;
         _dynamicViscosity = null;
         _enthalpy = null;
@@ -38,6 +37,7 @@ public partial class HumidAir : IHumidAir
         _pressure = null;
         _relativeHumidity = null;
         _specificHeat = null;
+        _specificVolume = null;
         _temperature = null;
         _wetBulbTemperature = null;
     }

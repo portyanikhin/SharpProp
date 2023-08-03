@@ -77,6 +77,11 @@ public interface IHumidAirState
     public SpecificEntropy SpecificHeat { get; }
 
     /// <summary>
+    ///     Mass specific volume per humid air unit (by default, m3/kg).
+    /// </summary>
+    public SpecificVolume SpecificVolume { get; }
+
+    /// <summary>
     ///     Dry-bulb temperature (by default, °C).
     /// </summary>
     public Temperature Temperature { get; }

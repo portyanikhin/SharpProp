@@ -72,6 +72,14 @@ public record Input : IKeyedInput<Parameters>
         new(Parameters.iQ, value.DecimalFractions);
 
     /// <summary>
+    ///     Mass specific volume.
+    /// </summary>
+    /// <param name="value">The value of the input.</param>
+    /// <returns>Mass specific volume for the input.</returns>
+    public static Input SpecificVolume(SpecificVolume value) =>
+        new(Parameters.iDmass, 1.0 / value.CubicMetersPerKilogram);
+
+    /// <summary>
     ///     Temperature.
     /// </summary>
     /// <param name="value">The value of the input.</param>

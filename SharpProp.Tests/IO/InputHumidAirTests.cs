@@ -55,7 +55,7 @@ public static class InputHumidAirTests
             new object[] { InputHumidAir.Altitude(300.Meters()), "P" },
             new object[]
             {
-                InputHumidAir.Density(1.2.KilogramsPerCubicMeter()),
+                InputHumidAir.Density(1.25.KilogramsPerCubicMeter()),
                 "Vha"
             },
             new object[]
@@ -89,6 +89,11 @@ public static class InputHumidAirTests
             },
             new object[]
             {
+                InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()),
+                "Vha"
+            },
+            new object[]
+            {
                 InputHumidAir.Temperature(20.DegreesCelsius()),
                 "T"
             },
@@ -109,8 +114,8 @@ public static class InputHumidAirTests
             },
             new object[]
             {
-                InputHumidAir.Density(1.2.KilogramsPerCubicMeter()),
-                0.8333333333333334
+                InputHumidAir.Density(1.25.KilogramsPerCubicMeter()),
+                0.8
             },
             new object[]
             {
@@ -140,6 +145,11 @@ public static class InputHumidAirTests
                     RelativeHumidity.FromPercent(50)
                 ),
                 0.5
+            },
+            new object[]
+            {
+                InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()),
+                0.8
             },
             new object[]
             {

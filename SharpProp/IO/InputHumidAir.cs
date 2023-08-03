@@ -120,6 +120,16 @@ public record InputHumidAir : IKeyedInput<string>
         new("R", Ratio.FromPercent(value.Percent).DecimalFractions);
 
     /// <summary>
+    ///     Mass specific volume per humid air unit.
+    /// </summary>
+    /// <param name="value">The value of the input.</param>
+    /// <returns>
+    ///     Mass specific volume per humid air unit for the input.
+    /// </returns>
+    public static InputHumidAir SpecificVolume(SpecificVolume value) =>
+        new("Vha", value.CubicMetersPerKilogram);
+
+    /// <summary>
     ///     Dry-bulb temperature.
     /// </summary>
     /// <param name="value">The value of the input.</param>

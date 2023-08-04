@@ -173,6 +173,21 @@ public class FluidTests : IDisposable
     }
 
     [Fact]
+    public void SpecifyPhase_Always_SpecifiesPhaseForAllFurtherCalculations()
+    {
+        IAbstractFluid fluid = _fluid;
+        fluid.SpecifyPhase(Phases.Gas);
+        var action = () =>
+            fluid.Update(
+                Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius())
+            );
+        action.Should().Throw<ApplicationException>();
+        fluid.UnspecifyPhase();
+        action.Should().NotThrow();
+    }
+
+    [Fact]
     public void WithState_WaterInStandardConditions_PhaseIsLiquid() =>
         _fluid
             .WithState(

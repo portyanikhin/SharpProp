@@ -45,6 +45,15 @@ internal static class AbstractStatePInvoke
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_clear")]
     public static extern bool Clear(HandleRef abstractState);
 
+    [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_specify_phase")]
+    public static extern void SpecifyPhase(HandleRef abstractState, int phase);
+
+    [DllImport(
+        Library.Name,
+        EntryPoint = "CSharp_AbstractState_unspecify_phase"
+    )]
+    public static extern void UnspecifyPhase(HandleRef abstractState);
+
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_keyed_output")]
     public static extern double KeyedOutput(HandleRef abstractState, int key);
 }

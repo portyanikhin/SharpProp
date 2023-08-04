@@ -128,6 +128,10 @@
             x:Key="/Default/UserDictionary/Words/=Undecane/@EntryIndexedValue">
         True
     </s:Boolean>
+    <s:Boolean
+            x:Key="/Default/UserDictionary/Words/=Unspecify/@EntryIndexedValue">
+        True
+    </s:Boolean>
     <s:Boolean x:Key="/Default/UserDictionary/Words/=volu/@EntryIndexedValue">
         True
     </s:Boolean>

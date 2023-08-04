@@ -93,9 +93,21 @@ public class AbstractState : IDisposable
         SwigExceptions.ThrowPendingException();
     }
 
-    public virtual void Clear()
+    public void Clear()
     {
         AbstractStatePInvoke.Clear(_handle);
+        SwigExceptions.ThrowPendingException();
+    }
+
+    public void SpecifyPhase(Phases phase)
+    {
+        AbstractStatePInvoke.SpecifyPhase(_handle, (int)phase);
+        SwigExceptions.ThrowPendingException();
+    }
+
+    public void UnspecifyPhase()
+    {
+        AbstractStatePInvoke.UnspecifyPhase(_handle);
         SwigExceptions.ThrowPendingException();
     }
 

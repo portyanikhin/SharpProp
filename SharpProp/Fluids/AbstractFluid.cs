@@ -51,6 +51,10 @@ public abstract partial class AbstractFluid : IAbstractFluid
         _phase = null;
     }
 
+    public void SpecifyPhase(Phases phase) => Backend.SpecifyPhase(phase);
+
+    public void UnspecifyPhase() => Backend.UnspecifyPhase();
+
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
         (

@@ -126,6 +126,8 @@ For more information, see the XML documentation.
 
 * `Update` - updates the state of the fluid.
 * `Reset` - resets all non-trivial properties.
+* `SpecifyPhase` - specify the phase state for all further calculations.
+* `UnspecifyPhase` - unspecify the phase state and go back to calculating it based on the inputs.
 * `WithState` - returns a new fluid instance with a defined state.
 * `IsentropicCompressionTo` - the process of isentropic compression to a given pressure.
 * `CompressionTo` - the process of compression to a given pressure.
@@ -146,6 +148,8 @@ For more information, see the XML documentation.
 
 * `Update` - updates the state of the mixture.
 * `Reset` - resets all non-trivial properties.
+* `SpecifyPhase` - specify the phase state for all further calculations.
+* `UnspecifyPhase` - unspecify the phase state and go back to calculating it based on the inputs.
 * `WithState` - returns a new mixture instance with a defined state.
 * `CoolingTo` - the process of cooling to a given temperature.
 * `HeatingTo` - the process of heating to a given temperature.

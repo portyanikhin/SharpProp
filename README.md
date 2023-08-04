@@ -52,12 +52,16 @@ In addition, you will be able to convert all values to many other dimensions wit
 
 ## Project structure
 
-* `Fluid` class - implementation of pure fluids and binary mixtures.
-* `Mixture` class - implementation of mixtures with pure fluids components.
-* `FluidsList` enum - list of all available fluids.
-* `Input` record - inputs for the `Fluid` and `Mixture` classes.
-* `HumidAir` class - implementation of real humid air.
-* `InputHumidAir` record - inputs for the `HumidAir` class.
+* `Fluid` class - an implementation of pure fluids and binary mixtures 
+  (`IFluid` interface).
+* `Mixture` class - an implementation of mixtures with pure fluids 
+  components (`IMixture` interface).
+* `FluidsList` enum - a list of all available fluids.
+* `Input` record - the inputs for the `Fluid` and `Mixture` classes 
+  (`IKeyedInput<Parameters>` interface).
+* `HumidAir` class - an implementation of real humid air (`IHumidAir` interface).
+* `InputHumidAir` record - the inputs for the `HumidAir` class 
+  (`IKeyedInput<string>` interface).
 
 ## List of properties
 
@@ -88,6 +92,7 @@ the `Fluid`, `Mixture` or `HumidAir` classes (see [how to add other properties](
 * `Quality` - mass vapor quality _(by default, %)_.
 * `SoundSpeed` - sound speed _(by default, m/s)_.
 * `SpecificHeat` - mass specific constant pressure specific heat _(by default, kJ/kg/K)_.
+* `SpecificVolume` - mass specific volume _(by default, m3/kg)_.
 * `SurfaceTension` - surface tension _(by default, N/m)_.
 * `Temperature` - temperature _(by default, °C)_.
 * `TriplePressure` - absolute pressure at the triple point _(by default, kPa)_.
@@ -109,6 +114,7 @@ the `Fluid`, `Mixture` or `HumidAir` classes (see [how to add other properties](
 * `Pressure` - absolute pressure _(by default, kPa)_.
 * `RelativeHumidity` - relative humidity ratio _(by default, %)_.
 * `SpecificHeat` - mass specific constant pressure specific heat per humid air _(by default, kJ/kg/K)_.
+* `SpecificVolume` - mass specific volume per humid air unit _(by default, m3/kg)_.
 * `Temperature` - dry-bulb temperature _(by default, °C)_.
 * `WetBulbTemperature` - wet-bulb temperature _(by default, °C)_.
 
@@ -118,9 +124,9 @@ For more information, see the XML documentation.
 
 ### Methods of `Fluid` instances
 
-* `Factory` - returns a new fluid instance with no defined state.
-* `WithState` - returns a new fluid instance with a defined state.
 * `Update` - updates the state of the fluid.
+* `Reset` - resets all non-trivial properties.
+* `WithState` - returns a new fluid instance with a defined state.
 * `IsentropicCompressionTo` - the process of isentropic compression to a given pressure.
 * `CompressionTo` - the process of compression to a given pressure.
 * `IsenthalpicExpansionTo` - the process of isenthalpic expansion to a given pressure.
@@ -132,30 +138,33 @@ For more information, see the XML documentation.
 * `DewPointAt` - returns a dew point at a given pressure or temperature.
 * `TwoPhasePointAt` - returns a two-phase point at a given pressure.
 * `Mixing` - the mixing process.
+* `Factory` - returns a new fluid instance with no defined state.
 * `Clone` - performs deep (full) copy of the fluid instance.
 * `AsJson` - converts the fluid instance to a JSON string.
 
 ### Methods of `Mixture` instances
 
-* `Factory` - returns a new mixture instance with no defined state.
-* `WithState` - returns a new mixture instance with a defined state.
 * `Update` - updates the state of the mixture.
+* `Reset` - resets all non-trivial properties.
+* `WithState` - returns a new mixture instance with a defined state.
 * `CoolingTo` - the process of cooling to a given temperature.
 * `HeatingTo` - the process of heating to a given temperature.
+* `Factory` - returns a new mixture instance with no defined state.
 * `Clone` - performs deep (full) copy of the mixture instance.
 * `AsJson` - converts the mixture instance to a JSON string.
 
 ### Methods of `HumidAir` instances
 
-* `Factory` - returns a new humid air instance with no defined state.
-* `WithState` - returns a new humid air instance with a defined state.
 * `Update` - updates the state of the humid air.
+* `Reset` - resets all properties.
+* `WithState` - returns a new humid air instance with a defined state.
 * `DryCoolingTo` - the process of cooling without dehumidification to a given temperature or enthalpy.
 * `WetCoolingTo` - the process of cooling with dehumidification to a given temperature or enthalpy and relative or absolute humidity ratio.
 * `HeatingTo` - the process of heating to a given temperature or enthalpy.
 * `HumidificationByWaterTo` - the process of humidification by water (isenthalpic) to a given relative or absolute humidity ratio.
 * `HumidificationBySteamTo` - the process of humidification by steam (isothermal) to a given relative or absolute humidity ratio.
 * `Mixing` - the mixing process.
+* `Factory` - returns a new humid air instance with no defined state.
 * `Clone` - performs deep (full) copy of the humid air instance.
 * `AsJson` - converts the humid air instance to a JSON string.
 
@@ -170,12 +179,12 @@ using SharpProp;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.Units;
 
-var waterVapour = new Fluid(FluidsList.Water)
-    .DewPointAt((1).Atmospheres());
-Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin); // 2079.937085633241
-Console.WriteLine(waterVapour.SpecificHeat);                         // 2.08 kJ/kg·K
-Console.WriteLine(waterVapour.SpecificHeat
-    .ToUnit(SpecificEntropyUnit.CaloriePerGramKelvin));              // 0.5 cal/g·K
+var waterVapour = new Fluid(FluidsList.Water).DewPointAt((1).Atmospheres());
+Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin);          // 2079.937085633241
+Console.WriteLine(waterVapour.SpecificHeat);                                  // 2.08 kJ/kg·K
+Console.WriteLine(
+    waterVapour.SpecificHeat.ToUnit(SpecificEntropyUnit.CaloriePerGramKelvin) // 0.5 cal/g·K
+);
 ```
 
 ### Incompressible binary mixtures
@@ -190,13 +199,15 @@ using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
 
-var propyleneGlycol = new Fluid(FluidsList.MPG, (60).Percent())
-    .WithState(Input.Pressure((100).Kilopascals()),
-        Input.Temperature((-20).DegreesCelsius()));
-Console.WriteLine(propyleneGlycol.DynamicViscosity?.PascalSeconds); // 0.13907391053938878
-Console.WriteLine(propyleneGlycol.DynamicViscosity);                // 139.07 mPa·s
-Console.WriteLine(propyleneGlycol.DynamicViscosity?
-    .ToUnit(DynamicViscosityUnit.Poise));                           // 1.39 P
+var propyleneGlycol = new Fluid(FluidsList.MPG, (60).Percent()).WithState(
+    Input.Pressure((100).Kilopascals()),
+    Input.Temperature((-20).DegreesCelsius())
+);
+Console.WriteLine(propyleneGlycol.DynamicViscosity?.PascalSeconds);      // 0.13907391053938878
+Console.WriteLine(propyleneGlycol.DynamicViscosity);                     // 139.07 mPa·s
+Console.WriteLine(
+    propyleneGlycol.DynamicViscosity?.ToUnit(DynamicViscosityUnit.Poise) // 1.39 P
+); 
 ```
 
 ### Mixtures
@@ -213,10 +224,12 @@ using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
 
 var mixture = new Mixture(
-        new List<FluidsList> {FluidsList.Water, FluidsList.Ethanol},
-        new List<Ratio> {(60).Percent(), (40).Percent()})
-    .WithState(Input.Pressure((200).Kilopascals()),
-        Input.Temperature((277.15).Kelvins()));
+    new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
+    new List<Ratio> { (60).Percent(), (40).Percent() }
+).WithState(
+    Input.Pressure((200).Kilopascals()),
+    Input.Temperature((277.15).Kelvins())
+);
 Console.WriteLine(mixture.Density.KilogramsPerCubicMeter);               // 883.3922771627759
 Console.WriteLine(mixture.Density);                                      // 883.39 kg/m3
 Console.WriteLine(mixture.Density.ToUnit(DensityUnit.GramPerDeciliter)); // 88.34 g/dl
@@ -237,17 +250,19 @@ using UnitsNet.Units;
 var humidAir = new HumidAir().WithState(
     InputHumidAir.Altitude((300).Meters()),
     InputHumidAir.Temperature((30).DegreesCelsius()),
-    InputHumidAir.RelativeHumidity((50).Percent()));
-Console.WriteLine(humidAir.WetBulbTemperature.Kelvins); // 295.06756903366403
-Console.WriteLine(humidAir.WetBulbTemperature);         // 21.92 °C
-Console.WriteLine(humidAir.WetBulbTemperature
-    .ToUnit(TemperatureUnit.DegreeFahrenheit));         // 71.45 °F
+    InputHumidAir.RelativeHumidity((50).Percent())
+);
+Console.WriteLine(humidAir.WetBulbTemperature.Kelvins);                  // 295.06756903366403
+Console.WriteLine(humidAir.WetBulbTemperature);                          // 21.92 °C
+Console.WriteLine(
+    humidAir.WetBulbTemperature.ToUnit(TemperatureUnit.DegreeFahrenheit) // 71.45 °F
+); 
 ```
 
 ### Equality of instances
 
 You can simply determine the equality of `Fluid`, `Mixture` and `HumidAir` instances by its state.
-Just use the `Equals` method or the equality operators (`==` or `!=`).
+Just use the `Equals` method (**_not_** the equality operators: `==` and `!=`).
 Exactly the same way you can compare inputs (`Input`, `InputHumidAir` or any `IKeyedInput` record).
 
 For example:
@@ -261,15 +276,14 @@ using UnitsNet.NumberExtensions.NumberToTemperature;
 var humidAir = new HumidAir().WithState(
     InputHumidAir.Pressure((1).Atmospheres()),
     InputHumidAir.Temperature((20).DegreesCelsius()),
-    InputHumidAir.RelativeHumidity((50).Percent()));
+    InputHumidAir.RelativeHumidity((50).Percent())
+);
 var sameHumidAir = new HumidAir().WithState(
     InputHumidAir.Pressure((101325).Pascals()),
     InputHumidAir.Temperature((293.15).Kelvins()),
-    InputHumidAir.RelativeHumidity((50).Percent()));
-Console.WriteLine(humidAir == sameHumidAir);          // true
-Console.WriteLine(
-    InputHumidAir.Pressure((1).Atmospheres()) ==
-    InputHumidAir.Pressure((101.325).Kilopascals())); // true
+    InputHumidAir.RelativeHumidity((50).Percent())
+);
+Console.WriteLine(humidAir.Equals(sameHumidAir)); // true
 ```
 
 ### Converting to a JSON string
@@ -282,8 +296,7 @@ For example, converting a `Fluid` instance to an _indented_ JSON string:
 using SharpProp;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 
-var refrigerant = new Fluid(FluidsList.R32)
-    .DewPointAt((5).DegreesCelsius());
+var refrigerant = new Fluid(FluidsList.R32).DewPointAt((5).DegreesCelsius());
 Console.WriteLine(refrigerant.AsJson());
 ```
 
@@ -372,6 +385,10 @@ As a result:
     "Unit": "SpecificEntropyUnit.KilojoulePerKilogramKelvin",
     "Value": 1.3057899441785379
   },
+  "SpecificVolume": {
+    "Unit": "SpecificVolumeUnit.CubicMeterPerKilogram",
+    "Value": 0.03862363664945844
+  },
   "SurfaceTension": {
     "Unit": "ForcePerLengthUnit.NewtonPerMeter",
     "Value": 0.010110117241546162
@@ -401,22 +418,25 @@ using SharpProp;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 
-var origin = new Fluid(FluidsList.Water)
-    .WithState(Input.Pressure((1).Atmospheres()),
-        Input.Temperature((20).DegreesCelsius()));
+var origin = new Fluid(FluidsList.Water).WithState(
+    Input.Pressure((1).Atmospheres()),
+    Input.Temperature((20).DegreesCelsius())
+);
 var clone = origin.Clone();
-Console.WriteLine(origin == clone);                // true
-clone.Update(Input.Pressure((1).Atmospheres()),
-    Input.Temperature((30).DegreesCelsius()));
-Console.WriteLine(origin == clone);                // false
+Console.WriteLine(origin.Equals(clone)); // true
+clone.Update(
+    Input.Pressure((1).Atmospheres()),
+    Input.Temperature((30).DegreesCelsius())
+);
+Console.WriteLine(origin.Equals(clone)); // false
 ```
 
 ### Adding other properties
 
-* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/FluidExtendedTests.cs).
-* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/HumidAirExtendedTests.cs).
+* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/FluidExtended.cs).
+* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/HumidAirExtended.cs).
 
 ### Adding other inputs
 
-* [Example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputExtendedTests.cs).
-* [Example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputHumidAirExtendedTests.cs).
+* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputExtended.cs).
+* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputHumidAirExtended.cs).

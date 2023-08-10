@@ -54,7 +54,7 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="UnitsNet" Version="5.29.0"/>
         <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="5.28.0"/>
-        <PackageReference Include="UnitsNet.NumberExtensions" Version="5.29.0"/>
+        <PackageReference Include="UnitsNet.NumberExtensions" Version="5.30.0"/>
     </ItemGroup>
 
     <ItemGroup>

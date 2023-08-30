@@ -1,0 +1,56 @@
+﻿name: Build Binaries
+
+on:
+  workflow_dispatch:
+    inputs:
+      coolprop_version:
+        required: true
+        description: "CoolProp version"
+        default: "v6.5.0"
+
+jobs:
+  build-binaries:
+    name: ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ windows-latest, macos-latest, ubuntu-latest ]
+      fail-fast: false
+
+    steps:
+      - name: Checkout CoolProp repository
+        uses: actions/checkout@v3
+        with:
+          repository: CoolProp/CoolProp
+          ref: ${{ github.event.inputs.coolprop_version }}
+          submodules: recursive
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+      - name: Restore Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install six
+      - name: Build a Makefile using CMake
+        run: cmake . -DCOOLPROP_CSHARP_MODULE=ON -DCMAKE_BUILD_TYPE=Release
+      - name: Build CoolProp Binaries
+        run: cmake --build . --config Release
+      - name: Rename DLL
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          mv Release/CoolProp.dll ./
+          mv CoolProp.dll libCoolProp.dll
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: CoolProp ${{ github.event.inputs.coolprop_version }} (${{ runner.os }})
+          path: |
+            *.dll
+            *.dylib
+            *.so
+            platform-independent.7z
+          if-no-files-found: error

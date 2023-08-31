@@ -71,9 +71,9 @@ public class Mixture : AbstractFluid, IMixture
         );
     }
 
-    public List<FluidsList> Fluids { get; }
+    public IReadOnlyList<FluidsList> Fluids { get; }
 
-    public List<Ratio> Fractions { get; }
+    public IReadOnlyList<Ratio> Fractions { get; }
 
     public new IMixture WithState(
         IKeyedInput<Parameters> firstInput,

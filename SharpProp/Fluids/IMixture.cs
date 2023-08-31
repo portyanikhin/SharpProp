@@ -13,12 +13,12 @@ public interface IMixture
     /// <summary>
     ///     List of selected names of pure fluids.
     /// </summary>
-    public List<FluidsList> Fluids { get; }
+    public IReadOnlyList<FluidsList> Fluids { get; }
 
     /// <summary>
     ///     List of mass-based fractions (by default, %).
     /// </summary>
-    public List<Ratio> Fractions { get; }
+    public IReadOnlyList<Ratio> Fractions { get; }
 
     /// <summary>
     ///     Returns a new mixture instance with a defined state.

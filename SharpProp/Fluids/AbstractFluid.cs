@@ -5,10 +5,10 @@
 /// </summary>
 public abstract partial class AbstractFluid : IAbstractFluid
 {
-    protected AbstractState Backend = null!;
+    protected AbstractState Backend = default!;
 
-    protected List<IKeyedInput<Parameters>> Inputs { get; private set; } =
-        new(2);
+    protected IList<IKeyedInput<Parameters>> Inputs { get; private set; } =
+        new List<IKeyedInput<Parameters>>(2);
 
     public void Dispose()
     {
@@ -96,7 +96,9 @@ public abstract partial class AbstractFluid : IAbstractFluid
 
     protected double KeyedOutput(Parameters key)
     {
-        var input = Inputs.Find(input => input.CoolPropKey == key)?.Value;
+        var input = Inputs
+            .FirstOrDefault(input => input.CoolPropKey == key)
+            ?.Value;
         var result = input ?? Backend.KeyedOutput(key);
         new OutputsValidator(result).Validate();
         return result;

@@ -70,7 +70,7 @@ public class HumidAirTests
             InputHumidAir.Temperature(temperature.DegreesCelsius()),
             InputHumidAir.RelativeHumidity(relativeHumidity.Percent())
         );
-        var actual = new List<double>
+        var actual = new[]
         {
             _humidAir.Compressibility,
             _humidAir.Conductivity.WattsPerMeterKelvin,
@@ -89,7 +89,7 @@ public class HumidAirTests
             _humidAir.Temperature.Kelvins,
             _humidAir.WetBulbTemperature.Kelvins
         };
-        var expected = new List<string>
+        var expected = new[]
         {
             "Z",
             "K",
@@ -108,7 +108,7 @@ public class HumidAirTests
         }
             .Select(CoolPropInterface)
             .ToList();
-        for (var i = 0; i < actual.Count; i++)
+        for (var i = 0; i < actual.Length; i++)
             actual[i].Should().BeApproximately(expected[i], Tolerance);
         _humidAir.Density
             .Equals(

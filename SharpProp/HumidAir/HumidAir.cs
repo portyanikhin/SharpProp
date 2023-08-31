@@ -5,7 +5,9 @@
 /// </summary>
 public partial class HumidAir : IHumidAir
 {
-    private List<IKeyedInput<string>> _inputs = new(3);
+    private IList<IKeyedInput<string>> _inputs = new List<IKeyedInput<string>>(
+        3
+    );
 
     public void Update(
         IKeyedInput<string> firstInput,
@@ -82,7 +84,9 @@ public partial class HumidAir : IHumidAir
     protected double KeyedOutput(string key)
     {
         CheckInputs();
-        var input = _inputs.Find(input => input.CoolPropKey == key)?.Value;
+        var input = _inputs
+            .FirstOrDefault(input => input.CoolPropKey == key)
+            ?.Value;
         var result =
             input
             ?? CoolProp.HAPropsSI(

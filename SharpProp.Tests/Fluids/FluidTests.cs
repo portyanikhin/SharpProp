@@ -79,7 +79,7 @@ public class FluidTests : IDisposable
     {
         SetUpFluid(name);
         IAbstractFluid fluid = _fluid;
-        var actual = new List<double?>
+        var actual = new[]
         {
             fluid.Compressibility,
             fluid.Conductivity?.WattsPerMeterKelvin,
@@ -106,7 +106,7 @@ public class FluidTests : IDisposable
             fluid.TriplePressure?.Pascals,
             fluid.TripleTemperature?.Kelvins
         };
-        var expected = new List<string>
+        var expected = new[]
         {
             "Z",
             "L",
@@ -135,7 +135,7 @@ public class FluidTests : IDisposable
         }
             .Select(CoolPropInterface)
             .ToList();
-        for (var i = 0; i < actual.Count; i++)
+        for (var i = 0; i < actual.Length; i++)
             actual[i].Should().BeApproximately(expected[i], Tolerance);
         fluid.KinematicViscosity
             ?.Equals(

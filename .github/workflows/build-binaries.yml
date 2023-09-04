@@ -1,4 +1,4 @@
-﻿name: Build Binaries
+name: Build Binaries
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout CoolProp repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: CoolProp/CoolProp
           ref: ${{ github.event.inputs.coolprop_version }}

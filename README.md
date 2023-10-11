@@ -437,10 +437,10 @@ Console.WriteLine(origin.Equals(clone)); // false
 
 ### Adding other properties
 
-* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/Fluids/FluidExtended.cs).
-* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/HumidAir/HumidAirExtended.cs).
+* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/tests/SharpProp.Tests/Fluids/FluidExtended.cs).
+* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/tests/SharpProp.Tests/HumidAir/HumidAirExtended.cs).
 
 ### Adding other inputs
 
-* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputExtended.cs).
-* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/SharpProp.Tests/IO/InputHumidAirExtended.cs).
+* [An example for the `Fluid` and `Mixture`](https://github.com/portyanikhin/SharpProp/blob/master/tests/SharpProp.Tests/IO/InputExtended.cs).
+* [An example for the `HumidAir`](https://github.com/portyanikhin/SharpProp/blob/master/tests/SharpProp.Tests/IO/InputHumidAirExtended.cs).

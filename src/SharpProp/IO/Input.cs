@@ -1,8 +1,7 @@
 ﻿namespace SharpProp;
 
 /// <summary>
-///     CoolProp keyed input
-///     for fluids and mixtures.
+///     CoolProp keyed input for fluids and mixtures.
 /// </summary>
 public record Input : IKeyedInput<Parameters>
 {

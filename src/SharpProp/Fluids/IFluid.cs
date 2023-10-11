@@ -26,9 +26,7 @@ public interface IFluid
     /// </summary>
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
-    /// <returns>
-    ///     A new fluid instance with a defined state.
-    /// </returns>
+    /// <returns>A new fluid instance with a defined state.</returns>
     /// <exception cref="ArgumentException">
     ///     Need to define 2 unique inputs!
     /// </exception>
@@ -56,9 +54,7 @@ public interface IFluid
     /// <param name="isentropicEfficiency">
     ///     Compressor isentropic efficiency.
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Compressor outlet pressure should be higher than inlet pressure!
     /// </exception>
@@ -71,9 +67,7 @@ public interface IFluid
     ///     The process of isenthalpic expansion to a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Expansion valve outlet pressure should be lower than inlet pressure!
     /// </exception>
@@ -83,9 +77,7 @@ public interface IFluid
     ///     The process of isentropic expansion to a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Expander outlet pressure should be lower than inlet pressure!
     /// </exception>
@@ -98,9 +90,7 @@ public interface IFluid
     /// <param name="isentropicEfficiency">
     ///     Expander isentropic efficiency.
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Expander outlet pressure should be lower than inlet pressure!
     /// </exception>
@@ -116,9 +106,7 @@ public interface IFluid
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
@@ -137,9 +125,7 @@ public interface IFluid
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the enthalpy should decrease!
     /// </exception>
@@ -158,9 +144,7 @@ public interface IFluid
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the temperature should increase!
     /// </exception>
@@ -179,9 +163,7 @@ public interface IFluid
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the enthalpy should increase!
     /// </exception>
@@ -197,36 +179,28 @@ public interface IFluid
     ///     Returns a bubble point at a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>
-    ///     A bubble point at a given pressure.
-    /// </returns>
+    /// <returns>A bubble point at a given pressure.</returns>
     public IFluid BubblePointAt(Pressure pressure);
 
     /// <summary>
     ///     Returns a bubble point at a given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <returns>
-    ///     A bubble point at a given temperature.
-    /// </returns>
+    /// <returns>A bubble point at a given temperature.</returns>
     public IFluid BubblePointAt(Temperature temperature);
 
     /// <summary>
     ///     Returns a dew point at a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>
-    ///     A dew point at a given pressure.
-    /// </returns>
+    /// <returns>A dew point at a given pressure.</returns>
     public IFluid DewPointAt(Pressure pressure);
 
     /// <summary>
     ///     Returns a dew point at a given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <returns>
-    ///     A dew point at a given temperature.
-    /// </returns>
+    /// <returns>A dew point at a given temperature.</returns>
     public IFluid DewPointAt(Temperature temperature);
 
     /// <summary>
@@ -234,9 +208,7 @@ public interface IFluid
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <param name="quality">Vapor quality.</param>
-    /// <returns>
-    ///     Two-phase point at a given pressure.
-    /// </returns>
+    /// <returns>Two-phase point at a given pressure.</returns>
     public IFluid TwoPhasePointAt(Pressure pressure, Ratio quality);
 
     /// <summary>
@@ -250,9 +222,7 @@ public interface IFluid
     ///     Specific mass flow rate of the fluid at the second state.
     /// </param>
     /// <param name="second">Fluid at the second state.</param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     The mixing process is possible only for the same fluids!
     /// </exception>

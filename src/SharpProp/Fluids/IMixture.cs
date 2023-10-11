@@ -25,9 +25,7 @@ public interface IMixture
     /// </summary>
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
-    /// <returns>
-    ///     A new mixture instance with a defined state.
-    /// </returns>
+    /// <returns>A new mixture instance with a defined state.</returns>
     /// <exception cref="ArgumentException">
     ///     Need to define 2 unique inputs!
     /// </exception>
@@ -43,9 +41,7 @@ public interface IMixture
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the mixture at the end of the process.
-    /// </returns>
+    /// <returns>The state of the mixture at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
@@ -64,9 +60,7 @@ public interface IMixture
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the mixture at the end of the process.
-    /// </returns>
+    /// <returns>The state of the mixture at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the temperature should increase!
     /// </exception>

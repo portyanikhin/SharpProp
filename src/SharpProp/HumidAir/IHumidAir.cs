@@ -36,9 +36,7 @@ public interface IHumidAir
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
     /// <param name="thirdInput">Third input property.</param>
-    /// <returns>
-    ///     A new humid air instance with a defined state.
-    /// </returns>
+    /// <returns>A new humid air instance with a defined state.</returns>
     /// <exception cref="ArgumentException">
     ///     Need to define 3 unique inputs!
     /// </exception>
@@ -56,9 +54,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
@@ -82,9 +78,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the enthalpy should decrease!
     /// </exception>
@@ -109,9 +103,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
@@ -137,9 +129,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
@@ -165,9 +155,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the enthalpy should decrease!
     /// </exception>
@@ -193,9 +181,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the enthalpy should decrease!
     /// </exception>
@@ -219,9 +205,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the temperature should increase!
     /// </exception>
@@ -240,9 +224,7 @@ public interface IHumidAir
     /// <param name="pressureDrop">
     ///     Pressure drop in the heat exchanger (optional).
     /// </param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the enthalpy should increase!
     /// </exception>
@@ -259,9 +241,7 @@ public interface IHumidAir
     ///     to a given relative humidity ratio.
     /// </summary>
     /// <param name="relativeHumidity">Relative humidity ratio.</param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
@@ -273,9 +253,7 @@ public interface IHumidAir
     ///     to a given absolute humidity ratio.
     /// </summary>
     /// <param name="humidity">Absolute humidity ratio.</param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
@@ -287,9 +265,7 @@ public interface IHumidAir
     ///     to a given relative humidity ratio.
     /// </summary>
     /// <param name="relativeHumidity">Relative humidity ratio.</param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
@@ -301,9 +277,7 @@ public interface IHumidAir
     ///     to a given absolute humidity ratio.
     /// </summary>
     /// <param name="humidity">Absolute humidity ratio.</param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
@@ -321,9 +295,7 @@ public interface IHumidAir
     ///     Specific mass flow rate of the humid air the second state.
     /// </param>
     /// <param name="second">Humid air at the second state.</param>
-    /// <returns>
-    ///     The state of the humid air at the end of the process.
-    /// </returns>
+    /// <returns>The state of the humid air at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     The mixing process is possible only for flows with the same pressure!
     /// </exception>

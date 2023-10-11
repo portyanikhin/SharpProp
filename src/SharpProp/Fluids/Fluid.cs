@@ -16,8 +16,7 @@ public class Fluid : AbstractFluid, IFluid
     /// </param>
     /// <exception cref="ArgumentException">
     ///     Invalid fraction value! It should be in
-    ///     [{fractionMin};{fractionMax}] %.
-    ///     Entered value = {fraction} %.
+    ///     [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
     /// </exception>
     /// <exception cref="ArgumentException">
     ///     Need to define the fraction!

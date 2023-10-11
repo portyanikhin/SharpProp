@@ -5,9 +5,7 @@ public static class FluidsListExtensions
     /// <summary>
     ///     CoolProp internal name.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
     /// <returns>CoolProp internal name.</returns>
     public static string CoolPropName(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Name;
@@ -15,9 +13,7 @@ public static class FluidsListExtensions
     /// <summary>
     ///     CoolProp backend type.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
     /// <returns>CoolProp backend type.</returns>
     public static string CoolPropBackend(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Backend;
@@ -25,9 +21,7 @@ public static class FluidsListExtensions
     /// <summary>
     ///     <c>true</c> if the fluid pure of pseudo-pure.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
     /// <returns><c>true</c> if the fluid pure of pseudo-pure.</returns>
     public static bool Pure(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Pure;
@@ -35,9 +29,7 @@ public static class FluidsListExtensions
     /// <summary>
     ///     Mixture type.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
     /// <returns>Mixture type.</returns>
     public static Mix MixType(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.MixType;
@@ -45,12 +37,8 @@ public static class FluidsListExtensions
     /// <summary>
     ///     Minimum possible fraction.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
-    /// <returns>
-    ///     Minimum possible fraction (by default, %).
-    /// </returns>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
+    /// <returns>Minimum possible fraction (by default, %).</returns>
     public static Ratio FractionMin(this FluidsList member) =>
         Ratio
             .FromDecimalFractions(
@@ -61,12 +49,8 @@ public static class FluidsListExtensions
     /// <summary>
     ///     Maximum possible fraction.
     /// </summary>
-    /// <param name="member">
-    ///     The <see cref="FluidsList"/> member.
-    /// </param>
-    /// <returns>
-    ///     Maximum possible fraction (by default, %).
-    /// </returns>
+    /// <param name="member">The <see cref="FluidsList"/> member.</param>
+    /// <returns>Maximum possible fraction (by default, %).</returns>
     public static Ratio FractionMax(this FluidsList member) =>
         Ratio
             .FromDecimalFractions(

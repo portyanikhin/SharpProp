@@ -10,12 +10,8 @@ public class Mixture : AbstractFluid, IMixture
     /// <summary>
     ///     Mass-based mixture of pure fluids.
     /// </summary>
-    /// <param name="fluids">
-    ///     List of selected names of pure fluids.
-    /// </param>
-    /// <param name="fractions">
-    ///     List of mass-based fractions.
-    /// </param>
+    /// <param name="fluids">List of selected names of pure fluids.</param>
+    /// <param name="fractions">List of mass-based fractions.</param>
     /// <exception cref="ArgumentException">
     ///     Invalid input! Fluids and Fractions should be of the same length.
     /// </exception>

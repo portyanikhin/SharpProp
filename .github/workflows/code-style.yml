@@ -1,0 +1,25 @@
+﻿name: Code style
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  code-style:
+    name: Code style
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: |
+            6.0.x
+            7.0.x
+      - name: Restore tools
+        run: dotnet tool restore
+      - name: Check code style
+        run: dotnet csharpier --check .

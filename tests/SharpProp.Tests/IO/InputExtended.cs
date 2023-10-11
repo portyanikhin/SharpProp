@@ -6,9 +6,7 @@
 public record InputExtended : Input
 {
     private InputExtended(Parameters coolPropKey, double value)
-        : base(coolPropKey, value)
-    {
-    }
+        : base(coolPropKey, value) { }
 
     /// <summary>
     ///     Molar density.

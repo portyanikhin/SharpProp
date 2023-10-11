@@ -116,26 +116,26 @@ public partial class HumidAir
                     (
                         firstSpecificMassFlow.DecimalFractions * first.Enthalpy
                         + secondSpecificMassFlow.DecimalFractions
-                        * second.Enthalpy
+                            * second.Enthalpy
                     )
-                    / (
-                        firstSpecificMassFlow + secondSpecificMassFlow
-                    ).DecimalFractions
+                        / (
+                            firstSpecificMassFlow + secondSpecificMassFlow
+                        ).DecimalFractions
                 ),
                 InputHumidAir.Humidity(
                     (
                         firstSpecificMassFlow.DecimalFractions * first.Humidity
                         + secondSpecificMassFlow.DecimalFractions
-                        * second.Humidity
+                            * second.Humidity
                     )
-                    / (
-                        firstSpecificMassFlow + secondSpecificMassFlow
-                    ).DecimalFractions
+                        / (
+                            firstSpecificMassFlow + secondSpecificMassFlow
+                        ).DecimalFractions
                 )
             )
             : throw new ArgumentException(
                 "The mixing process is possible "
-                + "only for flows with the same pressure!"
+                    + "only for flows with the same pressure!"
             );
 
     private IHumidAir DryHeatTransferTo(
@@ -190,7 +190,7 @@ public partial class HumidAir
             ? result
             : throw new ArgumentException(
                 "During the wet cooling process, "
-                + "the absolute humidity ratio should decrease!"
+                    + "the absolute humidity ratio should decrease!"
             );
     }
 
@@ -208,7 +208,7 @@ public partial class HumidAir
             ? result
             : throw new ArgumentException(
                 "During the humidification process, "
-                + "the absolute humidity ratio should increase!"
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -219,12 +219,12 @@ public partial class HumidAir
             case true when temperature >= Temperature:
                 throw new ArgumentException(
                     "During the cooling process, "
-                    + "the temperature should decrease!"
+                        + "the temperature should decrease!"
                 );
             case false when temperature <= Temperature:
                 throw new ArgumentException(
                     "During the heating process, "
-                    + "the temperature should increase!"
+                        + "the temperature should increase!"
                 );
         }
     }
@@ -236,12 +236,12 @@ public partial class HumidAir
             case true when enthalpy >= Enthalpy:
                 throw new ArgumentException(
                     "During the cooling process, "
-                    + "the enthalpy should decrease!"
+                        + "the enthalpy should decrease!"
                 );
             case false when enthalpy <= Enthalpy:
                 throw new ArgumentException(
                     "During the heating process, "
-                    + "the enthalpy should increase!"
+                        + "the enthalpy should increase!"
                 );
         }
     }
@@ -251,8 +251,8 @@ public partial class HumidAir
         if (temperature < DewTemperature)
             throw new ArgumentException(
                 "The outlet temperature after "
-                + "dry heat transfer should be "
-                + "greater than the dew point temperature!"
+                    + "dry heat transfer should be "
+                    + "greater than the dew point temperature!"
             );
     }
 
@@ -261,8 +261,8 @@ public partial class HumidAir
         if (enthalpy < DewPoint.Enthalpy)
             throw new ArgumentException(
                 "The outlet enthalpy after "
-                + "dry heat transfer should be "
-                + "greater than the dew point enthalpy!"
+                    + "dry heat transfer should be "
+                    + "greater than the dew point enthalpy!"
             );
     }
 

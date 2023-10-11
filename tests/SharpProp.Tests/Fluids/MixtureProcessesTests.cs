@@ -40,7 +40,7 @@ public class MixtureProcessesTests : IDisposable
         Action action = () =>
             _ = _mixture.CoolingTo(
                 _mixture.Temperature
-                + TemperatureDelta.FromKelvins(temperatureDelta),
+                    + TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
@@ -74,7 +74,7 @@ public class MixtureProcessesTests : IDisposable
         Action action = () =>
             _ = _mixture.HeatingTo(
                 _mixture.Temperature
-                - TemperatureDelta.FromKelvins(temperatureDelta),
+                    - TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");

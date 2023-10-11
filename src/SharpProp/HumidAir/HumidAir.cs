@@ -74,10 +74,10 @@ public partial class HumidAir : IHumidAir
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-    (
-        string.Join("&", _inputs.Select(input => input.Value)),
-        string.Join("&", _inputs.Select(input => input.CoolPropKey))
-    ).GetHashCode();
+        (
+            string.Join("&", _inputs.Select(input => input.Value)),
+            string.Join("&", _inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 
     protected virtual HumidAir CreateInstance() => new();
 

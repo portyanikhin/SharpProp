@@ -57,10 +57,10 @@ public abstract partial class AbstractFluid : IAbstractFluid
 
     [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
-    (
-        string.Join("&", Inputs.Select(input => input.Value)),
-        string.Join("&", Inputs.Select(input => input.CoolPropKey))
-    ).GetHashCode();
+        (
+            string.Join("&", Inputs.Select(input => input.Value)),
+            string.Join("&", Inputs.Select(input => input.CoolPropKey))
+        ).GetHashCode();
 
     protected AbstractFluid WithState(
         IKeyedInput<Parameters> firstInput,
@@ -134,6 +134,6 @@ public abstract partial class AbstractFluid : IAbstractFluid
     ) =>
         AbstractState.GetInputPair(
             $"{firstInput.CoolPropHighLevelKey}"
-            + $"{secondInput.CoolPropHighLevelKey}_INPUTS"
+                + $"{secondInput.CoolPropHighLevelKey}_INPUTS"
         );
 }

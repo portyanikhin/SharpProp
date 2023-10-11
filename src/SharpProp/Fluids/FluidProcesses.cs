@@ -9,7 +9,7 @@ public abstract partial class AbstractFluid
             ? WithState(Input.Pressure(pressure), Input.Entropy(Entropy))
             : throw new ArgumentException(
                 "Compressor outlet pressure "
-                + "should be higher than inlet pressure!"
+                    + "should be higher than inlet pressure!"
             );
 
     protected AbstractFluid CompressionTo(
@@ -21,10 +21,10 @@ public abstract partial class AbstractFluid
                 Input.Pressure(pressure),
                 Input.Enthalpy(
                     Enthalpy
-                    + (
-                        IsentropicCompressionTo(pressure).Enthalpy
-                        - Enthalpy
-                    ) / isentropicEfficiency.DecimalFractions
+                        + (
+                            IsentropicCompressionTo(pressure).Enthalpy
+                            - Enthalpy
+                        ) / isentropicEfficiency.DecimalFractions
                 )
             )
             : throw new ArgumentException(
@@ -36,7 +36,7 @@ public abstract partial class AbstractFluid
             ? WithState(Input.Pressure(pressure), Input.Enthalpy(Enthalpy))
             : throw new ArgumentException(
                 "Expansion valve outlet pressure "
-                + "should be lower than inlet pressure!"
+                    + "should be lower than inlet pressure!"
             );
 
     protected AbstractFluid IsentropicExpansionTo(Pressure pressure) =>
@@ -55,8 +55,8 @@ public abstract partial class AbstractFluid
                 Input.Pressure(pressure),
                 Input.Enthalpy(
                     Enthalpy
-                    - (Enthalpy - IsentropicExpansionTo(pressure).Enthalpy)
-                    * isentropicEfficiency.DecimalFractions
+                        - (Enthalpy - IsentropicExpansionTo(pressure).Enthalpy)
+                            * isentropicEfficiency.DecimalFractions
                 )
             )
             : throw new ArgumentException(
@@ -131,16 +131,16 @@ public abstract partial class AbstractFluid
                     (
                         firstSpecificMassFlow.DecimalFractions * first.Enthalpy
                         + secondSpecificMassFlow.DecimalFractions
-                        * second.Enthalpy
+                            * second.Enthalpy
                     )
-                    / (
-                        firstSpecificMassFlow + secondSpecificMassFlow
-                    ).DecimalFractions
+                        / (
+                            firstSpecificMassFlow + secondSpecificMassFlow
+                        ).DecimalFractions
                 )
             )
             : throw new ArgumentException(
                 "The mixing process is possible "
-                + "only for flows with the same pressure!"
+                    + "only for flows with the same pressure!"
             );
 
     private AbstractFluid HeatTransferTo(

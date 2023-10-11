@@ -42,7 +42,7 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Pressure? pressureDrop = null
     ) =>
         (HumidAirExtended)
-        base.WetCoolingTo(temperature, relativeHumidity, pressureDrop);
+            base.WetCoolingTo(temperature, relativeHumidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         Temperature temperature,
@@ -50,7 +50,7 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Pressure? pressureDrop = null
     ) =>
         (HumidAirExtended)
-        base.WetCoolingTo(temperature, humidity, pressureDrop);
+            base.WetCoolingTo(temperature, humidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         SpecificEnergy enthalpy,
@@ -58,7 +58,7 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Pressure? pressureDrop = null
     ) =>
         (HumidAirExtended)
-        base.WetCoolingTo(enthalpy, relativeHumidity, pressureDrop);
+            base.WetCoolingTo(enthalpy, relativeHumidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         SpecificEnergy enthalpy,
@@ -97,12 +97,12 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         IHumidAirExtended second
     ) =>
         (HumidAirExtended)
-        base.Mixing(
-            firstSpecificMassFlow,
-            first,
-            secondSpecificMassFlow,
-            second
-        );
+            base.Mixing(
+                firstSpecificMassFlow,
+                first,
+                secondSpecificMassFlow,
+                second
+            );
 
     public new IHumidAirExtended Clone() => (HumidAirExtended)base.Clone();
 

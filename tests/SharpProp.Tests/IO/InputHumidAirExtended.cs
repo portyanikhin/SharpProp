@@ -6,9 +6,7 @@
 public record InputHumidAirExtended : InputHumidAir
 {
     private InputHumidAirExtended(string coolPropKey, double value)
-        : base(coolPropKey, value)
-    {
-    }
+        : base(coolPropKey, value) { }
 
     /// <summary>
     ///     Water mole fraction.

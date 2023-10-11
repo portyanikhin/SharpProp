@@ -34,7 +34,7 @@ public class Mixture : AbstractFluid, IMixture
         if (Fluids.Count != Fractions.Count)
             throw new ArgumentException(
                 "Invalid input! Fluids and Fractions "
-                + "should be of the same length."
+                    + "should be of the same length."
             );
         if (
             !Fluids.All(
@@ -44,17 +44,17 @@ public class Mixture : AbstractFluid, IMixture
         )
             throw new ArgumentException(
                 "Invalid components! All of them should be a pure fluid with "
-                + $"{AvailableBackend} backend."
+                    + $"{AvailableBackend} backend."
             );
         if (!Fractions.All(fraction => fraction.Percent is > 0 and < 100))
             throw new ArgumentException(
                 "Invalid component mass fractions! "
-                + "All of them should be in (0;100) %."
+                    + "All of them should be in (0;100) %."
             );
         if (Math.Abs(Fractions.Sum(fraction => fraction.Percent) - 100) > 1e-6)
             throw new ArgumentException(
                 "Invalid component mass fractions! "
-                + "Their sum should be equal to 100 %."
+                    + "Their sum should be equal to 100 %."
             );
         Backend = AbstractState.Factory(
             AvailableBackend,
@@ -104,14 +104,14 @@ public class Mixture : AbstractFluid, IMixture
     public override bool Equals(object? obj) => Equals(obj as Mixture);
 
     public override int GetHashCode() =>
-    (
-        string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())),
-        string.Join(
-            "&",
-            Fractions.Select(fraction => fraction.DecimalFractions)
-        ),
-        base.GetHashCode()
-    ).GetHashCode();
+        (
+            string.Join("&", Fluids.Select(fluid => fluid.CoolPropName())),
+            string.Join(
+                "&",
+                Fractions.Select(fraction => fraction.DecimalFractions)
+            ),
+            base.GetHashCode()
+        ).GetHashCode();
 
     protected override AbstractFluid CreateInstance() =>
         new Mixture(Fluids, Fractions);

@@ -90,22 +90,22 @@ public class HumidAirTests
             _humidAir.WetBulbTemperature.Kelvins
         };
         var expected = new[]
-            {
-                "Z",
-                "K",
-                "D",
-                "M",
-                "Hha",
-                "Sha",
-                "W",
-                "P_w",
-                "P",
-                "R",
-                "Cha",
-                "Vha",
-                "T",
-                "B"
-            }
+        {
+            "Z",
+            "K",
+            "D",
+            "M",
+            "Hha",
+            "Sha",
+            "W",
+            "P_w",
+            "P",
+            "R",
+            "Cha",
+            "Vha",
+            "T",
+            "B"
+        }
             .Select(CoolPropInterface)
             .ToList();
         for (var i = 0; i < actual.Length; i++)
@@ -130,8 +130,8 @@ public class HumidAirTests
             .Should()
             .Be(
                 _humidAir.DynamicViscosity.PascalSeconds
-                * _humidAir.SpecificHeat.JoulesPerKilogramKelvin
-                / _humidAir.Conductivity.WattsPerMeterKelvin
+                    * _humidAir.SpecificHeat.JoulesPerKilogramKelvin
+                    / _humidAir.Conductivity.WattsPerMeterKelvin
             );
     }
 

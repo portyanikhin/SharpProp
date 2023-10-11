@@ -39,7 +39,7 @@ public class FluidProcessesTests : IDisposable
             .Throw<ArgumentException>()
             .WithMessage(
                 "Compressor outlet pressure "
-                + "should be higher than inlet pressure!"
+                    + "should be higher than inlet pressure!"
             );
     }
 
@@ -87,11 +87,11 @@ public class FluidProcessesTests : IDisposable
                     Input.Pressure(HighPressure),
                     Input.Enthalpy(
                         _fluid.Enthalpy
-                        + (
-                            _fluid
-                                .IsentropicCompressionTo(HighPressure)
-                                .Enthalpy - _fluid.Enthalpy
-                        ) / IsentropicEfficiency.DecimalFractions
+                            + (
+                                _fluid
+                                    .IsentropicCompressionTo(HighPressure)
+                                    .Enthalpy - _fluid.Enthalpy
+                            ) / IsentropicEfficiency.DecimalFractions
                     )
                 )
             );
@@ -105,7 +105,7 @@ public class FluidProcessesTests : IDisposable
             .Throw<ArgumentException>()
             .WithMessage(
                 "Expansion valve outlet pressure "
-                + "should be lower than inlet pressure!"
+                    + "should be lower than inlet pressure!"
             );
     }
 
@@ -130,7 +130,7 @@ public class FluidProcessesTests : IDisposable
             .Throw<ArgumentException>()
             .WithMessage(
                 "Expander outlet pressure "
-                + "should be lower than inlet pressure!"
+                    + "should be lower than inlet pressure!"
             );
     }
 
@@ -178,12 +178,12 @@ public class FluidProcessesTests : IDisposable
                     Input.Pressure(LowPressure),
                     Input.Enthalpy(
                         _fluid.Enthalpy
-                        - (
-                            _fluid.Enthalpy
-                            - _fluid
-                                .IsentropicExpansionTo(LowPressure)
-                                .Enthalpy
-                        ) * IsentropicEfficiency.DecimalFractions
+                            - (
+                                _fluid.Enthalpy
+                                - _fluid
+                                    .IsentropicExpansionTo(LowPressure)
+                                    .Enthalpy
+                            ) * IsentropicEfficiency.DecimalFractions
                     )
                 )
             );
@@ -204,7 +204,7 @@ public class FluidProcessesTests : IDisposable
         Action action = () =>
             _ = _fluid.CoolingTo(
                 _fluid.Temperature
-                + TemperatureDelta.FromKelvins(temperatureDelta),
+                    + TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
@@ -271,7 +271,7 @@ public class FluidProcessesTests : IDisposable
         Action action = () =>
             _ = _fluid.HeatingTo(
                 _fluid.Temperature
-                - TemperatureDelta.FromKelvins(temperatureDelta),
+                    - TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
@@ -409,7 +409,7 @@ public class FluidProcessesTests : IDisposable
             .Throw<ArgumentException>()
             .WithMessage(
                 "The mixing process is possible "
-                + "only for flows with the same pressure!"
+                    + "only for flows with the same pressure!"
             );
     }
 

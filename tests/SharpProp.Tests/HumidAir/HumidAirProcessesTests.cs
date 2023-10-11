@@ -39,7 +39,7 @@ public class TestHumidAirProcesses
         0,
         0,
         "The outlet temperature after dry heat transfer "
-        + "should be greater than the dew point temperature!"
+            + "should be greater than the dew point temperature!"
     )]
     [InlineData(15, -100, "Invalid pressure drop in the heat exchanger!")]
     public void DryCoolingTo_WrongTemperatureOrPressureDrop_ThrowsArgumentException(
@@ -84,7 +84,7 @@ public class TestHumidAirProcesses
         0,
         0,
         "The outlet enthalpy after dry heat transfer "
-        + "should be greater than the dew point enthalpy!"
+            + "should be greater than the dew point enthalpy!"
     )]
     [InlineData(30, -100, "Invalid pressure drop in the heat exchanger!")]
     public void DryCoolingTo_WrongEnthalpyOrPressureDrop_ThrowsArgumentException(
@@ -145,8 +145,7 @@ public class TestHumidAirProcesses
     }
 
     [Fact]
-    public void
-        WetCoolingTo_TemperatureRelHumidityWithPressureDrop_ReturnsAirAtTemperatureRelHumidityAndLowerPressure() =>
+    public void WetCoolingTo_TemperatureRelHumidityWithPressureDrop_ReturnsAirAtTemperatureRelHumidityAndLowerPressure() =>
         _humidAir
             .WetCoolingTo(
                 _humidAir.Temperature - TemperatureDelta,
@@ -387,7 +386,7 @@ public class TestHumidAirProcesses
             .Throw<ArgumentException>()
             .WithMessage(
                 "During the humidification process, "
-                + "the absolute humidity ratio should increase!"
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -414,7 +413,7 @@ public class TestHumidAirProcesses
             .Throw<ArgumentException>()
             .WithMessage(
                 "During the humidification process, "
-                + "the absolute humidity ratio should increase!"
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -441,7 +440,7 @@ public class TestHumidAirProcesses
             .Throw<ArgumentException>()
             .WithMessage(
                 "During the humidification process, "
-                + "the absolute humidity ratio should increase!"
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -468,7 +467,7 @@ public class TestHumidAirProcesses
             .Throw<ArgumentException>()
             .WithMessage(
                 "During the humidification process, "
-                + "the absolute humidity ratio should increase!"
+                    + "the absolute humidity ratio should increase!"
             );
     }
 
@@ -506,7 +505,7 @@ public class TestHumidAirProcesses
             .Throw<ArgumentException>()
             .WithMessage(
                 "The mixing process is possible "
-                + "only for flows with the same pressure!"
+                    + "only for flows with the same pressure!"
             );
     }
 

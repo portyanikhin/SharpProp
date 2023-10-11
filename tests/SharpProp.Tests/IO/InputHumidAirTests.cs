@@ -31,7 +31,7 @@ public static class InputHumidAirTests
             .Throw<ArgumentOutOfRangeException>()
             .WithMessage(
                 "*Altitude above sea level "
-                + "should be between -5000 and 11000 meters!*"
+                    + "should be between -5000 and 11000 meters!*"
             );
     }
 

@@ -12,9 +12,7 @@ public class FluidExtended : Fluid, IFluidExtended
     private SpecificEntropy? _specificHeatConstVolume;
 
     public FluidExtended(FluidsList name, Ratio? fraction = null)
-        : base(name, fraction)
-    {
-    }
+        : base(name, fraction) { }
 
     public SpecificEntropy SpecificHeatConstVolume =>
         _specificHeatConstVolume ??= SpecificEntropy
@@ -108,12 +106,12 @@ public class FluidExtended : Fluid, IFluidExtended
         IFluidExtended second
     ) =>
         (FluidExtended)
-        base.Mixing(
-            firstSpecificMassFlow,
-            first,
-            secondSpecificMassFlow,
-            second
-        );
+            base.Mixing(
+                firstSpecificMassFlow,
+                first,
+                secondSpecificMassFlow,
+                second
+            );
 
     public new IFluidExtended Clone() => (FluidExtended)base.Clone();
 

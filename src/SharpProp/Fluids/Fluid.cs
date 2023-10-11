@@ -29,15 +29,15 @@ public class Fluid : AbstractFluid, IFluid
         )
             throw new ArgumentException(
                 "Invalid fraction value! "
-                + $"It should be in [{name.FractionMin().Percent};"
-                + $"{name.FractionMax().Percent}] %. "
-                + $"Entered value = {fraction.Value.Percent} %."
+                    + $"It should be in [{name.FractionMin().Percent};"
+                    + $"{name.FractionMax().Percent}] %. "
+                    + $"Entered value = {fraction.Value.Percent} %."
             );
         Name = name;
         Fraction = Name.Pure()
             ? Ratio.FromPercent(100)
             : fraction?.ToUnit(RatioUnit.Percent)
-              ?? throw new ArgumentException("Need to define the fraction!");
+                ?? throw new ArgumentException("Need to define the fraction!");
         Backend = AbstractState.Factory(
             Name.CoolPropBackend(),
             Name.CoolPropName()
@@ -117,12 +117,12 @@ public class Fluid : AbstractFluid, IFluid
     ) =>
         IsValidFluidsForMixing(first, second)
             ? (Fluid)
-            base.Mixing(
-                firstSpecificMassFlow,
-                first,
-                secondSpecificMassFlow,
-                second
-            )
+                base.Mixing(
+                    firstSpecificMassFlow,
+                    first,
+                    secondSpecificMassFlow,
+                    second
+                )
             : throw new ArgumentException(
                 "The mixing process is possible only for the same fluids!"
             );
@@ -145,11 +145,11 @@ public class Fluid : AbstractFluid, IFluid
     public override bool Equals(object? obj) => Equals(obj as Fluid);
 
     public override int GetHashCode() =>
-    (
-        Name.CoolPropName(),
-        Fraction.DecimalFractions,
-        base.GetHashCode()
-    ).GetHashCode();
+        (
+            Name.CoolPropName(),
+            Fraction.DecimalFractions,
+            base.GetHashCode()
+        ).GetHashCode();
 
     protected override AbstractFluid CreateInstance() =>
         new Fluid(Name, Fraction);

@@ -107,32 +107,32 @@ public class FluidTests : IDisposable
             fluid.TripleTemperature?.Kelvins
         };
         var expected = new[]
-            {
-                "Z",
-                "L",
-                "p_critical",
-                "T_critical",
-                "D",
-                "V",
-                "H",
-                "S",
-                "T_freeze",
-                "U",
-                "P_max",
-                "T_max",
-                "P_min",
-                "T_min",
-                "M",
-                "Prandtl",
-                "P",
-                "Q",
-                "A",
-                "C",
-                "I",
-                "T",
-                "p_triple",
-                "T_triple"
-            }
+        {
+            "Z",
+            "L",
+            "p_critical",
+            "T_critical",
+            "D",
+            "V",
+            "H",
+            "S",
+            "T_freeze",
+            "U",
+            "P_max",
+            "T_max",
+            "P_min",
+            "T_min",
+            "M",
+            "Prandtl",
+            "P",
+            "Q",
+            "A",
+            "C",
+            "I",
+            "T",
+            "p_triple",
+            "T_triple"
+        }
             .Select(CoolPropInterface)
             .ToList();
         for (var i = 0; i < actual.Length; i++)
@@ -371,12 +371,12 @@ public class FluidTests : IDisposable
                         "T",
                         _fluid.Temperature.Kelvins,
                         $"{_fluid.Name.CoolPropBackend()}::"
-                        + $"{_fluid.Name.CoolPropName()}"
-                        + (
-                            _fluid.Name.Pure()
-                                ? string.Empty
-                                : $"-{_fluid.Fraction.Percent}%"
-                        )
+                            + $"{_fluid.Name.CoolPropName()}"
+                            + (
+                                _fluid.Name.Pure()
+                                    ? string.Empty
+                                    : $"-{_fluid.Fraction.Percent}%"
+                            )
                     );
                     return CheckedValue(value, outputKey);
                 }

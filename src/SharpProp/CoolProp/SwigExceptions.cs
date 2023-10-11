@@ -3,7 +3,8 @@
 [ExcludeFromCodeCoverage]
 internal static class SwigExceptions
 {
-    [ThreadStatic] private static Exception? _pendingException;
+    [ThreadStatic]
+    private static Exception? _pendingException;
 
     private static int _pendingExceptionsCount;
     private static readonly object ExceptionsLock = new();
@@ -83,9 +84,9 @@ internal static class SwigExceptions
         if (_pendingException is not null)
             throw new ApplicationException(
                 "FATAL: An earlier pending exception from "
-                + "unmanaged code was missed and thus not thrown ("
-                + _pendingException
-                + ")",
+                    + "unmanaged code was missed and thus not thrown ("
+                    + _pendingException
+                    + ")",
                 exception
             );
         _pendingException = exception;

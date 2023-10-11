@@ -1,0 +1,62 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <Authors>Vladimir Portyanikhin</Authors>
+        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
+        <Description>Unit tests for the SharpProp</Description>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <IsPackable>false</IsPackable>
+        <LangVersion>11.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
+        <Title>SharpProp.Tests</Title>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
+        <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
+        <TargetFrameworks>net48;net6.0;net7.0</TargetFrameworks>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.12.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2"/>
+        <PackageReference Include="xunit" Version="2.5.1"/>
+        <PackageReference Include="Xunit.Combinatorial" Version="1.6.24"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\SharpProp\SharpProp.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="**\*.cs">
+            <DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
+        </Compile>
+        <Compile Update="Fluids\FluidExtendedTests.cs">
+            <DependentUpon>FluidExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="HumidAir\HumidAirExtendedTests.cs">
+            <DependentUpon>HumidAirExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="IO\InputExtendedTests.cs">
+            <DependentUpon>InputExtended.cs</DependentUpon>
+        </Compile>
+        <Compile Update="IO\InputHumidAirExtendedTests.cs">
+            <DependentUpon>InputHumidAirExtended.cs</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,17 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <Authors>Vladimir Portyanikhin</Authors>
+        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>11.0</LangVersion>
+        <Nullable>enable</Nullable>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
+        <PackageReleaseNotes>Release notes can be found at https://github.com/portyanikhin/SharpProp/releases</PackageReleaseNotes>
+        <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
+        <PackageVersion>7.0.5</PackageVersion>
+        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
+    </PropertyGroup>
+
+</Project>

@@ -1,51 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <Authors>Vladimir Portyanikhin</Authors>
-        <Copyright>Copyright (c) Vladimir Portyanikhin 2021</Copyright>
         <Description>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Description>
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <LangVersion>11.0</LangVersion>
         <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054</NoWarn>
-        <Nullable>enable</Nullable>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageIconFullPath>$(MSBuildThisFileDirectory)pictures\icon.png</PackageIconFullPath>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
-        <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <PackageReleaseNotes>Release notes can be found at https://github.com/portyanikhin/SharpProp/releases</PackageReleaseNotes>
-        <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>7.0.5</PackageVersion>
-        <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
         <Summary>A simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>
         <Title>SharpProp</Title>
     </PropertyGroup>
 
     <ItemGroup>
-        <None Include="$(PackageIconFullPath)" Pack="true" PackagePath="\"/>
-        <None Include="..\..\NuGet.md" Pack="true" PackagePath="\"/>
-        <None Include="SharpProp.targets" PackagePath="build\" Pack="true"/>
-        <None Include="libCoolProp.dll" PackagePath="build\" Pack="true"/>
-        <None Include="libCoolProp.dylib" PackagePath="build\" Pack="true"/>
-        <None Include="libCoolProp.so" PackagePath="build\" Pack="true"/>
+        <None Include="SharpProp.targets" Pack="true" Visible="false" PackagePath="build\"/>
+        <None Include="libCoolProp.dll" Pack="true" Visible="false" PackagePath="build\"/>
+        <None Include="libCoolProp.dylib" Pack="true" Visible="false" PackagePath="build\"/>
+        <None Include="libCoolProp.so" Pack="true" Visible="false" PackagePath="build\"/>
         <None Update="libCoolProp.dll">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
         </None>
         <None Update="libCoolProp.dylib">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
         </None>
         <None Update="libCoolProp.so">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <PackagePath>build\</PackagePath>
             <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
         </None>
     </ItemGroup>
 

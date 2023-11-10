@@ -13,6 +13,7 @@ public class HumidAirTests
     {
         var tasks = new List<Task<Temperature>>();
         for (var i = 0; i < 100; i++)
+        {
             tasks.Add(
                 Task.Run(
                     () =>
@@ -25,6 +26,8 @@ public class HumidAirTests
                             .DewTemperature
                 )
             );
+        }
+
         var result = await Task.WhenAll(tasks);
         result.Distinct().Count().Should().Be(1);
     }
@@ -109,8 +112,12 @@ public class HumidAirTests
             .Select(CoolPropInterface)
             .ToList();
         for (var i = 0; i < actual.Length; i++)
+        {
             actual[i].Should().BeApproximately(expected[i], Tolerance);
-        _humidAir.Density
+        }
+
+        _humidAir
+            .Density
             .Equals(
                 Density.FromKilogramsPerCubicMeter(
                     1.0 / _humidAir.SpecificVolume.CubicMetersPerKilogram
@@ -119,14 +126,16 @@ public class HumidAirTests
             )
             .Should()
             .BeTrue();
-        _humidAir.KinematicViscosity
+        _humidAir
+            .KinematicViscosity
             .Equals(
                 _humidAir.DynamicViscosity / _humidAir.Density,
                 Tolerance.Centistokes()
             )
             .Should()
             .BeTrue();
-        _humidAir.Prandtl
+        _humidAir
+            .Prandtl
             .Should()
             .Be(
                 _humidAir.DynamicViscosity.PascalSeconds

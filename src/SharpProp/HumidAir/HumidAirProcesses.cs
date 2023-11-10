@@ -177,9 +177,15 @@ public partial class HumidAir
     )
     {
         if (fistInput.CoolPropKey == "T")
+        {
             CheckTemperature(fistInput.Value.Kelvins(), true);
+        }
+
         if (fistInput.CoolPropKey == "Hha")
+        {
             CheckEnthalpy(fistInput.Value.JoulesPerKilogram(), true);
+        }
+
         CheckPressureDrop(pressureDrop);
         var result = WithState(
             InputHumidAir.Pressure(Pressure - (pressureDrop ?? Pressure.Zero)),
@@ -249,28 +255,34 @@ public partial class HumidAir
     private void CheckDewTemperature(Temperature temperature)
     {
         if (temperature < DewTemperature)
+        {
             throw new ArgumentException(
                 "The outlet temperature after "
                     + "dry heat transfer should be "
                     + "greater than the dew point temperature!"
             );
+        }
     }
 
     private void CheckDewEnthalpy(SpecificEnergy enthalpy)
     {
         if (enthalpy < DewPoint.Enthalpy)
+        {
             throw new ArgumentException(
                 "The outlet enthalpy after "
                     + "dry heat transfer should be "
                     + "greater than the dew point enthalpy!"
             );
+        }
     }
 
     private static void CheckPressureDrop(Pressure? pressureDrop)
     {
         if (pressureDrop.HasValue && pressureDrop.Value < Pressure.Zero)
+        {
             throw new ArgumentException(
                 "Invalid pressure drop in the heat exchanger!"
             );
+        }
     }
 }

@@ -39,9 +39,12 @@ public class FluidTests : IDisposable
     {
         var tasks = new List<Task<Temperature>>();
         for (var i = 0; i < 100; i++)
+        {
             tasks.Add(
                 Task.Run(() => _fluid.DewPointAt(1.Atmospheres()).Temperature)
             );
+        }
+
         var result = await Task.WhenAll(tasks);
         result.Distinct().Count().Should().Be(1);
     }
@@ -136,15 +139,20 @@ public class FluidTests : IDisposable
             .Select(CoolPropInterface)
             .ToList();
         for (var i = 0; i < actual.Length; i++)
+        {
             actual[i].Should().BeApproximately(expected[i], Tolerance);
-        fluid.KinematicViscosity
+        }
+
+        fluid
+            .KinematicViscosity
             ?.Equals(
                 (fluid.DynamicViscosity / fluid.Density)!.Value,
                 Tolerance.Centistokes()
             )
             .Should()
             .BeTrue();
-        fluid.SpecificVolume
+        fluid
+            .SpecificVolume
             .Equals(
                 SpecificVolume.FromCubicMetersPerKilogram(
                     1.0 / fluid.Density.KilogramsPerCubicMeter
@@ -194,7 +202,8 @@ public class FluidTests : IDisposable
                 Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius())
             )
-            .Phase.Should()
+            .Phase
+            .Should()
             .Be(Phases.Liquid);
 
     [Fact]
@@ -390,7 +399,7 @@ public class FluidTests : IDisposable
     private static double? CheckedValue(double value, string outputKey) =>
         double.IsInfinity(value)
         || double.IsNaN(value)
-        || (outputKey == "Q" && value is < 0 or > 1)
+        || outputKey == "Q" && value is < 0 or > 1
             ? null
             : value;
 }

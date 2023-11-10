@@ -14,7 +14,9 @@ public class DoubleVector : IList<double>, IDisposable
         : this(DoubleVectorPInvoke.Create())
     {
         foreach (var item in collection)
+        {
             Add(item);
+        }
     }
 
     internal HandleRef Handle { get; private set; }
@@ -24,7 +26,9 @@ public class DoubleVector : IList<double>, IDisposable
         lock (CollectionLock)
         {
             if (_disposed)
+            {
                 return;
+            }
         }
 
         InternalDispose();
@@ -80,7 +84,10 @@ public class DoubleVector : IList<double>, IDisposable
         lock (CollectionLock)
         {
             if (Handle.Handle == IntPtr.Zero)
+            {
                 return;
+            }
+
             DoubleVectorPInvoke.Delete(Handle);
             Handle = new HandleRef(null, IntPtr.Zero);
             _disposed = true;
@@ -90,33 +97,53 @@ public class DoubleVector : IList<double>, IDisposable
     private void CopyTo(int index, double[] array, int arrayIndex, int count)
     {
         if (array is null)
+        {
             throw new ArgumentNullException(nameof(array));
+        }
+
         if (index < 0)
+        {
             throw new ArgumentOutOfRangeException(
                 nameof(index),
                 "Value is less than zero"
             );
+        }
+
         if (arrayIndex < 0)
+        {
             throw new ArgumentOutOfRangeException(
                 nameof(arrayIndex),
                 "Value is less than zero"
             );
+        }
+
         if (count < 0)
+        {
             throw new ArgumentOutOfRangeException(
                 nameof(count),
                 "Value is less than zero"
             );
+        }
+
         if (array.Rank > 1)
+        {
             throw new ArgumentException(
                 "Multi dimensional array.",
                 nameof(array)
             );
+        }
+
         if (index + count > Count || arrayIndex + count > array.Length)
+        {
             throw new ArgumentException(
                 "Number of elements to copy is too large."
             );
+        }
+
         for (var i = 0; i < count; i++)
+        {
             array.SetValue(GetItemCopy(index + i), arrayIndex + i);
+        }
     }
 
     private double GetItemCopy(int index)
@@ -178,7 +205,9 @@ public class DoubleVector : IList<double>, IDisposable
             _currentIndex = -1;
             _currentObject = null;
             if (_collectionRef.Count != _currentSize)
+            {
                 throw new InvalidOperationException("Collection modified.");
+            }
         }
 
         public double Current
@@ -186,15 +215,24 @@ public class DoubleVector : IList<double>, IDisposable
             get
             {
                 if (_currentIndex == -1)
+                {
                     throw new InvalidOperationException(
                         "Enumeration not started."
                     );
+                }
+
                 if (_currentIndex > _currentSize - 1)
+                {
                     throw new InvalidOperationException(
                         "Enumeration finished."
                     );
+                }
+
                 if (_currentObject == null)
+                {
                     throw new InvalidOperationException("Collection modified.");
+                }
+
                 return (double)_currentObject;
             }
         }

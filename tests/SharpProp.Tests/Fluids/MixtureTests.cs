@@ -62,7 +62,8 @@ public class MixtureTests : IDisposable
                 Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius())
             )
-            .Phase.Should()
+            .Phase
+            .Should()
             .Be(Phases.Liquid);
 
     [Fact]

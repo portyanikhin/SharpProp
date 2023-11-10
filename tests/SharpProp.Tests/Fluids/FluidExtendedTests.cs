@@ -32,7 +32,9 @@ public class FluidExtendedTests : IDisposable
 
     [Fact]
     public void SpecificHeatConstVolume_WaterInStandardConditions_Returns4156() =>
-        _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin
+        _fluid
+            .SpecificHeatConstVolume
+            .JoulesPerKilogramKelvin
             .Should()
             .Be(4156.6814728615545);
 

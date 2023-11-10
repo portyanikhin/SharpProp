@@ -70,7 +70,8 @@ public abstract partial class AbstractFluid
             Parameters.iviscosity,
             out var output
         )
-            ? UnitsNet.DynamicViscosity
+            ? UnitsNet
+                .DynamicViscosity
                 .FromPascalSeconds(output!.Value)
                 .ToUnit(DynamicViscosityUnit.MillipascalSecond)
             : null;
@@ -134,7 +135,8 @@ public abstract partial class AbstractFluid
             Parameters.imolar_mass,
             out var output
         )
-            ? UnitsNet.MolarMass
+            ? UnitsNet
+                .MolarMass
                 .FromKilogramsPerMole(output!.Value)
                 .ToUnit(MolarMassUnit.GramPerMole)
             : null;

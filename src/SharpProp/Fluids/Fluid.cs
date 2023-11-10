@@ -27,12 +27,15 @@ public class Fluid : AbstractFluid, IFluid
             fraction is not null
             && (fraction < name.FractionMin() || fraction > name.FractionMax())
         )
+        {
             throw new ArgumentException(
                 "Invalid fraction value! "
                     + $"It should be in [{name.FractionMin().Percent};"
                     + $"{name.FractionMax().Percent}] %. "
                     + $"Entered value = {fraction.Value.Percent} %."
             );
+        }
+
         Name = name;
         Fraction = Name.Pure()
             ? Ratio.FromPercent(100)
@@ -43,7 +46,9 @@ public class Fluid : AbstractFluid, IFluid
             Name.CoolPropName()
         );
         if (!Name.Pure())
+        {
             SetFraction();
+        }
     }
 
     public FluidsList Name { get; }
@@ -136,9 +141,15 @@ public class Fluid : AbstractFluid, IFluid
     public bool Equals(IFluid? other)
     {
         if (ReferenceEquals(null, other))
+        {
             return false;
+        }
+
         if (ReferenceEquals(this, other))
+        {
             return true;
+        }
+
         return GetHashCode() == other.GetHashCode();
     }
 
@@ -166,8 +177,12 @@ public class Fluid : AbstractFluid, IFluid
             new[] { Fraction.DecimalFractions }
         );
         if (Name.MixType() is Mix.Mass)
+        {
             Backend.SetMassFractions(fractionsVector);
+        }
         else
+        {
             Backend.SetVolumeFractions(fractionsVector);
+        }
     }
 }

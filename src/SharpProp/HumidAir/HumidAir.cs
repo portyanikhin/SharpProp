@@ -64,9 +64,15 @@ public partial class HumidAir : IHumidAir
     public bool Equals(IHumidAir? other)
     {
         if (ReferenceEquals(null, other))
+        {
             return false;
+        }
+
         if (ReferenceEquals(this, other))
+        {
             return true;
+        }
+
         return GetHashCode() == other.GetHashCode();
     }
 
@@ -109,6 +115,8 @@ public partial class HumidAir : IHumidAir
             .Distinct()
             .ToList();
         if (_inputs.Count != 3 || uniqueKeys.Count != 3)
+        {
             throw new ArgumentException("Need to define 3 unique inputs!");
+        }
     }
 }

@@ -112,9 +112,15 @@ public abstract partial class AbstractFluid : IAbstractFluid
         var inputPair = GetInputPair(firstInput, secondInput);
         var swap = !inputPair.HasValue;
         if (swap)
+        {
             inputPair = GetInputPair(secondInput, firstInput);
+        }
+
         if (!inputPair.HasValue)
+        {
             throw new ArgumentException("Need to define 2 unique inputs!");
+        }
+
         return !swap
             ? new UpdatePair(
                 inputPair.Value,

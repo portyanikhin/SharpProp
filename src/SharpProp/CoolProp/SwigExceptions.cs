@@ -76,12 +76,15 @@ internal static class SwigExceptions
     public static void ThrowPendingException()
     {
         if (_pendingException is not null)
+        {
             throw Retrieve()!;
+        }
     }
 
     private static void Set(Exception? exception)
     {
         if (_pendingException is not null)
+        {
             throw new ApplicationException(
                 "FATAL: An earlier pending exception from "
                     + "unmanaged code was missed and thus not thrown ("
@@ -89,6 +92,8 @@ internal static class SwigExceptions
                     + ")",
                 exception
             );
+        }
+
         _pendingException = exception;
         lock (ExceptionsLock)
         {
@@ -100,7 +105,10 @@ internal static class SwigExceptions
     {
         Exception? exception = null;
         if (_pendingExceptionsCount <= 0 || _pendingException is null)
+        {
             return exception;
+        }
+
         (exception, _pendingException) = (_pendingException, null);
         lock (ExceptionsLock)
         {
@@ -183,7 +191,10 @@ internal static class SwigExceptions
     {
         var exception = Retrieve();
         if (exception is not null)
+        {
             message = message + " Inner Exception: " + exception.Message;
+        }
+
         Set(new ArgumentNullException(argumentName, message));
     }
 
@@ -194,7 +205,10 @@ internal static class SwigExceptions
     {
         var exception = Retrieve();
         if (exception is not null)
+        {
             message = message + " Inner Exception: " + exception.Message;
+        }
+
         Set(new ArgumentOutOfRangeException(argumentName, message));
     }
 

@@ -13,7 +13,10 @@ public static class FluidsListTests
     )
     {
         if (name.CoolPropName().EndsWith(".mix"))
+        {
             return;
+        }
+
         switch (name)
         {
             case FluidsList.R50:

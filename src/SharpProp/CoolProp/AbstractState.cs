@@ -16,7 +16,9 @@ public class AbstractState : IDisposable
         lock (HandlesLock)
         {
             if (_disposed)
+            {
                 return;
+            }
         }
 
         InternalDispose();
@@ -30,7 +32,10 @@ public class AbstractState : IDisposable
         lock (HandlesLock)
         {
             if (_handle.Handle == IntPtr.Zero)
+            {
                 return;
+            }
+
             AbstractStatePInvoke.Delete(_handle);
             _handle = new HandleRef(null, IntPtr.Zero);
             _disposed = true;

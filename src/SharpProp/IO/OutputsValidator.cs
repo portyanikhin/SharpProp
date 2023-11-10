@@ -24,6 +24,8 @@ internal class OutputsValidator
     public void Validate()
     {
         if (double.IsInfinity(_output) || double.IsNaN(_output))
+        {
             throw new ArgumentException("Invalid or not defined state!");
+        }
     }
 }

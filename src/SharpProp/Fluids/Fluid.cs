@@ -5,9 +5,7 @@ namespace SharpProp;
 /// <inheritdoc cref="IFluid"/>
 public class Fluid : AbstractFluid, IFluid
 {
-    /// <summary>
-    ///     <inheritdoc cref="IFluid"/>
-    /// </summary>
+    /// <inheritdoc cref="Fluid"/>
     /// <param name="name">Selected fluid name.</param>
     /// <param name="fraction">
     ///     Mass-based or volume-based fraction for binary mixtures (optional).

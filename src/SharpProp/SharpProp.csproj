@@ -45,10 +45,10 @@
             <DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
         </Compile>
         <Compile Update="IO\Input.cs">
-            <DependentUpon>IKeyedInput.cs</DependentUpon>
+            <DependentUpon>KeyedInput.cs</DependentUpon>
         </Compile>
         <Compile Update="IO\InputHumidAir.cs">
-            <DependentUpon>IKeyedInput.cs</DependentUpon>
+            <DependentUpon>KeyedInput.cs</DependentUpon>
         </Compile>
     </ItemGroup>
 

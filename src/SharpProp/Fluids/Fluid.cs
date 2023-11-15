@@ -2,13 +2,11 @@
 
 namespace SharpProp;
 
-/// <summary>
-///     Pure/pseudo-pure fluid or binary mixture.
-/// </summary>
+/// <inheritdoc cref="IFluid"/>
 public class Fluid : AbstractFluid, IFluid
 {
     /// <summary>
-    ///     Pure/pseudo-pure fluid or binary mixture.
+    ///     <inheritdoc cref="IFluid"/>
     /// </summary>
     /// <param name="name">Selected fluid name.</param>
     /// <param name="fraction">

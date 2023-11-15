@@ -1,14 +1,12 @@
 ﻿namespace SharpProp;
 
-/// <summary>
-///     Mass-based mixture of pure fluids.
-/// </summary>
+/// <inheritdoc cref="IMixture"/>
 public class Mixture : AbstractFluid, IMixture
 {
     private const string AvailableBackend = "HEOS";
 
     /// <summary>
-    ///     Mass-based mixture of pure fluids.
+    ///     <inheritdoc cref="IMixture"/>
     /// </summary>
     /// <param name="fluids">List of selected names of pure fluids.</param>
     /// <param name="fractions">List of mass-based fractions.</param>

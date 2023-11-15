@@ -1,29 +1,10 @@
 ﻿namespace SharpProp;
 
-/// <summary>
-///     CoolProp outputs validator.
-/// </summary>
-internal class OutputsValidator
+internal static class OutputsValidator
 {
-    private readonly double _output;
-
-    /// <summary>
-    ///     CoolProp outputs validator.
-    /// </summary>
-    /// <param name="output">
-    ///     CoolProp output.
-    /// </param>
-    public OutputsValidator(double output) => _output = output;
-
-    /// <summary>
-    ///     Validates the CoolProp output.
-    /// </summary>
-    /// <exception cref="ArgumentException">
-    ///     Invalid or not defined state!
-    /// </exception>
-    public void Validate()
+    public static void Validate(double output)
     {
-        if (double.IsInfinity(_output) || double.IsNaN(_output))
+        if (double.IsInfinity(output) || double.IsNaN(output))
         {
             throw new ArgumentException("Invalid or not defined state!");
         }

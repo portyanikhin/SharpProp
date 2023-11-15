@@ -3,24 +3,12 @@
 /// <summary>
 ///     CoolProp keyed input for humid air.
 /// </summary>
-public record InputHumidAir : IKeyedInput<string>
+/// <param name="CoolPropKey">CoolProp internal key.</param>
+/// <param name="Value">Input value in SI units.</param>
+public record InputHumidAir(string CoolPropKey, double Value)
+    : KeyedInput<string>(CoolPropKey, Value)
 {
-    /// <summary>
-    ///     CoolProp keyed input for humid air.
-    /// </summary>
-    /// <param name="coolPropKey">CoolProp internal key.</param>
-    /// <param name="value">Input value.</param>
-    protected InputHumidAir(string coolPropKey, double value)
-    {
-        CoolPropKey = coolPropKey;
-        Value = value;
-    }
-
-    public string CoolPropKey { get; }
-
-    public string CoolPropHighLevelKey => CoolPropKey;
-
-    public double Value { get; }
+    public override string CoolPropHighLevelKey => CoolPropKey;
 
     /// <summary>
     ///     Altitude above sea level.

@@ -5,14 +5,13 @@
 ///     the <see cref="Fluid"/> class.
 /// </summary>
 /// <seealso cref="IFluidExtended"/>
-public class FluidExtended : Fluid, IFluidExtended
+public class FluidExtended(FluidsList name, Ratio? fraction = null)
+    : Fluid(name, fraction),
+        IFluidExtended
 {
     private MolarMass? _molarDensity;
     private double? _ozoneDepletionPotential;
     private SpecificEntropy? _specificHeatConstVolume;
-
-    public FluidExtended(FluidsList name, Ratio? fraction = null)
-        : base(name, fraction) { }
 
     public SpecificEntropy SpecificHeatConstVolume =>
         _specificHeatConstVolume ??= SpecificEntropy

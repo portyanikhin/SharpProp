@@ -1,8 +1,6 @@
 ﻿namespace SharpProp;
 
-/// <summary>
-///     Real humid air (see ASHRAE RP-1485).
-/// </summary>
+/// <inheritdoc cref="IHumidAir"/>
 public partial class HumidAir : IHumidAir
 {
     private IList<IKeyedInput<string>> _inputs = new List<IKeyedInput<string>>(
@@ -104,7 +102,7 @@ public partial class HumidAir : IHumidAir
                 _inputs[2].CoolPropKey,
                 _inputs[2].Value
             );
-        new OutputsValidator(result).Validate();
+        OutputsValidator.Validate(result);
         return result;
     }
 

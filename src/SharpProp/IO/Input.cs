@@ -3,24 +3,13 @@
 /// <summary>
 ///     CoolProp keyed input for fluids and mixtures.
 /// </summary>
-public record Input : IKeyedInput<Parameters>
+/// <param name="CoolPropKey">CoolProp internal key.</param>
+/// <param name="Value">Input value in SI units.</param>
+public record Input(Parameters CoolPropKey, double Value)
+    : KeyedInput<Parameters>(CoolPropKey, Value)
 {
-    /// <summary>
-    ///     CoolProp keyed input for fluids and mixtures.
-    /// </summary>
-    /// <param name="coolPropKey">CoolProp internal key.</param>
-    /// <param name="value">Input value.</param>
-    protected Input(Parameters coolPropKey, double value)
-    {
-        CoolPropKey = coolPropKey;
-        Value = value;
-    }
-
-    public Parameters CoolPropKey { get; }
-
-    public string CoolPropHighLevelKey => CoolPropKey.ToString().TrimStart('i');
-
-    public double Value { get; }
+    public override string CoolPropHighLevelKey =>
+        CoolPropKey.ToString().TrimStart('i');
 
     /// <summary>
     ///     Mass density.

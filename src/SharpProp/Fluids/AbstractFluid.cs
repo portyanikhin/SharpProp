@@ -1,8 +1,6 @@
 ﻿namespace SharpProp;
 
-/// <summary>
-///     Abstract fluid.
-/// </summary>
+/// <inheritdoc cref="IAbstractFluid"/>
 public abstract partial class AbstractFluid : IAbstractFluid
 {
     protected AbstractState Backend = default!;
@@ -100,7 +98,7 @@ public abstract partial class AbstractFluid : IAbstractFluid
             .FirstOrDefault(input => input.CoolPropKey == key)
             ?.Value;
         var result = input ?? Backend.KeyedOutput(key);
-        new OutputsValidator(result).Validate();
+        OutputsValidator.Validate(result);
         return result;
     }
 

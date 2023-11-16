@@ -1,7 +1,7 @@
-﻿global using FluentAssertions;
+﻿global using System.Diagnostics.CodeAnalysis;
+global using FluentAssertions;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Converters;
-global using System.Diagnostics.CodeAnalysis;
 global using UnitsNet;
 global using UnitsNet.NumberExtensions.NumberToDensity;
 global using UnitsNet.NumberExtensions.NumberToKinematicViscosity;

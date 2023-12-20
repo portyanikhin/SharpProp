@@ -13,7 +13,7 @@ public interface IAbstractFluid : IFluidState, IDisposable
     /// <exception cref="ArgumentException">
     ///     Need to define 2 unique inputs!
     /// </exception>
-    public void Update(
+    void Update(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
     );
@@ -21,17 +21,17 @@ public interface IAbstractFluid : IFluidState, IDisposable
     /// <summary>
     ///     Resets all non-trivial properties.
     /// </summary>
-    public void Reset();
+    void Reset();
 
     /// <summary>
     ///     Specify the phase state for all further calculations.
     /// </summary>
     /// <param name="phase">Phase state.</param>
-    public void SpecifyPhase(Phases phase);
+    void SpecifyPhase(Phases phase);
 
     /// <summary>
     ///     Unspecify the phase state and
     ///     go back to calculating it based on the inputs.
     /// </summary>
-    public void UnspecifyPhase();
+    void UnspecifyPhase();
 }

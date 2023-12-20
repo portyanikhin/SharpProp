@@ -13,12 +13,12 @@ public interface IMixture
     /// <summary>
     ///     List of selected names of pure fluids.
     /// </summary>
-    public IReadOnlyList<FluidsList> Fluids { get; }
+    IReadOnlyList<FluidsList> Fluids { get; }
 
     /// <summary>
     ///     List of mass-based fractions (by default, %).
     /// </summary>
-    public IReadOnlyList<Ratio> Fractions { get; }
+    IReadOnlyList<Ratio> Fractions { get; }
 
     /// <summary>
     ///     Returns a new mixture instance with a defined state.
@@ -29,7 +29,7 @@ public interface IMixture
     /// <exception cref="ArgumentException">
     ///     Need to define 2 unique inputs!
     /// </exception>
-    public IMixture WithState(
+    IMixture WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
     );
@@ -48,10 +48,7 @@ public interface IMixture
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IMixture CoolingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    IMixture CoolingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of heating to a given temperature.
@@ -67,8 +64,5 @@ public interface IMixture
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IMixture HeatingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    IMixture HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 }

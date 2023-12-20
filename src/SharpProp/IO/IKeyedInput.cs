@@ -13,15 +13,15 @@ public interface IKeyedInput<out T>
     /// <summary>
     ///     CoolProp internal key.
     /// </summary>
-    public T CoolPropKey { get; }
+    T CoolPropKey { get; }
 
     /// <summary>
     ///     CoolProp key in high-level interface.
     /// </summary>
-    public string CoolPropHighLevelKey { get; }
+    string CoolPropHighLevelKey { get; }
 
     /// <summary>
     ///     Input value in SI units.
     /// </summary>
-    public double Value { get; }
+    double Value { get; }
 }

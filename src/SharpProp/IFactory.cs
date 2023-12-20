@@ -11,5 +11,5 @@ public interface IFactory<out T>
     ///     Creates a new instance with no defined state.
     /// </summary>
     /// <returns>A new instance with no defined state.</returns>
-    public T Factory();
+    T Factory();
 }

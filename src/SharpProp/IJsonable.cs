@@ -10,5 +10,5 @@ public interface IJsonable
     /// </summary>
     /// <param name="indented"><c>true</c> if indented.</param>
     /// <returns>A JSON string.</returns>
-    public string AsJson(bool indented = true);
+    string AsJson(bool indented = true);
 }

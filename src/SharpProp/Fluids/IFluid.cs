@@ -13,13 +13,13 @@ public interface IFluid
     /// <summary>
     ///     Selected fluid name.
     /// </summary>
-    public FluidsList Name { get; }
+    FluidsList Name { get; }
 
     /// <summary>
     ///     Mass-based or volume-based fraction
     ///     for binary mixtures (by default, %).
     /// </summary>
-    public Ratio Fraction { get; }
+    Ratio Fraction { get; }
 
     /// <summary>
     ///     Returns a new fluid instance with a defined state.
@@ -30,7 +30,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Need to define 2 unique inputs!
     /// </exception>
-    public IFluid WithState(
+    IFluid WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput
     );
@@ -45,7 +45,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Compressor outlet pressure should be higher than inlet pressure!
     /// </exception>
-    public IFluid IsentropicCompressionTo(Pressure pressure);
+    IFluid IsentropicCompressionTo(Pressure pressure);
 
     /// <summary>
     ///     The process of compression to a given pressure.
@@ -61,7 +61,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid compressor isentropic efficiency!
     /// </exception>
-    public IFluid CompressionTo(Pressure pressure, Ratio isentropicEfficiency);
+    IFluid CompressionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <summary>
     ///     The process of isenthalpic expansion to a given pressure.
@@ -71,7 +71,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Expansion valve outlet pressure should be lower than inlet pressure!
     /// </exception>
-    public IFluid IsenthalpicExpansionTo(Pressure pressure);
+    IFluid IsenthalpicExpansionTo(Pressure pressure);
 
     /// <summary>
     ///     The process of isentropic expansion to a given pressure.
@@ -81,7 +81,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Expander outlet pressure should be lower than inlet pressure!
     /// </exception>
-    public IFluid IsentropicExpansionTo(Pressure pressure);
+    IFluid IsentropicExpansionTo(Pressure pressure);
 
     /// <summary>
     ///     The process of expansion to a given pressure.
@@ -97,7 +97,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid expander isentropic efficiency!
     /// </exception>
-    public IFluid ExpansionTo(Pressure pressure, Ratio isentropicEfficiency);
+    IFluid ExpansionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <summary>
     ///     The process of cooling to a given temperature.
@@ -113,10 +113,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IFluid CoolingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    IFluid CoolingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of cooling to a given enthalpy.
@@ -132,10 +129,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IFluid CoolingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    IFluid CoolingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of heating to a given temperature.
@@ -151,10 +145,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IFluid HeatingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    IFluid HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of heating to a given enthalpy.
@@ -170,38 +161,35 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IFluid HeatingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    IFluid HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     Returns a bubble point at a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <returns>A bubble point at a given pressure.</returns>
-    public IFluid BubblePointAt(Pressure pressure);
+    IFluid BubblePointAt(Pressure pressure);
 
     /// <summary>
     ///     Returns a bubble point at a given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
     /// <returns>A bubble point at a given temperature.</returns>
-    public IFluid BubblePointAt(Temperature temperature);
+    IFluid BubblePointAt(Temperature temperature);
 
     /// <summary>
     ///     Returns a dew point at a given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <returns>A dew point at a given pressure.</returns>
-    public IFluid DewPointAt(Pressure pressure);
+    IFluid DewPointAt(Pressure pressure);
 
     /// <summary>
     ///     Returns a dew point at a given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
     /// <returns>A dew point at a given temperature.</returns>
-    public IFluid DewPointAt(Temperature temperature);
+    IFluid DewPointAt(Temperature temperature);
 
     /// <summary>
     ///     Returns a two-phase point at a given pressure.
@@ -209,7 +197,7 @@ public interface IFluid
     /// <param name="pressure">Pressure.</param>
     /// <param name="quality">Vapor quality.</param>
     /// <returns>Two-phase point at a given pressure.</returns>
-    public IFluid TwoPhasePointAt(Pressure pressure, Ratio quality);
+    IFluid TwoPhasePointAt(Pressure pressure, Ratio quality);
 
     /// <summary>
     ///     The mixing process.
@@ -229,7 +217,7 @@ public interface IFluid
     /// <exception cref="ArgumentException">
     ///     The mixing process is possible only for flows with the same pressure!
     /// </exception>
-    public IFluid Mixing(
+    IFluid Mixing(
         Ratio firstSpecificMassFlow,
         IFluid first,
         Ratio secondSpecificMassFlow,

@@ -12,5 +12,5 @@ public interface IClonable<out T>
     ///     Performs deep (full) copy of the instance.
     /// </summary>
     /// <returns>Deep copy of the instance.</returns>
-    public T Clone();
+    T Clone();
 }

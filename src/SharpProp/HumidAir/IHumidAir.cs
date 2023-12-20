@@ -19,7 +19,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Need to define 3 unique inputs!
     /// </exception>
-    public void Update(
+    void Update(
         IKeyedInput<string> firstInput,
         IKeyedInput<string> secondInput,
         IKeyedInput<string> thirdInput
@@ -28,7 +28,7 @@ public interface IHumidAir
     /// <summary>
     ///     Resets all properties.
     /// </summary>
-    public void Reset();
+    void Reset();
 
     /// <summary>
     ///     Returns a new humid air instance with a defined state.
@@ -40,7 +40,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Need to define 3 unique inputs!
     /// </exception>
-    public IHumidAir WithState(
+    IHumidAir WithState(
         IKeyedInput<string> firstInput,
         IKeyedInput<string> secondInput,
         IKeyedInput<string> thirdInput
@@ -65,7 +65,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir DryCoolingTo(
+    IHumidAir DryCoolingTo(
         Temperature temperature,
         Pressure? pressureDrop = null
     );
@@ -89,7 +89,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir DryCoolingTo(
+    IHumidAir DryCoolingTo(
         SpecificEnergy enthalpy,
         Pressure? pressureDrop = null
     );
@@ -114,7 +114,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir WetCoolingTo(
+    IHumidAir WetCoolingTo(
         Temperature temperature,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
@@ -140,7 +140,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir WetCoolingTo(
+    IHumidAir WetCoolingTo(
         Temperature temperature,
         Ratio humidity,
         Pressure? pressureDrop = null
@@ -166,7 +166,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir WetCoolingTo(
+    IHumidAir WetCoolingTo(
         SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
@@ -192,7 +192,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir WetCoolingTo(
+    IHumidAir WetCoolingTo(
         SpecificEnergy enthalpy,
         Ratio humidity,
         Pressure? pressureDrop = null
@@ -212,10 +212,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir HeatingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    IHumidAir HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of heating to a given enthalpy.
@@ -231,10 +228,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     Invalid pressure drop in the heat exchanger!
     /// </exception>
-    public IHumidAir HeatingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    IHumidAir HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
     ///     The process of humidification by water (isenthalpic)
@@ -246,7 +240,7 @@ public interface IHumidAir
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
     /// </exception>
-    public IHumidAir HumidificationByWaterTo(RelativeHumidity relativeHumidity);
+    IHumidAir HumidificationByWaterTo(RelativeHumidity relativeHumidity);
 
     /// <summary>
     ///     The process of humidification by water (isenthalpic)
@@ -258,7 +252,7 @@ public interface IHumidAir
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
     /// </exception>
-    public IHumidAir HumidificationByWaterTo(Ratio humidity);
+    IHumidAir HumidificationByWaterTo(Ratio humidity);
 
     /// <summary>
     ///     The process of humidification by steam (isothermal)
@@ -270,7 +264,7 @@ public interface IHumidAir
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
     /// </exception>
-    public IHumidAir HumidificationBySteamTo(RelativeHumidity relativeHumidity);
+    IHumidAir HumidificationBySteamTo(RelativeHumidity relativeHumidity);
 
     /// <summary>
     ///     The process of humidification by steam (isothermal)
@@ -282,7 +276,7 @@ public interface IHumidAir
     ///     During the humidification process,
     ///     the absolute humidity ratio should increase!
     /// </exception>
-    public IHumidAir HumidificationBySteamTo(Ratio humidity);
+    IHumidAir HumidificationBySteamTo(Ratio humidity);
 
     /// <summary>
     ///     The mixing process.
@@ -299,7 +293,7 @@ public interface IHumidAir
     /// <exception cref="ArgumentException">
     ///     The mixing process is possible only for flows with the same pressure!
     /// </exception>
-    public IHumidAir Mixing(
+    IHumidAir Mixing(
         Ratio firstSpecificMassFlow,
         IHumidAir first,
         Ratio secondSpecificMassFlow,

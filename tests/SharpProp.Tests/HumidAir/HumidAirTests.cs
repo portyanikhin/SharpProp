@@ -117,8 +117,7 @@ public class HumidAirTests
         }
 
         _humidAir
-            .Density
-            .Equals(
+            .Density.Equals(
                 Density.FromKilogramsPerCubicMeter(
                     1.0 / _humidAir.SpecificVolume.CubicMetersPerKilogram
                 ),
@@ -127,16 +126,14 @@ public class HumidAirTests
             .Should()
             .BeTrue();
         _humidAir
-            .KinematicViscosity
-            .Equals(
+            .KinematicViscosity.Equals(
                 _humidAir.DynamicViscosity / _humidAir.Density,
                 Tolerance.Centistokes()
             )
             .Should()
             .BeTrue();
         _humidAir
-            .Prandtl
-            .Should()
+            .Prandtl.Should()
             .Be(
                 _humidAir.DynamicViscosity.PascalSeconds
                     * _humidAir.SpecificHeat.JoulesPerKilogramKelvin

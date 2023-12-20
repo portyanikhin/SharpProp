@@ -144,16 +144,14 @@ public class FluidTests : IDisposable
         }
 
         fluid
-            .KinematicViscosity
-            ?.Equals(
+            .KinematicViscosity?.Equals(
                 (fluid.DynamicViscosity / fluid.Density)!.Value,
                 Tolerance.Centistokes()
             )
             .Should()
             .BeTrue();
         fluid
-            .SpecificVolume
-            .Equals(
+            .SpecificVolume.Equals(
                 SpecificVolume.FromCubicMetersPerKilogram(
                     1.0 / fluid.Density.KilogramsPerCubicMeter
                 ),
@@ -202,8 +200,7 @@ public class FluidTests : IDisposable
                 Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius())
             )
-            .Phase
-            .Should()
+            .Phase.Should()
             .Be(Phases.Liquid);
 
     [Fact]

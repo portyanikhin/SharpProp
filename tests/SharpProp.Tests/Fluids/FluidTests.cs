@@ -334,12 +334,11 @@ public class FluidTests : IDisposable
     public static IEnumerable<object[]> FluidNames() =>
         Enum.GetValues(typeof(FluidsList))
             .Cast<FluidsList>()
-            .Where(
-                name =>
-                    !(
-                        name is FluidsList.AL or FluidsList.AN
-                        || name.CoolPropName().EndsWith(".mix")
-                    )
+            .Where(name =>
+                !(
+                    name is FluidsList.AL or FluidsList.AN
+                    || name.CoolPropName().EndsWith(".mix")
+                )
             )
             .Cast<object>()
             .Select(name => new[] { name });

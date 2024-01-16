@@ -36,9 +36,8 @@ public class Mixture : AbstractFluid, IMixture
         }
 
         if (
-            !Fluids.All(
-                fluid =>
-                    fluid.Pure() && fluid.CoolPropBackend() == AvailableBackend
+            !Fluids.All(fluid =>
+                fluid.Pure() && fluid.CoolPropBackend() == AvailableBackend
             )
         )
         {

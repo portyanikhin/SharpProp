@@ -9,22 +9,34 @@
 
     <ItemGroup>
         <None Include="SharpProp.targets" Pack="true" Visible="false" PackagePath="build\"/>
-        <None Include="libCoolProp.dll" Pack="true" Visible="false" PackagePath="build\"/>
-        <None Include="libCoolProp.dylib" Pack="true" Visible="false" PackagePath="build\"/>
-        <None Include="libCoolProp.so" Pack="true" Visible="false" PackagePath="build\"/>
-        <None Update="libCoolProp.dll">
+        <None Include="libCoolProp.dll" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+            <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
+        </None>
+        <None Update="libCoolProp.dll" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Pack>true</Pack>
             <Visible>false</Visible>
             <PackagePath>build\</PackagePath>
         </None>
-        <None Update="libCoolProp.dylib">
+        <None Include="libCoolProp.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+            <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
+        </None>
+        <None Update="libCoolProp.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Pack>true</Pack>
             <Visible>false</Visible>
             <PackagePath>build\</PackagePath>
         </None>
-        <None Update="libCoolProp.so">
+        <None Include="libCoolProp.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
+            <Pack>true</Pack>
+            <Visible>false</Visible>
+            <PackagePath>build\</PackagePath>
+        </None>
+        <None Update="libCoolProp.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Pack>true</Pack>
             <Visible>false</Visible>

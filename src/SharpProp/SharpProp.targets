@@ -4,8 +4,9 @@
         <NativeLibs Include="$(MSBuildThisFileDirectory)**\*.dylib" Condition="$([MSBuild]::IsOSPlatform('OSX'))"/>
         <NativeLibs Include="$(MSBuildThisFileDirectory)**\*.so" Condition="$([MSBuild]::IsOSPlatform('Linux'))"/>
         <None Include="@(NativeLibs)">
-            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+            <Link>%(RecursiveDir)%(FileName)%(Extension)</Link>
+            <Visible>false</Visible>
         </None>
     </ItemGroup>
 </Project>

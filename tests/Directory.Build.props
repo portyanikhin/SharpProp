@@ -8,12 +8,12 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows'))">
+        <TargetFrameworks>net48;net6.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-        <TargetFrameworks>net48;net6.0;net8.0</TargetFrameworks>
+    <PropertyGroup Condition="!$([MSBuild]::IsOSPlatform('Windows'))">
+        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     </PropertyGroup>
 
 </Project>

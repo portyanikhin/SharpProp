@@ -3,11 +3,9 @@
 /// <summary>
 ///     An example of how to extend the <see cref="InputHumidAir"/> record.
 /// </summary>
-public record InputHumidAirExtended : InputHumidAir
+public record InputHumidAirExtended(string CoolPropKey, double Value)
+    : InputHumidAir(CoolPropKey, Value)
 {
-    private InputHumidAirExtended(string coolPropKey, double value)
-        : base(coolPropKey, value) { }
-
     /// <summary>
     ///     Water mole fraction.
     /// </summary>

@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Enums.NET" Version="4.0.2"/>
+        <PackageReference Include="Enums.NET" Version="5.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="UnitsNet" Version="5.49.0"/>
         <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="5.28.0"/>

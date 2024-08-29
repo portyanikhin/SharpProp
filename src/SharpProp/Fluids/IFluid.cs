@@ -36,7 +36,7 @@ public interface IFluid
     );
 
     /// <summary>
-    ///     The process of isentropic compression to a given pressure.
+    ///     The process of isentropic compression to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <returns>
@@ -48,7 +48,7 @@ public interface IFluid
     IFluid IsentropicCompressionTo(Pressure pressure);
 
     /// <summary>
-    ///     The process of compression to a given pressure.
+    ///     The process of compression to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <param name="isentropicEfficiency">
@@ -64,7 +64,7 @@ public interface IFluid
     IFluid CompressionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <summary>
-    ///     The process of isenthalpic expansion to a given pressure.
+    ///     The process of isenthalpic expansion to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
@@ -74,7 +74,7 @@ public interface IFluid
     IFluid IsenthalpicExpansionTo(Pressure pressure);
 
     /// <summary>
-    ///     The process of isentropic expansion to a given pressure.
+    ///     The process of isentropic expansion to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
@@ -84,7 +84,7 @@ public interface IFluid
     IFluid IsentropicExpansionTo(Pressure pressure);
 
     /// <summary>
-    ///     The process of expansion to a given pressure.
+    ///     The process of expansion to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <param name="isentropicEfficiency">
@@ -164,10 +164,10 @@ public interface IFluid
     IFluid HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
-    ///     Returns a bubble point at a given pressure.
+    ///     Returns a bubble point at given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>A bubble point at a given pressure.</returns>
+    /// <returns>A bubble point at given pressure.</returns>
     IFluid BubblePointAt(Pressure pressure);
 
     /// <summary>
@@ -178,10 +178,10 @@ public interface IFluid
     IFluid BubblePointAt(Temperature temperature);
 
     /// <summary>
-    ///     Returns a dew point at a given pressure.
+    ///     Returns a dew point at given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>A dew point at a given pressure.</returns>
+    /// <returns>A dew point at given pressure.</returns>
     IFluid DewPointAt(Pressure pressure);
 
     /// <summary>
@@ -192,11 +192,11 @@ public interface IFluid
     IFluid DewPointAt(Temperature temperature);
 
     /// <summary>
-    ///     Returns a two-phase point at a given pressure.
+    ///     Returns a two-phase point at given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
     /// <param name="quality">Vapor quality.</param>
-    /// <returns>Two-phase point at a given pressure.</returns>
+    /// <returns>Two-phase point at given pressure.</returns>
     IFluid TwoPhasePointAt(Pressure pressure, Ratio quality);
 
     /// <summary>

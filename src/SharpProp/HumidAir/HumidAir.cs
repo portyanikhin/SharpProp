@@ -18,7 +18,7 @@ public partial class HumidAir : IHumidAir
         {
             firstInput,
             secondInput,
-            thirdInput
+            thirdInput,
         };
         CheckInputs();
     }

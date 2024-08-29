@@ -56,28 +56,28 @@ public static class InputHumidAirTests
             new object[]
             {
                 InputHumidAir.Density(1.25.KilogramsPerCubicMeter()),
-                "Vha"
+                "Vha",
             },
             new object[]
             {
                 InputHumidAir.DewTemperature(10.DegreesCelsius()),
-                "D"
+                "D",
             },
             new object[]
             {
                 InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()),
-                "Hha"
+                "Hha",
             },
             new object[]
             {
                 InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()),
-                "Sha"
+                "Sha",
             },
             new object[] { InputHumidAir.Humidity(5.PartsPerThousand()), "W" },
             new object[]
             {
                 InputHumidAir.PartialPressure(1.Kilopascals()),
-                "P_w"
+                "P_w",
             },
             new object[] { InputHumidAir.Pressure(1.Atmospheres()), "P" },
             new object[]
@@ -85,23 +85,23 @@ public static class InputHumidAirTests
                 InputHumidAir.RelativeHumidity(
                     RelativeHumidity.FromPercent(50)
                 ),
-                "R"
+                "R",
             },
             new object[]
             {
                 InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()),
-                "Vha"
+                "Vha",
             },
             new object[]
             {
                 InputHumidAir.Temperature(20.DegreesCelsius()),
-                "T"
+                "T",
             },
             new object[]
             {
                 InputHumidAir.WetBulbTemperature(15.DegreesCelsius()),
-                "B"
-            }
+                "B",
+            },
         };
 
     public static IEnumerable<object[]> Values() =>
@@ -110,33 +110,33 @@ public static class InputHumidAirTests
             new object[]
             {
                 InputHumidAir.Altitude(300.Meters()),
-                97772.56060611102
+                97772.56060611102,
             },
             new object[]
             {
                 InputHumidAir.Density(1.25.KilogramsPerCubicMeter()),
-                0.8
+                0.8,
             },
             new object[]
             {
                 InputHumidAir.DewTemperature(10.DegreesCelsius()),
-                283.15
+                283.15,
             },
             new object[]
             {
                 InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()),
-                2e4
+                2e4,
             },
             new object[]
             {
                 InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()),
-                1e4
+                1e4,
             },
             new object[] { InputHumidAir.Humidity(5.PartsPerThousand()), 5e-3 },
             new object[]
             {
                 InputHumidAir.PartialPressure(1.Kilopascals()),
-                1e3
+                1e3,
             },
             new object[] { InputHumidAir.Pressure(1.Atmospheres()), 101325 },
             new object[]
@@ -144,22 +144,22 @@ public static class InputHumidAirTests
                 InputHumidAir.RelativeHumidity(
                     RelativeHumidity.FromPercent(50)
                 ),
-                0.5
+                0.5,
             },
             new object[]
             {
                 InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()),
-                0.8
+                0.8,
             },
             new object[]
             {
                 InputHumidAir.Temperature(20.DegreesCelsius()),
-                293.15
+                293.15,
             },
             new object[]
             {
                 InputHumidAir.WetBulbTemperature(15.DegreesCelsius()),
-                288.15
-            }
+                288.15,
+            },
         };
 }

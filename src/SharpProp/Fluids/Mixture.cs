@@ -6,7 +6,7 @@ public class Mixture : AbstractFluid, IMixture
     private const string AvailableBackend = "HEOS";
 
     /// <inheritdoc cref="Mixture"/>
-    /// <param name="fluids">List of selected names of pure fluids.</param>
+    /// <param name="fluids">List of selected pure fluid names.</param>
     /// <param name="fractions">List of mass-based fractions.</param>
     /// <exception cref="ArgumentException">
     ///     Invalid input! Fluids and Fractions should be of the same length.

@@ -38,35 +38,35 @@ public static class InputTests
             new object[]
             {
                 Input.Density(999.KilogramsPerCubicMeter()),
-                Parameters.iDmass
+                Parameters.iDmass,
             },
             new object[]
             {
                 Input.Enthalpy(1.KilojoulesPerKilogram()),
-                Parameters.iHmass
+                Parameters.iHmass,
             },
             new object[]
             {
                 Input.Entropy(5.KilojoulesPerKilogramKelvin()),
-                Parameters.iSmass
+                Parameters.iSmass,
             },
             new object[]
             {
                 Input.InternalEnergy(10.KilojoulesPerKilogram()),
-                Parameters.iUmass
+                Parameters.iUmass,
             },
             new object[] { Input.Pressure(1.Atmospheres()), Parameters.iP },
             new object[] { Input.Quality(50.Percent()), Parameters.iQ },
             new object[]
             {
                 Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()),
-                Parameters.iDmass
+                Parameters.iDmass,
             },
             new object[]
             {
                 Input.Temperature(20.DegreesCelsius()),
-                Parameters.iT
-            }
+                Parameters.iT,
+            },
         };
 
     public static IEnumerable<object[]> Values() =>
@@ -77,20 +77,20 @@ public static class InputTests
             new object[]
             {
                 Input.Entropy(5.KilojoulesPerKilogramKelvin()),
-                5e3
+                5e3,
             },
             new object[]
             {
                 Input.InternalEnergy(10.KilojoulesPerKilogram()),
-                1e4
+                1e4,
             },
             new object[] { Input.Pressure(1.Atmospheres()), 101325 },
             new object[] { Input.Quality(50.Percent()), 0.5 },
             new object[]
             {
                 Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()),
-                999
+                999,
             },
-            new object[] { Input.Temperature(20.DegreesCelsius()), 293.15 }
+            new object[] { Input.Temperature(20.DegreesCelsius()), 293.15 },
         };
 }

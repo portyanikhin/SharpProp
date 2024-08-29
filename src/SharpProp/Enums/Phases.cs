@@ -15,5 +15,5 @@ public enum Phases
     Gas,
     TwoPhase,
     Unknown,
-    NotImposed
+    NotImposed,
 }

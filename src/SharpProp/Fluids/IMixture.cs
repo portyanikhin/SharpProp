@@ -11,7 +11,7 @@ public interface IMixture
         IJsonable
 {
     /// <summary>
-    ///     List of selected names of pure fluids.
+    ///     List of selected pure fluid names.
     /// </summary>
     IReadOnlyList<FluidsList> Fluids { get; }
 

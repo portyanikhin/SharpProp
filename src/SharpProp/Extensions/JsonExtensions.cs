@@ -8,8 +8,8 @@ internal static class JsonExtensions
             Converters = new List<JsonConverter>
             {
                 new StringEnumConverter(),
-                new UnitsNetIQuantityJsonConverter()
-            }
+                new UnitsNetIQuantityJsonConverter(),
+            },
         };
 
     public static string ConvertToJson(this object? instance, bool indented)

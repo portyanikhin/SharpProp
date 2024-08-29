@@ -13,5 +13,5 @@ public enum Mix
     /// <summary>
     ///     Volume-based mixture.
     /// </summary>
-    Volume
+    Volume,
 }

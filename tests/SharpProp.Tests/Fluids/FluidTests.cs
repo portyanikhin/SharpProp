@@ -20,17 +20,13 @@ public class FluidTests : IDisposable
         -200.0,
         "Invalid fraction value! It should be in [0;60] %. Entered value = -200 %."
     )]
-    [InlineData(
-        200.0,
-        "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %."
-    )]
+    [InlineData(200.0, "Invalid fraction value! It should be in [0;60] %. Entered value = 200 %.")]
     public static void Fluid_InvalidFraction_ThrowsArgumentException(
         double? fraction,
         string message
     )
     {
-        Action action = () =>
-            _ = new Fluid(FluidsList.MPG, fraction?.Percent());
+        Action action = () => _ = new Fluid(FluidsList.MPG, fraction?.Percent());
         action.Should().Throw<ArgumentException>().WithMessage(message);
     }
 
@@ -40,9 +36,7 @@ public class FluidTests : IDisposable
         var tasks = new List<Task<Temperature>>();
         for (var i = 0; i < 100; i++)
         {
-            tasks.Add(
-                Task.Run(() => _fluid.DewPointAt(1.Atmospheres()).Temperature)
-            );
+            tasks.Add(Task.Run(() => _fluid.DewPointAt(1.Atmospheres()).Temperature));
         }
 
         var result = await Task.WhenAll(tasks);
@@ -54,24 +48,15 @@ public class FluidTests : IDisposable
     {
         IAbstractFluid fluid = _fluid;
         var action = () =>
-            fluid.Update(
-                Input.Pressure(1.Atmospheres()),
-                Input.Pressure(101325.Pascals())
-            );
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Need to define 2 unique inputs!");
+            fluid.Update(Input.Pressure(1.Atmospheres()), Input.Pressure(101325.Pascals()));
+        action.Should().Throw<ArgumentException>().WithMessage("Need to define 2 unique inputs!");
     }
 
     [Fact]
     public void Update_Always_InputsAreCached()
     {
         IAbstractFluid fluid = _fluid;
-        fluid.Update(
-            Input.Pressure(101325.Pascals()),
-            Input.Temperature(293.15.Kelvins())
-        );
+        fluid.Update(Input.Pressure(101325.Pascals()), Input.Temperature(293.15.Kelvins()));
         fluid.Pressure.Pascals.Should().Be(101325);
         fluid.Temperature.Kelvins.Should().Be(293.15);
     }
@@ -165,17 +150,11 @@ public class FluidTests : IDisposable
     public void Reset_Always_ResetsAllNonTrivialProperties()
     {
         IAbstractFluid fluid = _fluid;
-        fluid.Update(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(20.DegreesCelsius())
-        );
+        fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
         Action action = () => _ = fluid.Pressure;
         action.Should().NotThrow();
         fluid.Reset();
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Invalid or not defined state!");
+        action.Should().Throw<ArgumentException>().WithMessage("Invalid or not defined state!");
     }
 
     [Fact]
@@ -184,10 +163,7 @@ public class FluidTests : IDisposable
         IAbstractFluid fluid = _fluid;
         fluid.SpecifyPhase(Phases.Gas);
         var action = () =>
-            fluid.Update(
-                Input.Pressure(1.Atmospheres()),
-                Input.Temperature(20.DegreesCelsius())
-            );
+            fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
         action.Should().Throw<ApplicationException>();
         fluid.UnspecifyPhase();
         action.Should().NotThrow();
@@ -196,10 +172,7 @@ public class FluidTests : IDisposable
     [Fact]
     public void WithState_WaterInStandardConditions_PhaseIsLiquid() =>
         _fluid
-            .WithState(
-                Input.Pressure(1.Atmospheres()),
-                Input.Temperature(20.DegreesCelsius())
-            )
+            .WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()))
             .Phase.Should()
             .Be(Phases.Liquid);
 
@@ -212,10 +185,7 @@ public class FluidTests : IDisposable
         );
         var clone = origin.Clone();
         clone.Should().Be(origin);
-        clone.Update(
-            Input.Pressure(1.Atmospheres()),
-            Input.Temperature(30.DegreesCelsius())
-        );
+        clone.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(30.DegreesCelsius()));
         clone.Should().NotBe(origin);
     }
 
@@ -262,9 +232,7 @@ public class FluidTests : IDisposable
                             new StringEnumConverter(),
                             new UnitsNetIQuantityJsonConverter(),
                         },
-                        Formatting = indented
-                            ? Formatting.Indented
-                            : Formatting.None,
+                        Formatting = indented ? Formatting.Indented : Formatting.None,
                     }
                 )
             );
@@ -335,10 +303,7 @@ public class FluidTests : IDisposable
         Enum.GetValues(typeof(FluidsList))
             .Cast<FluidsList>()
             .Where(name =>
-                !(
-                    name is FluidsList.AL or FluidsList.AN
-                    || name.CoolPropName().EndsWith(".mix")
-                )
+                !(name is FluidsList.AL or FluidsList.AN || name.CoolPropName().EndsWith(".mix"))
             )
             .Cast<object>()
             .Select(name => new[] { name });
@@ -347,10 +312,7 @@ public class FluidTests : IDisposable
     {
         var fraction = name.Pure()
             ? null as Ratio?
-            : Math.Round(
-                    0.5 * (name.FractionMin() + name.FractionMax()).Percent
-                )
-                .Percent();
+            : Math.Round(0.5 * (name.FractionMin() + name.FractionMax()).Percent).Percent();
         _fluid = new Fluid(name, fraction);
         _fluid.Update(
             Input.Pressure(_fluid.MaxPressure ?? 10.Megapascals()),
@@ -377,11 +339,7 @@ public class FluidTests : IDisposable
                         _fluid.Temperature.Kelvins,
                         $"{_fluid.Name.CoolPropBackend()}::"
                             + $"{_fluid.Name.CoolPropName()}"
-                            + (
-                                _fluid.Name.Pure()
-                                    ? string.Empty
-                                    : $"-{_fluid.Fraction.Percent}%"
-                            )
+                            + (_fluid.Name.Pure() ? string.Empty : $"-{_fluid.Fraction.Percent}%")
                     );
                     return CheckedValue(value, outputKey);
                 }
@@ -393,9 +351,7 @@ public class FluidTests : IDisposable
     }
 
     private static double? CheckedValue(double value, string outputKey) =>
-        double.IsInfinity(value)
-        || double.IsNaN(value)
-        || outputKey == "Q" && value is < 0 or > 1
+        double.IsInfinity(value) || double.IsNaN(value) || outputKey == "Q" && value is < 0 or > 1
             ? null
             : value;
 }

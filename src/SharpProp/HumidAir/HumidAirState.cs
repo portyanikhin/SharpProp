@@ -21,14 +21,10 @@ public partial class HumidAir
     public double Compressibility => _compressibility ??= KeyedOutput("Z");
 
     public ThermalConductivity Conductivity =>
-        _conductivity ??= ThermalConductivity.FromWattsPerMeterKelvin(
-            KeyedOutput("K")
-        );
+        _conductivity ??= ThermalConductivity.FromWattsPerMeterKelvin(KeyedOutput("K"));
 
     public Density Density =>
-        Density.FromKilogramsPerCubicMeter(
-            1.0 / SpecificVolume.CubicMetersPerKilogram
-        );
+        Density.FromKilogramsPerCubicMeter(1.0 / SpecificVolume.CubicMetersPerKilogram);
 
     public Temperature DewTemperature =>
         _dewTemperature ??= Temperature
@@ -69,9 +65,7 @@ public partial class HumidAir
         / Conductivity.WattsPerMeterKelvin;
 
     public Pressure Pressure =>
-        _pressure ??= Pressure
-            .FromPascals(KeyedOutput("P"))
-            .ToUnit(PressureUnit.Kilopascal);
+        _pressure ??= Pressure.FromPascals(KeyedOutput("P")).ToUnit(PressureUnit.Kilopascal);
 
     public RelativeHumidity RelativeHumidity =>
         _relativeHumidity ??= RelativeHumidity.FromPercent(
@@ -84,9 +78,7 @@ public partial class HumidAir
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
     public SpecificVolume SpecificVolume =>
-        _specificVolume ??= SpecificVolume.FromCubicMetersPerKilogram(
-            KeyedOutput("Vha")
-        );
+        _specificVolume ??= SpecificVolume.FromCubicMetersPerKilogram(KeyedOutput("Vha"));
 
     public Temperature Temperature =>
         _temperature ??= Temperature

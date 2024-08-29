@@ -5,18 +5,13 @@ namespace SharpProp.Tests;
 [Collection("Fluids")]
 public class MixtureProcessesTests : IDisposable
 {
-    private static readonly TemperatureDelta TemperatureDelta =
-        TemperatureDelta.FromKelvins(10);
-
+    private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
     private static readonly Pressure PressureDrop = 50.Kilopascals();
 
     private readonly IMixture _mixture = new Mixture(
         new List<FluidsList> { FluidsList.Argon, FluidsList.IsoButane },
         new List<Ratio> { 50.Percent(), 50.Percent() }
-    ).WithState(
-        Input.Pressure(1.Atmospheres()),
-        Input.Temperature(20.DegreesCelsius())
-    );
+    ).WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
 
     public void Dispose()
     {
@@ -25,11 +20,7 @@ public class MixtureProcessesTests : IDisposable
     }
 
     [Theory]
-    [InlineData(
-        5,
-        0,
-        "During the cooling process, the temperature should decrease!"
-    )]
+    [InlineData(5, 0, "During the cooling process, the temperature should decrease!")]
     [InlineData(-5, -10, "Invalid pressure drop in the heat exchanger!")]
     public void CoolingTo_WrongTemperatureOrPressureDrop_ThrowsArgumentException(
         double temperatureDelta,
@@ -39,8 +30,7 @@ public class MixtureProcessesTests : IDisposable
     {
         Action action = () =>
             _ = _mixture.CoolingTo(
-                _mixture.Temperature
-                    + TemperatureDelta.FromKelvins(temperatureDelta),
+                _mixture.Temperature + TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");
@@ -59,11 +49,7 @@ public class MixtureProcessesTests : IDisposable
             );
 
     [Theory]
-    [InlineData(
-        5,
-        0,
-        "During the heating process, the temperature should increase!"
-    )]
+    [InlineData(5, 0, "During the heating process, the temperature should increase!")]
     [InlineData(-5, -10, "Invalid pressure drop in the heat exchanger!")]
     public void HeatingTo_WrongTemperatureOrPressureDrop_ThrowsArgumentException(
         double temperatureDelta,
@@ -73,8 +59,7 @@ public class MixtureProcessesTests : IDisposable
     {
         Action action = () =>
             _ = _mixture.HeatingTo(
-                _mixture.Temperature
-                    - TemperatureDelta.FromKelvins(temperatureDelta),
+                _mixture.Temperature - TemperatureDelta.FromKelvins(temperatureDelta),
                 pressureDrop.Kilopascals()
             );
         action.Should().Throw<ArgumentException>().WithMessage($"*{message}*");

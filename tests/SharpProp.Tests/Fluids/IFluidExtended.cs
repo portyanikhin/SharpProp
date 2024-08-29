@@ -31,10 +31,7 @@ public interface IFluidExtended : IFluid
     new IFluidExtended IsentropicCompressionTo(Pressure pressure);
 
     /// <inheritdoc cref="IFluid.CompressionTo"/>
-    new IFluidExtended CompressionTo(
-        Pressure pressure,
-        Ratio isentropicEfficiency
-    );
+    new IFluidExtended CompressionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <inheritdoc cref="IFluid.IsenthalpicExpansionTo"/>
     new IFluidExtended IsenthalpicExpansionTo(Pressure pressure);
@@ -43,34 +40,19 @@ public interface IFluidExtended : IFluid
     new IFluidExtended IsentropicExpansionTo(Pressure pressure);
 
     /// <inheritdoc cref="IFluid.IsentropicExpansionTo"/>
-    new IFluidExtended ExpansionTo(
-        Pressure pressure,
-        Ratio isentropicEfficiency
-    );
+    new IFluidExtended ExpansionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <inheritdoc cref="IFluid.CoolingTo(Temperature, Pressure?)"/>
-    new IFluidExtended CoolingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    new IFluidExtended CoolingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IFluid.CoolingTo(SpecificEnergy, Pressure?)"/>
-    new IFluidExtended CoolingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    new IFluidExtended CoolingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IFluid.HeatingTo(Temperature, Pressure?)"/>
-    new IFluidExtended HeatingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    new IFluidExtended HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IFluid.HeatingTo(SpecificEnergy, Pressure?)"/>
-    new IFluidExtended HeatingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    new IFluidExtended HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IFluid.BubblePointAt(Pressure)"/>
     new IFluidExtended BubblePointAt(Pressure pressure);

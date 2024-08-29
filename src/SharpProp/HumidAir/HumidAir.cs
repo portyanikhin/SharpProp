@@ -3,9 +3,7 @@
 /// <inheritdoc cref="IHumidAir"/>
 public partial class HumidAir : IHumidAir
 {
-    private IList<IKeyedInput<string>> _inputs = new List<IKeyedInput<string>>(
-        3
-    );
+    private IList<IKeyedInput<string>> _inputs = new List<IKeyedInput<string>>(3);
 
     public void Update(
         IKeyedInput<string> firstInput,
@@ -14,12 +12,7 @@ public partial class HumidAir : IHumidAir
     )
     {
         Reset();
-        _inputs = new List<IKeyedInput<string>>
-        {
-            firstInput,
-            secondInput,
-            thirdInput,
-        };
+        _inputs = new List<IKeyedInput<string>> { firstInput, secondInput, thirdInput };
         CheckInputs();
     }
 
@@ -88,9 +81,7 @@ public partial class HumidAir : IHumidAir
     protected double KeyedOutput(string key)
     {
         CheckInputs();
-        var input = _inputs
-            .FirstOrDefault(input => input.CoolPropKey == key)
-            ?.Value;
+        var input = _inputs.FirstOrDefault(input => input.CoolPropKey == key)?.Value;
         var result =
             input
             ?? CoolProp.HAPropsSI(
@@ -108,10 +99,7 @@ public partial class HumidAir : IHumidAir
 
     private void CheckInputs()
     {
-        var uniqueKeys = _inputs
-            .Select(input => input.CoolPropKey)
-            .Distinct()
-            .ToList();
+        var uniqueKeys = _inputs.Select(input => input.CoolPropKey).Distinct().ToList();
         if (_inputs.Count != 3 || uniqueKeys.Count != 3)
         {
             throw new ArgumentException("Need to define 3 unique inputs!");

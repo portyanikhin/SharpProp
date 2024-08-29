@@ -14,26 +14,22 @@ public record InputHumidAir(string CoolPropKey, double Value)
     ///     Altitude above sea level.
     /// </summary>
     /// <remarks>
-    ///     The pressure will be calculated by altitude above sea level
+    ///     The pressure will be calculated by altitude above sea level,
     ///     according to ASHRAE Fundamentals Handbook.
     /// </remarks>
     /// <param name="value">The value of the input.</param>
     /// <returns>Altitude above sea level for the input.</returns>
     /// <exception cref="ArgumentOutOfRangeException">
-    ///     Altitude above sea level should be between -5000 and 11000 meters!
+    ///     Altitude above sea level should be between -5 000 and 11 000 meters!
     /// </exception>
     public static InputHumidAir Altitude(Length value) =>
         value.Meters is < -5000 or > 11000
             ? throw new ArgumentOutOfRangeException(
                 nameof(value),
                 value,
-                "Altitude above sea level "
-                    + "should be between -5000 and 11000 meters!"
+                "Altitude above sea level should be between -5 000 and 11 000 meters!"
             )
-            : new InputHumidAir(
-                "P",
-                101325 * Math.Pow(1 - 2.25577e-5 * value.Meters, 5.2559)
-            );
+            : new InputHumidAir("P", 101325 * Math.Pow(1 - 2.25577e-5 * value.Meters, 5.2559));
 
     /// <summary>
     ///     Mass density per humid air unit.
@@ -50,8 +46,7 @@ public record InputHumidAir(string CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Dew-point temperature for the input.</returns>
-    public static InputHumidAir DewTemperature(Temperature value) =>
-        new("D", value.Kelvins);
+    public static InputHumidAir DewTemperature(Temperature value) => new("D", value.Kelvins);
 
     /// <summary>
     ///     Mass specific enthalpy per humid air.
@@ -78,8 +73,7 @@ public record InputHumidAir(string CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Absolute humidity ratio for the input.</returns>
-    public static InputHumidAir Humidity(Ratio value) =>
-        new("W", value.DecimalFractions);
+    public static InputHumidAir Humidity(Ratio value) => new("W", value.DecimalFractions);
 
     /// <summary>
     ///     Partial pressure of water vapor.
@@ -88,16 +82,14 @@ public record InputHumidAir(string CoolPropKey, double Value)
     /// <returns>
     ///     Partial pressure of water vapor for the input.
     /// </returns>
-    public static InputHumidAir PartialPressure(Pressure value) =>
-        new("P_w", value.Pascals);
+    public static InputHumidAir PartialPressure(Pressure value) => new("P_w", value.Pascals);
 
     /// <summary>
     ///     Absolute pressure.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Absolute pressure for the input.</returns>
-    public static InputHumidAir Pressure(Pressure value) =>
-        new("P", value.Pascals);
+    public static InputHumidAir Pressure(Pressure value) => new("P", value.Pascals);
 
     /// <summary>
     ///     Relative humidity ratio.
@@ -122,14 +114,12 @@ public record InputHumidAir(string CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Dry-bulb temperature for the input.</returns>
-    public static InputHumidAir Temperature(Temperature value) =>
-        new("T", value.Kelvins);
+    public static InputHumidAir Temperature(Temperature value) => new("T", value.Kelvins);
 
     /// <summary>
     ///     Wet-bulb temperature.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Wet-bulb temperature for the input.</returns>
-    public static InputHumidAir WetBulbTemperature(Temperature value) =>
-        new("B", value.Kelvins);
+    public static InputHumidAir WetBulbTemperature(Temperature value) => new("B", value.Kelvins);
 }

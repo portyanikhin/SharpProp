@@ -5,23 +5,16 @@ namespace SharpProp.Tests;
 [Collection("Fluids")]
 public class TestHumidAirProcesses
 {
-    private static readonly TemperatureDelta TemperatureDelta =
-        TemperatureDelta.FromKelvins(5);
-
-    private static readonly SpecificEnergy EnthalpyDelta =
-        5.KilojoulesPerKilogram();
-
+    private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(5);
+    private static readonly SpecificEnergy EnthalpyDelta = 5.KilojoulesPerKilogram();
     private static readonly Pressure PressureDrop = 200.Pascals();
-
     private static readonly Ratio LowHumidity = 5.PartsPerThousand();
-
     private static readonly Ratio HighHumidity = 9.PartsPerThousand();
+    private static readonly RelativeHumidity LowRelativeHumidity = RelativeHumidity.FromPercent(45);
 
-    private static readonly RelativeHumidity LowRelativeHumidity =
-        RelativeHumidity.FromPercent(45);
-
-    private static readonly RelativeHumidity HighRelativeHumidity =
-        RelativeHumidity.FromPercent(90);
+    private static readonly RelativeHumidity HighRelativeHumidity = RelativeHumidity.FromPercent(
+        90
+    );
 
     private readonly IHumidAir _humidAir = new HumidAir().WithState(
         InputHumidAir.Pressure(1.Atmospheres()),
@@ -30,11 +23,7 @@ public class TestHumidAirProcesses
     );
 
     [Theory]
-    [InlineData(
-        50,
-        0,
-        "During the cooling process, the temperature should decrease!"
-    )]
+    [InlineData(50, 0, "During the cooling process, the temperature should decrease!")]
     [InlineData(
         0,
         0,
@@ -49,42 +38,29 @@ public class TestHumidAirProcesses
     )
     {
         Action action = () =>
-            _ = _humidAir.DryCoolingTo(
-                temperature.DegreesCelsius(),
-                pressureDrop.Pascals()
-            );
+            _ = _humidAir.DryCoolingTo(temperature.DegreesCelsius(), pressureDrop.Pascals());
         action.Should().Throw<ArgumentException>().WithMessage($"{message}");
     }
 
     [Fact]
     public void DryCoolingTo_TemperatureWithPressureDrop_ReturnsAirAtTemperatureSameHumidityAndLowerPressure() =>
         _humidAir
-            .DryCoolingTo(
-                _humidAir.Temperature - TemperatureDelta,
-                PressureDrop
-            )
+            .DryCoolingTo(_humidAir.Temperature - TemperatureDelta, PressureDrop)
             .Should()
             .Be(
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure - PressureDrop),
-                    InputHumidAir.Temperature(
-                        _humidAir.Temperature - TemperatureDelta
-                    ),
+                    InputHumidAir.Temperature(_humidAir.Temperature - TemperatureDelta),
                     InputHumidAir.Humidity(_humidAir.Humidity)
                 )
             );
 
     [Theory]
-    [InlineData(
-        50,
-        0,
-        "During the cooling process, the enthalpy should decrease!"
-    )]
+    [InlineData(50, 0, "During the cooling process, the enthalpy should decrease!")]
     [InlineData(
         0,
         0,
-        "The outlet enthalpy after dry heat transfer "
-            + "should be greater than the dew point enthalpy!"
+        "The outlet enthalpy after dry heat transfer should be greater than the dew point enthalpy!"
     )]
     [InlineData(30, -100, "Invalid pressure drop in the heat exchanger!")]
     public void DryCoolingTo_WrongEnthalpyOrPressureDrop_ThrowsArgumentException(
@@ -94,10 +70,7 @@ public class TestHumidAirProcesses
     )
     {
         Action action = () =>
-            _ = _humidAir.DryCoolingTo(
-                enthalpy.KilojoulesPerKilogram(),
-                pressureDrop.Pascals()
-            );
+            _ = _humidAir.DryCoolingTo(enthalpy.KilojoulesPerKilogram(), pressureDrop.Pascals());
         action.Should().Throw<ArgumentException>().WithMessage($"{message}");
     }
 
@@ -115,12 +88,7 @@ public class TestHumidAirProcesses
             );
 
     [Theory]
-    [InlineData(
-        50,
-        60,
-        0,
-        "During the cooling process, the temperature should decrease!"
-    )]
+    [InlineData(50, 60, 0, "During the cooling process, the temperature should decrease!")]
     [InlineData(
         15,
         100,
@@ -156,20 +124,13 @@ public class TestHumidAirProcesses
             .Be(
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure - PressureDrop),
-                    InputHumidAir.Temperature(
-                        _humidAir.Temperature - TemperatureDelta
-                    ),
+                    InputHumidAir.Temperature(_humidAir.Temperature - TemperatureDelta),
                     InputHumidAir.RelativeHumidity(LowRelativeHumidity)
                 )
             );
 
     [Theory]
-    [InlineData(
-        50,
-        5,
-        0,
-        "During the cooling process, the temperature should decrease!"
-    )]
+    [InlineData(50, 5, 0, "During the cooling process, the temperature should decrease!")]
     [InlineData(
         15,
         9,
@@ -196,29 +157,18 @@ public class TestHumidAirProcesses
     [Fact]
     public void WetCoolingTo_TemperatureHumidityWithPressureDrop_ReturnsAirAtTemperatureHumidityAndLowerPressure() =>
         _humidAir
-            .WetCoolingTo(
-                _humidAir.Temperature - TemperatureDelta,
-                LowHumidity,
-                PressureDrop
-            )
+            .WetCoolingTo(_humidAir.Temperature - TemperatureDelta, LowHumidity, PressureDrop)
             .Should()
             .Be(
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure - PressureDrop),
-                    InputHumidAir.Temperature(
-                        _humidAir.Temperature - TemperatureDelta
-                    ),
+                    InputHumidAir.Temperature(_humidAir.Temperature - TemperatureDelta),
                     InputHumidAir.Humidity(LowHumidity)
                 )
             );
 
     [Theory]
-    [InlineData(
-        50,
-        60,
-        0,
-        "During the cooling process, the enthalpy should decrease!"
-    )]
+    [InlineData(50, 60, 0, "During the cooling process, the enthalpy should decrease!")]
     [InlineData(
         35,
         100,
@@ -245,11 +195,7 @@ public class TestHumidAirProcesses
     [Fact]
     public void WetCoolingTo_EnthalpyRelHumidityWithPressureDrop_ReturnsAirAtEnthalpyRelHumidityAndLowerPressure() =>
         _humidAir
-            .WetCoolingTo(
-                _humidAir.Enthalpy - EnthalpyDelta,
-                LowRelativeHumidity,
-                PressureDrop
-            )
+            .WetCoolingTo(_humidAir.Enthalpy - EnthalpyDelta, LowRelativeHumidity, PressureDrop)
             .Should()
             .Be(
                 _humidAir.WithState(
@@ -260,12 +206,7 @@ public class TestHumidAirProcesses
             );
 
     [Theory]
-    [InlineData(
-        50,
-        5,
-        0,
-        "During the cooling process, the enthalpy should decrease!"
-    )]
+    [InlineData(50, 5, 0, "During the cooling process, the enthalpy should decrease!")]
     [InlineData(
         15,
         9,
@@ -292,11 +233,7 @@ public class TestHumidAirProcesses
     [Fact]
     public void WetCoolingTo_EnthalpyHumidityWithPressureDrop_ReturnsAirAtEnthalpyHumidityAndLowerPressure() =>
         _humidAir
-            .WetCoolingTo(
-                _humidAir.Enthalpy - EnthalpyDelta,
-                LowHumidity,
-                PressureDrop
-            )
+            .WetCoolingTo(_humidAir.Enthalpy - EnthalpyDelta, LowHumidity, PressureDrop)
             .Should()
             .Be(
                 _humidAir.WithState(
@@ -307,11 +244,7 @@ public class TestHumidAirProcesses
             );
 
     [Theory]
-    [InlineData(
-        15,
-        0,
-        "During the heating process, the temperature should increase!"
-    )]
+    [InlineData(15, 0, "During the heating process, the temperature should increase!")]
     [InlineData(50, -100, "Invalid pressure drop in the heat exchanger!")]
     public void HeatingTo_WrongTemperatureOrPressureDrop_ThrowsArgumentException(
         double temperature,
@@ -320,10 +253,7 @@ public class TestHumidAirProcesses
     )
     {
         Action action = () =>
-            _ = _humidAir.HeatingTo(
-                temperature.DegreesCelsius(),
-                pressureDrop.Pascals()
-            );
+            _ = _humidAir.HeatingTo(temperature.DegreesCelsius(), pressureDrop.Pascals());
         action.Should().Throw<ArgumentException>().WithMessage($"{message}");
     }
 
@@ -335,19 +265,13 @@ public class TestHumidAirProcesses
             .Be(
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure - PressureDrop),
-                    InputHumidAir.Temperature(
-                        _humidAir.Temperature + TemperatureDelta
-                    ),
+                    InputHumidAir.Temperature(_humidAir.Temperature + TemperatureDelta),
                     InputHumidAir.Humidity(_humidAir.Humidity)
                 )
             );
 
     [Theory]
-    [InlineData(
-        15,
-        0,
-        "During the heating process, the enthalpy should increase!"
-    )]
+    [InlineData(15, 0, "During the heating process, the enthalpy should increase!")]
     [InlineData(50, -100, "Invalid pressure drop in the heat exchanger!")]
     public void HeatingTo_WrongEnthalpyOrPressureDrop_ThrowsArgumentException(
         double enthalpy,
@@ -356,10 +280,7 @@ public class TestHumidAirProcesses
     )
     {
         Action action = () =>
-            _ = _humidAir.HeatingTo(
-                enthalpy.KilojoulesPerKilogram(),
-                pressureDrop.Pascals()
-            );
+            _ = _humidAir.HeatingTo(enthalpy.KilojoulesPerKilogram(), pressureDrop.Pascals());
         action.Should().Throw<ArgumentException>().WithMessage($"{message}");
     }
 
@@ -379,14 +300,12 @@ public class TestHumidAirProcesses
     [Fact]
     public void HumidificationByWaterTo_WrongRelHumidity_ThrowsArgumentException()
     {
-        Action action = () =>
-            _ = _humidAir.HumidificationByWaterTo(LowRelativeHumidity);
+        Action action = () => _ = _humidAir.HumidificationByWaterTo(LowRelativeHumidity);
         action
             .Should()
             .Throw<ArgumentException>()
             .WithMessage(
-                "During the humidification process, "
-                    + "the absolute humidity ratio should increase!"
+                "During the humidification process, the absolute humidity ratio should increase!"
             );
     }
 
@@ -406,14 +325,12 @@ public class TestHumidAirProcesses
     [Fact]
     public void HumidificationByWaterTo_WrongHumidity_ThrowsArgumentException()
     {
-        Action action = () =>
-            _ = _humidAir.HumidificationByWaterTo(LowHumidity);
+        Action action = () => _ = _humidAir.HumidificationByWaterTo(LowHumidity);
         action
             .Should()
             .Throw<ArgumentException>()
             .WithMessage(
-                "During the humidification process, "
-                    + "the absolute humidity ratio should increase!"
+                "During the humidification process, the absolute humidity ratio should increase!"
             );
     }
 
@@ -433,14 +350,12 @@ public class TestHumidAirProcesses
     [Fact]
     public void HumidificationBySteamTo_WrongRelHumidity_ThrowsArgumentException()
     {
-        Action action = () =>
-            _ = _humidAir.HumidificationBySteamTo(LowRelativeHumidity);
+        Action action = () => _ = _humidAir.HumidificationBySteamTo(LowRelativeHumidity);
         action
             .Should()
             .Throw<ArgumentException>()
             .WithMessage(
-                "During the humidification process, "
-                    + "the absolute humidity ratio should increase!"
+                "During the humidification process, the absolute humidity ratio should increase!"
             );
     }
 
@@ -460,14 +375,12 @@ public class TestHumidAirProcesses
     [Fact]
     public void HumidificationBySteamTo_WrongHumidity_ThrowsArgumentException()
     {
-        Action action = () =>
-            _ = _humidAir.HumidificationBySteamTo(LowHumidity);
+        Action action = () => _ = _humidAir.HumidificationBySteamTo(LowHumidity);
         action
             .Should()
             .Throw<ArgumentException>()
             .WithMessage(
-                "During the humidification process, "
-                    + "the absolute humidity ratio should increase!"
+                "During the humidification process, the absolute humidity ratio should increase!"
             );
     }
 
@@ -494,27 +407,17 @@ public class TestHumidAirProcesses
         );
         var second = _humidAir.HumidificationByWaterTo(HighRelativeHumidity);
         Action action = () =>
-            _ = new HumidAir().Mixing(
-                100.Percent(),
-                first,
-                200.Percent(),
-                second
-            );
+            _ = new HumidAir().Mixing(100.Percent(), first, 200.Percent(), second);
         action
             .Should()
             .Throw<ArgumentException>()
-            .WithMessage(
-                "The mixing process is possible "
-                    + "only for flows with the same pressure!"
-            );
+            .WithMessage("The mixing process is possible only for flows with the same pressure!");
     }
 
     [Fact]
     public void Mixing_SamePressures_ReturnsMixPoint()
     {
-        var first = _humidAir.HeatingTo(
-            _humidAir.Temperature + TemperatureDelta
-        );
+        var first = _humidAir.HeatingTo(_humidAir.Temperature + TemperatureDelta);
         var second = _humidAir.HumidificationByWaterTo(HighRelativeHumidity);
         first
             .Mixing(100.Percent(), first, 200.Percent(), second)
@@ -522,12 +425,8 @@ public class TestHumidAirProcesses
             .Be(
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure),
-                    InputHumidAir.Enthalpy(
-                        (1 * first.Enthalpy + 2 * second.Enthalpy) / 3.0
-                    ),
-                    InputHumidAir.Humidity(
-                        (1 * first.Humidity + 2 * second.Humidity) / 3.0
-                    )
+                    InputHumidAir.Enthalpy((1 * first.Enthalpy + 2 * second.Enthalpy) / 3.0),
+                    InputHumidAir.Humidity((1 * first.Humidity + 2 * second.Humidity) / 3.0)
                 )
             );
     }

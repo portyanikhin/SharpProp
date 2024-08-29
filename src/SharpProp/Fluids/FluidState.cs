@@ -29,47 +29,28 @@ public abstract partial class AbstractFluid
     private Pressure? _triplePressure;
     private Temperature? _tripleTemperature;
 
-    public double? Compressibility =>
-        _compressibility ??= NullableKeyedOutput(Parameters.iZ);
+    public double? Compressibility => _compressibility ??= NullableKeyedOutput(Parameters.iZ);
 
     public ThermalConductivity? Conductivity =>
-        _conductivity ??= KeyedOutputIsNotNull(
-            Parameters.iconductivity,
-            out var output
-        )
+        _conductivity ??= KeyedOutputIsNotNull(Parameters.iconductivity, out var output)
             ? ThermalConductivity.FromWattsPerMeterKelvin(output!.Value)
             : null;
 
     public Pressure? CriticalPressure =>
-        _criticalPressure ??= KeyedOutputIsNotNull(
-            Parameters.iP_critical,
-            out var output
-        )
-            ? Pressure
-                .FromPascals(output!.Value)
-                .ToUnit(PressureUnit.Kilopascal)
+        _criticalPressure ??= KeyedOutputIsNotNull(Parameters.iP_critical, out var output)
+            ? Pressure.FromPascals(output!.Value).ToUnit(PressureUnit.Kilopascal)
             : null;
 
     public Temperature? CriticalTemperature =>
-        _criticalTemperature ??= KeyedOutputIsNotNull(
-            Parameters.iT_critical,
-            out var output
-        )
-            ? Temperature
-                .FromKelvins(output!.Value)
-                .ToUnit(TemperatureUnit.DegreeCelsius)
+        _criticalTemperature ??= KeyedOutputIsNotNull(Parameters.iT_critical, out var output)
+            ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
             : null;
 
     public Density Density =>
-        _density ??= Density.FromKilogramsPerCubicMeter(
-            KeyedOutput(Parameters.iDmass)
-        );
+        _density ??= Density.FromKilogramsPerCubicMeter(KeyedOutput(Parameters.iDmass));
 
     public DynamicViscosity? DynamicViscosity =>
-        _dynamicViscosity ??= KeyedOutputIsNotNull(
-            Parameters.iviscosity,
-            out var output
-        )
+        _dynamicViscosity ??= KeyedOutputIsNotNull(Parameters.iviscosity, out var output)
             ? UnitsNet
                 .DynamicViscosity.FromPascalSeconds(output!.Value)
                 .ToUnit(DynamicViscosityUnit.MillipascalSecond)
@@ -86,13 +67,8 @@ public abstract partial class AbstractFluid
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
     public Temperature? FreezingTemperature =>
-        _freezingTemperature ??= KeyedOutputIsNotNull(
-            Parameters.iT_freeze,
-            out var output
-        )
-            ? Temperature
-                .FromKelvins(output!.Value)
-                .ToUnit(TemperatureUnit.DegreeCelsius)
+        _freezingTemperature ??= KeyedOutputIsNotNull(Parameters.iT_freeze, out var output)
+            ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
             : null;
 
     public SpecificEnergy InternalEnergy =>
@@ -101,15 +77,11 @@ public abstract partial class AbstractFluid
             .ToUnit(SpecificEnergyUnit.KilojoulePerKilogram);
 
     public KinematicViscosity? KinematicViscosity =>
-        (DynamicViscosity / Density)?.ToUnit(
-            KinematicViscosityUnit.Centistokes
-        );
+        (DynamicViscosity / Density)?.ToUnit(KinematicViscosityUnit.Centistokes);
 
     public Pressure? MaxPressure =>
         _maxPressure ??= KeyedOutputIsNotNull(Parameters.iP_max, out var output)
-            ? Pressure
-                .FromPascals(output!.Value)
-                .ToUnit(PressureUnit.Kilopascal)
+            ? Pressure.FromPascals(output!.Value).ToUnit(PressureUnit.Kilopascal)
             : null;
 
     public Temperature MaxTemperature =>
@@ -119,9 +91,7 @@ public abstract partial class AbstractFluid
 
     public Pressure? MinPressure =>
         _minPressure ??= KeyedOutputIsNotNull(Parameters.iP_min, out var output)
-            ? Pressure
-                .FromPascals(output!.Value)
-                .ToUnit(PressureUnit.Kilopascal)
+            ? Pressure.FromPascals(output!.Value).ToUnit(PressureUnit.Kilopascal)
             : null;
 
     public Temperature MinTemperature =>
@@ -130,10 +100,7 @@ public abstract partial class AbstractFluid
             .ToUnit(TemperatureUnit.DegreeCelsius);
 
     public MolarMass? MolarMass =>
-        _molarMass ??= KeyedOutputIsNotNull(
-            Parameters.imolar_mass,
-            out var output
-        )
+        _molarMass ??= KeyedOutputIsNotNull(Parameters.imolar_mass, out var output)
             ? UnitsNet
                 .MolarMass.FromKilogramsPerMole(output!.Value)
                 .ToUnit(MolarMassUnit.GramPerMole)
@@ -141,8 +108,7 @@ public abstract partial class AbstractFluid
 
     public Phases Phase => _phase ??= (Phases)KeyedOutput(Parameters.iPhase);
 
-    public double? Prandtl =>
-        _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
+    public double? Prandtl => _prandtl ??= NullableKeyedOutput(Parameters.iPrandtl);
 
     public Pressure Pressure =>
         _pressure ??= Pressure
@@ -151,16 +117,11 @@ public abstract partial class AbstractFluid
 
     public Ratio? Quality =>
         _quality ??= KeyedOutputIsNotNull(Parameters.iQ, out var output)
-            ? Ratio
-                .FromDecimalFractions(output!.Value)
-                .ToUnit(RatioUnit.Percent)
+            ? Ratio.FromDecimalFractions(output!.Value).ToUnit(RatioUnit.Percent)
             : null;
 
     public Speed? SoundSpeed =>
-        _soundSpeed ??= KeyedOutputIsNotNull(
-            Parameters.ispeed_sound,
-            out var output
-        )
+        _soundSpeed ??= KeyedOutputIsNotNull(Parameters.ispeed_sound, out var output)
             ? Speed.FromMetersPerSecond(output!.Value)
             : null;
 
@@ -170,15 +131,10 @@ public abstract partial class AbstractFluid
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
     public SpecificVolume SpecificVolume =>
-        SpecificVolume.FromCubicMetersPerKilogram(
-            1.0 / Density.KilogramsPerCubicMeter
-        );
+        SpecificVolume.FromCubicMetersPerKilogram(1.0 / Density.KilogramsPerCubicMeter);
 
     public ForcePerLength? SurfaceTension =>
-        _surfaceTension ??= KeyedOutputIsNotNull(
-            Parameters.isurface_tension,
-            out var output
-        )
+        _surfaceTension ??= KeyedOutputIsNotNull(Parameters.isurface_tension, out var output)
             ? ForcePerLength.FromNewtonsPerMeter(output!.Value)
             : null;
 
@@ -188,22 +144,12 @@ public abstract partial class AbstractFluid
             .ToUnit(TemperatureUnit.DegreeCelsius);
 
     public Pressure? TriplePressure =>
-        _triplePressure ??= KeyedOutputIsNotNull(
-            Parameters.iP_triple,
-            out var output
-        )
-            ? Pressure
-                .FromPascals(output!.Value)
-                .ToUnit(PressureUnit.Kilopascal)
+        _triplePressure ??= KeyedOutputIsNotNull(Parameters.iP_triple, out var output)
+            ? Pressure.FromPascals(output!.Value).ToUnit(PressureUnit.Kilopascal)
             : null;
 
     public Temperature? TripleTemperature =>
-        _tripleTemperature ??= KeyedOutputIsNotNull(
-            Parameters.iT_triple,
-            out var output
-        )
-            ? Temperature
-                .FromKelvins(output!.Value)
-                .ToUnit(TemperatureUnit.DegreeCelsius)
+        _tripleTemperature ??= KeyedOutputIsNotNull(Parameters.iT_triple, out var output)
+            ? Temperature.FromKelvins(output!.Value).ToUnit(TemperatureUnit.DegreeCelsius)
             : null;
 }

@@ -14,16 +14,10 @@ public abstract partial class AbstractFluid : IAbstractFluid
         GC.SuppressFinalize(this);
     }
 
-    public void Update(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
-    )
+    public void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
     {
         Reset();
-        var (inputPair, firstValue, secondValue) = GenerateUpdatePair(
-            firstInput,
-            secondInput
-        );
+        var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
         Backend.Update(inputPair, firstValue, secondValue);
         Inputs = new List<IKeyedInput<Parameters>> { firstInput, secondInput };
     }
@@ -85,8 +79,7 @@ public abstract partial class AbstractFluid : IAbstractFluid
             var value = KeyedOutput(key);
             return key is Parameters.iQ && value is < 0 or > 1 ? null : value;
         }
-        catch (Exception exception)
-            when (exception is ApplicationException or ArgumentException)
+        catch (Exception exception) when (exception is ApplicationException or ArgumentException)
         {
             return null;
         }
@@ -94,9 +87,7 @@ public abstract partial class AbstractFluid : IAbstractFluid
 
     protected double KeyedOutput(Parameters key)
     {
-        var input = Inputs
-            .FirstOrDefault(input => input.CoolPropKey == key)
-            ?.Value;
+        var input = Inputs.FirstOrDefault(input => input.CoolPropKey == key)?.Value;
         var result = input ?? Backend.KeyedOutput(key);
         OutputsValidator.Validate(result);
         return result;
@@ -120,16 +111,8 @@ public abstract partial class AbstractFluid : IAbstractFluid
         }
 
         return !swap
-            ? new UpdatePair(
-                inputPair.Value,
-                firstInput.Value,
-                secondInput.Value
-            )
-            : new UpdatePair(
-                inputPair.Value,
-                secondInput.Value,
-                firstInput.Value
-            );
+            ? new UpdatePair(inputPair.Value, firstInput.Value, secondInput.Value)
+            : new UpdatePair(inputPair.Value, secondInput.Value, firstInput.Value);
     }
 
     private static InputPairs? GetInputPair(
@@ -137,7 +120,6 @@ public abstract partial class AbstractFluid : IAbstractFluid
         IKeyedInput<Parameters> secondInput
     ) =>
         AbstractState.GetInputPair(
-            $"{firstInput.CoolPropHighLevelKey}"
-                + $"{secondInput.CoolPropHighLevelKey}_INPUTS"
+            $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS"
         );
 }

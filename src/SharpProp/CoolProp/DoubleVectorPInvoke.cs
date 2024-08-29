@@ -26,11 +26,7 @@ internal static class DoubleVectorPInvoke
     public static extern void SetItem(HandleRef arg1, int index, double item);
 
     [DllImport(Library.Name, EntryPoint = "CSharp_DoubleVector_Insert")]
-    public static extern void Insert(
-        HandleRef doubleVector,
-        int index,
-        double item
-    );
+    public static extern void Insert(HandleRef doubleVector, int index, double item);
 
     [DllImport(Library.Name, EntryPoint = "CSharp_DoubleVector_RemoveAt")]
     public static extern void RemoveAt(HandleRef doubleVector, int index);

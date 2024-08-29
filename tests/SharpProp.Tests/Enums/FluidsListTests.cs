@@ -4,13 +4,8 @@ public static class FluidsListTests
 {
     [Theory]
     [MemberData(nameof(FluidNames))]
-    [SuppressMessage(
-        "ReSharper",
-        "SwitchStatementHandlesSomeKnownEnumValuesWithDefault"
-    )]
-    public static void CoolPropName_AllFluids_AreValidForCoolProp(
-        FluidsList name
-    )
+    [SuppressMessage("ReSharper", "SwitchStatementHandlesSomeKnownEnumValuesWithDefault")]
+    public static void CoolPropName_AllFluids_AreValidForCoolProp(FluidsList name)
     {
         if (name.CoolPropName().EndsWith(".mix"))
         {
@@ -95,24 +90,14 @@ public static class FluidsListTests
                 name.CoolPropName().Should().Be("Water");
                 break;
             default:
-                name.ToString()
-                    .Should()
-                    .Be(name.CoolPropName().RemoveChars('-', '(', ')'));
+                name.ToString().Should().Be(name.CoolPropName().RemoveChars('-', '(', ')'));
                 break;
         }
     }
 
     public static IEnumerable<object[]> FluidNames() =>
-        Enum.GetValues(typeof(FluidsList))
-            .Cast<object>()
-            .Select(name => new[] { name });
+        Enum.GetValues(typeof(FluidsList)).Cast<object>().Select(name => new[] { name });
 
-    private static string RemoveChars(
-        this string s,
-        params char[] charsToRemove
-    ) =>
-        string.Join(
-            "",
-            s.Split(charsToRemove, StringSplitOptions.RemoveEmptyEntries)
-        );
+    private static string RemoveChars(this string s, params char[] charsToRemove) =>
+        string.Join("", s.Split(charsToRemove, StringSplitOptions.RemoveEmptyEntries));
 }

@@ -1,5 +1,8 @@
 ﻿namespace SharpProp;
 
+/// <summary>
+///     Extension methods for the <see cref="FluidsList"/>.
+/// </summary>
 public static class FluidsListExtensions
 {
     /// <summary>
@@ -41,9 +44,7 @@ public static class FluidsListExtensions
     /// <returns>Minimum possible fraction (by default, %).</returns>
     public static Ratio FractionMin(this FluidsList member) =>
         Ratio
-            .FromDecimalFractions(
-                member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMin
-            )
+            .FromDecimalFractions(member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMin)
             .ToUnit(RatioUnit.Percent);
 
     /// <summary>
@@ -53,8 +54,6 @@ public static class FluidsListExtensions
     /// <returns>Maximum possible fraction (by default, %).</returns>
     public static Ratio FractionMax(this FluidsList member) =>
         Ratio
-            .FromDecimalFractions(
-                member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMax
-            )
+            .FromDecimalFractions(member.GetAttributes()!.Get<FluidInfoAttribute>()!.FractionMax)
             .ToUnit(RatioUnit.Percent);
 }

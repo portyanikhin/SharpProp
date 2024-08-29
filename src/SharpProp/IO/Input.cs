@@ -8,8 +8,7 @@
 public record Input(Parameters CoolPropKey, double Value)
     : KeyedInput<Parameters>(CoolPropKey, Value)
 {
-    public override string CoolPropHighLevelKey =>
-        CoolPropKey.ToString().TrimStart('i');
+    public override string CoolPropHighLevelKey => CoolPropKey.ToString().TrimStart('i');
 
     /// <summary>
     ///     Mass density.
@@ -48,16 +47,14 @@ public record Input(Parameters CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Absolute pressure for the input.</returns>
-    public static Input Pressure(Pressure value) =>
-        new(Parameters.iP, value.Pascals);
+    public static Input Pressure(Pressure value) => new(Parameters.iP, value.Pascals);
 
     /// <summary>
     ///     Mass vapor quality.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass vapor quality for the input.</returns>
-    public static Input Quality(Ratio value) =>
-        new(Parameters.iQ, value.DecimalFractions);
+    public static Input Quality(Ratio value) => new(Parameters.iQ, value.DecimalFractions);
 
     /// <summary>
     ///     Mass specific volume.
@@ -72,6 +69,5 @@ public record Input(Parameters CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Temperature for the input.</returns>
-    public static Input Temperature(Temperature value) =>
-        new(Parameters.iT, value.Kelvins);
+    public static Input Temperature(Temperature value) => new(Parameters.iT, value.Kelvins);
 }

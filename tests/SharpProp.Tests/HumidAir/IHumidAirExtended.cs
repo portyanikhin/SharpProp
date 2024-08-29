@@ -1,8 +1,7 @@
 ﻿namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to
-///     the <see cref="IHumidAir"/> interface.
+///     An example of how to add new properties to the <see cref="IHumidAir"/> interface.
 /// </summary>
 public interface IHumidAirExtended : IHumidAir
 {
@@ -20,16 +19,10 @@ public interface IHumidAirExtended : IHumidAir
     );
 
     /// <inheritdoc cref="IHumidAir.DryCoolingTo(Temperature, Pressure?)"/>
-    new IHumidAirExtended DryCoolingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    new IHumidAirExtended DryCoolingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IHumidAir.DryCoolingTo(SpecificEnergy, Pressure?)"/>
-    new IHumidAirExtended DryCoolingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    new IHumidAirExtended DryCoolingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IHumidAir.WetCoolingTo(Temperature, RelativeHumidity, Pressure?)"/>
     new IHumidAirExtended WetCoolingTo(
@@ -60,29 +53,19 @@ public interface IHumidAirExtended : IHumidAir
     );
 
     /// <inheritdoc cref="IHumidAir.HeatingTo(Temperature, Pressure?)"/>
-    new IHumidAirExtended HeatingTo(
-        Temperature temperature,
-        Pressure? pressureDrop = null
-    );
+    new IHumidAirExtended HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IHumidAir.HeatingTo(SpecificEnergy, Pressure?)"/>
-    new IHumidAirExtended HeatingTo(
-        SpecificEnergy enthalpy,
-        Pressure? pressureDrop = null
-    );
+    new IHumidAirExtended HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <inheritdoc cref="IHumidAir.HumidificationByWaterTo(RelativeHumidity)"/>
-    new IHumidAirExtended HumidificationByWaterTo(
-        RelativeHumidity relativeHumidity
-    );
+    new IHumidAirExtended HumidificationByWaterTo(RelativeHumidity relativeHumidity);
 
     /// <inheritdoc cref="IHumidAir.HumidificationByWaterTo(Ratio)"/>
     new IHumidAirExtended HumidificationByWaterTo(Ratio humidity);
 
     /// <inheritdoc cref="IHumidAir.HumidificationBySteamTo(RelativeHumidity)"/>
-    new IHumidAirExtended HumidificationBySteamTo(
-        RelativeHumidity relativeHumidity
-    );
+    new IHumidAirExtended HumidificationBySteamTo(RelativeHumidity relativeHumidity);
 
     /// <inheritdoc cref="IHumidAir.HumidificationBySteamTo(Ratio)"/>
     new IHumidAirExtended HumidificationBySteamTo(Ratio humidity);

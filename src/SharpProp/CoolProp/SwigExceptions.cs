@@ -8,12 +8,8 @@ internal static class SwigExceptions
 
     private static int _pendingExceptionsCount;
     private static readonly object ExceptionsLock = new();
-
-    private static readonly ExceptionDelegate ApplicationDelegate =
-        SetPendingApplicationException;
-
-    private static readonly ExceptionDelegate ArithmeticDelegate =
-        SetPendingArithmeticException;
+    private static readonly ExceptionDelegate ApplicationDelegate = SetPendingApplicationException;
+    private static readonly ExceptionDelegate ArithmeticDelegate = SetPendingArithmeticException;
 
     private static readonly ExceptionDelegate DivideByZeroDelegate =
         SetPendingDivideByZeroException;
@@ -21,26 +17,19 @@ internal static class SwigExceptions
     private static readonly ExceptionDelegate IndexOutOfRangeDelegate =
         SetPendingIndexOutOfRangeException;
 
-    private static readonly ExceptionDelegate InvalidCastDelegate =
-        SetPendingInvalidCastException;
+    private static readonly ExceptionDelegate InvalidCastDelegate = SetPendingInvalidCastException;
 
     private static readonly ExceptionDelegate InvalidOperationDelegate =
         SetPendingInvalidOperationException;
 
-    private static readonly ExceptionDelegate IoDelegate =
-        SetPendingIoException;
+    private static readonly ExceptionDelegate IoDelegate = SetPendingIoException;
 
     private static readonly ExceptionDelegate NullReferenceDelegate =
         SetPendingNullReferenceException;
 
-    private static readonly ExceptionDelegate OutOfMemoryDelegate =
-        SetPendingOutOfMemoryException;
-
-    private static readonly ExceptionDelegate OverflowDelegate =
-        SetPendingOverflowException;
-
-    private static readonly ExceptionDelegate SystemDelegate =
-        SetPendingSystemException;
+    private static readonly ExceptionDelegate OutOfMemoryDelegate = SetPendingOutOfMemoryException;
+    private static readonly ExceptionDelegate OverflowDelegate = SetPendingOverflowException;
+    private static readonly ExceptionDelegate SystemDelegate = SetPendingSystemException;
 
     private static readonly ExceptionArgumentDelegate ArgumentDelegate =
         SetPendingArgumentException;
@@ -118,10 +107,7 @@ internal static class SwigExceptions
         return exception;
     }
 
-    [DllImport(
-        Library.Name,
-        EntryPoint = "SWIGRegisterExceptionCallbacks_CoolProp"
-    )]
+    [DllImport(Library.Name, EntryPoint = "SWIGRegisterExceptionCallbacks_CoolProp")]
     private static extern void RegisterExceptionCallbacks(
         ExceptionDelegate applicationDelegate,
         ExceptionDelegate arithmeticDelegate,
@@ -136,10 +122,7 @@ internal static class SwigExceptions
         ExceptionDelegate systemExceptionDelegate
     );
 
-    [DllImport(
-        Library.Name,
-        EntryPoint = "SWIGRegisterExceptionArgumentCallbacks_CoolProp"
-    )]
+    [DllImport(Library.Name, EntryPoint = "SWIGRegisterExceptionArgumentCallbacks_CoolProp")]
     private static extern void RegisterExceptionArgumentCallbacks(
         ExceptionArgumentDelegate argumentDelegate,
         ExceptionArgumentDelegate argumentNullDelegate,
@@ -179,15 +162,10 @@ internal static class SwigExceptions
     private static void SetPendingSystemException(string message) =>
         Set(new SystemException(message, Retrieve()));
 
-    private static void SetPendingArgumentException(
-        string message,
-        string argumentName
-    ) => Set(new ArgumentException(message, argumentName, Retrieve()));
+    private static void SetPendingArgumentException(string message, string argumentName) =>
+        Set(new ArgumentException(message, argumentName, Retrieve()));
 
-    private static void SetPendingArgumentNullException(
-        string message,
-        string argumentName
-    )
+    private static void SetPendingArgumentNullException(string message, string argumentName)
     {
         var exception = Retrieve();
         if (exception is not null)
@@ -198,10 +176,7 @@ internal static class SwigExceptions
         Set(new ArgumentNullException(argumentName, message));
     }
 
-    private static void SetPendingArgumentOutOfRangeException(
-        string message,
-        string argumentName
-    )
+    private static void SetPendingArgumentOutOfRangeException(string message, string argumentName)
     {
         var exception = Retrieve();
         if (exception is not null)
@@ -212,10 +187,7 @@ internal static class SwigExceptions
         Set(new ArgumentOutOfRangeException(argumentName, message));
     }
 
-    private delegate void ExceptionArgumentDelegate(
-        string message,
-        string argumentName
-    );
+    private delegate void ExceptionArgumentDelegate(string message, string argumentName);
 
     private delegate void ExceptionDelegate(string message);
 }

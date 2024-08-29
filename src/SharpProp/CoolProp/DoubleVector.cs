@@ -7,8 +7,7 @@ public class DoubleVector : IList<double>, IDisposable
     private static readonly object CollectionLock = new();
     private bool _disposed;
 
-    private DoubleVector(IntPtr pointer) =>
-        Handle = new HandleRef(this, pointer);
+    private DoubleVector(IntPtr pointer) => Handle = new HandleRef(this, pointer);
 
     public DoubleVector(IEnumerable<double> collection)
         : this(DoubleVectorPInvoke.Create())
@@ -47,11 +46,9 @@ public class DoubleVector : IList<double>, IDisposable
 
     public int Count => (int)DoubleVectorPInvoke.Size(Handle);
 
-    public void CopyTo(double[] array, int arrayIndex) =>
-        CopyTo(0, array, arrayIndex, Count);
+    public void CopyTo(double[] array, int arrayIndex) => CopyTo(0, array, arrayIndex, Count);
 
-    IEnumerator<double> IEnumerable<double>.GetEnumerator() =>
-        new DoubleVectorEnumerator(this);
+    IEnumerator<double> IEnumerable<double>.GetEnumerator() => new DoubleVectorEnumerator(this);
 
     public void Clear() => DoubleVectorPInvoke.Clear(Handle);
 
@@ -69,11 +66,9 @@ public class DoubleVector : IList<double>, IDisposable
         SwigExceptions.ThrowPendingException();
     }
 
-    public bool Contains(double item) =>
-        DoubleVectorPInvoke.Contains(Handle, item);
+    public bool Contains(double item) => DoubleVectorPInvoke.Contains(Handle, item);
 
-    public int IndexOf(double item) =>
-        DoubleVectorPInvoke.IndexOf(Handle, item);
+    public int IndexOf(double item) => DoubleVectorPInvoke.IndexOf(Handle, item);
 
     public bool Remove(double item) => DoubleVectorPInvoke.Remove(Handle, item);
 
@@ -103,41 +98,27 @@ public class DoubleVector : IList<double>, IDisposable
 
         if (index < 0)
         {
-            throw new ArgumentOutOfRangeException(
-                nameof(index),
-                "Value is less than zero"
-            );
+            throw new ArgumentOutOfRangeException(nameof(index), "Value is less than zero");
         }
 
         if (arrayIndex < 0)
         {
-            throw new ArgumentOutOfRangeException(
-                nameof(arrayIndex),
-                "Value is less than zero"
-            );
+            throw new ArgumentOutOfRangeException(nameof(arrayIndex), "Value is less than zero");
         }
 
         if (count < 0)
         {
-            throw new ArgumentOutOfRangeException(
-                nameof(count),
-                "Value is less than zero"
-            );
+            throw new ArgumentOutOfRangeException(nameof(count), "Value is less than zero");
         }
 
         if (array.Rank > 1)
         {
-            throw new ArgumentException(
-                "Multi dimensional array.",
-                nameof(array)
-            );
+            throw new ArgumentException("Multi dimensional array.", nameof(array));
         }
 
         if (index + count > Count || arrayIndex + count > array.Length)
         {
-            throw new ArgumentException(
-                "Number of elements to copy is too large."
-            );
+            throw new ArgumentException("Number of elements to copy is too large.");
         }
 
         for (var i = 0; i < count; i++)
@@ -216,16 +197,12 @@ public class DoubleVector : IList<double>, IDisposable
             {
                 if (_currentIndex == -1)
                 {
-                    throw new InvalidOperationException(
-                        "Enumeration not started."
-                    );
+                    throw new InvalidOperationException("Enumeration not started.");
                 }
 
                 if (_currentIndex > _currentSize - 1)
                 {
-                    throw new InvalidOperationException(
-                        "Enumeration finished."
-                    );
+                    throw new InvalidOperationException("Enumeration finished.");
                 }
 
                 if (_currentObject == null)

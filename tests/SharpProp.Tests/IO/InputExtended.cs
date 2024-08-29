@@ -3,8 +3,7 @@
 /// <summary>
 ///     An example of how to extend the <see cref="Input"/> record.
 /// </summary>
-public record InputExtended(Parameters CoolPropKey, double Value)
-    : Input(CoolPropKey, Value)
+public record InputExtended(Parameters CoolPropKey, double Value) : Input(CoolPropKey, Value)
 {
     /// <summary>
     ///     Molar density.

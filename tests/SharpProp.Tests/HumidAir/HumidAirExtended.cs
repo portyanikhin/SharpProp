@@ -1,8 +1,7 @@
 ﻿namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to
-///     the <see cref="HumidAir"/> class.
+///     An example of how to add new properties to the <see cref="HumidAir"/> class.
 /// </summary>
 /// <seealso cref="IHumidAirExtended"/>
 public class HumidAirExtended : HumidAir, IHumidAirExtended
@@ -40,25 +39,19 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Temperature temperature,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
-    ) =>
-        (HumidAirExtended)
-            base.WetCoolingTo(temperature, relativeHumidity, pressureDrop);
+    ) => (HumidAirExtended)base.WetCoolingTo(temperature, relativeHumidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         Temperature temperature,
         Ratio humidity,
         Pressure? pressureDrop = null
-    ) =>
-        (HumidAirExtended)
-            base.WetCoolingTo(temperature, humidity, pressureDrop);
+    ) => (HumidAirExtended)base.WetCoolingTo(temperature, humidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         SpecificEnergy enthalpy,
         RelativeHumidity relativeHumidity,
         Pressure? pressureDrop = null
-    ) =>
-        (HumidAirExtended)
-            base.WetCoolingTo(enthalpy, relativeHumidity, pressureDrop);
+    ) => (HumidAirExtended)base.WetCoolingTo(enthalpy, relativeHumidity, pressureDrop);
 
     public new IHumidAirExtended WetCoolingTo(
         SpecificEnergy enthalpy,
@@ -76,16 +69,14 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Pressure? pressureDrop = null
     ) => (HumidAirExtended)base.HeatingTo(enthalpy, pressureDrop);
 
-    public new IHumidAirExtended HumidificationByWaterTo(
-        RelativeHumidity relativeHumidity
-    ) => (HumidAirExtended)base.HumidificationByWaterTo(relativeHumidity);
+    public new IHumidAirExtended HumidificationByWaterTo(RelativeHumidity relativeHumidity) =>
+        (HumidAirExtended)base.HumidificationByWaterTo(relativeHumidity);
 
     public new IHumidAirExtended HumidificationByWaterTo(Ratio humidity) =>
         (HumidAirExtended)base.HumidificationByWaterTo(humidity);
 
-    public new IHumidAirExtended HumidificationBySteamTo(
-        RelativeHumidity relativeHumidity
-    ) => (HumidAirExtended)base.HumidificationBySteamTo(relativeHumidity);
+    public new IHumidAirExtended HumidificationBySteamTo(RelativeHumidity relativeHumidity) =>
+        (HumidAirExtended)base.HumidificationBySteamTo(relativeHumidity);
 
     public new IHumidAirExtended HumidificationBySteamTo(Ratio humidity) =>
         (HumidAirExtended)base.HumidificationBySteamTo(humidity);
@@ -96,13 +87,7 @@ public class HumidAirExtended : HumidAir, IHumidAirExtended
         Ratio secondSpecificMassFlow,
         IHumidAirExtended second
     ) =>
-        (HumidAirExtended)
-            base.Mixing(
-                firstSpecificMassFlow,
-                first,
-                secondSpecificMassFlow,
-                second
-            );
+        (HumidAirExtended)base.Mixing(firstSpecificMassFlow, first, secondSpecificMassFlow, second);
 
     public new IHumidAirExtended Clone() => (HumidAirExtended)base.Clone();
 

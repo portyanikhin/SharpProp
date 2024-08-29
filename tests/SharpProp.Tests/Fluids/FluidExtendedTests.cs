@@ -6,22 +6,15 @@ namespace SharpProp.Tests;
 public class FluidExtendedTests : IDisposable
 {
     private static readonly Ratio IsentropicEfficiency = 80.Percent();
+    private static readonly TemperatureDelta TemperatureDelta = TemperatureDelta.FromKelvins(10);
+    private static readonly SpecificEnergy EnthalpyDelta = 50.KilojoulesPerKilogram();
 
-    private static readonly TemperatureDelta TemperatureDelta =
-        TemperatureDelta.FromKelvins(10);
-
-    private static readonly SpecificEnergy EnthalpyDelta =
-        50.KilojoulesPerKilogram();
-
-    private readonly IFluidExtended _fluid = new FluidExtended(
-        FluidsList.Water
-    ).WithState(
+    private readonly IFluidExtended _fluid = new FluidExtended(FluidsList.Water).WithState(
         Input.Pressure(1.Atmospheres()),
         Input.Temperature(20.DegreesCelsius())
     );
 
     private Pressure HighPressure => 2 * _fluid.Pressure;
-
     private Pressure LowPressure => 0.5 * _fluid.Pressure;
 
     public void Dispose()
@@ -32,9 +25,7 @@ public class FluidExtendedTests : IDisposable
 
     [Fact]
     public void SpecificHeatConstVolume_WaterInStandardConditions_Returns4156() =>
-        _fluid
-            .SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should()
-            .Be(4156.6814728615545);
+        _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should().Be(4156.6814728615545);
 
     [Fact]
     public void MolarDensity_WaterInStandardConditions_Returns55408() =>
@@ -50,65 +41,23 @@ public class FluidExtendedTests : IDisposable
         _fluid.Clone().Should().BeOfType<FluidExtended>();
         _fluid.Factory().Should().BeOfType<FluidExtended>();
         _fluid
-            .WithState(
-                Input.Pressure(HighPressure),
-                Input.Temperature(_fluid.Temperature)
-            )
+            .WithState(Input.Pressure(HighPressure), Input.Temperature(_fluid.Temperature))
             .Should()
             .BeOfType<FluidExtended>();
-        _fluid
-            .IsentropicCompressionTo(HighPressure)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .CompressionTo(HighPressure, IsentropicEfficiency)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .IsenthalpicExpansionTo(LowPressure)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .IsentropicExpansionTo(LowPressure)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .ExpansionTo(LowPressure, IsentropicEfficiency)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .CoolingTo(_fluid.Temperature - TemperatureDelta)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .CoolingTo(_fluid.Enthalpy - EnthalpyDelta)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .HeatingTo(_fluid.Temperature + TemperatureDelta)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .HeatingTo(_fluid.Enthalpy + EnthalpyDelta)
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .BubblePointAt(1.Atmospheres())
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .BubblePointAt(100.DegreesCelsius())
-            .Should()
-            .BeOfType<FluidExtended>();
+        _fluid.IsentropicCompressionTo(HighPressure).Should().BeOfType<FluidExtended>();
+        _fluid.CompressionTo(HighPressure, IsentropicEfficiency).Should().BeOfType<FluidExtended>();
+        _fluid.IsenthalpicExpansionTo(LowPressure).Should().BeOfType<FluidExtended>();
+        _fluid.IsentropicExpansionTo(LowPressure).Should().BeOfType<FluidExtended>();
+        _fluid.ExpansionTo(LowPressure, IsentropicEfficiency).Should().BeOfType<FluidExtended>();
+        _fluid.CoolingTo(_fluid.Temperature - TemperatureDelta).Should().BeOfType<FluidExtended>();
+        _fluid.CoolingTo(_fluid.Enthalpy - EnthalpyDelta).Should().BeOfType<FluidExtended>();
+        _fluid.HeatingTo(_fluid.Temperature + TemperatureDelta).Should().BeOfType<FluidExtended>();
+        _fluid.HeatingTo(_fluid.Enthalpy + EnthalpyDelta).Should().BeOfType<FluidExtended>();
+        _fluid.BubblePointAt(1.Atmospheres()).Should().BeOfType<FluidExtended>();
+        _fluid.BubblePointAt(100.DegreesCelsius()).Should().BeOfType<FluidExtended>();
         _fluid.DewPointAt(1.Atmospheres()).Should().BeOfType<FluidExtended>();
-        _fluid
-            .DewPointAt(100.DegreesCelsius())
-            .Should()
-            .BeOfType<FluidExtended>();
-        _fluid
-            .TwoPhasePointAt(1.Atmospheres(), 50.Percent())
-            .Should()
-            .BeOfType<FluidExtended>();
+        _fluid.DewPointAt(100.DegreesCelsius()).Should().BeOfType<FluidExtended>();
+        _fluid.TwoPhasePointAt(1.Atmospheres(), 50.Percent()).Should().BeOfType<FluidExtended>();
         _fluid
             .Mixing(
                 100.Percent(),

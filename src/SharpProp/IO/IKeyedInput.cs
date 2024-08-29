@@ -4,8 +4,7 @@
 ///     CoolProp keyed input.
 /// </summary>
 /// <typeparam name="T">
-///     Type of Coolprop internal keys
-///     (<see cref="Parameters"/> for fluids and mixtures;
+///     Type of Coolprop internal keys (<see cref="Parameters"/> for fluids and mixtures;
 ///     <see cref="string"/> for humid air).
 /// </typeparam>
 public interface IKeyedInput<out T>

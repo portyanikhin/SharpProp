@@ -41,10 +41,7 @@ public class HumidAirTests
                 InputHumidAir.Temperature(20.DegreesCelsius()),
                 InputHumidAir.Temperature(30.DegreesCelsius())
             );
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Need to define 3 unique inputs!");
+        action.Should().Throw<ArgumentException>().WithMessage("Need to define 3 unique inputs!");
     }
 
     [Fact]
@@ -84,9 +81,7 @@ public class HumidAirTests
             _humidAir.Humidity.DecimalFractions,
             _humidAir.PartialPressure.Pascals,
             _humidAir.Pressure.Pascals,
-            Ratio
-                .FromPercent(_humidAir.RelativeHumidity.Percent)
-                .DecimalFractions,
+            Ratio.FromPercent(_humidAir.RelativeHumidity.Percent).DecimalFractions,
             _humidAir.SpecificHeat.JoulesPerKilogramKelvin,
             _humidAir.SpecificVolume.CubicMetersPerKilogram,
             _humidAir.Temperature.Kelvins,
@@ -152,10 +147,7 @@ public class HumidAirTests
         Action action = () => _ = _humidAir.Pressure;
         action.Should().NotThrow();
         _humidAir.Reset();
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Need to define 3 unique inputs!");
+        action.Should().Throw<ArgumentException>().WithMessage("Need to define 3 unique inputs!");
     }
 
     [Fact]
@@ -169,10 +161,7 @@ public class HumidAirTests
                     InputHumidAir.RelativeHumidity(200.Percent())
                 )
                 .Density;
-        action
-            .Should()
-            .Throw<ArgumentException>()
-            .WithMessage("Invalid or not defined state!");
+        action.Should().Throw<ArgumentException>().WithMessage("Invalid or not defined state!");
     }
 
     [Fact]
@@ -231,9 +220,7 @@ public class HumidAirTests
                             new StringEnumConverter(),
                             new UnitsNetIQuantityJsonConverter(),
                         },
-                        Formatting = indented
-                            ? Formatting.Indented
-                            : Formatting.None,
+                        Formatting = indented ? Formatting.Indented : Formatting.None,
                     }
                 )
             );
@@ -316,8 +303,6 @@ public class HumidAirTests
             "T",
             _humidAir.Temperature.Kelvins,
             "R",
-            Ratio
-                .FromPercent(_humidAir.RelativeHumidity.Percent)
-                .DecimalFractions
+            Ratio.FromPercent(_humidAir.RelativeHumidity.Percent).DecimalFractions
         );
 }

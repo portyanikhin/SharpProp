@@ -27,21 +27,14 @@ public interface IFluid
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
     /// <returns>A new fluid instance with a defined state.</returns>
-    /// <exception cref="ArgumentException">
-    ///     Need to define 2 unique inputs!
-    /// </exception>
-    IFluid WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
-    );
+    /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
+    IFluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput);
 
     /// <summary>
     ///     The process of isentropic compression to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <returns>
-    ///     The state of the fluid at the end of the process.
-    /// </returns>
+    /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Compressor outlet pressure should be higher than inlet pressure!
     /// </exception>
@@ -51,16 +44,12 @@ public interface IFluid
     ///     The process of compression to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <param name="isentropicEfficiency">
-    ///     Compressor isentropic efficiency.
-    /// </param>
+    /// <param name="isentropicEfficiency">Compressor isentropic efficiency.</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Compressor outlet pressure should be higher than inlet pressure!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid compressor isentropic efficiency!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid compressor isentropic efficiency!</exception>
     IFluid CompressionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <summary>
@@ -87,80 +76,60 @@ public interface IFluid
     ///     The process of expansion to given pressure.
     /// </summary>
     /// <param name="pressure">Pressure.</param>
-    /// <param name="isentropicEfficiency">
-    ///     Expander isentropic efficiency.
-    /// </param>
+    /// <param name="isentropicEfficiency">Expander isentropic efficiency.</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     Expander outlet pressure should be lower than inlet pressure!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid expander isentropic efficiency!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid expander isentropic efficiency!</exception>
     IFluid ExpansionTo(Pressure pressure, Ratio isentropicEfficiency);
 
     /// <summary>
-    ///     The process of cooling to a given temperature.
+    ///     The process of cooling to given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in the heat exchanger (optional).
-    /// </param>
+    /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the temperature should decrease!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop in the heat exchanger!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
     IFluid CoolingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
-    ///     The process of cooling to a given enthalpy.
+    ///     The process of cooling to given enthalpy.
     /// </summary>
     /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in the heat exchanger (optional).
-    /// </param>
+    /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the cooling process, the enthalpy should decrease!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop in the heat exchanger!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
     IFluid CoolingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
-    ///     The process of heating to a given temperature.
+    ///     The process of heating to given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in the heat exchanger (optional).
-    /// </param>
+    /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the temperature should increase!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop in the heat exchanger!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
     IFluid HeatingTo(Temperature temperature, Pressure? pressureDrop = null);
 
     /// <summary>
-    ///     The process of heating to a given enthalpy.
+    ///     The process of heating to given enthalpy.
     /// </summary>
     /// <param name="enthalpy">Enthalpy.</param>
-    /// <param name="pressureDrop">
-    ///     Pressure drop in the heat exchanger (optional).
-    /// </param>
+    /// <param name="pressureDrop">Pressure drop in the heat exchanger (optional).</param>
     /// <returns>The state of the fluid at the end of the process.</returns>
     /// <exception cref="ArgumentException">
     ///     During the heating process, the enthalpy should increase!
     /// </exception>
-    /// <exception cref="ArgumentException">
-    ///     Invalid pressure drop in the heat exchanger!
-    /// </exception>
+    /// <exception cref="ArgumentException">Invalid pressure drop in the heat exchanger!</exception>
     IFluid HeatingTo(SpecificEnergy enthalpy, Pressure? pressureDrop = null);
 
     /// <summary>
@@ -171,10 +140,10 @@ public interface IFluid
     IFluid BubblePointAt(Pressure pressure);
 
     /// <summary>
-    ///     Returns a bubble point at a given temperature.
+    ///     Returns a bubble point at given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <returns>A bubble point at a given temperature.</returns>
+    /// <returns>A bubble point at given temperature.</returns>
     IFluid BubblePointAt(Temperature temperature);
 
     /// <summary>
@@ -185,10 +154,10 @@ public interface IFluid
     IFluid DewPointAt(Pressure pressure);
 
     /// <summary>
-    ///     Returns a dew point at a given temperature.
+    ///     Returns a dew point at given temperature.
     /// </summary>
     /// <param name="temperature">Temperature.</param>
-    /// <returns>A dew point at a given temperature.</returns>
+    /// <returns>A dew point at given temperature.</returns>
     IFluid DewPointAt(Temperature temperature);
 
     /// <summary>

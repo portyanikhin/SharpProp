@@ -8,8 +8,7 @@ public class AbstractState : IDisposable
     private bool _disposed;
     private HandleRef _handle;
 
-    private AbstractState(IntPtr pointer) =>
-        _handle = new HandleRef(this, pointer);
+    private AbstractState(IntPtr pointer) => _handle = new HandleRef(this, pointer);
 
     public void Dispose()
     {
@@ -61,10 +60,7 @@ public class AbstractState : IDisposable
 
     public void SetVolumeFractions(DoubleVector volumeFractions)
     {
-        AbstractStatePInvoke.SetVolumeFractions(
-            _handle,
-            volumeFractions.Handle
-        );
+        AbstractStatePInvoke.SetVolumeFractions(_handle, volumeFractions.Handle);
         SwigExceptions.ThrowPendingException();
     }
 
@@ -72,8 +68,7 @@ public class AbstractState : IDisposable
     {
         try
         {
-            var result = (InputPairs)
-                AbstractStatePInvoke.GetInputPairIndex(inputPairName);
+            var result = (InputPairs)AbstractStatePInvoke.GetInputPairIndex(inputPairName);
             SwigExceptions.ThrowPendingException();
             return result;
         }
@@ -83,18 +78,9 @@ public class AbstractState : IDisposable
         }
     }
 
-    public void Update(
-        InputPairs inputPair,
-        double firstInput,
-        double secondInput
-    )
+    public void Update(InputPairs inputPair, double firstInput, double secondInput)
     {
-        AbstractStatePInvoke.Update(
-            _handle,
-            (int)inputPair,
-            firstInput,
-            secondInput
-        );
+        AbstractStatePInvoke.Update(_handle, (int)inputPair, firstInput, secondInput);
         SwigExceptions.ThrowPendingException();
     }
 

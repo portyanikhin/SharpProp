@@ -122,11 +122,11 @@ public class MixtureTests : IDisposable
                         Converters = new List<JsonConverter>
                         {
                             new StringEnumConverter(),
-                            new UnitsNetIQuantityJsonConverter()
+                            new UnitsNetIQuantityJsonConverter(),
                         },
                         Formatting = indented
                             ? Formatting.Indented
-                            : Formatting.None
+                            : Formatting.None,
                     }
                 )
             );
@@ -201,35 +201,35 @@ public class MixtureTests : IDisposable
                 new List<FluidsList> { FluidsList.Water },
                 new List<Ratio> { 60.Percent(), 40.Percent() },
                 "Invalid input! Fluids and Fractions "
-                    + "should be of the same length."
+                    + "should be of the same length.",
             },
             new object[]
             {
                 new List<FluidsList> { FluidsList.MPG, FluidsList.MEG },
                 new List<Ratio> { 60.Percent(), 40.Percent() },
                 "Invalid components! All of them "
-                    + "should be a pure fluid with HEOS backend."
+                    + "should be a pure fluid with HEOS backend.",
             },
             new object[]
             {
                 new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
                 new List<Ratio> { -200.Percent(), 40.Percent() },
                 "Invalid component mass fractions! "
-                    + "All of them should be in (0;100) %."
+                    + "All of them should be in (0;100) %.",
             },
             new object[]
             {
                 new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
                 new List<Ratio> { 60.Percent(), 200.Percent() },
                 "Invalid component mass fractions! "
-                    + "All of them should be in (0;100) %."
+                    + "All of them should be in (0;100) %.",
             },
             new object[]
             {
                 new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
                 new List<Ratio> { 80.Percent(), 80.Percent() },
                 "Invalid component mass fractions! "
-                    + "Their sum should be equal to 100 %."
-            }
+                    + "Their sum should be equal to 100 %.",
+            },
         };
 }

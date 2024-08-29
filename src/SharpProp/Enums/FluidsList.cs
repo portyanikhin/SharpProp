@@ -1088,5 +1088,5 @@ public enum FluidsList
     R513A,
 
     [FluidInfo("TypicalNaturalGas.mix")]
-    TypicalNaturalGas
+    TypicalNaturalGas,
 }

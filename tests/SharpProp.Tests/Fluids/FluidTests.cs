@@ -107,7 +107,7 @@ public class FluidTests : IDisposable
             fluid.SurfaceTension?.NewtonsPerMeter,
             fluid.Temperature.Kelvins,
             fluid.TriplePressure?.Pascals,
-            fluid.TripleTemperature?.Kelvins
+            fluid.TripleTemperature?.Kelvins,
         };
         var expected = new[]
         {
@@ -134,7 +134,7 @@ public class FluidTests : IDisposable
             "I",
             "T",
             "p_triple",
-            "T_triple"
+            "T_triple",
         }
             .Select(CoolPropInterface)
             .ToList();
@@ -260,11 +260,11 @@ public class FluidTests : IDisposable
                         Converters = new List<JsonConverter>
                         {
                             new StringEnumConverter(),
-                            new UnitsNetIQuantityJsonConverter()
+                            new UnitsNetIQuantityJsonConverter(),
                         },
                         Formatting = indented
                             ? Formatting.Indented
-                            : Formatting.None
+                            : Formatting.None,
                     }
                 )
             );

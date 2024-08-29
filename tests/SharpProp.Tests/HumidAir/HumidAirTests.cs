@@ -90,7 +90,7 @@ public class HumidAirTests
             _humidAir.SpecificHeat.JoulesPerKilogramKelvin,
             _humidAir.SpecificVolume.CubicMetersPerKilogram,
             _humidAir.Temperature.Kelvins,
-            _humidAir.WetBulbTemperature.Kelvins
+            _humidAir.WetBulbTemperature.Kelvins,
         };
         var expected = new[]
         {
@@ -107,7 +107,7 @@ public class HumidAirTests
             "Cha",
             "Vha",
             "T",
-            "B"
+            "B",
         }
             .Select(CoolPropInterface)
             .ToList();
@@ -229,11 +229,11 @@ public class HumidAirTests
                         Converters = new List<JsonConverter>
                         {
                             new StringEnumConverter(),
-                            new UnitsNetIQuantityJsonConverter()
+                            new UnitsNetIQuantityJsonConverter(),
                         },
                         Formatting = indented
                             ? Formatting.Indented
-                            : Formatting.None
+                            : Formatting.None,
                     }
                 )
             );

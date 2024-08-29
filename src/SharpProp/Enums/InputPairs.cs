@@ -42,5 +42,5 @@ public enum InputPairs
     DmassSmass_INPUTS,
     DmolarSmolar_INPUTS,
     DmassUmass_INPUTS,
-    DmolarUmolar_INPUTS
+    DmolarUmolar_INPUTS,
 }

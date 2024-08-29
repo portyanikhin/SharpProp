@@ -7,6 +7,6 @@
 [![License](https://img.shields.io/github/license/portyanikhin/SharpProp)](https://github.com/portyanikhin/SharpProp/blob/master/LICENSE)
 [![Codecov](https://codecov.io/gh/portyanikhin/SharpProp/branch/master/graph/badge.svg?token=P3JH3D1L0Q)](https://codecov.io/gh/portyanikhin/SharpProp)
 
-A simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org) wrapper for C#.
+Simple, full-featured, lightweight, cross-platform [CoolProp](http://www.coolprop.org) wrapper for C#.
 
 _**See [full documentation](https://github.com/portyanikhin/SharpProp).**_

@@ -3,6 +3,7 @@
 /// <inheritdoc cref="IAbstractFluid"/>
 public abstract partial class AbstractFluid : IAbstractFluid
 {
+    private Phases? _specifiedPhase;
     protected AbstractState Backend = default!;
 
     protected IList<IKeyedInput<Parameters>> Inputs { get; private set; } =
@@ -46,12 +47,14 @@ public abstract partial class AbstractFluid : IAbstractFluid
     protected AbstractFluid SpecifyPhase(Phases phase)
     {
         Backend.SpecifyPhase(phase);
+        _specifiedPhase = phase;
         return this;
     }
 
     protected AbstractFluid UnspecifyPhase()
     {
         Backend.UnspecifyPhase();
+        _specifiedPhase = null;
         return this;
     }
 
@@ -68,6 +71,11 @@ public abstract partial class AbstractFluid : IAbstractFluid
     )
     {
         var fluid = CreateInstance();
+        if (_specifiedPhase is not null)
+        {
+            fluid.SpecifyPhase(_specifiedPhase.Value);
+        }
+
         fluid.Update(firstInput, secondInput);
         return fluid;
     }

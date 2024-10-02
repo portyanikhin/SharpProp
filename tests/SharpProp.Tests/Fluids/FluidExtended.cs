@@ -33,6 +33,10 @@ public class FluidExtended(FluidsList name, Ratio? fraction = null)
         _ozoneDepletionPotential = null;
     }
 
+    public new IFluidExtended SpecifyPhase(Phases phase) => (FluidExtended)base.SpecifyPhase(phase);
+
+    public new IFluidExtended UnspecifyPhase() => (FluidExtended)base.UnspecifyPhase();
+
     public new IFluidExtended WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput

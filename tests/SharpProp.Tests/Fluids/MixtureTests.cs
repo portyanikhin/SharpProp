@@ -50,14 +50,53 @@ public class MixtureTests : IDisposable
     public void SpecifyPhase_Always_SpecifiesPhaseForAllFurtherCalculations()
     {
         _mixture.SpecifyPhase(Phases.Gas);
-        var action = () =>
+        var update = () =>
             _mixture.Update(
                 Input.Pressure(1.Atmospheres()),
                 Input.Temperature(20.DegreesCelsius())
             );
-        action.Should().Throw<ApplicationException>();
+        Action withState = () =>
+            _ = _mixture.WithState(
+                Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius())
+            );
+        update.Should().Throw<ApplicationException>();
+        withState.Should().Throw<ApplicationException>();
         _mixture.UnspecifyPhase();
-        action.Should().NotThrow();
+        update.Should().NotThrow();
+        withState.Should().NotThrow();
+    }
+
+    [Fact]
+    public void SpecifyPhase_MethodsChaining_SpecifiesPhaseForAllFurtherCalculations()
+    {
+        _mixture.SpecifyPhase(Phases.Gas);
+        var invalidUpdate = () =>
+            _mixture
+                .SpecifyPhase(Phases.Gas)
+                .Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+        Action invalidWithState = () =>
+            _ = _mixture
+                .SpecifyPhase(Phases.Gas)
+                .WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+        invalidUpdate.Should().Throw<ApplicationException>();
+        invalidWithState.Should().Throw<ApplicationException>();
+        var validUpdate = () =>
+        {
+            _mixture.SpecifyPhase(Phases.Gas);
+            _mixture
+                .UnspecifyPhase()
+                .Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+        };
+        var validWithState = () =>
+        {
+            _mixture.SpecifyPhase(Phases.Gas);
+            _ = _mixture
+                .UnspecifyPhase()
+                .WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+        };
+        validUpdate.Should().NotThrow();
+        validWithState.Should().NotThrow();
     }
 
     [Fact]

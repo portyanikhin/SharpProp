@@ -160,12 +160,11 @@ public class FluidTests : IDisposable
     [Fact]
     public void SpecifyPhase_Always_SpecifiesPhaseForAllFurtherCalculations()
     {
-        IAbstractFluid fluid = _fluid;
-        fluid.SpecifyPhase(Phases.Gas);
+        _fluid.SpecifyPhase(Phases.Gas);
         var action = () =>
-            fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
+            _fluid.Update(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
         action.Should().Throw<ApplicationException>();
-        fluid.UnspecifyPhase();
+        _fluid.UnspecifyPhase();
         action.Should().NotThrow();
     }
 

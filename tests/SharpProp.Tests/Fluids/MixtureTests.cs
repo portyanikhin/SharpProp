@@ -47,6 +47,20 @@ public class MixtureTests : IDisposable
     }
 
     [Fact]
+    public void SpecifyPhase_Always_SpecifiesPhaseForAllFurtherCalculations()
+    {
+        _mixture.SpecifyPhase(Phases.Gas);
+        var action = () =>
+            _mixture.Update(
+                Input.Pressure(1.Atmospheres()),
+                Input.Temperature(20.DegreesCelsius())
+            );
+        action.Should().Throw<ApplicationException>();
+        _mixture.UnspecifyPhase();
+        action.Should().NotThrow();
+    }
+
+    [Fact]
     public void WithState_VodkaInStandardConditions_PhaseIsLiquid() =>
         _mixture
             .WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()))

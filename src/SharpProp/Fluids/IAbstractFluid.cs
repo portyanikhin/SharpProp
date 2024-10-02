@@ -17,16 +17,4 @@ public interface IAbstractFluid : IFluidState, IDisposable
     ///     Resets all non-trivial properties.
     /// </summary>
     void Reset();
-
-    /// <summary>
-    ///     Specify the phase state for all further calculations.
-    /// </summary>
-    /// <param name="phase">Phase state.</param>
-    void SpecifyPhase(Phases phase);
-
-    /// <summary>
-    ///     Unspecify the phase state and
-    ///     go back to calculating it based on the inputs.
-    /// </summary>
-    void UnspecifyPhase();
 }

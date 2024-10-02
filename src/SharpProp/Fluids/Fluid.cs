@@ -45,6 +45,10 @@ public class Fluid : AbstractFluid, IFluid
 
     public Ratio Fraction { get; }
 
+    public new IFluid SpecifyPhase(Phases phase) => (Fluid)base.SpecifyPhase(phase);
+
+    public new IFluid UnspecifyPhase() => (Fluid)base.UnspecifyPhase();
+
     public new IFluid WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput

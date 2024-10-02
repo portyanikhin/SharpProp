@@ -22,6 +22,19 @@ public interface IFluid
     Ratio Fraction { get; }
 
     /// <summary>
+    ///     Specify the phase state for all further calculations.
+    /// </summary>
+    /// <param name="phase">Phase state.</param>
+    /// <returns>Current fluid instance.</returns>
+    IFluid SpecifyPhase(Phases phase);
+
+    /// <summary>
+    ///     Unspecify the phase state and go back to calculating it based on the inputs.
+    /// </summary>
+    /// <returns>Current fluid instance.</returns>
+    IFluid UnspecifyPhase();
+
+    /// <summary>
     ///     Returns a new fluid instance with a defined state.
     /// </summary>
     /// <param name="firstInput">First input property.</param>

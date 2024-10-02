@@ -21,6 +21,19 @@ public interface IMixture
     IReadOnlyList<Ratio> Fractions { get; }
 
     /// <summary>
+    ///     Specify the phase state for all further calculations.
+    /// </summary>
+    /// <param name="phase">Phase state.</param>
+    /// <returns>Current mixture instance.</returns>
+    IMixture SpecifyPhase(Phases phase);
+
+    /// <summary>
+    ///     Unspecify the phase state and go back to calculating it based on the inputs.
+    /// </summary>
+    /// <returns>Current mixture instance.</returns>
+    IMixture UnspecifyPhase();
+
+    /// <summary>
     ///     Returns a new mixture instance with a defined state.
     /// </summary>
     /// <param name="firstInput">First input property.</param>

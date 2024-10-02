@@ -66,6 +66,10 @@ public class Mixture : AbstractFluid, IMixture
 
     public IReadOnlyList<Ratio> Fractions { get; }
 
+    public new IMixture SpecifyPhase(Phases phase) => (Mixture)base.SpecifyPhase(phase);
+
+    public new IMixture UnspecifyPhase() => (Mixture)base.UnspecifyPhase();
+
     public new IMixture WithState(
         IKeyedInput<Parameters> firstInput,
         IKeyedInput<Parameters> secondInput

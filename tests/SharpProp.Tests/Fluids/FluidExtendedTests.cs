@@ -40,6 +40,7 @@ public class FluidExtendedTests : IDisposable
     {
         _fluid.Clone().Should().BeOfType<FluidExtended>();
         _fluid.Factory().Should().BeOfType<FluidExtended>();
+        _fluid.SpecifyPhase(Phases.Gas).UnspecifyPhase().Should().BeOfType<FluidExtended>();
         _fluid
             .WithState(Input.Pressure(HighPressure), Input.Temperature(_fluid.Temperature))
             .Should()

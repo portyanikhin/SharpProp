@@ -21,6 +21,12 @@ public interface IFluidExtended : IFluid
     /// </summary>
     double? OzoneDepletionPotential { get; }
 
+    /// <inheritdoc cref="IFluid.SpecifyPhase"/>
+    new IFluidExtended SpecifyPhase(Phases phase);
+
+    /// <inheritdoc cref="IFluid.UnspecifyPhase"/>
+    new IFluidExtended UnspecifyPhase();
+
     /// <inheritdoc cref="IFluid.WithState"/>
     new IFluidExtended WithState(
         IKeyedInput<Parameters> firstInput,

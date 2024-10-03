@@ -183,7 +183,7 @@ using SharpProp;
 using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.Units;
 
-var waterVapour = new Fluid(FluidsList.Water).DewPointAt((1).Atmospheres());
+var waterVapour = new Fluid(FluidsList.Water).DewPointAt(1.Atmospheres());
 Console.WriteLine(waterVapour.SpecificHeat.JoulesPerKilogramKelvin);          // 2079.937085633241
 Console.WriteLine(waterVapour.SpecificHeat);                                  // 2.08 kJ/kg·K
 Console.WriteLine(
@@ -203,15 +203,15 @@ using UnitsNet.NumberExtensions.NumberToRatio;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
 
-var propyleneGlycol = new Fluid(FluidsList.MPG, (60).Percent()).WithState(
-    Input.Pressure((100).Kilopascals()),
+var propyleneGlycol = new Fluid(FluidsList.MPG, 60.Percent()).WithState(
+    Input.Pressure(100.Kilopascals()),
     Input.Temperature((-20).DegreesCelsius())
 );
 Console.WriteLine(propyleneGlycol.DynamicViscosity?.PascalSeconds);      // 0.13907391053938878
 Console.WriteLine(propyleneGlycol.DynamicViscosity);                     // 139.07 mPa·s
 Console.WriteLine(
     propyleneGlycol.DynamicViscosity?.ToUnit(DynamicViscosityUnit.Poise) // 1.39 P
-); 
+);
 ```
 
 ### Mixtures
@@ -229,10 +229,10 @@ using UnitsNet.Units;
 
 var mixture = new Mixture(
     new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-    new List<Ratio> { (60).Percent(), (40).Percent() }
+    new List<Ratio> { 60.Percent(), 40.Percent() }
 ).WithState(
-    Input.Pressure((200).Kilopascals()),
-    Input.Temperature((277.15).Kelvins())
+    Input.Pressure(200.Kilopascals()),
+    Input.Temperature(277.15.Kelvins())
 );
 Console.WriteLine(mixture.Density.KilogramsPerCubicMeter);               // 883.3922771627759
 Console.WriteLine(mixture.Density);                                      // 883.39 kg/m3
@@ -252,15 +252,15 @@ using UnitsNet.NumberExtensions.NumberToTemperature;
 using UnitsNet.Units;
 
 var humidAir = new HumidAir().WithState(
-    InputHumidAir.Altitude((300).Meters()),
-    InputHumidAir.Temperature((30).DegreesCelsius()),
-    InputHumidAir.RelativeHumidity((50).Percent())
+    InputHumidAir.Altitude(300.Meters()),
+    InputHumidAir.Temperature(30.DegreesCelsius()),
+    InputHumidAir.RelativeHumidity(50.Percent())
 );
 Console.WriteLine(humidAir.WetBulbTemperature.Kelvins);                  // 295.06756903366403
 Console.WriteLine(humidAir.WetBulbTemperature);                          // 21.92 °C
 Console.WriteLine(
     humidAir.WetBulbTemperature.ToUnit(TemperatureUnit.DegreeFahrenheit) // 71.45 °F
-); 
+);
 ```
 
 ### Equality of instances
@@ -278,14 +278,14 @@ using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 
 var humidAir = new HumidAir().WithState(
-    InputHumidAir.Pressure((1).Atmospheres()),
-    InputHumidAir.Temperature((20).DegreesCelsius()),
-    InputHumidAir.RelativeHumidity((50).Percent())
+    InputHumidAir.Pressure(1.Atmospheres()),
+    InputHumidAir.Temperature(20.DegreesCelsius()),
+    InputHumidAir.RelativeHumidity(50.Percent())
 );
 var sameHumidAir = new HumidAir().WithState(
-    InputHumidAir.Pressure((101325).Pascals()),
-    InputHumidAir.Temperature((293.15).Kelvins()),
-    InputHumidAir.RelativeHumidity((50).Percent())
+    InputHumidAir.Pressure(101325.Pascals()),
+    InputHumidAir.Temperature(293.15.Kelvins()),
+    InputHumidAir.RelativeHumidity(50.Percent())
 );
 Console.WriteLine(humidAir.Equals(sameHumidAir)); // true
 ```
@@ -300,7 +300,7 @@ For example, converting a `Fluid` instance to an _indented_ JSON string:
 using SharpProp;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 
-var refrigerant = new Fluid(FluidsList.R32).DewPointAt((5).DegreesCelsius());
+var refrigerant = new Fluid(FluidsList.R32).DewPointAt(5.DegreesCelsius());
 Console.WriteLine(refrigerant.AsJson());
 ```
 
@@ -423,14 +423,14 @@ using UnitsNet.NumberExtensions.NumberToPressure;
 using UnitsNet.NumberExtensions.NumberToTemperature;
 
 var origin = new Fluid(FluidsList.Water).WithState(
-    Input.Pressure((1).Atmospheres()),
-    Input.Temperature((20).DegreesCelsius())
+    Input.Pressure(1.Atmospheres()),
+    Input.Temperature(20.DegreesCelsius())
 );
 var clone = origin.Clone();
 Console.WriteLine(origin.Equals(clone)); // true
 clone.Update(
-    Input.Pressure((1).Atmospheres()),
-    Input.Temperature((30).DegreesCelsius())
+    Input.Pressure(1.Atmospheres()),
+    Input.Temperature(30.DegreesCelsius())
 );
 Console.WriteLine(origin.Equals(clone)); // false
 ```

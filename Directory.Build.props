@@ -10,7 +10,7 @@
         <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>
         <PackageReleaseNotes>Release notes can be found at https://github.com/portyanikhin/SharpProp/releases</PackageReleaseNotes>
         <PackageTags>native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics</PackageTags>
-        <PackageVersion>7.2.11</PackageVersion>
+        <PackageVersion>7.3.0</PackageVersion>
         <RepositoryUrl>https://github.com/portyanikhin/SharpProp</RepositoryUrl>
     </PropertyGroup>
 

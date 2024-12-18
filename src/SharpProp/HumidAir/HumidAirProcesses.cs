@@ -101,10 +101,22 @@ public partial class HumidAir
                     ) / (firstSpecificMassFlow + secondSpecificMassFlow).DecimalFractions
                 ),
                 InputHumidAir.Humidity(
-                    (
-                        firstSpecificMassFlow.DecimalFractions * first.Humidity
-                        + secondSpecificMassFlow.DecimalFractions * second.Humidity
-                    ) / (firstSpecificMassFlow + secondSpecificMassFlow).DecimalFractions
+                    Ratio.FromDecimalFractions(
+                        (
+                            firstSpecificMassFlow.DecimalFractions
+                                * first.Humidity.DecimalFractions
+                                * (1 + second.Humidity.DecimalFractions)
+                            + secondSpecificMassFlow.DecimalFractions
+                                * second.Humidity.DecimalFractions
+                                * (1 + first.Humidity.DecimalFractions)
+                        )
+                            / (
+                                firstSpecificMassFlow.DecimalFractions
+                                    * (1 + second.Humidity.DecimalFractions)
+                                + secondSpecificMassFlow.DecimalFractions
+                                    * (1 + first.Humidity.DecimalFractions)
+                            )
+                    )
                 )
             )
             : throw new ArgumentException(

@@ -426,7 +426,22 @@ public class TestHumidAirProcesses
                 _humidAir.WithState(
                     InputHumidAir.Pressure(_humidAir.Pressure),
                     InputHumidAir.Enthalpy((1 * first.Enthalpy + 2 * second.Enthalpy) / 3.0),
-                    InputHumidAir.Humidity((1 * first.Humidity + 2 * second.Humidity) / 3.0)
+                    InputHumidAir.Humidity(
+                        Ratio.FromDecimalFractions(
+                            (
+                                1
+                                    * first.Humidity.DecimalFractions
+                                    * (1 + second.Humidity.DecimalFractions)
+                                + 2
+                                    * second.Humidity.DecimalFractions
+                                    * (1 + first.Humidity.DecimalFractions)
+                            )
+                                / (
+                                    1 * (1 + second.Humidity.DecimalFractions)
+                                    + 2 * (1 + first.Humidity.DecimalFractions)
+                                )
+                        )
+                    )
                 )
             );
     }

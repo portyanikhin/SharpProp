@@ -22,10 +22,10 @@ public static class FluidsListExtensions
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Backend;
 
     /// <summary>
-    ///     <c>true</c> if the fluid pure of pseudo-pure.
+    ///     <c>true</c> if the fluid is pure of pseudo-pure.
     /// </summary>
     /// <param name="member">The <see cref="FluidsList"/> member.</param>
-    /// <returns><c>true</c> if the fluid pure of pseudo-pure.</returns>
+    /// <returns><c>true</c> if the fluid is pure of pseudo-pure.</returns>
     public static bool Pure(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Pure;
 

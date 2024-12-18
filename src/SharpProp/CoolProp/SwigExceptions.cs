@@ -93,9 +93,12 @@ internal static class SwigExceptions
     private static Exception? Retrieve()
     {
         Exception? exception = null;
-        if (_pendingExceptionsCount <= 0 || _pendingException is null)
+        lock (ExceptionsLock)
         {
-            return exception;
+            if (_pendingExceptionsCount <= 0 || _pendingException is null)
+            {
+                return exception;
+            }
         }
 
         (exception, _pendingException) = (_pendingException, null);

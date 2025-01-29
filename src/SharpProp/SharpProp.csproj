@@ -21,7 +21,7 @@
     <ItemGroup>
         <PackageReference Include="Enums.NET" Version="5.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="UnitsNet" Version="5.61.0"/>
+        <PackageReference Include="UnitsNet" Version="5.67.0"/>
         <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="5.50.0"/>
         <PackageReference Include="UnitsNet.NumberExtensions" Version="5.61.0"/>
     </ItemGroup>

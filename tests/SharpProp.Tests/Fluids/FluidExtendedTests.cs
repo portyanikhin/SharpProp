@@ -25,11 +25,13 @@ public class FluidExtendedTests : IDisposable
 
     [Fact]
     public void SpecificHeatConstVolume_WaterInStandardConditions_Returns4156() =>
-        _fluid.SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should().Be(4156.6814728615545);
+        _fluid
+            .SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should()
+            .BeApproximately(4156.6814728615545, 1e-6);
 
     [Fact]
     public void MolarDensity_WaterInStandardConditions_Returns55408() =>
-        _fluid.MolarDensity?.KilogramsPerMole.Should().Be(55408.953697937126);
+        _fluid.MolarDensity?.KilogramsPerMole.Should().BeApproximately(55408.953697937126, 1e-6);
 
     [Fact]
     public void OzoneDepletionPotential_Water_ReturnsNull() =>

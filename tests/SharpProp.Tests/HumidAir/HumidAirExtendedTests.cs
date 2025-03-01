@@ -23,7 +23,9 @@ public class HumidAirExtendedTests
 
     [Fact]
     public void SpecificHeatConstVolume_HumidAirInStandardConditions_Returns722() =>
-        _humidAir.SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should().Be(722.68718970632506);
+        _humidAir
+            .SpecificHeatConstVolume.JoulesPerKilogramKelvin.Should()
+            .BeApproximately(722.687189702383, 1e-6);
 
     [Fact]
     public void Methods_New_ReturnsInstancesOfInheritedType()

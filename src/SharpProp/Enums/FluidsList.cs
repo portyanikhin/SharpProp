@@ -339,6 +339,9 @@ public enum FluidsList
     [FluidInfo("R13")]
     R13,
 
+    [FluidInfo("R1336mzz(E)")]
+    R1336mzzE,
+
     [FluidInfo("R134a")]
     R134a,
 

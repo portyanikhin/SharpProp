@@ -1,19 +1,15 @@
 <Project>
-
-    <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
-
-    <PropertyGroup>
-        <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageIcon>icon.png</PackageIcon>
-        <PackageReadmeFile>NuGet.md</PackageReadmeFile>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;net9.0</TargetFrameworks>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="..\..\images\icon.png" Pack="true" Visible="false" PackagePath="\"/>
-        <None Include="..\..\NuGet.md" Pack="true" Visible="false" PackagePath="\"/>
-    </ItemGroup>
-
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+  <PropertyGroup>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>NuGet.md</PackageReadmeFile>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net9.0</TargetFrameworks>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\images\icon.png" Pack="true" Visible="false" PackagePath="\" />
+    <None Include="..\..\NuGet.md" Pack="true" Visible="false" PackagePath="\" />
+  </ItemGroup>
 </Project>

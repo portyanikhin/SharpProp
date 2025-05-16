@@ -1,41 +1,36 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <Description>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Description>
-        <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054</NoWarn>
-        <Summary>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
-        <Title>SharpProp</Title>
-    </PropertyGroup>
-
-    <ItemGroup>
-        <None Include="SharpProp.targets" Pack="true" PackagePath="build" Visible="false"/>
-        <None Include="*.dll;*.dylib;*.so">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-            <Pack>true</Pack>
-            <PackageCopyToOutput>true</PackageCopyToOutput>
-            <PackagePath>build</PackagePath>
-            <Visible>false</Visible>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
-        <PackageReference Include="Enums.NET" Version="5.0.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="UnitsNet" Version="5.74.0"/>
-        <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="5.50.0"/>
-        <PackageReference Include="UnitsNet.NumberExtensions" Version="5.74.0"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Compile Update="**\*.cs">
-            <DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
-        </Compile>
-        <Compile Update="IO\Input.cs">
-            <DependentUpon>KeyedInput.cs</DependentUpon>
-        </Compile>
-        <Compile Update="IO\InputHumidAir.cs">
-            <DependentUpon>KeyedInput.cs</DependentUpon>
-        </Compile>
-    </ItemGroup>
-
+  <PropertyGroup>
+    <Description>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Description>
+    <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054</NoWarn>
+    <Summary>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
+    <Title>SharpProp</Title>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="SharpProp.targets" Pack="true" PackagePath="build" Visible="false" />
+    <None Include="*.dll;*.dylib;*.so">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Pack>true</Pack>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
+      <PackagePath>build</PackagePath>
+      <Visible>false</Visible>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="UnitsNet" Version="5.74.0" />
+    <PackageReference Include="UnitsNet.Serialization.JsonNet" Version="5.50.0" />
+    <PackageReference Include="UnitsNet.NumberExtensions" Version="5.74.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="**\*.cs">
+      <DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
+    </Compile>
+    <Compile Update="IO\Input.cs">
+      <DependentUpon>KeyedInput.cs</DependentUpon>
+    </Compile>
+    <Compile Update="IO\InputHumidAir.cs">
+      <DependentUpon>KeyedInput.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>

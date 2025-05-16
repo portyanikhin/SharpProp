@@ -15,15 +15,14 @@ public class HumidAirTests
         for (var i = 0; i < 100; i++)
         {
             tasks.Add(
-                Task.Run(
-                    () =>
-                        _humidAir
-                            .WithState(
-                                InputHumidAir.Pressure(1.Atmospheres()),
-                                InputHumidAir.Temperature(20.DegreesCelsius()),
-                                InputHumidAir.RelativeHumidity(50.Percent())
-                            )
-                            .DewTemperature
+                Task.Run(() =>
+                    _humidAir
+                        .WithState(
+                            InputHumidAir.Pressure(1.Atmospheres()),
+                            InputHumidAir.Temperature(20.DegreesCelsius()),
+                            InputHumidAir.RelativeHumidity(50.Percent())
+                        )
+                        .DewTemperature
                 )
             );
         }

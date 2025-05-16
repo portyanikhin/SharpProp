@@ -22,4 +22,4 @@ jobs:
       - name: Restore tools
         run: dotnet tool restore
       - name: Check code style
-        run: dotnet csharpier --check .
+        run: dotnet csharpier check .

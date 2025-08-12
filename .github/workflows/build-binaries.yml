@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout CoolProp repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: CoolProp/CoolProp
           ref: ${{ github.event.inputs.coolprop_version }}

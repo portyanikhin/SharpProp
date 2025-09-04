@@ -58,6 +58,12 @@ public class AbstractState : IDisposable
         SwigExceptions.ThrowPendingException();
     }
 
+    public void SetMoleFractions(DoubleVector moleFractions)
+    {
+        AbstractStatePInvoke.SetMoleFractions(_handle, moleFractions.Handle);
+        SwigExceptions.ThrowPendingException();
+    }
+
     public void SetVolumeFractions(DoubleVector volumeFractions)
     {
         AbstractStatePInvoke.SetVolumeFractions(_handle, volumeFractions.Handle);

@@ -13,6 +13,9 @@ internal static class AbstractStatePInvoke
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_set_mass_fractions")]
     public static extern void SetMassFractions(HandleRef abstractState, HandleRef massFractions);
 
+    [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_set_mole_fractions")]
+    public static extern void SetMoleFractions(HandleRef abstractState, HandleRef moleFractions);
+
     [DllImport(Library.Name, EntryPoint = "CSharp_AbstractState_set_volu_fractions")]
     public static extern void SetVolumeFractions(
         HandleRef abstractState,

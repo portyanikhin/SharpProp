@@ -58,6 +58,7 @@ public class AbstractState : IDisposable
         SwigExceptions.ThrowPendingException();
     }
 
+    // ReSharper disable once UnusedMember.Global
     public void SetMoleFractions(DoubleVector moleFractions)
     {
         AbstractStatePInvoke.SetMoleFractions(_handle, moleFractions.Handle);

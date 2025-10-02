@@ -23,4 +23,10 @@ internal static class CoolPropPInvoke
         string thirdInputKey,
         double thirdInputValue
     );
+
+    [DllImport(Library.Name, EntryPoint = "CSharp_get_global_param_string")]
+    public static extern string GetGlobalParamString(string paramName);
+
+    [DllImport(Library.Name, EntryPoint = "CSharp_get_fluid_param_string")]
+    public static extern string GetFluidParamString(string fluidName, string paramName);
 }

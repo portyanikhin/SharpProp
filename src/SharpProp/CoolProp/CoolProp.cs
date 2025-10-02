@@ -1,9 +1,13 @@
+// ReSharper disable UnusedMember.Global
+
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 public static class CoolProp
 {
     private static readonly object LibraryLock = new();
+
+    static CoolProp() => SwigStrings.RegisterStringCallback();
 
     public static double PropsSI(
         string outputKey,
@@ -50,6 +54,26 @@ public static class CoolProp
                 thirdInputKey,
                 thirdInputValue
             );
+            SwigExceptions.ThrowPendingException();
+            return result;
+        }
+    }
+
+    public static string GetGlobalParamString(string paramName)
+    {
+        lock (LibraryLock)
+        {
+            var result = CoolPropPInvoke.GetGlobalParamString(paramName);
+            SwigExceptions.ThrowPendingException();
+            return result;
+        }
+    }
+
+    public static string GetFluidParamString(string fluidName, string paramName)
+    {
+        lock (LibraryLock)
+        {
+            var result = CoolPropPInvoke.GetFluidParamString(fluidName, paramName);
             SwigExceptions.ThrowPendingException();
             return result;
         }

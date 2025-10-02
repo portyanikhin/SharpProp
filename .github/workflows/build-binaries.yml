@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-binaries:
-    name: Build Binaries (${{ matrix.os }})
+    name: ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -60,7 +60,7 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: CoolProp ${{ github.event.inputs.coolprop_version }} (${{ runner.os }})
+          name: CoolProp ${{ github.event.inputs.coolprop_version }} (${{ matrix.os }})
           path: |
             *.dll
             *.dylib

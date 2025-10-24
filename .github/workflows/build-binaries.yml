@@ -58,7 +58,7 @@ jobs:
           mv Release/CoolProp.dll ./
           mv CoolProp.dll libCoolProp.dll
       - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: CoolProp ${{ github.event.inputs.coolprop_version }} (${{ matrix.os }})
           path: |

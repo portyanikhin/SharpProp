@@ -3,7 +3,7 @@
     <Authors>Vladimir Portyanikhin</Authors>
     <Copyright>Copyright (c) Vladimir Portyanikhin 2025</Copyright>
     <ImplicitUsings>enable</ImplicitUsings>
-    <LangVersion>13.0</LangVersion>
+    <LangVersion>14.0</LangVersion>
     <Nullable>enable</Nullable>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/portyanikhin/SharpProp</PackageProjectUrl>

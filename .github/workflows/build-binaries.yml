@@ -6,7 +6,7 @@ on:
       coolprop_version:
         required: true
         description: "CoolProp version"
-        default: "v7.1.0"
+        default: "v7.2.0"
 
 jobs:
   build-binaries:

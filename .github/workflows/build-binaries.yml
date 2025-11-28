@@ -34,7 +34,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: 3.14
-      - name: Setup Mono
+      - name: Linux setup
         if: runner.os == 'Linux'
         run: |
           sudo apt install ca-certificates gnupg
@@ -42,9 +42,11 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/mono-official-archive-keyring.gpg] https://download.mono-project.com/repo/ubuntu stable-focal main" | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
           sudo apt update
           sudo apt install mono-devel
-      - name: Setup SWIG
+      - name: macOS setup
         if: runner.os == 'macOS'
-        run: brew install swig
+        run: |
+          brew install swig
+          brew install mono
       - name: Restore Python dependencies
         run: |
           python -m pip install --upgrade pip

@@ -89,17 +89,12 @@ public class Mixture : AbstractFluid, IMixture
 
     public bool Equals(IMixture? other)
     {
-        if (ReferenceEquals(null, other))
+        if (other is null)
         {
             return false;
         }
 
-        if (ReferenceEquals(this, other))
-        {
-            return true;
-        }
-
-        return GetHashCode() == other.GetHashCode();
+        return ReferenceEquals(this, other) || GetHashCode() == other.GetHashCode();
     }
 
     public override bool Equals(object? obj) => Equals(obj as Mixture);

@@ -4,7 +4,7 @@
 ///     Fluid predefined info.
 /// </summary>
 /// <param name="name">CoolProp internal name.</param>
-/// <param name="backend">Type of CoolProp backend.</param>
+/// <param name="backend">Default type of CoolProp backend.</param>
 /// <param name="pure">True if pure or pseudo-pure fluid.</param>
 /// <param name="mixType">Mass-based or volume-based mixture.</param>
 /// <param name="fractionMin">Minimum possible fraction.</param>
@@ -25,7 +25,7 @@ public sealed class FluidInfoAttribute(
     public string Name { get; } = name;
 
     /// <summary>
-    ///     Type of CoolProp backend.
+    ///     Default type of CoolProp backend.
     /// </summary>
     public string Backend { get; } = backend;
 

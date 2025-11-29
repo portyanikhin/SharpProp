@@ -10,12 +10,17 @@ public class Fluid : AbstractFluid, IFluid
     /// <param name="fraction">
     ///     Mass-based or volume-based fraction for binary mixtures (optional).
     /// </param>
+    /// <param name="coolPropBackend">
+    ///     CoolProp backend to be used
+    ///     (e.g., "HEOS", "INCOMP", "REFPROP", "IF97", etc.).
+    ///     If provided, overrides the default one defined for the fluid name.
+    /// </param>
     /// <exception cref="ArgumentException">
     ///     Invalid fraction value! It should be in
     ///     [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
     /// </exception>
     /// <exception cref="ArgumentException">Need to define the fraction!</exception>
-    public Fluid(FluidsList name, Ratio? fraction = null)
+    public Fluid(FluidsList name, Ratio? fraction = null, string? coolPropBackend = null)
     {
         if (
             fraction is not null
@@ -34,7 +39,8 @@ public class Fluid : AbstractFluid, IFluid
             ? Ratio.FromPercent(100)
             : fraction?.ToUnit(RatioUnit.Percent)
                 ?? throw new ArgumentException("Need to define the fraction!");
-        Backend = AbstractState.Factory(Name.CoolPropBackend(), Name.CoolPropName());
+        CoolPropBackend = coolPropBackend ?? Name.CoolPropBackend();
+        Backend = AbstractState.Factory(CoolPropBackend, Name.CoolPropName());
         if (!Name.Pure())
         {
             SetFraction();
@@ -44,6 +50,8 @@ public class Fluid : AbstractFluid, IFluid
     public FluidsList Name { get; }
 
     public Ratio Fraction { get; }
+
+    public string CoolPropBackend { get; }
 
     public new IFluid SpecifyPhase(Phases phase) => (Fluid)base.SpecifyPhase(phase);
 
@@ -129,9 +137,14 @@ public class Fluid : AbstractFluid, IFluid
     public override bool Equals(object? obj) => Equals(obj as Fluid);
 
     public override int GetHashCode() =>
-        (Name.CoolPropName(), Fraction.DecimalFractions, base.GetHashCode()).GetHashCode();
+        (
+            Name.CoolPropName(),
+            Fraction.DecimalFractions,
+            CoolPropBackend,
+            base.GetHashCode()
+        ).GetHashCode();
 
-    protected override AbstractFluid CreateInstance() => new Fluid(Name, Fraction);
+    protected override AbstractFluid CreateInstance() => new Fluid(Name, Fraction, CoolPropBackend);
 
     private bool IsValidFluidsForMixing(IFluid first, IFluid second) =>
         Name == first.Name

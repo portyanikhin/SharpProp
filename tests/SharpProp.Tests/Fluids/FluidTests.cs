@@ -44,6 +44,17 @@ public class FluidTests : IDisposable
     }
 
     [Fact]
+    public void Fluid_OverriddenCoolPropBackend_IsUsed()
+    {
+        IFluid @default = new Fluid(FluidsList.Water);
+        IFluid custom = new Fluid(FluidsList.Water, coolPropBackend: "IF97");
+        custom.CoolPropBackend.Should().Be("IF97");
+        custom.CoolPropBackend.Should().NotBe(@default.CoolPropBackend);
+        custom.Should().NotBe(@default);
+        custom.Factory().Should().Be(custom);
+    }
+
+    [Fact]
     public void Update_SameInputs_ThrowsArgumentException()
     {
         IAbstractFluid fluid = _fluid;
@@ -246,6 +257,13 @@ public class FluidTests : IDisposable
     {
         IFactory<IFluid> fluid = _fluid;
         fluid.Factory().Phase.Should().Be(Phases.Unknown);
+    }
+
+    [Fact]
+    public void Factory_Always_CoolPropBackendIsConstant()
+    {
+        IFactory<IFluid> fluid = _fluid;
+        fluid.Factory().CoolPropBackend.Should().Be(_fluid.CoolPropBackend);
     }
 
     [Theory]

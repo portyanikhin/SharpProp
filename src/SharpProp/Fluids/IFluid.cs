@@ -22,6 +22,11 @@ public interface IFluid
     Ratio Fraction { get; }
 
     /// <summary>
+    ///    Type of CoolProp backend.
+    /// </summary>
+    string CoolPropBackend { get; }
+
+    /// <summary>
     ///     Specify the phase state for all further calculations.
     /// </summary>
     /// <param name="phase">Phase state.</param>

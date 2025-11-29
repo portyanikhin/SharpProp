@@ -4,8 +4,8 @@
 ///     An example of how to add new properties to the <see cref="Fluid"/> class.
 /// </summary>
 /// <seealso cref="IFluidExtended"/>
-public class FluidExtended(FluidsList name, Ratio? fraction = null)
-    : Fluid(name, fraction),
+public class FluidExtended(FluidsList name, Ratio? fraction = null, string? coolPropBackend = null)
+    : Fluid(name, fraction, coolPropBackend),
         IFluidExtended
 {
     private MolarMass? _molarDensity;
@@ -95,5 +95,6 @@ public class FluidExtended(FluidsList name, Ratio? fraction = null)
 
     public new IFluidExtended Factory() => (FluidExtended)base.Factory();
 
-    protected override AbstractFluid CreateInstance() => new FluidExtended(Name, Fraction);
+    protected override AbstractFluid CreateInstance() =>
+        new FluidExtended(Name, Fraction, CoolPropBackend);
 }

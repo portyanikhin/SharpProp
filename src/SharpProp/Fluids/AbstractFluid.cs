@@ -20,7 +20,7 @@ public abstract partial class AbstractFluid : IAbstractFluid
         Reset();
         var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
         Backend.Update(inputPair, firstValue, secondValue);
-        Inputs = new List<IKeyedInput<Parameters>> { firstInput, secondInput };
+        Inputs = [firstInput, secondInput];
     }
 
     public virtual void Reset()

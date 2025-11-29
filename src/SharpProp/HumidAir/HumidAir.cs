@@ -3,7 +3,7 @@
 /// <inheritdoc cref="IHumidAir"/>
 public partial class HumidAir : IHumidAir
 {
-    private IList<IKeyedInput<string>> _inputs = new List<IKeyedInput<string>>(3);
+    private List<IKeyedInput<string>> _inputs = new(3);
 
     public void Update(
         IKeyedInput<string> firstInput,
@@ -12,7 +12,7 @@ public partial class HumidAir : IHumidAir
     )
     {
         Reset();
-        _inputs = new List<IKeyedInput<string>> { firstInput, secondInput, thirdInput };
+        _inputs = [firstInput, secondInput, thirdInput];
         CheckInputs();
     }
 

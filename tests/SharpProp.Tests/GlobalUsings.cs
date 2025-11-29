@@ -1,5 +1,5 @@
 ﻿global using System.Diagnostics.CodeAnalysis;
-global using FluentAssertions;
+global using AwesomeAssertions;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Converters;
 global using UnitsNet;

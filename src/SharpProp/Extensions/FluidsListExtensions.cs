@@ -14,10 +14,10 @@ public static class FluidsListExtensions
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Name;
 
     /// <summary>
-    ///     CoolProp backend type.
+    ///     Default type of CoolProp backend.
     /// </summary>
     /// <param name="member">The <see cref="FluidsList"/> member.</param>
-    /// <returns>CoolProp backend type.</returns>
+    /// <returns>Default type of CoolProp backend.</returns>
     public static string CoolPropBackend(this FluidsList member) =>
         member.GetAttributes()!.Get<FluidInfoAttribute>()!.Backend;
 

@@ -1,23 +1,23 @@
 namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to
-///     the <see cref="IFluid"/> interface.
+/// An example of how to add new properties to
+/// the <see cref="IFluid"/> interface.
 /// </summary>
 public interface IFluidExtended : IFluid
 {
     /// <summary>
-    ///     Mass specific constant volume specific heat (by default, kJ/kg/K).
+    /// Mass specific constant volume specific heat (by default, kJ/kg/K).
     /// </summary>
     SpecificEntropy SpecificHeatConstVolume { get; }
 
     /// <summary>
-    ///     Molar density (by default, kg/mol).
+    /// Molar density (by default, kg/mol).
     /// </summary>
     MolarMass? MolarDensity { get; }
 
     /// <summary>
-    ///     Ozone depletion potential (ODP).
+    /// Ozone depletion potential (ODP).
     /// </summary>
     double? OzoneDepletionPotential { get; }
 

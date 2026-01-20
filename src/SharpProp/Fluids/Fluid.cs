@@ -8,16 +8,15 @@ public class Fluid : AbstractFluid, IFluid
     /// <inheritdoc cref="Fluid"/>
     /// <param name="name">Selected fluid name.</param>
     /// <param name="fraction">
-    ///     Mass-based or volume-based fraction for binary mixtures (optional).
+    /// Mass-based or volume-based fraction for binary mixtures (optional).
     /// </param>
     /// <param name="coolPropBackend">
-    ///     CoolProp backend to be used
-    ///     (e.g., "HEOS", "INCOMP", "REFPROP", "IF97", etc.).
-    ///     If provided, overrides the default one defined for the fluid name.
+    /// CoolProp backend to be used (e.g., "HEOS", "INCOMP", "REFPROP", "IF97", etc.).
+    /// If provided, overrides the default one defined for the fluid name.
     /// </param>
     /// <exception cref="ArgumentException">
-    ///     Invalid fraction value! It should be in
-    ///     [{fractionMin};{fractionMax}] %. Entered value = {fraction} %.
+    /// Invalid fraction value! It should be in [{fractionMin};{fractionMax}] %.
+    /// Entered value = {fraction} %.
     /// </exception>
     /// <exception cref="ArgumentException">Need to define the fraction!</exception>
     public Fluid(FluidsList name, Ratio? fraction = null, string? coolPropBackend = null)

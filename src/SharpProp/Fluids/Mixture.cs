@@ -9,16 +9,16 @@ public class Mixture : AbstractFluid, IMixture
     /// <param name="fluids">List of selected pure fluid names.</param>
     /// <param name="fractions">List of mass-based fractions.</param>
     /// <exception cref="ArgumentException">
-    ///     Invalid input! Fluids and Fractions should be of the same length.
+    /// Invalid input! Fluids and Fractions should be of the same length.
     /// </exception>
     /// <exception cref="ArgumentException">
-    ///     Invalid components! All of them should be a pure fluid with HEOS backend.
+    /// Invalid components! All of them should be a pure fluid with HEOS backend.
     /// </exception>
     /// <exception cref="ArgumentException">
-    ///     Invalid component mass fractions! All of them should be in (0;100) %.
+    /// Invalid component mass fractions! All of them should be in (0;100) %.
     /// </exception>
     /// <exception cref="ArgumentException">
-    ///     Invalid component mass fractions! Their sum should be equal to 100 %.
+    /// Invalid component mass fractions! Their sum should be equal to 100 %.
     /// </exception>
     public Mixture(IEnumerable<FluidsList> fluids, IEnumerable<Ratio> fractions)
     {

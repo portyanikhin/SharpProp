@@ -3,7 +3,7 @@
 namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to the <see cref="Fluid"/> class.
+/// An example of how to add new properties to the <see cref="Fluid"/> class.
 /// </summary>
 /// <seealso cref="IFluidExtended"/>
 public class FluidExtended(FluidsList name, Ratio? fraction = null, string? coolPropBackend = null)

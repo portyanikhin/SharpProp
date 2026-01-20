@@ -1,13 +1,13 @@
 namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to the <see cref="IHumidAir"/> interface.
+/// An example of how to add new properties to the <see cref="IHumidAir"/> interface.
 /// </summary>
 public interface IHumidAirExtended : IHumidAir
 {
     /// <summary>
-    ///     Mass specific constant volume
-    ///     specific heat per humid air (by default, kJ/kg/K).
+    /// Mass specific constant volume
+    /// specific heat per humid air (by default, kJ/kg/K).
     /// </summary>
     SpecificEntropy SpecificHeatConstVolume { get; }
 

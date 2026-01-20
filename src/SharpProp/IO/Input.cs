@@ -3,7 +3,7 @@
 namespace SharpProp;
 
 /// <summary>
-///     CoolProp keyed input for fluids and mixtures.
+/// CoolProp keyed input for fluids and mixtures.
 /// </summary>
 /// <param name="CoolPropKey">CoolProp internal key.</param>
 /// <param name="Value">Input value in SI units.</param>
@@ -13,7 +13,7 @@ public record Input(Parameters CoolPropKey, double Value)
     public override string CoolPropHighLevelKey => CoolPropKey.ToString().TrimStart('i');
 
     /// <summary>
-    ///     Mass density.
+    /// Mass density.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass density for the input.</returns>
@@ -21,7 +21,7 @@ public record Input(Parameters CoolPropKey, double Value)
         new(Parameters.iDmass, value.KilogramsPerCubicMeter);
 
     /// <summary>
-    ///     Mass specific enthalpy.
+    /// Mass specific enthalpy.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass specific enthalpy for the input.</returns>
@@ -29,7 +29,7 @@ public record Input(Parameters CoolPropKey, double Value)
         new(Parameters.iHmass, value.JoulesPerKilogram);
 
     /// <summary>
-    ///     Mass specific entropy.
+    /// Mass specific entropy.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass specific entropy for the input.</returns>
@@ -37,7 +37,7 @@ public record Input(Parameters CoolPropKey, double Value)
         new(Parameters.iSmass, value.JoulesPerKilogramKelvin);
 
     /// <summary>
-    ///     Mass specific internal energy.
+    /// Mass specific internal energy.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass specific internal energy for the input.</returns>
@@ -45,21 +45,21 @@ public record Input(Parameters CoolPropKey, double Value)
         new(Parameters.iUmass, value.JoulesPerKilogram);
 
     /// <summary>
-    ///     Absolute pressure.
+    /// Absolute pressure.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Absolute pressure for the input.</returns>
     public static Input Pressure(Pressure value) => new(Parameters.iP, value.Pascals);
 
     /// <summary>
-    ///     Mass vapor quality.
+    /// Mass vapor quality.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass vapor quality for the input.</returns>
     public static Input Quality(Ratio value) => new(Parameters.iQ, value.DecimalFractions);
 
     /// <summary>
-    ///     Mass specific volume.
+    /// Mass specific volume.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass specific volume for the input.</returns>
@@ -67,7 +67,7 @@ public record Input(Parameters CoolPropKey, double Value)
         new(Parameters.iDmass, 1.0 / value.CubicMetersPerKilogram);
 
     /// <summary>
-    ///     Temperature.
+    /// Temperature.
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Temperature for the input.</returns>

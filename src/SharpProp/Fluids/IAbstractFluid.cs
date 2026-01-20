@@ -1,12 +1,12 @@
 namespace SharpProp;
 
 /// <summary>
-///     Abstract fluid.
+/// Abstract fluid.
 /// </summary>
 public interface IAbstractFluid : IFluidState, IDisposable
 {
     /// <summary>
-    ///     Updates the state of the fluid.
+    /// Updates the state of the fluid.
     /// </summary>
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
@@ -14,7 +14,7 @@ public interface IAbstractFluid : IFluidState, IDisposable
     void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput);
 
     /// <summary>
-    ///     Resets all non-trivial properties.
+    /// Resets all non-trivial properties.
     /// </summary>
     void Reset();
 }

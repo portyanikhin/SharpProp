@@ -4,7 +4,7 @@
 namespace SharpProp;
 
 /// <summary>
-///     CoolProp parameter keys.
+/// CoolProp parameter keys.
 /// </summary>
 public enum Parameters
 {

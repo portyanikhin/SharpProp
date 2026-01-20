@@ -1,7 +1,7 @@
 namespace SharpProp.Tests;
 
 /// <summary>
-///     An example of how to add new properties to the <see cref="HumidAir"/> class.
+/// An example of how to add new properties to the <see cref="HumidAir"/> class.
 /// </summary>
 /// <seealso cref="IHumidAirExtended"/>
 public class HumidAirExtended : HumidAir, IHumidAirExtended

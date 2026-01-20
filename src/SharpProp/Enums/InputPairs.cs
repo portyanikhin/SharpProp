@@ -4,7 +4,7 @@
 namespace SharpProp;
 
 /// <summary>
-///     CoolProp input pairs.
+/// CoolProp input pairs.
 /// </summary>
 public enum InputPairs
 {

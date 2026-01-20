@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Unit tests for the SharpProp</Description>
-    <NoWarn>$(NoWarn);IDE0130</NoWarn>
+    <NoWarn>$(NoWarn);CA1859;CA2263;IDE0130;xUnit1045</NoWarn>
     <Summary>Unit tests for the SharpProp</Summary>
     <Title>SharpProp.Tests</Title>
   </PropertyGroup>

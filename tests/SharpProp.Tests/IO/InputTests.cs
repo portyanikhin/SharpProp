@@ -1,3 +1,5 @@
+// cSpell:disable
+
 using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;

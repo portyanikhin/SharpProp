@@ -1,3 +1,4 @@
+// cSpell:disable
 // ReSharper disable All
 
 namespace SharpProp;

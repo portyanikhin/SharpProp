@@ -1,3 +1,5 @@
+// cSpell:disable
+
 namespace SharpProp.Tests;
 
 public class InputExtendedTests

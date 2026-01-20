@@ -1,4 +1,5 @@
 // cSpell:disable
+// ReSharper disable SwitchStatementHandlesSomeKnownEnumValuesWithDefault
 
 namespace SharpProp.Tests;
 
@@ -6,7 +7,6 @@ public static class FluidsListTests
 {
     [Theory]
     [MemberData(nameof(FluidNames))]
-    [SuppressMessage("ReSharper", "SwitchStatementHandlesSomeKnownEnumValuesWithDefault")]
     public static void CoolPropName_AllFluids_AreValidForCoolProp(FluidsList name)
     {
         if (name.CoolPropName().EndsWith(".mix"))

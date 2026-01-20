@@ -1,7 +1,8 @@
+// ReSharper disable BuiltInTypeReferenceStyle
+
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
-[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 public class DoubleVector : IList<double>, IDisposable
 {
     private static readonly object CollectionLock = new();

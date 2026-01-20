@@ -1,0 +1,17 @@
+{
+  "allowCompoundWords": true,
+  "language": "en",
+  "dictionaries": ["csharp", "dotnet"],
+  "words": [
+    "isenthalpic",
+    "jsonable",
+    "millipascal",
+    "portyanikhin",
+    "prandtl",
+    "syslib",
+    "thermophysical",
+    "unspecify",
+    "volu",
+    "xunit"
+  ]
+}

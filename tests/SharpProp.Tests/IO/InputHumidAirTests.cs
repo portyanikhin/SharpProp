@@ -39,35 +39,37 @@ public static class InputHumidAirTests
             .Should()
             .NotBe(InputHumidAir.Temperature(20.DegreesCelsius()));
 
-    public static IEnumerable<object[]> CoolPropKeys() =>
-        [
-            [InputHumidAir.Altitude(300.Meters()), "P"],
-            [InputHumidAir.Density(1.25.KilogramsPerCubicMeter()), "Vha"],
-            [InputHumidAir.DewTemperature(10.DegreesCelsius()), "D"],
-            [InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), "Hha"],
-            [InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()), "Sha"],
-            [InputHumidAir.Humidity(5.PartsPerThousand()), "W"],
-            [InputHumidAir.PartialPressure(1.Kilopascals()), "P_w"],
-            [InputHumidAir.Pressure(1.Atmospheres()), "P"],
-            [InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)), "R"],
-            [InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()), "Vha"],
-            [InputHumidAir.Temperature(20.DegreesCelsius()), "T"],
-            [InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), "B"],
-        ];
+    public static TheoryData<InputHumidAir, string> CoolPropKeys() =>
+        new()
+        {
+            { InputHumidAir.Altitude(300.Meters()), "P" },
+            { InputHumidAir.Density(1.25.KilogramsPerCubicMeter()), "Vha" },
+            { InputHumidAir.DewTemperature(10.DegreesCelsius()), "D" },
+            { InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), "Hha" },
+            { InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()), "Sha" },
+            { InputHumidAir.Humidity(5.PartsPerThousand()), "W" },
+            { InputHumidAir.PartialPressure(1.Kilopascals()), "P_w" },
+            { InputHumidAir.Pressure(1.Atmospheres()), "P" },
+            { InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)), "R" },
+            { InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()), "Vha" },
+            { InputHumidAir.Temperature(20.DegreesCelsius()), "T" },
+            { InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), "B" },
+        };
 
-    public static IEnumerable<object[]> Values() =>
-        [
-            [InputHumidAir.Altitude(300.Meters()), 97772.56060611102],
-            [InputHumidAir.Density(1.25.KilogramsPerCubicMeter()), 0.8],
-            [InputHumidAir.DewTemperature(10.DegreesCelsius()), 283.15],
-            [InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), 2e4],
-            [InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()), 1e4],
-            [InputHumidAir.Humidity(5.PartsPerThousand()), 5e-3],
-            [InputHumidAir.PartialPressure(1.Kilopascals()), 1e3],
-            [InputHumidAir.Pressure(1.Atmospheres()), 101325],
-            [InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)), 0.5],
-            [InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()), 0.8],
-            [InputHumidAir.Temperature(20.DegreesCelsius()), 293.15],
-            [InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), 288.15],
-        ];
+    public static TheoryData<InputHumidAir, double> Values() =>
+        new()
+        {
+            { InputHumidAir.Altitude(300.Meters()), 97772.56060611102 },
+            { InputHumidAir.Density(1.25.KilogramsPerCubicMeter()), 0.8 },
+            { InputHumidAir.DewTemperature(10.DegreesCelsius()), 283.15 },
+            { InputHumidAir.Enthalpy(20.KilojoulesPerKilogram()), 2e4 },
+            { InputHumidAir.Entropy(10.KilojoulesPerKilogramKelvin()), 1e4 },
+            { InputHumidAir.Humidity(5.PartsPerThousand()), 5e-3 },
+            { InputHumidAir.PartialPressure(1.Kilopascals()), 1e3 },
+            { InputHumidAir.Pressure(1.Atmospheres()), 101325 },
+            { InputHumidAir.RelativeHumidity(RelativeHumidity.FromPercent(50)), 0.5 },
+            { InputHumidAir.SpecificVolume(0.8.CubicMetersPerKilogram()), 0.8 },
+            { InputHumidAir.Temperature(20.DegreesCelsius()), 293.15 },
+            { InputHumidAir.WetBulbTemperature(15.DegreesCelsius()), 288.15 },
+        };
 }

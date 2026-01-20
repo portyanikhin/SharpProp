@@ -97,8 +97,8 @@ public static class FluidsListTests
         }
     }
 
-    public static IEnumerable<object[]> FluidNames() =>
-        Enum.GetValues(typeof(FluidsList)).Cast<object>().Select(name => new[] { name });
+    public static TheoryData<FluidsList> FluidNames() =>
+        [.. Enum.GetValues(typeof(FluidsList)).Cast<FluidsList>()];
 
     private static string RemoveChars(this string s, params char[] charsToRemove) =>
         string.Join("", s.Split(charsToRemove, StringSplitOptions.RemoveEmptyEntries));

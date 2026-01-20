@@ -19,8 +19,8 @@ public class MixtureTests : IDisposable
     [Theory]
     [MemberData(nameof(WrongFluidsOrFractions))]
     public static void Mixture_WrongFluidsOrFractions_ThrowsArgumentException(
-        List<FluidsList> fluids,
-        List<Ratio> fractions,
+        FluidsList[] fluids,
+        Ratio[] fractions,
         string message
     )
     {
@@ -229,32 +229,33 @@ public class MixtureTests : IDisposable
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
-    public static IEnumerable<object[]> WrongFluidsOrFractions() =>
-        [
-            [
-                new List<FluidsList> { FluidsList.Water },
-                new List<Ratio> { 60.Percent(), 40.Percent() },
-                "Invalid input! Fluids and Fractions should be of the same length.",
-            ],
-            [
-                new List<FluidsList> { FluidsList.MPG, FluidsList.MEG },
-                new List<Ratio> { 60.Percent(), 40.Percent() },
-                "Invalid components! All of them should be a pure fluid with HEOS backend.",
-            ],
-            [
-                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-                new List<Ratio> { -200.Percent(), 40.Percent() },
-                "Invalid component mass fractions! All of them should be in (0;100) %.",
-            ],
-            [
-                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-                new List<Ratio> { 60.Percent(), 200.Percent() },
-                "Invalid component mass fractions! All of them should be in (0;100) %.",
-            ],
-            [
-                new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-                new List<Ratio> { 80.Percent(), 80.Percent() },
-                "Invalid component mass fractions! Their sum should be equal to 100 %.",
-            ],
-        ];
+    public static TheoryData<FluidsList[], Ratio[], string> WrongFluidsOrFractions() =>
+        new()
+        {
+            {
+                [FluidsList.Water],
+                [60.Percent(), 40.Percent()],
+                "Invalid input! Fluids and Fractions should be of the same length."
+            },
+            {
+                [FluidsList.MPG, FluidsList.MEG],
+                [60.Percent(), 40.Percent()],
+                "Invalid components! All of them should be a pure fluid with HEOS backend."
+            },
+            {
+                [FluidsList.Water, FluidsList.Ethanol],
+                [-200.Percent(), 40.Percent()],
+                "Invalid component mass fractions! All of them should be in (0;100) %."
+            },
+            {
+                [FluidsList.Water, FluidsList.Ethanol],
+                [60.Percent(), 200.Percent()],
+                "Invalid component mass fractions! All of them should be in (0;100) %."
+            },
+            {
+                [FluidsList.Water, FluidsList.Ethanol],
+                [80.Percent(), 80.Percent()],
+                "Invalid component mass fractions! Their sum should be equal to 100 %."
+            },
+        };
 }

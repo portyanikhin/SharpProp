@@ -355,14 +355,17 @@ public class FluidTests : IDisposable
         origin.GetHashCode().Should().NotBe(other.GetHashCode());
     }
 
-    public static IEnumerable<object[]> FluidNames() =>
-        Enum.GetValues(typeof(FluidsList))
-            .Cast<FluidsList>()
-            .Where(name =>
-                !(name is FluidsList.AL or FluidsList.AN || name.CoolPropName().EndsWith(".mix"))
-            )
-            .Cast<object>()
-            .Select(name => new[] { name });
+    public static TheoryData<FluidsList> FluidNames() =>
+        [
+            .. Enum.GetValues(typeof(FluidsList))
+                .Cast<FluidsList>()
+                .Where(name =>
+                    !(
+                        name is FluidsList.AL or FluidsList.AN
+                        || name.CoolPropName().EndsWith(".mix")
+                    )
+                ),
+        ];
 
     private void SetUpFluid(FluidsList name)
     {

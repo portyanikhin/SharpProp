@@ -1,4 +1,4 @@
-﻿namespace SharpProp.Tests;
+namespace SharpProp.Tests;
 
 /// <summary>
 ///     An example of how to extend the <see cref="Input"/> record.

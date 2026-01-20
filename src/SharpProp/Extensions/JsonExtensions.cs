@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 internal static class JsonExtensions
 {

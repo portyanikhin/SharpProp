@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 [SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]

@@ -1,4 +1,4 @@
-﻿using UnitsNet.NumberExtensions.NumberToRatio;
+using UnitsNet.NumberExtensions.NumberToRatio;
 
 namespace SharpProp.Tests;
 

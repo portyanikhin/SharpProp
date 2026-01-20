@@ -1,4 +1,4 @@
-﻿namespace SharpProp.Tests;
+namespace SharpProp.Tests;
 
 /// <summary>
 ///     An example of how to add new properties to the <see cref="IHumidAir"/> interface.

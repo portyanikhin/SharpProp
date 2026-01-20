@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 public abstract partial class AbstractFluid
 {

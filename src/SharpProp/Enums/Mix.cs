@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <summary>
 ///     Mixture types.

@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <inheritdoc cref="IAbstractFluid"/>
 public abstract partial class AbstractFluid : IAbstractFluid

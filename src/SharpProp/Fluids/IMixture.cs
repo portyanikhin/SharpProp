@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <summary>
 ///     Mass-based mixture of pure fluids.

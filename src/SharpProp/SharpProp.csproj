@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Description>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Description>
-    <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054</NoWarn>
+    <NoWarn>$(NoWarn);1591;NU5129;CA2101;SYSLIB1054;IDE0130</NoWarn>
     <Summary>Simple, full-featured, lightweight, cross-platform CoolProp wrapper for C#</Summary>
     <Title>SharpProp</Title>
   </PropertyGroup>

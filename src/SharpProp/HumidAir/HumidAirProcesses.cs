@@ -1,4 +1,4 @@
-﻿using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
+using UnitsNet.NumberExtensions.NumberToRelativeHumidity;
 
 namespace SharpProp;
 

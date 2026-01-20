@@ -1,4 +1,4 @@
-﻿global using System.Diagnostics.CodeAnalysis;
+global using System.Diagnostics.CodeAnalysis;
 global using AwesomeAssertions;
 global using Newtonsoft.Json;
 global using Newtonsoft.Json.Converters;

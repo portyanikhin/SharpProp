@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 internal record UpdatePair(InputPairs InputPair, double FirstValue, double SecondValue)
 {

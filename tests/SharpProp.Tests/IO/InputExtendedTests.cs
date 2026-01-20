@@ -1,4 +1,4 @@
-﻿namespace SharpProp.Tests;
+namespace SharpProp.Tests;
 
 public class InputExtendedTests
 {

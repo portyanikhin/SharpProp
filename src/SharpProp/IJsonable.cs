@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <summary>
 ///     Supports converting to a JSON string.

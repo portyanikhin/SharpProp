@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <summary>
 ///     Pure/pseudo-pure fluid or binary mixture.

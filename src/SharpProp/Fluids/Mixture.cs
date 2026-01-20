@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <inheritdoc cref="IMixture"/>
 public class Mixture : AbstractFluid, IMixture

@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <inheritdoc cref="IHumidAir"/>
 public partial class HumidAir : IHumidAir

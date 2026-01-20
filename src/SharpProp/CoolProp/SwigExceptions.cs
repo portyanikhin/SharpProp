@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
 internal static class SwigExceptions

@@ -1,4 +1,4 @@
-﻿namespace SharpProp;
+namespace SharpProp;
 
 /// <inheritdoc cref="IKeyedInput{T}"/>
 /// <param name="CoolPropKey">CoolProp internal key.</param>

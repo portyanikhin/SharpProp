@@ -1,7 +1,8 @@
+// ReSharper disable BuiltInTypeReferenceStyle
+
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
-[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 internal static class DoubleVectorPInvoke
 {
     [DllImport(Library.Name, EntryPoint = "CSharp_DoubleVector_Clear")]

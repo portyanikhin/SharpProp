@@ -1,3 +1,5 @@
+// ReSharper disable NonReadonlyMemberInGetHashCode
+
 namespace SharpProp;
 
 /// <inheritdoc cref="IAbstractFluid"/>
@@ -58,7 +60,6 @@ public abstract partial class AbstractFluid : IAbstractFluid
         return this;
     }
 
-    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
         (
             string.Join("&", Inputs.Select(input => input.Value)),

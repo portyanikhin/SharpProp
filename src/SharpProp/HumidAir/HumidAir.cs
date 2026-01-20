@@ -1,3 +1,5 @@
+// ReSharper disable NonReadonlyMemberInGetHashCode
+
 namespace SharpProp;
 
 /// <inheritdoc cref="IHumidAir"/>
@@ -64,7 +66,6 @@ public partial class HumidAir : IHumidAir
 
     public override bool Equals(object? obj) => Equals(obj as HumidAir);
 
-    [SuppressMessage("ReSharper", "NonReadonlyMemberInGetHashCode")]
     public override int GetHashCode() =>
         (
             string.Join("&", _inputs.Select(input => input.Value)),

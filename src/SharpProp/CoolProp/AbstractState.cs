@@ -1,7 +1,8 @@
+// ReSharper disable BuiltInTypeReferenceStyle
+
 namespace SharpProp;
 
 [ExcludeFromCodeCoverage]
-[SuppressMessage("ReSharper", "BuiltInTypeReferenceStyle")]
 public class AbstractState : IDisposable
 {
     private static readonly object HandlesLock = new();

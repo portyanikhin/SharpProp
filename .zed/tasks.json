@@ -1,0 +1,57 @@
+[
+  {
+    "label": "Build",
+    "command": "dotnet",
+    "args": ["build"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Clean",
+    "command": "dotnet",
+    "args": ["clean"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Formatting",
+    "command": "dotnet",
+    "args": ["csharpier", "format", ".", "--no-cache"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Restore",
+    "command": "dotnet",
+    "args": ["restore"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Restore Tools",
+    "command": "dotnet",
+    "args": ["tool", "restore"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Tests",
+    "command": "dotnet",
+    "args": ["test"],
+    "shell": {
+      "program": "sh",
+    },
+  },
+  {
+    "label": "Coverage",
+    "command": "rm -rf TestResults coveragereport && dotnet test --collect:'XPlat Code Coverage' && reportgenerator -reports:'**/TestResults/**/coverage.cobertura.xml' -targetdir:coveragereport -reporttypes:Html && (xdg-open coveragereport/index.html 2>/dev/null || open coveragereport/index.html 2>/dev/null || start coveragereport/index.html)",
+    "shell": {
+      "program": "sh",
+    },
+  },
+]

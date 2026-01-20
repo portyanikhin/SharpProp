@@ -283,11 +283,11 @@ public class FluidTests : IDisposable
                     fluid,
                     new JsonSerializerSettings
                     {
-                        Converters = new List<JsonConverter>
-                        {
+                        Converters =
+                        [
                             new StringEnumConverter(),
                             new UnitsNetIQuantityJsonConverter(),
-                        },
+                        ],
                         Formatting = indented ? Formatting.Indented : Formatting.None,
                     }
                 )

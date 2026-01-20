@@ -22,8 +22,8 @@ public class Mixture : AbstractFluid, IMixture
     /// </exception>
     public Mixture(IEnumerable<FluidsList> fluids, IEnumerable<Ratio> fractions)
     {
-        Fluids = fluids.ToList();
-        Fractions = fractions.Select(fraction => fraction.ToUnit(RatioUnit.Percent)).ToList();
+        Fluids = [.. fluids];
+        Fractions = [.. fractions.Select(fraction => fraction.ToUnit(RatioUnit.Percent))];
         if (Fluids.Count != Fractions.Count)
         {
             throw new ArgumentException(

@@ -9,8 +9,8 @@ public class MixtureProcessesTests : IDisposable
     private static readonly Pressure PressureDrop = 50.Kilopascals();
 
     private readonly IMixture _mixture = new Mixture(
-        new List<FluidsList> { FluidsList.Argon, FluidsList.IsoButane },
-        new List<Ratio> { 50.Percent(), 50.Percent() }
+        [FluidsList.Argon, FluidsList.IsoButane],
+        [50.Percent(), 50.Percent()]
     ).WithState(Input.Pressure(1.Atmospheres()), Input.Temperature(20.DegreesCelsius()));
 
     public void Dispose()

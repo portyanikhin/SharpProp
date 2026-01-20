@@ -6,8 +6,8 @@ namespace SharpProp.Tests;
 public class MixtureTests : IDisposable
 {
     private readonly IMixture _mixture = new Mixture(
-        new List<FluidsList> { FluidsList.Water, FluidsList.Ethanol },
-        new List<Ratio> { 60.Percent(), 40.Percent() }
+        [FluidsList.Water, FluidsList.Ethanol],
+        [60.Percent(), 40.Percent()]
     );
 
     public void Dispose()
@@ -157,11 +157,11 @@ public class MixtureTests : IDisposable
                     fluid,
                     new JsonSerializerSettings
                     {
-                        Converters = new List<JsonConverter>
-                        {
+                        Converters =
+                        [
                             new StringEnumConverter(),
                             new UnitsNetIQuantityJsonConverter(),
-                        },
+                        ],
                         Formatting = indented ? Formatting.Indented : Formatting.None,
                     }
                 )

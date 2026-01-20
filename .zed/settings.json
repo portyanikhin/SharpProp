@@ -1,0 +1,30 @@
+{
+  "format_on_save": "on",
+  "tab_size": 4,
+  "languages": {
+    "CSharp": {
+      "formatter": {
+        "external": {
+          "command": "dotnet",
+          "arguments": ["csharpier", "format", "--stdin-path", "{buffer_path}"],
+        },
+      },
+    },
+    "XML": {
+      "formatter": "prettier",
+      "tab_size": 2,
+    },
+    "JSON": {
+      "formatter": "prettier",
+      "tab_size": 2,
+    },
+    "JSONC": {
+      "formatter": "prettier",
+      "tab_size": 2,
+    },
+    "YAML": {
+      "formatter": "prettier",
+      "tab_size": 2,
+    },
+  },
+}

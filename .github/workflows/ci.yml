@@ -31,6 +31,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     timeout-minutes: 45
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-24.04-arm

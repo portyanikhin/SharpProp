@@ -457,5 +457,5 @@ Console.WriteLine(origin.Equals(clone)); // false
 
 <sup>
 This project is licensed under
-<a href="https://github.com/portyanikhin/sharpprop/blob/main/LICENSE">MIT License</a>.
+<a href="https://github.com/portyanikhin/sharpprop/blob/main/LICENSE">MIT License</a>
 </sup>

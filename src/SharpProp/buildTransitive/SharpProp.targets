@@ -3,25 +3,20 @@
     <SharpPropPackageRoot>$(MSBuildThisFileDirectory)..\</SharpPropPackageRoot>
     <SharpPropNativeRidCandidate
       Condition="'$(SharpPropNativeRidCandidate)' == '' and '$(RuntimeIdentifier)' != ''"
-      >$(RuntimeIdentifier)</SharpPropNativeRidCandidate
-    >
+      >$(RuntimeIdentifier)</SharpPropNativeRidCandidate>
     <SharpPropNativeRid
       Condition="'$(SharpPropNativeRid)' == '' and '$(SharpPropNativeRidCandidate)' != ''
       and Exists('$(SharpPropPackageRoot)runtimes\$(SharpPropNativeRidCandidate)\native')"
-      >$(SharpPropNativeRidCandidate)</SharpPropNativeRid
-    >
+      >$(SharpPropNativeRidCandidate)</SharpPropNativeRid>
     <SharpPropNativeRidCandidate
       Condition="'$(SharpPropNativeRid)' == '' and '$(NETCoreSdkRuntimeIdentifier)' != ''"
-      >$(NETCoreSdkRuntimeIdentifier)</SharpPropNativeRidCandidate
-    >
+      >$(NETCoreSdkRuntimeIdentifier)</SharpPropNativeRidCandidate>
     <SharpPropNativeRid
       Condition="'$(SharpPropNativeRid)' == '' and '$(SharpPropNativeRidCandidate)' != ''
       and Exists('$(SharpPropPackageRoot)runtimes\$(SharpPropNativeRidCandidate)\native')"
-      >$(SharpPropNativeRidCandidate)</SharpPropNativeRid
-    >
+      >$(SharpPropNativeRidCandidate)</SharpPropNativeRid>
     <SharpPropOSArchitecture Condition="'$(SharpPropOSArchitecture)' == ''"
-      >$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)</SharpPropOSArchitecture
-    >
+      >$([System.Runtime.InteropServices.RuntimeInformation]::OSArchitecture)</SharpPropOSArchitecture>
   </PropertyGroup>
 
   <PropertyGroup

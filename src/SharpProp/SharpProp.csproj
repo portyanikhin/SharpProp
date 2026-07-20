@@ -55,6 +55,9 @@
     />
   </ItemGroup>
   <ItemGroup>
+    <InternalsVisibleTo Include="SharpProp.Tests" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Enums.NET" Version="5.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="UnitsNet" Version="5.75.0" />

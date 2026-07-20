@@ -31,7 +31,7 @@
   },
   {
     "label": "Coverage",
-    "command": "rm -rf TestResults coveragereport && dotnet test --collect:\"XPlat Code Coverage\" && dotnet reportgenerator -reports:\"**/TestResults/**/coverage.cobertura.xml\" -targetdir:coveragereport -reporttypes:Html && (xdg-open coveragereport/index.html 2>/dev/null || open coveragereport/index.html 2>/dev/null || explorer.exe \"$(cygpath -w coveragereport/index.html)\")",
+    "command": "rm -rf TestResults coveragereport && dotnet test -f net10.0 --collect:\"XPlat Code Coverage\" --settings coverlet.runsettings --results-directory TestResults -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.UseSourceLink=false && dotnet reportgenerator -reports:\"TestResults/**/coverage.cobertura.xml\" -targetdir:coveragereport -reporttypes:Html && (xdg-open coveragereport/index.html 2>/dev/null || open coveragereport/index.html 2>/dev/null || explorer.exe \"$(cygpath -w coveragereport/index.html)\" || true)",
     "shell": {
       "program": "sh",
     },

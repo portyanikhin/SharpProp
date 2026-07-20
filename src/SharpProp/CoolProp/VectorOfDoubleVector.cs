@@ -13,23 +13,23 @@
 
 namespace CoolProp;
 
-public class DoubleVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IList<double>
+public class VectorOfDoubleVector : global::System.IDisposable, global::System.Collections.IEnumerable, global::System.Collections.Generic.IEnumerable<DoubleVector>
 {
     private global::System.Runtime.InteropServices.HandleRef swigCPtr;
     protected bool swigCMemOwn;
 
-    internal DoubleVector(global::System.IntPtr cPtr, bool cMemoryOwn)
+    internal VectorOfDoubleVector(global::System.IntPtr cPtr, bool cMemoryOwn)
     {
         swigCMemOwn = cMemoryOwn;
         swigCPtr = new global::System.Runtime.InteropServices.HandleRef(this, cPtr);
     }
 
-    internal static global::System.Runtime.InteropServices.HandleRef getCPtr(DoubleVector obj)
+    internal static global::System.Runtime.InteropServices.HandleRef getCPtr(VectorOfDoubleVector obj)
     {
         return (obj == null) ? new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero) : obj.swigCPtr;
     }
 
-    internal static global::System.Runtime.InteropServices.HandleRef swigRelease(DoubleVector obj)
+    internal static global::System.Runtime.InteropServices.HandleRef swigRelease(VectorOfDoubleVector obj)
     {
         if (obj != null)
         {
@@ -46,7 +46,7 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
         }
     }
 
-    ~DoubleVector()
+    ~VectorOfDoubleVector()
     {
         Dispose(false);
     }
@@ -66,28 +66,28 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
                 if (swigCMemOwn)
                 {
                     swigCMemOwn = false;
-                    CoolPropPINVOKE.delete_DoubleVector(swigCPtr);
+                    CoolPropPINVOKE.delete_VectorOfDoubleVector(swigCPtr);
                 }
                 swigCPtr = new global::System.Runtime.InteropServices.HandleRef(null, global::System.IntPtr.Zero);
             }
         }
     }
 
-    public DoubleVector(global::System.Collections.IEnumerable c) : this()
+    public VectorOfDoubleVector(global::System.Collections.IEnumerable c) : this()
     {
         if (c == null)
             throw new global::System.ArgumentNullException("c");
-        foreach (double element in c)
+        foreach (DoubleVector element in c)
         {
             this.Add(element);
         }
     }
 
-    public DoubleVector(global::System.Collections.Generic.IEnumerable<double> c) : this()
+    public VectorOfDoubleVector(global::System.Collections.Generic.IEnumerable<DoubleVector> c) : this()
     {
         if (c == null)
             throw new global::System.ArgumentNullException("c");
-        foreach (double element in c)
+        foreach (DoubleVector element in c)
         {
             this.Add(element);
         }
@@ -109,7 +109,7 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
         }
     }
 
-    public double this[int index]
+    public DoubleVector this[int index]
     {
         get
         {
@@ -159,17 +159,17 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
         }
     }
 
-    public void CopyTo(double[] array)
+    public void CopyTo(DoubleVector[] array)
     {
         CopyTo(0, array, 0, this.Count);
     }
 
-    public void CopyTo(double[] array, int arrayIndex)
+    public void CopyTo(DoubleVector[] array, int arrayIndex)
     {
         CopyTo(0, array, arrayIndex, this.Count);
     }
 
-    public void CopyTo(int index, double[] array, int arrayIndex, int count)
+    public void CopyTo(int index, DoubleVector[] array, int arrayIndex, int count)
     {
         if (array == null)
             throw new global::System.ArgumentNullException("array");
@@ -187,26 +187,26 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
             array.SetValue(getitemcopy(index + i), arrayIndex + i);
     }
 
-    public double[] ToArray()
+    public DoubleVector[] ToArray()
     {
-        double[] array = new double[this.Count];
+        DoubleVector[] array = new DoubleVector[this.Count];
         this.CopyTo(array);
         return array;
     }
 
-    global::System.Collections.Generic.IEnumerator<double> global::System.Collections.Generic.IEnumerable<double>.GetEnumerator()
+    global::System.Collections.Generic.IEnumerator<DoubleVector> global::System.Collections.Generic.IEnumerable<DoubleVector>.GetEnumerator()
     {
-        return new DoubleVectorEnumerator(this);
+        return new VectorOfDoubleVectorEnumerator(this);
     }
 
     global::System.Collections.IEnumerator global::System.Collections.IEnumerable.GetEnumerator()
     {
-        return new DoubleVectorEnumerator(this);
+        return new VectorOfDoubleVectorEnumerator(this);
     }
 
-    public DoubleVectorEnumerator GetEnumerator()
+    public VectorOfDoubleVectorEnumerator GetEnumerator()
     {
-        return new DoubleVectorEnumerator(this);
+        return new VectorOfDoubleVectorEnumerator(this);
     }
 
     // Type-safe enumerator
@@ -214,15 +214,15 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
     /// whenever the collection is modified. This has been done for changes in the size of the
     /// collection but not when one of the elements of the collection is modified as it is a bit
     /// tricky to detect unmanaged code that modifies the collection under our feet.
-    public sealed class DoubleVectorEnumerator : global::System.Collections.IEnumerator
-      , global::System.Collections.Generic.IEnumerator<double>
+    public sealed class VectorOfDoubleVectorEnumerator : global::System.Collections.IEnumerator
+      , global::System.Collections.Generic.IEnumerator<DoubleVector>
     {
-        private DoubleVector collectionRef;
+        private VectorOfDoubleVector collectionRef;
         private int currentIndex;
         private object currentObject;
         private int currentSize;
 
-        public DoubleVectorEnumerator(DoubleVector collection)
+        public VectorOfDoubleVectorEnumerator(VectorOfDoubleVector collection)
         {
             collectionRef = collection;
             currentIndex = -1;
@@ -231,7 +231,7 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
         }
 
         // Type-safe iterator Current
-        public double Current
+        public DoubleVector Current
         {
             get
             {
@@ -241,7 +241,7 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
                     throw new global::System.InvalidOperationException("Enumeration finished.");
                 if (currentObject == null)
                     throw new global::System.InvalidOperationException("Collection modified.");
-                return (double)currentObject;
+                return (DoubleVector)currentObject;
             }
         }
 
@@ -287,158 +287,135 @@ public class DoubleVector : global::System.IDisposable, global::System.Collectio
         }
     }
 
-    public DoubleVector() : this(CoolPropPINVOKE.new_DoubleVector__SWIG_0(), true)
+    public VectorOfDoubleVector() : this(CoolPropPINVOKE.new_VectorOfDoubleVector__SWIG_0(), true)
     {
     }
 
-    public DoubleVector(DoubleVector other) : this(CoolPropPINVOKE.new_DoubleVector__SWIG_1(DoubleVector.getCPtr(other)), true)
+    public VectorOfDoubleVector(VectorOfDoubleVector other) : this(CoolPropPINVOKE.new_VectorOfDoubleVector__SWIG_1(VectorOfDoubleVector.getCPtr(other)), true)
     {
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
     public void Clear()
     {
-        CoolPropPINVOKE.DoubleVector_Clear(swigCPtr);
+        CoolPropPINVOKE.VectorOfDoubleVector_Clear(swigCPtr);
     }
 
-    public void Add(double x)
+    public void Add(DoubleVector x)
     {
-        CoolPropPINVOKE.DoubleVector_Add(swigCPtr, x);
+        CoolPropPINVOKE.VectorOfDoubleVector_Add(swigCPtr, DoubleVector.getCPtr(x));
+        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
     private uint size()
     {
-        uint ret = CoolPropPINVOKE.DoubleVector_size(swigCPtr);
+        uint ret = CoolPropPINVOKE.VectorOfDoubleVector_size(swigCPtr);
         return ret;
     }
 
     private bool empty()
     {
-        bool ret = CoolPropPINVOKE.DoubleVector_empty(swigCPtr);
+        bool ret = CoolPropPINVOKE.VectorOfDoubleVector_empty(swigCPtr);
         return ret;
     }
 
     private uint capacity()
     {
-        uint ret = CoolPropPINVOKE.DoubleVector_capacity(swigCPtr);
+        uint ret = CoolPropPINVOKE.VectorOfDoubleVector_capacity(swigCPtr);
         return ret;
     }
 
     private void reserve(uint n)
     {
-        CoolPropPINVOKE.DoubleVector_reserve(swigCPtr, n);
+        CoolPropPINVOKE.VectorOfDoubleVector_reserve(swigCPtr, n);
     }
 
-    public DoubleVector(int capacity) : this(CoolPropPINVOKE.new_DoubleVector__SWIG_2(capacity), true)
+    public VectorOfDoubleVector(int capacity) : this(CoolPropPINVOKE.new_VectorOfDoubleVector__SWIG_2(capacity), true)
     {
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
-    private double getitemcopy(int index)
+    private DoubleVector getitemcopy(int index)
     {
-        double ret = CoolPropPINVOKE.DoubleVector_getitemcopy(swigCPtr, index);
-        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
-        return ret;
-    }
-
-    private double getitem(int index)
-    {
-        double ret = CoolPropPINVOKE.DoubleVector_getitem(swigCPtr, index);
+        DoubleVector ret = new DoubleVector(CoolPropPINVOKE.VectorOfDoubleVector_getitemcopy(swigCPtr, index), true);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
         return ret;
     }
 
-    private void setitem(int index, double val)
+    private DoubleVector getitem(int index)
     {
-        CoolPropPINVOKE.DoubleVector_setitem(swigCPtr, index, val);
-        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
-    }
-
-    public void AddRange(DoubleVector values)
-    {
-        CoolPropPINVOKE.DoubleVector_AddRange(swigCPtr, DoubleVector.getCPtr(values));
-        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
-    }
-
-    public DoubleVector GetRange(int index, int count)
-    {
-        global::System.IntPtr cPtr = CoolPropPINVOKE.DoubleVector_GetRange(swigCPtr, index, count);
-        DoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new DoubleVector(cPtr, true);
+        DoubleVector ret = new DoubleVector(CoolPropPINVOKE.VectorOfDoubleVector_getitem(swigCPtr, index), false);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
         return ret;
     }
 
-    public void Insert(int index, double x)
+    private void setitem(int index, DoubleVector val)
     {
-        CoolPropPINVOKE.DoubleVector_Insert(swigCPtr, index, x);
+        CoolPropPINVOKE.VectorOfDoubleVector_setitem(swigCPtr, index, DoubleVector.getCPtr(val));
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
-    public void InsertRange(int index, DoubleVector values)
+    public void AddRange(VectorOfDoubleVector values)
     {
-        CoolPropPINVOKE.DoubleVector_InsertRange(swigCPtr, index, DoubleVector.getCPtr(values));
+        CoolPropPINVOKE.VectorOfDoubleVector_AddRange(swigCPtr, VectorOfDoubleVector.getCPtr(values));
+        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
+    }
+
+    public VectorOfDoubleVector GetRange(int index, int count)
+    {
+        global::System.IntPtr cPtr = CoolPropPINVOKE.VectorOfDoubleVector_GetRange(swigCPtr, index, count);
+        VectorOfDoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfDoubleVector(cPtr, true);
+        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
+        return ret;
+    }
+
+    public void Insert(int index, DoubleVector x)
+    {
+        CoolPropPINVOKE.VectorOfDoubleVector_Insert(swigCPtr, index, DoubleVector.getCPtr(x));
+        if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
+    }
+
+    public void InsertRange(int index, VectorOfDoubleVector values)
+    {
+        CoolPropPINVOKE.VectorOfDoubleVector_InsertRange(swigCPtr, index, VectorOfDoubleVector.getCPtr(values));
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
     public void RemoveAt(int index)
     {
-        CoolPropPINVOKE.DoubleVector_RemoveAt(swigCPtr, index);
+        CoolPropPINVOKE.VectorOfDoubleVector_RemoveAt(swigCPtr, index);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
     public void RemoveRange(int index, int count)
     {
-        CoolPropPINVOKE.DoubleVector_RemoveRange(swigCPtr, index, count);
+        CoolPropPINVOKE.VectorOfDoubleVector_RemoveRange(swigCPtr, index, count);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
-    public static DoubleVector Repeat(double value, int count)
+    public static VectorOfDoubleVector Repeat(DoubleVector value, int count)
     {
-        global::System.IntPtr cPtr = CoolPropPINVOKE.DoubleVector_Repeat(value, count);
-        DoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new DoubleVector(cPtr, true);
+        global::System.IntPtr cPtr = CoolPropPINVOKE.VectorOfDoubleVector_Repeat(DoubleVector.getCPtr(value), count);
+        VectorOfDoubleVector ret = (cPtr == global::System.IntPtr.Zero) ? null : new VectorOfDoubleVector(cPtr, true);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
         return ret;
     }
 
     public void Reverse()
     {
-        CoolPropPINVOKE.DoubleVector_Reverse__SWIG_0(swigCPtr);
+        CoolPropPINVOKE.VectorOfDoubleVector_Reverse__SWIG_0(swigCPtr);
     }
 
     public void Reverse(int index, int count)
     {
-        CoolPropPINVOKE.DoubleVector_Reverse__SWIG_1(swigCPtr, index, count);
+        CoolPropPINVOKE.VectorOfDoubleVector_Reverse__SWIG_1(swigCPtr, index, count);
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
     }
 
-    public void SetRange(int index, DoubleVector values)
+    public void SetRange(int index, VectorOfDoubleVector values)
     {
-        CoolPropPINVOKE.DoubleVector_SetRange(swigCPtr, index, DoubleVector.getCPtr(values));
+        CoolPropPINVOKE.VectorOfDoubleVector_SetRange(swigCPtr, index, VectorOfDoubleVector.getCPtr(values));
         if (CoolPropPINVOKE.SWIGPendingException.Pending) throw CoolPropPINVOKE.SWIGPendingException.Retrieve();
-    }
-
-    public bool Contains(double value)
-    {
-        bool ret = CoolPropPINVOKE.DoubleVector_Contains(swigCPtr, value);
-        return ret;
-    }
-
-    public int IndexOf(double value)
-    {
-        int ret = CoolPropPINVOKE.DoubleVector_IndexOf(swigCPtr, value);
-        return ret;
-    }
-
-    public int LastIndexOf(double value)
-    {
-        int ret = CoolPropPINVOKE.DoubleVector_LastIndexOf(swigCPtr, value);
-        return ret;
-    }
-
-    public bool Remove(double value)
-    {
-        bool ret = CoolPropPINVOKE.DoubleVector_Remove(swigCPtr, value);
-        return ret;
     }
 
 }

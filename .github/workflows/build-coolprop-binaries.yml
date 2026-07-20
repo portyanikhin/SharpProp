@@ -43,7 +43,7 @@ jobs:
             9.0.x
             10.0.x
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: 3.14
       - name: Linux setup

@@ -2,7 +2,7 @@
   <PropertyGroup>
     <Description>CoolProp wrapper for C#</Description>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <NoWarn>$(NoWarn);1591;NU5129;NU5131;CA2101;SYSLIB1054;IDE0130;IDE0330</NoWarn>
+    <NoWarn>$(NoWarn);1591;NU5129;NU5131;CA2101;SYSLIB1054;IDE0130;IDE0330;CS8981</NoWarn>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
     <Summary>CoolProp wrapper for C#</Summary>
     <Title>SharpProp</Title>

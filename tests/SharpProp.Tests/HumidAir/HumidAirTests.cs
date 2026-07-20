@@ -294,7 +294,7 @@ public class HumidAirTests
     }
 
     private double CoolPropInterface(string key) =>
-        CoolProp.HAPropsSI(
+        CoolProp.CoolProp.HAPropsSI(
             key,
             "P",
             _humidAir.Pressure.Pascals,

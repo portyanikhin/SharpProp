@@ -10,7 +10,7 @@ public static class InputTests
     [MemberData(nameof(CoolPropKeys))]
     public static void CoolPropKey_AllInputs_MatchesWithCoolProp(
         Input input,
-        Parameters coolPropKey
+        parameters coolPropKey
     ) => input.CoolPropKey.Should().Be(coolPropKey);
 
     [Theory]
@@ -26,17 +26,17 @@ public static class InputTests
     public static void Equals_Other_ReturnsFalse() =>
         Input.Pressure(1.Atmospheres()).Should().NotBe(Input.Temperature(20.DegreesCelsius()));
 
-    public static TheoryData<Input, Parameters> CoolPropKeys() =>
+    public static TheoryData<Input, parameters> CoolPropKeys() =>
         new()
         {
-            { Input.Density(999.KilogramsPerCubicMeter()), Parameters.iDmass },
-            { Input.Enthalpy(1.KilojoulesPerKilogram()), Parameters.iHmass },
-            { Input.Entropy(5.KilojoulesPerKilogramKelvin()), Parameters.iSmass },
-            { Input.InternalEnergy(10.KilojoulesPerKilogram()), Parameters.iUmass },
-            { Input.Pressure(1.Atmospheres()), Parameters.iP },
-            { Input.Quality(50.Percent()), Parameters.iQ },
-            { Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()), Parameters.iDmass },
-            { Input.Temperature(20.DegreesCelsius()), Parameters.iT },
+            { Input.Density(999.KilogramsPerCubicMeter()), parameters.iDmass },
+            { Input.Enthalpy(1.KilojoulesPerKilogram()), parameters.iHmass },
+            { Input.Entropy(5.KilojoulesPerKilogramKelvin()), parameters.iSmass },
+            { Input.InternalEnergy(10.KilojoulesPerKilogram()), parameters.iUmass },
+            { Input.Pressure(1.Atmospheres()), parameters.iP },
+            { Input.Quality(50.Percent()), parameters.iQ },
+            { Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()), parameters.iDmass },
+            { Input.Temperature(20.DegreesCelsius()), parameters.iT },
         };
 
     public static TheoryData<Input, double> Values() =>

@@ -40,7 +40,7 @@ public interface IMixture
     /// <param name="secondInput">Second input property.</param>
     /// <returns>A new mixture instance with a defined state.</returns>
     /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-    IMixture WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput);
+    IMixture WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput);
 
     /// <summary>
     /// The process of cooling to given temperature.
@@ -120,13 +120,11 @@ public class Mixture : AbstractFluid, IMixture
             );
         }
 
-        Backend = AbstractState.Factory(
+        Backend = AbstractState.factory(
             AvailableBackend,
             string.Join("&", Fluids.Select(fluid => fluid.CoolPropName()))
         );
-        Backend.SetMassFractions(
-            new DoubleVector(Fractions.Select(fraction => fraction.DecimalFractions))
-        );
+        Backend.set_mass_fractions([.. Fractions.Select(fraction => fraction.DecimalFractions)]);
     }
 
     public IReadOnlyList<FluidsList> Fluids { get; }
@@ -138,8 +136,8 @@ public class Mixture : AbstractFluid, IMixture
     public new IMixture UnspecifyPhase() => (Mixture)base.UnspecifyPhase();
 
     public new IMixture WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     ) => (Mixture)base.WithState(firstInput, secondInput);
 
     public new IMixture CoolingTo(Temperature temperature, Pressure? pressureDrop = null) =>

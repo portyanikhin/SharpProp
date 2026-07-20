@@ -16,16 +16,16 @@ public class FluidExtended(FluidsList name, Ratio? fraction = null, string? cool
 
     public SpecificEntropy SpecificHeatConstVolume =>
         _specificHeatConstVolume ??= SpecificEntropy
-            .FromJoulesPerKilogramKelvin(KeyedOutput(Parameters.iCvmass))
+            .FromJoulesPerKilogramKelvin(KeyedOutput(parameters.iCvmass))
             .ToUnit(SpecificEntropyUnit.KilojoulePerKilogramKelvin);
 
     public MolarMass? MolarDensity =>
-        _molarDensity ??= KeyedOutputIsNotNull(Parameters.iDmolar, out var output)
+        _molarDensity ??= KeyedOutputIsNotNull(parameters.iDmolar, out var output)
             ? UnitsNet.MolarMass.FromKilogramsPerMole(output!.Value)
             : null;
 
     public double? OzoneDepletionPotential =>
-        _ozoneDepletionPotential ??= NullableKeyedOutput(Parameters.iODP);
+        _ozoneDepletionPotential ??= NullableKeyedOutput(parameters.iODP);
 
     public override void Reset()
     {
@@ -40,8 +40,8 @@ public class FluidExtended(FluidsList name, Ratio? fraction = null, string? cool
     public new IFluidExtended UnspecifyPhase() => (FluidExtended)base.UnspecifyPhase();
 
     public new IFluidExtended WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     ) => (FluidExtended)base.WithState(firstInput, secondInput);
 
     public new IFluidExtended IsentropicCompressionTo(Pressure pressure) =>

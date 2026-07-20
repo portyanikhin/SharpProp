@@ -8,7 +8,7 @@ public class InputExtendedTests
 
     [Fact]
     public void CoolPropKey_NewInput_MatchesWithCoolProp() =>
-        _input.CoolPropKey.Should().Be(Parameters.iDmolar);
+        _input.CoolPropKey.Should().Be(parameters.iDmolar);
 
     [Fact]
     public void Value_NewInput_ShouldBeInSIUnits() => _input.Value.Should().Be(900);

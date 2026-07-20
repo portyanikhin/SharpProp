@@ -317,7 +317,7 @@ public partial class HumidAir : IHumidAir
         var input = _inputs.FirstOrDefault(input => input.CoolPropKey == key)?.Value;
         var result =
             input
-            ?? CoolProp.HAPropsSI(
+            ?? CoolProp.CoolProp.HAPropsSI(
                 key,
                 _inputs[0].CoolPropKey,
                 _inputs[0].Value,

@@ -389,7 +389,7 @@ public class FluidTests : IDisposable
             default:
                 try
                 {
-                    var value = CoolProp.PropsSI(
+                    var value = CoolProp.CoolProp.PropsSI(
                         outputKey,
                         "P",
                         _fluid.Pressure.Pascals,

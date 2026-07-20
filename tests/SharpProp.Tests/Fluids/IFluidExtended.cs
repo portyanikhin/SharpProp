@@ -29,8 +29,8 @@ public interface IFluidExtended : IFluid
 
     /// <inheritdoc cref="IFluid.WithState"/>
     new IFluidExtended WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     );
 
     /// <inheritdoc cref="IFluid.IsentropicCompressionTo"/>

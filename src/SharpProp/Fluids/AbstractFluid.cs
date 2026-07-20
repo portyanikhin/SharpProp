@@ -13,7 +13,7 @@ public interface IAbstractFluid : IFluidState, IDisposable
     /// <param name="firstInput">First input property.</param>
     /// <param name="secondInput">Second input property.</param>
     /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-    void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput);
+    void Update(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput);
 
     /// <summary>
     /// Resets all non-trivial properties.
@@ -27,8 +27,8 @@ public abstract partial class AbstractFluid : IAbstractFluid
     private Phases? _specifiedPhase;
     protected AbstractState Backend = default!;
 
-    protected IList<IKeyedInput<Parameters>> Inputs { get; private set; } =
-        new List<IKeyedInput<Parameters>>(2);
+    protected IList<IKeyedInput<parameters>> Inputs { get; private set; } =
+        new List<IKeyedInput<parameters>>(2);
 
     public void Dispose()
     {
@@ -36,18 +36,18 @@ public abstract partial class AbstractFluid : IAbstractFluid
         GC.SuppressFinalize(this);
     }
 
-    public void Update(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput)
+    public void Update(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput)
     {
         Reset();
         var (inputPair, firstValue, secondValue) = GenerateUpdatePair(firstInput, secondInput);
-        Backend.Update(inputPair, firstValue, secondValue);
+        Backend.update(inputPair, firstValue, secondValue);
         Inputs = [firstInput, secondInput];
     }
 
     public virtual void Reset()
     {
         Inputs.Clear();
-        Backend.Clear();
+        Backend.clear();
         _compressibility = null;
         _conductivity = null;
         _density = null;
@@ -67,14 +67,14 @@ public abstract partial class AbstractFluid : IAbstractFluid
 
     protected AbstractFluid SpecifyPhase(Phases phase)
     {
-        Backend.SpecifyPhase(phase);
+        Backend.specify_phase(phase.ToCoolPropEnum());
         _specifiedPhase = phase;
         return this;
     }
 
     protected AbstractFluid UnspecifyPhase()
     {
-        Backend.UnspecifyPhase();
+        Backend.unspecify_phase();
         _specifiedPhase = null;
         return this;
     }
@@ -86,8 +86,8 @@ public abstract partial class AbstractFluid : IAbstractFluid
         ).GetHashCode();
 
     protected AbstractFluid WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     )
     {
         var fluid = CreateInstance();
@@ -102,18 +102,18 @@ public abstract partial class AbstractFluid : IAbstractFluid
 
     protected abstract AbstractFluid CreateInstance();
 
-    protected bool KeyedOutputIsNotNull(Parameters key, out double? value)
+    protected bool KeyedOutputIsNotNull(parameters key, out double? value)
     {
         value = NullableKeyedOutput(key);
         return value is not null;
     }
 
-    protected double? NullableKeyedOutput(Parameters key)
+    protected double? NullableKeyedOutput(parameters key)
     {
         try
         {
             var value = KeyedOutput(key);
-            return key is Parameters.iQ && value is < 0 or > 1 ? null : value;
+            return key is parameters.iQ && value is < 0 or > 1 ? null : value;
         }
         catch (Exception exception) when (exception is ApplicationException or ArgumentException)
         {
@@ -121,17 +121,17 @@ public abstract partial class AbstractFluid : IAbstractFluid
         }
     }
 
-    protected double KeyedOutput(Parameters key)
+    protected double KeyedOutput(parameters key)
     {
         var input = Inputs.FirstOrDefault(input => input.CoolPropKey == key)?.Value;
-        var result = input ?? Backend.KeyedOutput(key);
+        var result = input ?? Backend.keyed_output(key);
         OutputsValidator.Validate(result);
         return result;
     }
 
     private static UpdatePair GenerateUpdatePair(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     )
     {
         var inputPair = GetInputPair(firstInput, secondInput);
@@ -151,11 +151,20 @@ public abstract partial class AbstractFluid : IAbstractFluid
             : new UpdatePair(inputPair.Value, secondInput.Value, firstInput.Value);
     }
 
-    private static InputPairs? GetInputPair(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
-    ) =>
-        AbstractState.GetInputPair(
-            $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS"
-        );
+    private static input_pairs? GetInputPair(
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
+    )
+    {
+        try
+        {
+            return CoolProp.CoolProp.get_input_pair_index(
+                $"{firstInput.CoolPropHighLevelKey}{secondInput.CoolPropHighLevelKey}_INPUTS"
+            );
+        }
+        catch
+        {
+            return null;
+        }
+    }
 }

@@ -48,7 +48,7 @@ public interface IFluid
     /// <param name="secondInput">Second input property.</param>
     /// <returns>A new fluid instance with a defined state.</returns>
     /// <exception cref="ArgumentException">Need to define 2 unique inputs!</exception>
-    IFluid WithState(IKeyedInput<Parameters> firstInput, IKeyedInput<Parameters> secondInput);
+    IFluid WithState(IKeyedInput<parameters> firstInput, IKeyedInput<parameters> secondInput);
 
     /// <summary>
     /// The process of isentropic compression to given pressure.
@@ -251,7 +251,7 @@ public class Fluid : AbstractFluid, IFluid
             : fraction?.ToUnit(RatioUnit.Percent)
                 ?? throw new ArgumentException("Need to define the fraction!");
         CoolPropBackend = coolPropBackend ?? Name.CoolPropBackend();
-        Backend = AbstractState.Factory(CoolPropBackend, Name.CoolPropName());
+        Backend = AbstractState.factory(CoolPropBackend, Name.CoolPropName());
         if (!Name.Pure())
         {
             SetFraction();
@@ -269,8 +269,8 @@ public class Fluid : AbstractFluid, IFluid
     public new IFluid UnspecifyPhase() => (Fluid)base.UnspecifyPhase();
 
     public new IFluid WithState(
-        IKeyedInput<Parameters> firstInput,
-        IKeyedInput<Parameters> secondInput
+        IKeyedInput<parameters> firstInput,
+        IKeyedInput<parameters> secondInput
     ) => (Fluid)base.WithState(firstInput, secondInput);
 
     public new IFluid IsentropicCompressionTo(Pressure pressure) =>
@@ -363,11 +363,11 @@ public class Fluid : AbstractFluid, IFluid
         var fractionsVector = new DoubleVector([Fraction.DecimalFractions]);
         if (Name.MixType() is Mix.Mass)
         {
-            Backend.SetMassFractions(fractionsVector);
+            Backend.set_mass_fractions(fractionsVector);
         }
         else
         {
-            Backend.SetVolumeFractions(fractionsVector);
+            Backend.set_volu_fractions(fractionsVector);
         }
     }
 }

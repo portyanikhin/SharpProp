@@ -64,7 +64,7 @@ without the slightest difficulty.
 - `Fluid` class - an implementation of pure fluids and binary mixtures (`IFluid` interface)
 - `Mixture` class - an implementation of mixtures with pure fluids components (`IMixture` interface)
 - `FluidsList` enum - a list of all available fluids
-- `Input` record - the inputs for the `Fluid` and `Mixture` classes (`IKeyedInput<Parameters>` interface)
+- `Input` record - the inputs for the `Fluid` and `Mixture` classes (`IKeyedInput<parameters>` interface)
 - `HumidAir` class - an implementation of real humid air (`IHumidAir` interface)
 - `InputHumidAir` record - the inputs for the `HumidAir` class (`IKeyedInput<string>` interface)
 

@@ -723,13 +723,13 @@ public enum FluidsList
     [FluidInfo("MAM", "INCOMP", false, Mix.Mass, 0, 0.3)]
     MAM,
 
-    [FluidInfo("MAM2", "INCOMP", false, Mix.Mass, 0.078, 0.236)]
+    [FluidInfo("MAM2", "INCOMP", false, Mix.Mass, 0.08, 0.24)]
     MAM2,
 
     [FluidInfo("MCA", "INCOMP", false, Mix.Mass, 0, 0.3)]
     MCA,
 
-    [FluidInfo("MCA2", "INCOMP", false, Mix.Mass, 0.09, 0.294)]
+    [FluidInfo("MCA2", "INCOMP", false, Mix.Mass, 0.09, 0.29)]
     MCA2,
 
     [FluidInfo("MEA", "INCOMP", false, Mix.Mass, 0, 0.6)]
@@ -747,7 +747,7 @@ public enum FluidsList
     [FluidInfo("MGL", "INCOMP", false, Mix.Mass, 0, 0.6)]
     MGL,
 
-    [FluidInfo("MGL2", "INCOMP", false, Mix.Mass, 0.195, 0.63)]
+    [FluidInfo("MGL2", "INCOMP", false, Mix.Mass, 0.2, 0.63)]
     MGL2,
 
     [FluidInfo("MITSW", "INCOMP", false, Mix.Mass, 0, 0.12)]
@@ -774,13 +774,13 @@ public enum FluidsList
     [FluidInfo("MMA", "INCOMP", false, Mix.Mass, 0, 0.6)]
     MMA,
 
-    [FluidInfo("MMA2", "INCOMP", false, Mix.Mass, 0.078, 0.474)]
+    [FluidInfo("MMA2", "INCOMP", false, Mix.Mass, 0.08, 0.47)]
     MMA2,
 
     [FluidInfo("MMG", "INCOMP", false, Mix.Mass, 0, 0.3)]
     MMG,
 
-    [FluidInfo("MMG2", "INCOMP", false, Mix.Mass, 0, 0.205)]
+    [FluidInfo("MMG2", "INCOMP", false, Mix.Mass, 0, 0.21)]
     MMG2,
 
     [FluidInfo("MNA", "INCOMP", false, Mix.Mass, 0, 0.23)]
@@ -795,26 +795,26 @@ public enum FluidsList
     [FluidInfo("MPG2", "INCOMP", false, Mix.Mass, 0.15, 0.57)]
     MPG2,
 
-    [FluidInfo("VCA", "INCOMP", false, Mix.Mass, 0.147, 0.299)]
+    [FluidInfo("VCA", "INCOMP", false, Mix.Mass, 0.15, 0.3)]
     VCA,
 
-    [FluidInfo("VKC", "INCOMP", false, Mix.Mass, 0.128, 0.389)]
+    [FluidInfo("VKC", "INCOMP", false, Mix.Mass, 0.13, 0.39)]
     VKC,
 
     [FluidInfo("VMA", "INCOMP", false, Mix.Mass, 0.1, 0.9)]
     VMA,
 
-    [FluidInfo("VMG", "INCOMP", false, Mix.Mass, 0.072, 0.206)]
+    [FluidInfo("VMG", "INCOMP", false, Mix.Mass, 0.07, 0.21)]
     VMG,
 
-    [FluidInfo("VNA", "INCOMP", false, Mix.Mass, 0.07, 0.231)]
+    [FluidInfo("VNA", "INCOMP", false, Mix.Mass, 0.07, 0.23)]
     VNA,
 
     // Incompressible volume-based binary mixtures
     [FluidInfo("AEG", "INCOMP", false, Mix.Volume, 0.1, 0.6)]
     AEG,
 
-    [FluidInfo("AKF", "INCOMP", false, Mix.Volume, 0.4)]
+    [FluidInfo("AKF", "INCOMP", false, Mix.Volume, 0.4, 1.00)]
     AKF,
 
     [FluidInfo("AL", "INCOMP", false, Mix.Volume, 0.1, 0.6)]
@@ -829,7 +829,7 @@ public enum FluidsList
     [FluidInfo("GKN", "INCOMP", false, Mix.Volume, 0.1, 0.6)]
     GKN,
 
-    [FluidInfo("PK2", "INCOMP", false, Mix.Volume, 0.3)]
+    [FluidInfo("PK2", "INCOMP", false, Mix.Volume, 0.3, 1.00)]
     PK2,
 
     [FluidInfo("PKL", "INCOMP", false, Mix.Volume, 0.1, 0.6)]
@@ -844,7 +844,7 @@ public enum FluidsList
     [FluidInfo("ZLC", "INCOMP", false, Mix.Volume, 0.3, 0.7)]
     ZLC,
 
-    [FluidInfo("ZM", "INCOMP", false, Mix.Volume)]
+    [FluidInfo("ZM", "INCOMP", false, Mix.Volume, 0, 1.00)]
     ZM,
 
     [FluidInfo("ZMC", "INCOMP", false, Mix.Volume, 0.3, 0.7)]

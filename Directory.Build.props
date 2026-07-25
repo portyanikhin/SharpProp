@@ -13,7 +13,7 @@
     <PackageTags>
       native cross-platform CoolProp fluids mixtures humid air thermophysical properties thermodynamics
     </PackageTags>
-    <PackageVersion>8.0.1</PackageVersion>
+    <PackageVersion>9.0.0</PackageVersion>
     <RepositoryUrl>https://github.com/portyanikhin/sharpprop</RepositoryUrl>
   </PropertyGroup>
 </Project>

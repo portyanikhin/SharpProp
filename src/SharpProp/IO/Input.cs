@@ -56,7 +56,7 @@ public record Input(parameters CoolPropKey, double Value)
     /// </summary>
     /// <param name="value">The value of the input.</param>
     /// <returns>Mass vapor quality for the input.</returns>
-    public static Input Quality(Ratio value) => new(parameters.iQ, value.DecimalFractions);
+    public static Input Quality(Ratio value) => new(parameters.iQmass, value.DecimalFractions);
 
     /// <summary>
     /// Mass specific volume.

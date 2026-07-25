@@ -19,6 +19,7 @@
     "thermophysical",
     "unspecify",
     "volu",
+    "qmass",
     "xunit"
   ]
 }

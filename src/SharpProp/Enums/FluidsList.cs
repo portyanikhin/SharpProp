@@ -52,6 +52,9 @@ public enum FluidsList
     [FluidInfo("CarbonylSulfide")]
     CarbonylSulfide,
 
+    [FluidInfo("Chlorine")]
+    Chlorine,
+
     [FluidInfo("cis-2-Butene")]
     cis2Butene,
 
@@ -253,6 +256,15 @@ public enum FluidsList
     [FluidInfo("n-Pentane")]
     R601,
 
+    [FluidInfo("n-Perfluorobutane")]
+    nPerfluorobutane,
+
+    [FluidInfo("n-Perfluorohexane")]
+    nPerfluorohexane,
+
+    [FluidInfo("n-Perfluoropentane")]
+    nPerfluoropentane,
+
     [FluidInfo("n-Propane")]
     nPropane,
 
@@ -286,6 +298,9 @@ public enum FluidsList
     [FluidInfo("Propylene")]
     Propylene,
 
+    [FluidInfo("PropyleneGlycol")]
+    PropyleneGlycol,
+
     [FluidInfo("Propylene")]
     R1270,
 
@@ -298,8 +313,17 @@ public enum FluidsList
     [FluidInfo("R11")]
     R11,
 
+    [FluidInfo("R1123")]
+    R1123,
+
     [FluidInfo("R113")]
     R113,
+
+    [FluidInfo("R1130(E)")]
+    R1130E,
+
+    [FluidInfo("R1132(E)")]
+    R1132E,
 
     [FluidInfo("R114")]
     R114,
@@ -312,6 +336,9 @@ public enum FluidsList
 
     [FluidInfo("R12")]
     R12,
+
+    [FluidInfo("R1224YDZ")]
+    R1224ydZ,
 
     [FluidInfo("R123")]
     R123,
@@ -342,6 +369,9 @@ public enum FluidsList
 
     [FluidInfo("R1336mzz(E)")]
     R1336mzzE,
+
+    [FluidInfo("R1336mzz(Z)")]
+    R1336mzzZ,
 
     [FluidInfo("R134a")]
     R134a,
@@ -436,8 +466,14 @@ public enum FluidsList
     [FluidInfo("SulfurHexafluoride")]
     R846,
 
+    [FluidInfo("Tetrahydrofuran")]
+    Tetrahydrofuran,
+
     [FluidInfo("Toluene")]
     Toluene,
+
+    [FluidInfo("VinylChloride")]
+    VinylChloride,
 
     [FluidInfo("trans-2-Butene")]
     trans2Butene,
@@ -464,6 +500,12 @@ public enum FluidsList
     [FluidInfo("AS40", "INCOMP")]
     AS40,
 
+    [FluidInfo("Acetone", "INCOMP")]
+    AcetoneIncomp,
+
+    [FluidInfo("Air", "INCOMP")]
+    AirIncomp,
+
     [FluidInfo("AS55", "INCOMP")]
     AS55,
 
@@ -484,6 +526,30 @@ public enum FluidsList
 
     [FluidInfo("DSF", "INCOMP")]
     DSF,
+
+    [FluidInfo("Ethanol", "INCOMP")]
+    EthanolIncomp,
+
+    [FluidInfo("FoodAsh", "INCOMP")]
+    FoodAsh,
+
+    [FluidInfo("FoodCarbohydrate", "INCOMP")]
+    FoodCarbohydrate,
+
+    [FluidInfo("FoodFat", "INCOMP")]
+    FoodFat,
+
+    [FluidInfo("FoodFiber", "INCOMP")]
+    FoodFiber,
+
+    [FluidInfo("FoodIce", "INCOMP")]
+    FoodIce,
+
+    [FluidInfo("FoodProtein", "INCOMP")]
+    FoodProtein,
+
+    [FluidInfo("FoodWater", "INCOMP")]
+    FoodWater,
 
     [FluidInfo("HC10", "INCOMP")]
     HC10,
@@ -526,6 +592,12 @@ public enum FluidsList
 
     [FluidInfo("HY50", "INCOMP")]
     HY50,
+
+    [FluidInfo("Hexane", "INCOMP")]
+    HexaneIncomp,
+
+    [FluidInfo("LiqNa", "INCOMP")]
+    LiqNa,
 
     [FluidInfo("NaK", "INCOMP")]
     NaK,
@@ -851,6 +923,15 @@ public enum FluidsList
     [FluidInfo("R407F.mix")]
     R407F,
 
+    [FluidInfo("R407G.mix")]
+    R407G,
+
+    [FluidInfo("R407H.mix")]
+    R407H,
+
+    [FluidInfo("R407I.mix")]
+    R407I,
+
     [FluidInfo("R408A.mix")]
     R408A,
 
@@ -950,6 +1031,9 @@ public enum FluidsList
     [FluidInfo("R427A.mix")]
     R427A,
 
+    [FluidInfo("R427C.mix")]
+    R427C,
+
     [FluidInfo("R428A.mix")]
     R428A,
 
@@ -985,6 +1069,9 @@ public enum FluidsList
 
     [FluidInfo("R436B.mix")]
     R436B,
+
+    [FluidInfo("R436C.mix")]
+    R436C,
 
     [FluidInfo("R437A.mix")]
     R437A,
@@ -1022,14 +1109,23 @@ public enum FluidsList
     [FluidInfo("R447A.mix")]
     R447A,
 
+    [FluidInfo("R447B.mix")]
+    R447B,
+
     [FluidInfo("R448A.mix")]
     R448A,
+
+    [FluidInfo("R448B.mix")]
+    R448B,
 
     [FluidInfo("R449A.mix")]
     R449A,
 
     [FluidInfo("R449B.mix")]
     R449B,
+
+    [FluidInfo("R449C.mix")]
+    R449C,
 
     [FluidInfo("R450A.mix")]
     R450A,
@@ -1043,6 +1139,12 @@ public enum FluidsList
     [FluidInfo("R452A.mix")]
     R452A,
 
+    [FluidInfo("R452B.mix")]
+    R452B,
+
+    [FluidInfo("R452C.mix")]
+    R452C,
+
     [FluidInfo("R453A.mix")]
     R453A,
 
@@ -1051,6 +1153,102 @@ public enum FluidsList
 
     [FluidInfo("R454B.mix")]
     R454B,
+
+    [FluidInfo("R454C.mix")]
+    R454C,
+
+    [FluidInfo("R455A.mix")]
+    R455A,
+
+    [FluidInfo("R456A.mix")]
+    R456A,
+
+    [FluidInfo("R457A.mix")]
+    R457A,
+
+    [FluidInfo("R457B.mix")]
+    R457B,
+
+    [FluidInfo("R457C.mix")]
+    R457C,
+
+    [FluidInfo("R458A.mix")]
+    R458A,
+
+    [FluidInfo("R459A.mix")]
+    R459A,
+
+    [FluidInfo("R459B.mix")]
+    R459B,
+
+    [FluidInfo("R460A.mix")]
+    R460A,
+
+    [FluidInfo("R460B.mix")]
+    R460B,
+
+    [FluidInfo("R460C.mix")]
+    R460C,
+
+    [FluidInfo("R461A.mix")]
+    R461A,
+
+    [FluidInfo("R462A.mix")]
+    R462A,
+
+    [FluidInfo("R463A.mix")]
+    R463A,
+
+    [FluidInfo("R464A.mix")]
+    R464A,
+
+    [FluidInfo("R465A.mix")]
+    R465A,
+
+    [FluidInfo("R466A.mix")]
+    R466A,
+
+    [FluidInfo("R467A.mix")]
+    R467A,
+
+    [FluidInfo("R468A.mix")]
+    R468A,
+
+    [FluidInfo("R468B.mix")]
+    R468B,
+
+    [FluidInfo("R468C.mix")]
+    R468C,
+
+    [FluidInfo("R469A.mix")]
+    R469A,
+
+    [FluidInfo("R470A.mix")]
+    R470A,
+
+    [FluidInfo("R470B.mix")]
+    R470B,
+
+    [FluidInfo("R471A.mix")]
+    R471A,
+
+    [FluidInfo("R472A.mix")]
+    R472A,
+
+    [FluidInfo("R472B.mix")]
+    R472B,
+
+    [FluidInfo("R473A.mix")]
+    R473A,
+
+    [FluidInfo("R474A.mix")]
+    R474A,
+
+    [FluidInfo("R475A.mix")]
+    R475A,
+
+    [FluidInfo("R476A.mix")]
+    R476A,
 
     [FluidInfo("R500.mix")]
     R500,

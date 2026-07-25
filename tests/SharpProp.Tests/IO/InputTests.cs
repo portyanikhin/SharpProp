@@ -34,7 +34,7 @@ public static class InputTests
             { Input.Entropy(5.KilojoulesPerKilogramKelvin()), parameters.iSmass },
             { Input.InternalEnergy(10.KilojoulesPerKilogram()), parameters.iUmass },
             { Input.Pressure(1.Atmospheres()), parameters.iP },
-            { Input.Quality(50.Percent()), parameters.iQ },
+            { Input.Quality(50.Percent()), parameters.iQmass },
             { Input.SpecificVolume((1.0 / 999).CubicMetersPerKilogram()), parameters.iDmass },
             { Input.Temperature(20.DegreesCelsius()), parameters.iT },
         };

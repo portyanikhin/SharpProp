@@ -260,7 +260,7 @@ public abstract partial class AbstractFluid
             .ToUnit(PressureUnit.Kilopascal);
 
     public Ratio? Quality =>
-        _quality ??= KeyedOutputIsNotNull(parameters.iQ, out var output)
+        _quality ??= KeyedOutputIsNotNull(parameters.iQmass, out var output)
             ? Ratio.FromDecimalFractions(output!.Value).ToUnit(RatioUnit.Percent)
             : null;
 

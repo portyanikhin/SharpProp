@@ -113,7 +113,7 @@ public abstract partial class AbstractFluid : IAbstractFluid
         try
         {
             var value = KeyedOutput(key);
-            return key is parameters.iQ && value is < 0 or > 1 ? null : value;
+            return key is parameters.iQ or parameters.iQmass && value is < 0 or > 1 ? null : value;
         }
         catch (Exception exception) when (exception is ApplicationException or ArgumentException)
         {

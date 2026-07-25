@@ -7,6 +7,34 @@ public class FluidTests : IDisposable
     private const double Tolerance = 1e-9;
     private IFluid _fluid = new Fluid(FluidsList.Water);
 
+    private static readonly string[] Props =
+    [
+        "Z",
+        "L",
+        "p_critical",
+        "T_critical",
+        "D",
+        "V",
+        "H",
+        "S",
+        "T_freeze",
+        "U",
+        "P_max",
+        "T_max",
+        "P_min",
+        "T_min",
+        "M",
+        "Prandtl",
+        "P",
+        "Q",
+        "A",
+        "C",
+        "I",
+        "T",
+        "p_triple",
+        "T_triple",
+    ];
+
     public void Dispose()
     {
         _fluid.Dispose();
@@ -104,35 +132,7 @@ public class FluidTests : IDisposable
             fluid.TriplePressure?.Pascals,
             fluid.TripleTemperature?.Kelvins,
         };
-        var expected = new[]
-        {
-            "Z",
-            "L",
-            "p_critical",
-            "T_critical",
-            "D",
-            "V",
-            "H",
-            "S",
-            "T_freeze",
-            "U",
-            "P_max",
-            "T_max",
-            "P_min",
-            "T_min",
-            "M",
-            "Prandtl",
-            "P",
-            "Q",
-            "A",
-            "C",
-            "I",
-            "T",
-            "p_triple",
-            "T_triple",
-        }
-            .Select(CoolPropInterface)
-            .ToList();
+        var expected = Props.Select(CoolPropInterface).ToList();
         for (var i = 0; i < actual.Length; i++)
         {
             actual[i].Should().BeApproximately(expected[i], Tolerance);
@@ -373,7 +373,9 @@ public class FluidTests : IDisposable
             : Math.Round(0.5 * (name.FractionMin() + name.FractionMax()).Percent).Percent();
         _fluid = new Fluid(name, fraction);
         _fluid.Update(
-            Input.Pressure(_fluid.MaxPressure ?? 10.Megapascals()),
+            Input.Pressure(
+                name != FluidsList.LiqNa ? _fluid.MaxPressure ?? 10.Megapascals() : 1.Gigapascals()
+            ),
             Input.Temperature(_fluid.MaxTemperature)
         );
     }

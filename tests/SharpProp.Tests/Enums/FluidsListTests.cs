@@ -22,6 +22,9 @@ public static class FluidsListTests
             case FluidsList.RE143a:
                 name.CoolPropName().Should().Be("HFE143m");
                 break;
+            case FluidsList.R1224ydZ:
+                name.CoolPropName().Should().Be("R1224YDZ");
+                break;
             case FluidsList.R152a:
                 name.CoolPropName().Should().Be("R152A");
                 break;
@@ -87,6 +90,18 @@ public static class FluidsListTests
                 break;
             case FluidsList.Butene:
                 name.CoolPropName().Should().Be("1-Butene");
+                break;
+            case FluidsList.AcetoneIncomp:
+                name.CoolPropName().Should().Be("Acetone");
+                break;
+            case FluidsList.AirIncomp:
+                name.CoolPropName().Should().Be("Air");
+                break;
+            case FluidsList.EthanolIncomp:
+                name.CoolPropName().Should().Be("Ethanol");
+                break;
+            case FluidsList.HexaneIncomp:
+                name.CoolPropName().Should().Be("Hexane");
                 break;
             case FluidsList.WaterIncomp:
                 name.CoolPropName().Should().Be("Water");
